@@ -4,7 +4,7 @@ namespace Sigep\Model;
 /**
  * @author: Stavarengo
  */
-class AccessData
+class AccessData extends AbstractModel
 {
 
 	/**
@@ -27,13 +27,6 @@ class AccessData
 	 * @var string
 	 */
 	protected $cnpjEmpresa;
-
-	public function __construct(array $initialValues = array())
-	{
-		foreach ($initialValues as $attr => $value) {
-			call_user_func(array($this, 'set' . ucfirst($attr)), $value);
-		}
-	}
 
 	/**
 	 * @param string $codAdministrativo
