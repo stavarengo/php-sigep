@@ -6,6 +6,7 @@ namespace Sigep\Model;
  */
 class VerificaDisponibilidadeServico extends AbstractModel
 {
+
 	/**
 	 * @var string
 	 */
@@ -24,6 +25,14 @@ class VerificaDisponibilidadeServico extends AbstractModel
 	protected $accessData;
 
 	/**
+	 * @return \Sigep\Model\AccessData
+	 */
+	public function getAccessData()
+	{
+		return $this->accessData;
+	}
+
+	/**
 	 * @param \Sigep\Model\AccessData $accessData
 	 */
 	public function setAccessData(AccessData $accessData)
@@ -32,11 +41,11 @@ class VerificaDisponibilidadeServico extends AbstractModel
 	}
 
 	/**
-	 * @return \Sigep\Model\AccessData
+	 * @return string
 	 */
-	public function getAccessData()
+	public function getCepDestino()
 	{
-		return $this->accessData;
+		return $this->cepDestino;
 	}
 
 	/**
@@ -50,9 +59,9 @@ class VerificaDisponibilidadeServico extends AbstractModel
 	/**
 	 * @return string
 	 */
-	public function getCepDestino()
+	public function getCepOrigem()
 	{
-		return $this->cepDestino;
+		return $this->cepOrigem;
 	}
 
 	/**
@@ -66,9 +75,9 @@ class VerificaDisponibilidadeServico extends AbstractModel
 	/**
 	 * @return string
 	 */
-	public function getCepOrigem()
+	public function getNumeroServico()
 	{
-		return $this->cepOrigem;
+		return $this->numeroServico;
 	}
 
 	/**
@@ -77,14 +86,6 @@ class VerificaDisponibilidadeServico extends AbstractModel
 	public function setNumeroServico($numeroServico)
 	{
 		$this->numeroServico = $numeroServico;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getNumeroServico()
-	{
-		return $this->numeroServico;
 	}
 
 

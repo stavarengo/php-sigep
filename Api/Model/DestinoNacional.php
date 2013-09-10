@@ -1,0 +1,201 @@
+<?php
+namespace Sigep\Model;
+
+/**
+ * @author: Stavarengo
+ */
+class DestinoNacional extends AbstractModel implements Destino
+{
+
+	/**
+	 * Bairro do destinatario.
+	 * Max length: 30
+	 * @var string
+	 */
+	protected $bairro;
+	/**
+	 * CEP do destinatario.
+	 * Max length: 8
+	 * @var string
+	 */
+	protected $cep;
+	/**
+	 * Cidade do destinatario.
+	 * Max length: 30
+	 * @var string
+	 */
+	protected $cidade;
+	/**
+	 * Unidade de federação.
+	 * Max length: 2
+	 * @var string
+	 */
+	protected $uf;
+//	/**
+//	 * Código do usuário postal 
+//	 * Não obrigatório
+//	 * Max length: 20
+//	 * @var string
+//	 */
+//	protected $codigoUsuarioPostal;
+//	/**
+//	 * Centro de custo do cliente 
+//	 * Não obrigatório
+//	 * Max length: 20
+//	 * @var string
+//	 */
+//	protected $centroCustoCliente;
+	/**
+	 * Número da nota fiscal
+	 * Opcional.
+	 * @var int
+	 */
+	protected $numeroNotaFiscal;
+	/**
+	 * Série da nota fiscal
+	 * Não obrigatório
+	 * Max length: 20
+	 * @var string
+	 */
+	protected $serieNotaFiscal;
+//	/**
+//	 * Valor da nota fiscal Numérico(9,2) Não obrigatório
+//	 * @var float
+//	 */
+//	protected $valorNotaFiscal;
+//	/**
+//	 * Natureza da nota fiscal 
+//	 * Não obrigatório
+//	 * Max length: 20
+//	 * @var string
+//	 */
+//	protected $naturezaNotaFiscal;
+	/**
+	 * Descrição do objeto
+	 * Não obrigatório
+	 * Max length: 20
+	 * @var string
+	 */
+	protected $descricaoObjeto;
+
+	/**
+	 * @param string $bairro
+	 */
+	public function setBairro($bairro)
+	{
+		$this->bairro = $bairro;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getBairro()
+	{
+		return $this->bairro;
+	}
+
+	/**
+	 * @param string $cep
+	 */
+	public function setCep($cep)
+	{
+		$this->cep = $cep;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getCep()
+	{
+		return $this->cep;
+	}
+
+	/**
+	 * @param string $cidade
+	 */
+	public function setCidade($cidade)
+	{
+		$this->cidade = $cidade;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getCidade()
+	{
+		return $this->cidade;
+	}
+
+	/**
+	 * @param string $descricaoObjeto
+	 */
+	public function setDescricaoObjeto($descricaoObjeto)
+	{
+		$this->descricaoObjeto = $descricaoObjeto;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getDescricaoObjeto()
+	{
+		return $this->descricaoObjeto;
+	}
+
+	/**
+	 * @param int $numeroNotaFiscal
+	 */
+	public function setNumeroNotaFiscal($numeroNotaFiscal)
+	{
+		$this->numeroNotaFiscal = $numeroNotaFiscal;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getNumeroNotaFiscal()
+	{
+		return $this->numeroNotaFiscal;
+	}
+
+	/**
+	 * @param string $serieNotaFiscal
+	 */
+	public function setSerieNotaFiscal($serieNotaFiscal)
+	{
+		$this->serieNotaFiscal = $serieNotaFiscal;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getSerieNotaFiscal()
+	{
+		return $this->serieNotaFiscal;
+	}
+
+	/**
+	 * @param string $uf
+	 */
+	public function setUf($uf)
+	{
+		$this->uf = $uf;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getUf()
+	{
+		return $this->uf;
+	}
+//	/**
+//	 * Valor a cobrar do destinatário
+//	 * No manual está escrito que é obrigatório para o serviço 40126, porem no mesmo manual não existe nada relacionado
+//	 * ao servico 40126. 
+//	 * @var float
+//	 */
+//	protected $valorACobrar;
+
+
+}

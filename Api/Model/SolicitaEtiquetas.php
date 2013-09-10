@@ -7,19 +7,10 @@ namespace Sigep\Model;
 class SolicitaEtiquetas extends AbstractModel
 {
 
-	const SERVICO_ESEDEX           = 104672;
-	const SERVICO_PAC              = 109819;
-	const SERVICO_SEDEX_40436      = 109810;
-	const SERVICO_SEDEX_40096      = 104625;
-	const SERVICO_SEDEX_40444      = 109811;
-	const SERVICO_SEDEX10_ENVELOPE = 104707;
-	const SERVICO_CARTA            = 109480;
-	const SERVICO_SEDEX_AGRUPADO   = 119461;
-	const SERVICO_CARTA_REGISTRADA = 116985;
 	/**
 	 * @var int
 	 */
-	protected $idServico;
+	protected $servicoDePostagem;
 	/**
 	 * @var int
 	 */
@@ -62,19 +53,19 @@ class SolicitaEtiquetas extends AbstractModel
 	}
 
 	/**
-	 * @return int
+	 * @return ServicoDePostagem
 	 */
-	public function getIdServico()
+	public function getServicoDePostagem()
 	{
-		return $this->idServico;
+		return $this->servicoDePostagem;
 	}
 
 	/**
-	 * @param int $idServico
+	 * @param int $servicoDePostagem
 	 */
-	public function setIdServico($idServico)
+	public function setServicoDePostagem($servicoDePostagem)
 	{
-		$this->idServico = $idServico;
+		$this->servicoDePostagem = $servicoDePostagem;
 	}
 
 }

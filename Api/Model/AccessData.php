@@ -27,6 +27,10 @@ class AccessData extends AbstractModel
 	 * @var string
 	 */
 	protected $cnpjEmpresa;
+	/**
+	 * @var string
+	 */
+	protected $numeroContrato;
 
 	/**
 	 * @param string $codAdministrativo
@@ -107,5 +111,20 @@ class AccessData extends AbstractModel
 	{
 		return $this->cnpjEmpresa;
 	}
-	
+
+	/**
+	 * @param string $numeroContrato
+	 */
+	public function setNumeroContrato($numeroContrato)
+	{
+		$this->numeroContrato = $numeroContrato;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getNumeroContrato()
+	{
+		return $this->numeroContrato;
+	}
 }
