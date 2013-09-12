@@ -6,7 +6,9 @@ namespace Sigep;
  */
 class Config
 {
+
 	protected $wsdlDir;
+	protected $xsdDir;
 
 	public function __construct(array $configData)
 	{
@@ -23,6 +25,16 @@ class Config
 	public function getWsdlDir()
 	{
 		return rtrim($this->wsdlDir, '/\\');
+	}
+
+	/**
+	 * Return the schema files directory without slash at the end.
+	 * Eg: /dir1/dir2/ become /dir1/dir2
+	 * @return string
+	 */
+	public function getXsdDir()
+	{
+		return rtrim($this->xsdDir, '/\\');
 	}
 
 	/**

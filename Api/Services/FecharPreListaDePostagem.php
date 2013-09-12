@@ -18,8 +18,11 @@ class FecharPreListaDePostagem
 
 	public function execute(\Sigep\Model\PreListaDePostagem $params)
 	{
-//		$soap     = SoapClient::getInstance();
-		return $this->getPlpXml($params)->flush();
+
+		$soap = SoapClient::getInstance();
+		$r = $soap->fechaPlpVariosServicos($params, $this->getPlpXml($params));
+		return ($r && $r->return);
+
 	}
 
 	private function getPlpXml(PreListaDePostagem $data)
@@ -87,7 +90,7 @@ class FecharPreListaDePostagem
 		$writer->writeElement('codigo_objeto_cliente');
 		$writer->writeElement('codigo_servico_postagem', $objetoPostal->getServicoDePostagem()->getCodigo());
 		$writer->writeElement('cubagem', (float)$objetoPostal->getCubagem());
-		$writer->writeElement('peso', (float)$objetoPostal->getPeso());
+		$writer->writeElement('peso', (float)$objetoPostal->getPeso() * 1000);
 		$writer->writeElement('rt1');
 		$writer->writeElement('rt2');
 		$this->writeDestinatario($writer, $objetoPostal->getDestinatario());
@@ -125,7 +128,7 @@ class FecharPreListaDePostagem
 
 	private function writeDestinatario(\XMLWriter $writer, Destinatario $destinatario)
 	{
-		$writer->startElement('objeto_postal');
+		$writer->startElement('destinatario');
 		$writer->writeElement('nome_destinatario', $this->_($destinatario->getNome(), 50));
 		$writer->writeElement('telefone_destinatario', $this->_(preg_replace('/[^\d]/', '', $destinatario->getTelefone()), 12));
 		$writer->writeElement('celular_destinatario', $this->_(preg_replace('/[^\d]/', '', $destinatario->getCelular()), 12));
@@ -185,7 +188,6 @@ class FecharPreListaDePostagem
 	private function writeDimensaoObjeto(\XMLWriter $writer, Dimensao $dimensao)
 	{
 		$writer->startElement('dimensao_objeto');
-		$writer->writeElement('codigo_servico_adicional', ServicoAdicional::SERVICE_REGISTRO);
 		$writer->writeElement('tipo_objeto', $dimensao->getTipo());
 		$writer->writeElement('dimensao_altura', $dimensao->getAltura());
 		$writer->writeElement('dimensao_largura', $dimensao->getLargura());

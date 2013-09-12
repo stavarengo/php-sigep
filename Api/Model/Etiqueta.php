@@ -94,4 +94,12 @@ class Etiqueta extends AbstractModel
 		$this->etiquetaComDv = $etiquetaComDv;
 	}
 
+	/**
+	 * @return string
+	 */
+	public function getNumeroSemDv()
+	{
+		return substr($this->getEtiquetaSemDv(), 2, 8);
+	}
+
 }

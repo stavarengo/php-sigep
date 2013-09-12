@@ -1,10 +1,10 @@
 <?php
 namespace Sigep;
 
+use Sigep\Model\AccessData;
+
 require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'Loader.php';
 Loader::registerAutoLoader();
-
-use Sigep\Model\AccessData;
 
 /**
  * @author: Stavarengo
@@ -25,7 +25,7 @@ class Bootstrap
 	{
 		self::$accessData = $accessData;
 	}
-	
+
 	/**
 	 * @return \Sigep\Config
 	 */
@@ -34,6 +34,7 @@ class Bootstrap
 		if (!self::$config) {
 			self::$config = new Config(array(
 				'wsdlDir'    => implode(DIRECTORY_SEPARATOR, array(dirname(__FILE__), '..', 'wsdl')),
+				'xsdDir'     => implode(DIRECTORY_SEPARATOR, array(dirname(__FILE__), '..', 'xsd')),
 				'accessData' => self::$accessData,
 			));
 		}

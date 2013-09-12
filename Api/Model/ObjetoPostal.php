@@ -137,6 +137,8 @@ class ObjetoPostal extends AbstractModel
 	}
 
 	/**
+	 * Peso em kilogramas.
+	 * Ex: use 0.3 para 300 gramas
 	 * @return float
 	 */
 	public function getPeso()
