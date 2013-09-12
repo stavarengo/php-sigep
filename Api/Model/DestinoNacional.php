@@ -58,18 +58,18 @@ class DestinoNacional extends AbstractModel implements Destino
 	 * @var string
 	 */
 	protected $serieNotaFiscal;
-//	/**
-//	 * Valor da nota fiscal Numérico(9,2) Não obrigatório
-//	 * @var float
-//	 */
-//	protected $valorNotaFiscal;
-//	/**
-//	 * Natureza da nota fiscal 
-//	 * Não obrigatório
-//	 * Max length: 20
-//	 * @var string
-//	 */
-//	protected $naturezaNotaFiscal;
+	/**
+	 * Valor da nota fiscal Numérico(9,2) Não obrigatório
+	 * @var float
+	 */
+	protected $valorNotaFiscal;
+	/**
+	 * Natureza da nota fiscal
+	 * Não obrigatório
+	 * Max length: 20
+	 * @var string
+	 */
+	protected $naturezaNotaFiscal;
 	/**
 	 * Descrição do objeto
 	 * Não obrigatório
@@ -77,6 +77,21 @@ class DestinoNacional extends AbstractModel implements Destino
 	 * @var string
 	 */
 	protected $descricaoObjeto;
+	/**
+	 * Valor a cobrar do destinatário
+	 * No manual está escrito que é obrigatório para o serviço 40126, porem no mesmo manual não existe nada relacionado
+	 * ao servico 40126.
+	 * @var float
+	 */
+	protected $valorACobrar;
+
+	/**
+	 * @return string
+	 */
+	public function getBairro()
+	{
+		return $this->bairro;
+	}
 
 	/**
 	 * @param string $bairro
@@ -89,9 +104,9 @@ class DestinoNacional extends AbstractModel implements Destino
 	/**
 	 * @return string
 	 */
-	public function getBairro()
+	public function getCep()
 	{
-		return $this->bairro;
+		return $this->cep;
 	}
 
 	/**
@@ -105,9 +120,9 @@ class DestinoNacional extends AbstractModel implements Destino
 	/**
 	 * @return string
 	 */
-	public function getCep()
+	public function getCidade()
 	{
-		return $this->cep;
+		return $this->cidade;
 	}
 
 	/**
@@ -121,9 +136,9 @@ class DestinoNacional extends AbstractModel implements Destino
 	/**
 	 * @return string
 	 */
-	public function getCidade()
+	public function getDescricaoObjeto()
 	{
-		return $this->cidade;
+		return $this->descricaoObjeto;
 	}
 
 	/**
@@ -135,11 +150,11 @@ class DestinoNacional extends AbstractModel implements Destino
 	}
 
 	/**
-	 * @return string
+	 * @return int
 	 */
-	public function getDescricaoObjeto()
+	public function getNumeroNotaFiscal()
 	{
-		return $this->descricaoObjeto;
+		return $this->numeroNotaFiscal;
 	}
 
 	/**
@@ -151,11 +166,11 @@ class DestinoNacional extends AbstractModel implements Destino
 	}
 
 	/**
-	 * @return int
+	 * @return string
 	 */
-	public function getNumeroNotaFiscal()
+	public function getSerieNotaFiscal()
 	{
-		return $this->numeroNotaFiscal;
+		return $this->serieNotaFiscal;
 	}
 
 	/**
@@ -169,9 +184,9 @@ class DestinoNacional extends AbstractModel implements Destino
 	/**
 	 * @return string
 	 */
-	public function getSerieNotaFiscal()
+	public function getUf()
 	{
-		return $this->serieNotaFiscal;
+		return $this->uf;
 	}
 
 	/**
@@ -183,19 +198,52 @@ class DestinoNacional extends AbstractModel implements Destino
 	}
 
 	/**
+	 * @return float
+	 */
+	public function getValorNotaFiscal()
+	{
+		return $this->valorNotaFiscal;
+	}
+
+	/**
+	 * @param float $valorNotaFiscal
+	 */
+	public function setValorNotaFiscal($valorNotaFiscal)
+	{
+		$this->valorNotaFiscal = $valorNotaFiscal;
+	}
+
+	/**
+	 * @param string $naturezaNotaFiscal
+	 */
+	public function setNaturezaNotaFiscal($naturezaNotaFiscal)
+	{
+		$this->naturezaNotaFiscal = $naturezaNotaFiscal;
+	}
+
+	/**
 	 * @return string
 	 */
-	public function getUf()
+	public function getNaturezaNotaFiscal()
 	{
-		return $this->uf;
+		return $this->naturezaNotaFiscal;
 	}
-//	/**
-//	 * Valor a cobrar do destinatário
-//	 * No manual está escrito que é obrigatório para o serviço 40126, porem no mesmo manual não existe nada relacionado
-//	 * ao servico 40126. 
-//	 * @var float
-//	 */
-//	protected $valorACobrar;
 
+	/**
+	 * @param float $valorACobrar
+	 */
+	public function setValorACobrar($valorACobrar)
+	{
+		$this->valorACobrar = $valorACobrar;
+	}
+
+	/**
+	 * @return float
+	 */
+	public function getValorACobrar()
+	{
+		return $this->valorACobrar;
+	}
+	
 
 }

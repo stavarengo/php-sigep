@@ -9,6 +9,7 @@ class ObjetoPostal extends AbstractModel
 
 	/**
 	 * A etiqueta gerada para esta encomenda.
+	 * Número da etiqueta completo, com o DV.
 	 * @var Etiqueta
 	 */
 	protected $etiqueta;

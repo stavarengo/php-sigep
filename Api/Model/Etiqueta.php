@@ -10,6 +10,10 @@ class Etiqueta extends AbstractModel
 	/**
 	 * @var string
 	 */
+	protected $etiquetaComDv;
+	/**
+	 * @var string
+	 */
 	protected $etiquetaSemDv;
 	/**
 	 * @var int
@@ -54,6 +58,10 @@ class Etiqueta extends AbstractModel
 	 */
 	public function getEtiquetaSemDv()
 	{
+		if (!$this->etiquetaSemDv) {
+			$comDv               = $this->getEtiquetaComDv();
+			$this->etiquetaSemDv = substr($comDv, 0, 10) . substr($comDv, 11);
+		}
 		return $this->etiquetaSemDv;
 	}
 
@@ -62,6 +70,7 @@ class Etiqueta extends AbstractModel
 	 */
 	public function setEtiquetaSemDv($etiquetaSemDv)
 	{
+		$etiquetaSemDv       = str_replace(' ', '', $etiquetaSemDv);
 		$this->etiquetaSemDv = $etiquetaSemDv;
 	}
 
@@ -70,5 +79,19 @@ class Etiqueta extends AbstractModel
 	 */
 	public function getEtiquetaComDv()
 	{
+		if (!$this->etiquetaComDv) {
+			$semDv               = $this->getEtiquetaSemDv();
+			$this->etiquetaComDv = substr($semDv, 0, 10) . $this->getDv() . substr($semDv, 10);
+		}
+		return $this->etiquetaComDv;
 	}
+
+	/**
+	 * @param string $etiquetaComDv
+	 */
+	public function setEtiquetaComDv($etiquetaComDv)
+	{
+		$this->etiquetaComDv = $etiquetaComDv;
+	}
+
 }

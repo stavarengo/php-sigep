@@ -10,6 +10,13 @@ use Sigep\Model\Etiqueta;
 class SoapClient
 {
 
+	/**
+	 * @var SoapClient
+	 */
+	private static $instance;
+	/**
+	 * @var \SoapClient
+	 */
 	protected $soapClient;
 
 	public function __construct()
@@ -19,6 +26,17 @@ class SoapClient
 			"trace"      => 1,
 			"exceptions" => 0,
 		));
+	}
+
+	/**
+	 * @return SoapClient
+	 */
+	public static function getInstance()
+	{
+		if (!self::$instance) {
+			self::$instance = new self();
+		}
+		return self::$instance;
 	}
 
 	/**
@@ -62,9 +80,9 @@ class SoapClient
 		for ($i = 0; $i < $params->getQtdEtiquetas(); $i++) {
 			$r = $this->soapClient->solicitaEtiquetas($soapArgs);
 			if ($r && is_object($r) && isset($r->return) && !($r instanceof \SoapFault)) {
-				$r                     = explode(',', $r->return);
+				$r = explode(',', $r->return);
 //				$etiquetasReservadas[] = str_replace(' ', '', $r[0]);
-				$etiqueta              = new Etiqueta();
+				$etiqueta = new Etiqueta();
 				$etiqueta->setEtiquetaSemDv($r[0]);
 				$etiquetasReservadas[] = $etiqueta;
 			} else {
@@ -89,30 +107,30 @@ class SoapClient
 	{
 		$soapArgs = array(
 			'etiquetas' => array(),
-			'usuario'  => $params->getAccessData()->getUsuario(),
-			'senha'    => $params->getAccessData()->getSenha(),
+			'usuario'   => $params->getAccessData()->getUsuario(),
+			'senha'     => $params->getAccessData()->getSenha(),
 		);
 
 		// É necessário garantir que o array estará indexado por order natural começando do zero para setarmos os
 		// DV retornados pelo webservice.
 		$etiquetas = array_values($params->getEtiquetas());
-		
+
 		/** @var $etiqueta Etiqueta */
 		foreach ($etiquetas as $etiqueta) {
 			$soapArgs['etiquetas'][] = $etiqueta->getEtiquetaSemDv();
 		}
-			
+
 		$soapReturn = $this->soapClient->geraDigitoVerificadorEtiquetas($soapArgs);
 		if ($soapReturn && is_object($soapReturn) && $soapReturn->return) {
 			if (!is_array($soapReturn->return)) {
 				$soapReturn->return = (array)$soapReturn->return;
 			}
-			
+
 			foreach ($soapReturn->return as $k => $dv) {
 				$etiquetas[$k]->setDv((int)$dv);
 			}
 		}
-		
+
 
 		return $etiquetas;
 	}
