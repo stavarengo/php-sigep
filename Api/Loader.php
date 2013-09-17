@@ -49,4 +49,23 @@ class Loader
 			}
 		}
 	}
+	
+	public function _loadVendorFile($filePath)
+	{
+		$realFilePath = realPath(Bootstrap::getConfig()->getVendorDir() . '/' . $filePath);
+		
+		if (!file_exists($realFilePath)) {
+			return;
+		}
+		
+		if (!isset(self::$cache[$realFilePath])) {
+			require_once $realFilePath;
+			self::$cache[$realFilePath] = true;
+		}
+	}
+
+	public static function loadVendorFile($filePath)
+	{
+		self::getInstance()->_loadVendorFile($filePath);
+	}
 }

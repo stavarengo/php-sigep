@@ -35,6 +35,7 @@ class Bootstrap
 			self::$config = new Config(array(
 				'wsdlDir'    => implode(DIRECTORY_SEPARATOR, array(dirname(__FILE__), '..', 'files', 'wsdl')),
 				'xsdDir'     => implode(DIRECTORY_SEPARATOR, array(dirname(__FILE__), '..', 'files', 'xsd')),
+				'vendorDir'     => implode(DIRECTORY_SEPARATOR, array(dirname(__FILE__), '..', 'vendor')),
 				'accessData' => self::$accessData,
 			));
 		}

@@ -18,6 +18,16 @@ class Config
 	}
 
 	/**
+	 * Return the vendor directory without slash at the end.
+	 * Eg: /dir1/dir2/ become /dir1/dir2
+	 * @return string
+	 */
+	public function getVendorDir()
+	{
+		return rtrim($this->vendorDir, '/\\');
+	}
+	
+	/**
 	 * Return the WSDL directory without slash at the end.
 	 * Eg: /dir1/dir2/ become /dir1/dir2
 	 * @return string
