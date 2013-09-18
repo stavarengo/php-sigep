@@ -31,6 +31,22 @@ class AccessData extends AbstractModel
 	 * @var string
 	 */
 	protected $numeroContrato;
+	/**
+	 * @var int
+	 */
+	protected $anoContrato;
+	/**
+	 * @var Diretoria
+	 */
+	protected $diretoria;
+
+	/**
+	 * @return string
+	 */
+	public function getCodAdministrativo()
+	{
+		return $this->codAdministrativo;
+	}
 
 	/**
 	 * @param string $codAdministrativo
@@ -43,9 +59,9 @@ class AccessData extends AbstractModel
 	/**
 	 * @return string
 	 */
-	public function getCodAdministrativo()
+	public function getSenha()
 	{
-		return $this->codAdministrativo;
+		return $this->senha;
 	}
 
 	/**
@@ -59,9 +75,9 @@ class AccessData extends AbstractModel
 	/**
 	 * @return string
 	 */
-	public function getSenha()
+	public function getUsuario()
 	{
-		return $this->senha;
+		return $this->usuario;
 	}
 
 	/**
@@ -75,9 +91,9 @@ class AccessData extends AbstractModel
 	/**
 	 * @return string
 	 */
-	public function getUsuario()
+	public function getCartaoPostagem()
 	{
-		return $this->usuario;
+		return $this->cartaoPostagem;
 	}
 
 	/**
@@ -91,9 +107,9 @@ class AccessData extends AbstractModel
 	/**
 	 * @return string
 	 */
-	public function getCartaoPostagem()
+	public function getCnpjEmpresa()
 	{
-		return $this->cartaoPostagem;
+		return $this->cnpjEmpresa;
 	}
 
 	/**
@@ -107,9 +123,9 @@ class AccessData extends AbstractModel
 	/**
 	 * @return string
 	 */
-	public function getCnpjEmpresa()
+	public function getNumeroContrato()
 	{
-		return $this->cnpjEmpresa;
+		return $this->numeroContrato;
 	}
 
 	/**
@@ -121,10 +137,35 @@ class AccessData extends AbstractModel
 	}
 
 	/**
-	 * @return string
+	 * @return int
 	 */
-	public function getNumeroContrato()
+	public function getAnoContrato()
 	{
-		return $this->numeroContrato;
+		return $this->anoContrato;
 	}
+
+	/**
+	 * @param int $anoContrato
+	 */
+	public function setAnoContrato($anoContrato)
+	{
+		$this->anoContrato = $anoContrato;
+	}
+
+	/**
+	 * @return \Sigep\Model\Diretoria
+	 */
+	public function getDiretoria()
+	{
+		return $this->diretoria;
+	}
+
+	/**
+	 * @param \Sigep\Model\Diretoria $diretoria
+	 */
+	public function setDiretoria($diretoria)
+	{
+		$this->diretoria = $diretoria;
+	}
+
 }

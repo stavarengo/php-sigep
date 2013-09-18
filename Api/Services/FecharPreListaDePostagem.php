@@ -16,13 +16,16 @@ use Sigep\Model\ServicoAdicional;
 class FecharPreListaDePostagem
 {
 
+	/**
+	 * @param PreListaDePostagem $params
+	 *
+	 * @return int
+	 */
 	public function execute(\Sigep\Model\PreListaDePostagem $params)
 	{
 
 		$soap = SoapClient::getInstance();
-		$r = $soap->fechaPlpVariosServicos($params, $this->getPlpXml($params));
-		return ($r && $r->return);
-
+		return $soap->fechaPlpVariosServicos($params, $this->getPlpXml($params));
 	}
 
 	private function getPlpXml(PreListaDePostagem $data)

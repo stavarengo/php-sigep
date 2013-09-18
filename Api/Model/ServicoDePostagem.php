@@ -66,11 +66,14 @@ class ServicoDePostagem extends AbstractModel
 	}
 
 	/**
-	 * @param int $codigo
+	 * @param int $serviceCode
+	 *        One of the constants {@link ServicoDePostagem}::SERVICE_*
+	 *
+	 * @return bool
 	 */
-	public function setCodigo($codigo)
+	public function is($serviceCode)
 	{
-		$this->codigo = $codigo;
+		return $this->getCodigo() == $serviceCode;
 	}
 
 	/**
@@ -82,11 +85,11 @@ class ServicoDePostagem extends AbstractModel
 	}
 
 	/**
-	 * @param int $idServico
+	 * @param int $codigo
 	 */
-	public function setIdServico($idServico)
+	public function setCodigo($codigo)
 	{
-		$this->idServico = $idServico;
+		$this->codigo = $codigo;
 	}
 
 	/**
@@ -98,11 +101,11 @@ class ServicoDePostagem extends AbstractModel
 	}
 
 	/**
-	 * @param string $nome
+	 * @param int $idServico
 	 */
-	public function setNome($nome)
+	public function setIdServico($idServico)
 	{
-		$this->nome = $nome;
+		$this->idServico = $idServico;
 	}
 
 	/**
@@ -111,6 +114,14 @@ class ServicoDePostagem extends AbstractModel
 	public function getNome()
 	{
 		return $this->nome;
+	}
+
+	/**
+	 * @param string $nome
+	 */
+	public function setNome($nome)
+	{
+		$this->nome = $nome;
 	}
 
 

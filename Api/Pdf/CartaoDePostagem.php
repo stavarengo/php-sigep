@@ -1,9 +1,9 @@
 <?php
 namespace Sigep\Pdf;
 
-\Sigep\Loader::loadVendorFile('fpdf17/fpdf.php');
-require_once 'code128/code128.php';
-
+use Sigep\Model\ServicoDePostagem;
+use Sigep\Pdf\Chancela\Sedex;
+use Sigep\Pdf\Chancela\Pac;
 
 /**
  * @author: Stavarengo
@@ -12,7 +12,7 @@ class CartaoDePostagem
 {
 
 	/**
-	 * @var \PDF_Code128
+	 * @var \Sigep\Pdf\ImprovedFPDF
 	 */
 	public $pdf;
 	/**
@@ -133,9 +133,38 @@ class CartaoDePostagem
 				$hChancela    = 72.5;
 				$lPosChancela = $rPosFourAreas - $wChancela;
 				$bPosHeader   = $tPosFourAreas + $headerHeigth;
-				$this->pdf->SetXY($lPosChancela, $bPosHeader - $hChancela);
-				$this->t($wChancela, 'Chancela', 0, 'C', $hChancela);
-
+				$tPosChancela = $bPosHeader - $hChancela;
+				$this->pdf->SetXY($lPosChancela, $tPosChancela);
+				//$this->t($wChancela, 'Chancela', 0, 'C', $hChancela);
+				$servicoDePostagem = $objetoPostal->getServicoDePostagem();
+				$nomeRemetente     = $this->plp->getRemetente()->getNome();
+				$accessData        = $this->plp->getAccessData();
+				if ($servicoDePostagem->is(ServicoDePostagem::SERVICE_SEDEX_40436)
+					|| $servicoDePostagem->is(ServicoDePostagem::SERVICE_SEDEX_40096)
+					|| $servicoDePostagem->is(ServicoDePostagem::SERVICE_SEDEX_40444)
+					|| $servicoDePostagem->is(ServicoDePostagem::SERVICE_SEDEX_AGRUPADO)
+				) {
+					$chancela = new Sedex($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX, $accessData);
+				} else if ($servicoDePostagem->is(ServicoDePostagem::SERVICE_SEDEX_10_PACOTE)
+					|| $servicoDePostagem->is(ServicoDePostagem::SERVICE_SEDEX_10_ENVELOPE)
+				) {
+					$chancela = new Sedex($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX_10, $accessData);
+				} else if ($servicoDePostagem->is(ServicoDePostagem::SERVICE_E_SEDEX)) {
+					$chancela = new Sedex($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_E_SEDEX, $accessData);
+				} else if ($servicoDePostagem->is(ServicoDePostagem::SERVICE_SEDEX_HOJE)) {
+					$chancela = new Sedex($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX_HOJE, $accessData);
+				} else if ($servicoDePostagem->is(ServicoDePostagem::SERVICE_PAC)) {
+					$chancela = new Pac($lPosChancela, $tPosChancela, $nomeRemetente, $accessData);
+				} else if ($servicoDePostagem->is(ServicoDePostagem::SERVICE_CARTA)
+					|| $servicoDePostagem->is(ServicoDePostagem::SERVICE_CARTA_REGISTRADA)
+				) {
+//					$chancela = new Sedex($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX_HOJE, $accessData);
+				}
+				
+				if ($chancela) {
+					$chancela->draw($this->pdf);
+				}
+				
 				// Peso
 				$this->setFillColor(100, 150, 200);
 				$this->pdf->SetFontSize(9);
@@ -160,21 +189,22 @@ class CartaoDePostagem
 				$hEtiquetaBarCode    = 40;
 				$tPosEtiquetaBarCode = $this->pdf->GetY();
 				$wEtiquetaBarCode    = $un * 65.44;
-				$this->pdf->Code128($lPosFourAreas + $wInnerFourAreas / 2 - $wEtiquetaBarCode / 2, $tPosEtiquetaBarCode, $etiquetaComDv, $wEtiquetaBarCode, $hEtiquetaBarCode);
+				$code128             = new \Sigep\Pdf\Script\BarCode128();
+				$code128->draw($this->pdf, $lPosFourAreas + $wInnerFourAreas / 2 - $wEtiquetaBarCode / 2, $tPosEtiquetaBarCode, $etiquetaComDv, $wEtiquetaBarCode, $hEtiquetaBarCode);
 
 				// Destinatário
 				$wAddressLeftCol  = $wInnerFourAreas / 4 * 2.2;
-				$wAddressRightCol = $wInnerFourAreas - $wAddressLeftCol; 
+				$wAddressRightCol = $wInnerFourAreas - $wAddressLeftCol;
 				$lAddressRigthCol = $wAddressLeftCol + $lPosFourAreas;
 
 				$tPosAfterBarCode = $tPosEtiquetaBarCode + $hEtiquetaBarCode + 5;
-				$t = $this->writeDestinatario($lPosFourAreas, $tPosAfterBarCode, $wAddressLeftCol, $objetoPostal);
+				$t                = $this->writeDestinatario($lPosFourAreas, $tPosAfterBarCode, $wAddressLeftCol, $objetoPostal);
 
 				$t += $this->getLineHeigth() / 2;
 				$this->writeRemetente($lPosFourAreas, $t, $wAddressLeftCol, $this->plp->getRemetente());
-				
-				$destino = $objetoPostal->getDestino();
-				$hCepBarCode    = 0;
+
+				$destino     = $objetoPostal->getDestino();
+				$hCepBarCode = 0;
 				if ($destino instanceof \Sigep\Model\DestinoNacional) {
 					// Número do CEP
 					$cep = $destino->getCep();
@@ -183,12 +213,12 @@ class CartaoDePostagem
 					$this->pdf->SetXY($lAddressRigthCol, $tPosAfterBarCode + 15);
 					$this->t($wAddressRightCol, $cep, 2, 'C');
 					$tPosCepBarCode = $this->pdf->GetY();
-					
+
 					// Etiqueta do CEP
-					$hCepBarCode    = 25;
-					$wCepBarCode    = $un * 38.44;
+					$hCepBarCode = 25;
+					$wCepBarCode = $un * 38.44;
 					$this->setFillColor(0, 0, 0);
-					$this->pdf->Code128($lAddressRigthCol + $wAddressRightCol / 2 - $wCepBarCode / 2, $tPosCepBarCode, $cep, $wCepBarCode, $hCepBarCode);
+					$code128->draw($this->pdf, $lAddressRigthCol + $wAddressRightCol / 2 - $wCepBarCode / 2, $tPosCepBarCode, $cep, $wCepBarCode, $hCepBarCode);
 				}
 			}
 		}
@@ -207,7 +237,7 @@ class CartaoDePostagem
 
 	private function init()
 	{
-		$this->pdf = new \PDF_Code128('P', 'pt');
+		$this->pdf = new \Sigep\Pdf\ImprovedFPDF('P', 'pt');
 		$this->pdf->SetFont('Arial', '', 10);
 	}
 
@@ -338,11 +368,11 @@ class CartaoDePostagem
 //		$fill   = true;
 		$border = 0;
 		$fill   = false;
-		
+
 		if ($h === null) {
 			$h = $this->getLineHeigth();
 		}
-		
+
 		if ($multiLines) {
 			$this->pdf->MultiCell($w, $h, $txt, $border, $align, $fill);
 		} else {

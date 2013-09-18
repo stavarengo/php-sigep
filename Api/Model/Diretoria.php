@@ -37,35 +37,35 @@ class Diretoria extends AbstractModel
 	const DIRETORIA_DR_SAO_PAULO             = 72;
 	const DIRETORIA_DR_TOCANTINS             = 75;
 	private static $diretorias = array(
-		self::DIRETORIA_AC_ADMINISTRACAO_CENTRAL => 'AC Administraçao Central',
-		self::DIRETORIA_DR_ACRE                  => 'DR - Acre',
-		self::DIRETORIA_DR_ALAGOAS               => 'DR - Alagoas',
-		self::DIRETORIA_DR_AMAZONAS              => 'DR - Amazonas',
-		self::DIRETORIA_DR_AMAPA                 => 'DR - Amapá',
-		self::DIRETORIA_DR_BAHIA                 => 'DR - Bahia',
-		self::DIRETORIA_DR_BRASILIA              => 'DR - Brasília',
-		self::DIRETORIA_DR_CEARA                 => 'DR - Ceará',
-		self::DIRETORIA_DR_ESPIRITO_SANTO        => 'DR - Espirito Santo',
-		self::DIRETORIA_DR_GOIAS                 => 'DR - Goiás',
-		self::DIRETORIA_DR_MARANHAO              => 'DR - Maranhão',
-		self::DIRETORIA_DR_MINAS_GERAIS          => 'DR - Minas Gerais',
-		self::DIRETORIA_DR_MATO_GROSSO_DO_SUL    => 'DR - Mato Grosso do Sul',
-		self::DIRETORIA_DR_MATO_GROSSO           => 'DR - Mato Grosso',
-		self::DIRETORIA_DR_PARA                  => 'DR - Pará',
-		self::DIRETORIA_DR_PARAIBA               => 'DR - Paraíba',
-		self::DIRETORIA_DR_PERNAMBUCO            => 'DR - Pernambuco',
-		self::DIRETORIA_DR_PIAUI                 => 'DR - Piauí',
-		self::DIRETORIA_DR_PARANA                => 'DR - Paraná',
-		self::DIRETORIA_DR_RIO_DE_JANEIRO        => 'DR - Rio de Janeiro',
-		self::DIRETORIA_DR_RIO_GRANDE_DO_NORTE   => 'DR - Rio Grande do Norte',
-		self::DIRETORIA_DR_RONDONIA              => 'DR - Rondonia',
-		self::DIRETORIA_DR_RORAIMA               => 'DR - Roraima',
-		self::DIRETORIA_DR_RIO_GRANDE_DO_SUL     => 'DR - Rio Grande do Sul',
-		self::DIRETORIA_DR_SANTA_CATARINA        => 'DR - Santa Catarina',
-		self::DIRETORIA_DR_SERGIPE               => 'DR - Sergipe',
-		self::DIRETORIA_DR_SAO_PAULO_INTERIOR    => 'DR - São Paulo Interior',
-		self::DIRETORIA_DR_SAO_PAULO             => 'DR - São Paulo',
-		self::DIRETORIA_DR_TOCANTINS             => 'DR - Tocantins',
+		self::DIRETORIA_AC_ADMINISTRACAO_CENTRAL => array('AC', 'AC Administraçao Central'),
+		self::DIRETORIA_DR_ACRE                  => array('ACR', 'DR - Acre'),
+		self::DIRETORIA_DR_ALAGOAS               => array('AL', 'DR - Alagoas'),
+		self::DIRETORIA_DR_AMAZONAS              => array('AM', 'DR - Amazonas'),
+		self::DIRETORIA_DR_AMAPA                 => array('AP', 'DR - Amapá'),
+		self::DIRETORIA_DR_BAHIA                 => array('BA', 'DR - Bahia'),
+		self::DIRETORIA_DR_BRASILIA              => array('BSB', 'DR - Brasília'),
+		self::DIRETORIA_DR_CEARA                 => array('CE', 'DR - Ceará'),
+		self::DIRETORIA_DR_ESPIRITO_SANTO        => array('ES', 'DR - Espirito Santo'),
+		self::DIRETORIA_DR_GOIAS                 => array('GO', 'DR - Goiás'),
+		self::DIRETORIA_DR_MARANHAO              => array('MA', 'DR - Maranhão'),
+		self::DIRETORIA_DR_MINAS_GERAIS          => array('MG', 'DR - Minas Gerais'),
+		self::DIRETORIA_DR_MATO_GROSSO_DO_SUL    => array('MS', 'DR - Mato Grosso do Sul'),
+		self::DIRETORIA_DR_MATO_GROSSO           => array('MT', 'DR - Mato Grosso'),
+		self::DIRETORIA_DR_PARA                  => array('PA', 'DR - Pará'),
+		self::DIRETORIA_DR_PARAIBA               => array('PB', 'DR - Paraíba'),
+		self::DIRETORIA_DR_PERNAMBUCO            => array('PE', 'DR - Pernambuco'),
+		self::DIRETORIA_DR_PIAUI                 => array('PI', 'DR - Piauí'),
+		self::DIRETORIA_DR_PARANA                => array('PR', 'DR - Paraná'),
+		self::DIRETORIA_DR_RIO_DE_JANEIRO        => array('RJ', 'DR - Rio de Janeiro'),
+		self::DIRETORIA_DR_RIO_GRANDE_DO_NORTE   => array('RN', 'DR - Rio Grande do Norte'),
+		self::DIRETORIA_DR_RONDONIA              => array('RO', 'DR - Rondonia'),
+		self::DIRETORIA_DR_RORAIMA               => array('RR', 'DR - Roraima'),
+		self::DIRETORIA_DR_RIO_GRANDE_DO_SUL     => array('RS', 'DR - Rio Grande do Sul'),
+		self::DIRETORIA_DR_SANTA_CATARINA        => array('SC', 'DR - Santa Catarina'),
+		self::DIRETORIA_DR_SERGIPE               => array('SE', 'DR - Sergipe'),
+		self::DIRETORIA_DR_SAO_PAULO_INTERIOR    => array('SPI', 'DR - São Paulo Interior'),
+		self::DIRETORIA_DR_SAO_PAULO             => array('SPM', 'DR - São Paulo'),
+		self::DIRETORIA_DR_TOCANTINS             => array('TO', 'DR - Tocantins'),
 	);
 	/**
 	 * @var int
@@ -75,6 +75,10 @@ class Diretoria extends AbstractModel
 	 * @var string
 	 */
 	protected $nome;
+	/**
+	 * @var string
+	 */
+	protected $sigla;
 
 	/**
 	 * @param int $numeroDiretoria
@@ -91,7 +95,8 @@ class Diretoria extends AbstractModel
 
 		parent::__construct(array(
 			'numero' => $numeroDiretoria,
-			'nome'   => self::$diretorias[$numeroDiretoria],
+			'sigla'  => self::$diretorias[$numeroDiretoria][0],
+			'nome'   => self::$diretorias[$numeroDiretoria][1],
 		));
 	}
 
@@ -125,6 +130,22 @@ class Diretoria extends AbstractModel
 	public function setNumero($numero)
 	{
 		$this->numero = $numero;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getSigla()
+	{
+		return $this->sigla;
+	}
+
+	/**
+	 * @param string $sigla
+	 */
+	public function setSigla($sigla)
+	{
+		$this->sigla = $sigla;
 	}
 
 }

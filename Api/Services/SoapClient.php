@@ -134,4 +134,46 @@ class SoapClient
 
 		return $etiquetas;
 	}
+
+	public function fechaPlpVariosServicos(\Sigep\Model\PreListaDePostagem $params, \XMLWriter $xmlDaPreLista)
+	{
+		$idPlpCorreios = (int)\StaLib_Db::getInstance()->fetchOne('select max(idPlpCorreios) from ps_stasigep_plp');
+		return ++$idPlpCorreios;
+			
+		ob_clean();
+		$listaEtiquetas = array();
+		foreach ($params->getEncomendas() as $objetoPostal) {
+			$listaEtiquetas[] = $objetoPostal->getEtiqueta()->getNumeroSemDv();
+		}
+
+		$xml      = $xmlDaPreLista->flush();
+		
+		if (isset($_GET['xml'])) {
+			echo $xml;
+			exit;
+		}
+
+		$xml = preg_replace('/\n/', '', $xml);
+		
+		$domDoc = new \DOMDocument();
+		$domDoc->loadXML($xml);
+		if (!$domDoc->schemaValidate(Bootstrap::getConfig()->getXsdDir() . '/plp_schema.xsd')) {
+			echo 'falhou';
+			exit;
+		}
+		
+		$soapArgs = array(
+			'xml'            => $xml,
+			'idPlpCliente'   => '',
+			'cartaoPostagem' => $params->getAccessData()->getCartaoPostagem(),
+			'listaEtiqueas'  => $listaEtiquetas,
+			'usuario'        => $params->getAccessData()->getUsuario(),
+			'senha'          => $params->getAccessData()->getSenha(),
+		);
+
+		$r = $this->soapClient->fechaPlpVariosServicos($soapArgs);
+		echo "<pre>";
+		print_r($r);exit;
+		return ($r && $r->return);
+	}
 }
