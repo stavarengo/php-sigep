@@ -175,7 +175,7 @@ class ObjetoPostal extends AbstractModel
 	 */
 	public function getServicosAdicionais()
 	{
-		return $this->servicosAdicionais;
+		return (array)$this->servicosAdicionais;
 	}
 
 

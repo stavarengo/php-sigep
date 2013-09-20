@@ -168,13 +168,14 @@ class CartaoDePostagem
 				// Peso
 				$this->setFillColor(100, 150, 200);
 				$this->pdf->SetFontSize(9);
-				$lineHeigth = $this->getLineHeigth(100);
+				$lineHeigth = $this->pdf->getLineHeigth(100/$this->pdf->k);
 				$this->pdf->SetXY($lPosHeaderCol2, $bPosHeader - $lineHeigth * 2);
 				$this->t($lPosChancela - $lPosHeaderCol2, 'Peso: ' . ((float)$objetoPostal->getPeso()) . 'g', 2, 'C', $lineHeigth);
 
 				// Volume
 				$this->setFillColor(100, 150, 200);
-				$this->t($lPosChancela - $lPosHeaderCol2, 'Volume: ' . ($total - count($objetosPostais)) . '/' . $total, 0, 'C', $lineHeigth);
+//				$this->t($lPosChancela - $lPosHeaderCol2, 'Volume: ' . ($total - count($objetosPostais)) . '/' . $total, 0, 'C', $lineHeigth);
+				$this->t($lPosChancela - $lPosHeaderCol2, 'Volume: 1/1', 0, 'C', $lineHeigth);
 
 				// Número da etiqueta
 				$this->setFillColor(100, 100, 200);
@@ -200,7 +201,7 @@ class CartaoDePostagem
 				$tPosAfterBarCode = $tPosEtiquetaBarCode + $hEtiquetaBarCode + 5;
 				$t                = $this->writeDestinatario($lPosFourAreas, $tPosAfterBarCode, $wAddressLeftCol, $objetoPostal);
 
-				$t += $this->getLineHeigth() / 2;
+				$t += $this->pdf->getLineHeigth() / 2;
 				$this->writeRemetente($lPosFourAreas, $t, $wAddressLeftCol, $this->plp->getRemetente());
 
 				$destino     = $objetoPostal->getDestino();
@@ -327,7 +328,9 @@ class CartaoDePostagem
 		} else {
 			$address1 .= ', #' . $numero;
 		}
-		$address1 .= ' - ' . $complemento;
+		if ($complemento) {
+			$address1 .= ' - ' . $complemento;
+		}
 		$this->setFillColor(100, 190, 190);
 		$this->pdf->SetX($l);
 		$this->multiLines($w, $address1, 'L');
@@ -341,17 +344,6 @@ class CartaoDePostagem
 		$this->multiLines($w, $cidade . ' - ' . $uf, 'L');
 
 		return $this->pdf->GetY();
-	}
-
-	/**
-	 * @param int $padding
-	 *
-	 * @return int
-	 */
-	private function getLineHeigth($padding = 33)
-	{
-		$lineHeigth = $this->pdf->FontSizePt + $this->pdf->FontSizePt * $padding / 100;
-		return $lineHeigth;
 	}
 
 	private function setFillColor($r, $g, $b)
@@ -370,7 +362,7 @@ class CartaoDePostagem
 		$fill   = false;
 
 		if ($h === null) {
-			$h = $this->getLineHeigth();
+			$h = $this->pdf->getLineHeigth();
 		}
 
 		if ($multiLines) {
