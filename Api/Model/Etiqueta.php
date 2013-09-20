@@ -25,7 +25,7 @@ class Etiqueta extends AbstractModel
 	 */
 	public function getDv()
 	{
-		if (!$this->dv) {
+		if ($this->dv === null) {
 			$numero              = substr($this->getEtiquetaSemDv(), 2, 8);
 			$fatoresDePonderacao = array(8, 6, 4, 2, 3, 5, 9, 7);
 			$soma                = 0;

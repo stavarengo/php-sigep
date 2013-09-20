@@ -325,7 +325,13 @@ class ListaDePostagem
 			}
 
 			$pdf->SetXY($xCol1, $y2);
-			$pdf->CellXp($wCol1, $objetoPostal->getEtiqueta()->getEtiquetaComDv());
+			$etiqueta = $objetoPostal->getEtiqueta();
+			if ($etiqueta) {
+				$etiquetaComDv = $etiqueta->getEtiquetaComDv();
+			} else {
+				$etiquetaComDv = '';
+			}
+			$pdf->CellXp($wCol1, $etiquetaComDv);
 			$destino = $objetoPostal->getDestino();
 			if ($destino instanceof \Sigep\Model\DestinoNacional) {
 				$pdf->SetX($xCol2);
