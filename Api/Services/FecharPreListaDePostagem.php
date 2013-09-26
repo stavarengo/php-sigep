@@ -32,8 +32,8 @@ class FecharPreListaDePostagem
 	{
 		$writer = new \XMLWriter();
 		$writer->openMemory();
-		$writer->setIndent(true);
-		$writer->setIndentString("    ");
+		$writer->setIndentString("");
+		$writer->setIndent(false);
 		$writer->startDocument('1.0', 'UTF-8');
 
 		$writer->startElement('correioslog');
@@ -67,17 +67,37 @@ class FecharPreListaDePostagem
 		$writer->writeElement('numero_contrato', $data->getAccessData()->getNumeroContrato());
 		$writer->writeElement('numero_diretoria', $data->getRemetente()->getDiretoria());
 		$writer->writeElement('codigo_administrativo', $data->getAccessData()->getCodAdministrativo());
-		$writer->writeElement('nome_remetente', $this->_($data->getRemetente()->getNome(), 50));
-		$writer->writeElement('logradouro_remetente', $this->_($data->getRemetente()->getLogradouro(), 40));
-		$writer->writeElement('numero_remetente', $this->_($data->getRemetente()->getNumero(), 6));
-		$writer->writeElement('complemento_remetente', $this->_($data->getRemetente()->getComplemento(), 20));
-		$writer->writeElement('bairro_remetente', $this->_($data->getRemetente()->getBairro(), 20));
-		$writer->writeElement('cep_remetente', $this->_(preg_replace('/[^\d]/', '', $data->getRemetente()->getCep()), 8));
-		$writer->writeElement('cidade_remetente', $this->_($data->getRemetente()->getCidade(), 30));
+		$writer->startElement('nome_remetente');
+		$writer->writeCData($this->_($data->getRemetente()->getNome(), 50));
+		$writer->endElement();
+		$writer->startElement('logradouro_remetente');
+		$writer->writeCdata($this->_($data->getRemetente()->getLogradouro(), 40));
+		$writer->endElement();
+		$writer->startElement('numero_remetente');
+		$writer->writeCdata($this->_($data->getRemetente()->getNumero(), 6));
+		$writer->endElement();
+		$writer->startElement('complemento_remetente');
+		$writer->writeCdata($this->_($data->getRemetente()->getComplemento(), 20));
+		$writer->endElement();
+		$writer->startElement('bairro_remetente');
+		$writer->writeCdata($this->_($data->getRemetente()->getBairro(), 20));
+		$writer->endElement();
+		$writer->startElement('cep_remetente');
+		$writer->writeCdata($this->_(preg_replace('/[^\d]/', '', $data->getRemetente()->getCep()), 8));
+		$writer->endElement();
+		$writer->startElement('cidade_remetente');
+		$writer->writeCdata($this->_($data->getRemetente()->getCidade(), 30));
+		$writer->endElement();
 		$writer->writeElement('uf_remetente', $this->_($data->getRemetente()->getUf(), 2, false));
-		$writer->writeElement('telefone_remetente', $this->_(preg_replace('/[^\d]/', '', $data->getRemetente()->getTelefone()), 12));
-		$writer->writeElement('fax_remetente', $this->_(preg_replace('/[^\d]/', '', $data->getRemetente()->getFax()), 12));
-		$writer->writeElement('email_remetente', $this->_($data->getRemetente()->getEmail(), 50));
+		$writer->startElement('telefone_remetente');
+		$writer->writeCdata($this->_(preg_replace('/[^\d]/', '', $data->getRemetente()->getTelefone()), 12));
+		$writer->endElement();
+		$writer->startElement('fax_remetente');
+		$writer->writeCdata($this->_(preg_replace('/[^\d]/', '', $data->getRemetente()->getFax()), 12));
+		$writer->endElement();
+		$writer->startElement('email_remetente');
+		$writer->writeCdata($this->_($data->getRemetente()->getEmail(), 50));
+		$writer->endElement();
 		$writer->endElement();
 	}
 
@@ -132,13 +152,27 @@ class FecharPreListaDePostagem
 	private function writeDestinatario(\XMLWriter $writer, Destinatario $destinatario)
 	{
 		$writer->startElement('destinatario');
-		$writer->writeElement('nome_destinatario', $this->_($destinatario->getNome(), 50));
-		$writer->writeElement('telefone_destinatario', $this->_(preg_replace('/[^\d]/', '', $destinatario->getTelefone()), 12));
-		$writer->writeElement('celular_destinatario', $this->_(preg_replace('/[^\d]/', '', $destinatario->getCelular()), 12));
-		$writer->writeElement('email_destinatario', $this->_($destinatario->getEmail(), 50));
-		$writer->writeElement('logradouro_destinatario', $this->_($destinatario->getLogradouro(), 50));
-		$writer->writeElement('complemento_destinatario', $this->_($destinatario->getComplemento(), 30));
-		$writer->writeElement('numero_end_destinatario', $this->_($destinatario->getNumero(), 6));
+		$writer->startElement('nome_destinatario');
+		$writer->writeCdata($this->_($destinatario->getNome(), 50));
+		$writer->endElement();
+		$writer->startElement('telefone_destinatario');
+		$writer->writeCdata($this->_(preg_replace('/[^\d]/', '', $destinatario->getTelefone()), 12));
+		$writer->endElement();
+		$writer->startElement('celular_destinatario');
+		$writer->writeCdata($this->_(preg_replace('/[^\d]/', '', $destinatario->getCelular()), 12));
+		$writer->endElement();
+		$writer->startElement('email_destinatario');
+		$writer->writeCdata($this->_($destinatario->getEmail(), 50));
+		$writer->endElement();
+		$writer->startElement('logradouro_destinatario');
+		$writer->writeCdata($this->_($destinatario->getLogradouro(), 50));
+		$writer->endElement();
+		$writer->startElement('complemento_destinatario');
+		$writer->writeCdata($this->_($destinatario->getComplemento(), 30));
+		$writer->endElement();
+		$writer->startElement('numero_end_destinatario');
+		$writer->writeCdata($this->_($destinatario->getNumero(), 6));
+		$writer->endElement();
 		$writer->endElement();
 	}
 
@@ -146,17 +180,25 @@ class FecharPreListaDePostagem
 	{
 		if ($destino instanceof DestinoNacional) {
 			$writer->startElement('nacional');
-			$writer->writeElement('bairro_destinatario', $this->_($destino->getBairro(), 30));
-			$writer->writeElement('cidade_destinatario', $this->_($destino->getCidade(), 30));
+			$writer->startElement('bairro_destinatario');
+			$writer->writeCdata($this->_($destino->getBairro(), 30));
+			$writer->endElement();
+			$writer->startElement('cidade_destinatario');
+			$writer->writeCdata($this->_($destino->getCidade(), 30));
+			$writer->endElement();
 			$writer->writeElement('uf_destinatario', $this->_($destino->getUf(), 2, false));
-			$writer->writeElement('cep_destinatario', $this->_(preg_replace('/[^\d]/', '', $destino->getCep()), 8));
+			$writer->startElement('cep_destinatario');
+			$writer->writeCdata($this->_(preg_replace('/[^\d]/', '', $destino->getCep()), 8));
+			$writer->endElement();
 			$writer->writeElement('codigo_usuario_postal');
 			$writer->writeElement('centro_custo_cliente');
 			$writer->writeElement('numero_nota_fiscal', $destino->getNumeroNotaFiscal());
 			$writer->writeElement('serie_nota_fiscal', $this->_($destino->getSerieNotaFiscal(), 20));
 			$writer->writeElement('valor_nota_fiscal', $destino->getValorNotaFiscal());
 			$writer->writeElement('natureza_nota_fiscal', $this->_($destino->getNaturezaNotaFiscal(), 20));
-			$writer->writeElement('descricao_objeto', $this->_($destino->getDescricaoObjeto(), 20));
+			$writer->startElement('descricao_objeto');
+			$writer->writeCdata($this->_($destino->getDescricaoObjeto(), 20));
+			$writer->endElement();
 			$writer->writeElement('valor_a_cobrar', (float)$destino->getValorACobrar());
 			$writer->endElement();
 		} else if ($destino instanceof DestinoInternacional) {
