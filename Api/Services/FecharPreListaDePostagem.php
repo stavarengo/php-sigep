@@ -34,6 +34,10 @@ class FecharPreListaDePostagem
 		$writer->openMemory();
 		$writer->setIndentString("");
 		$writer->setIndent(false);
+		if (isset($_GET['xml'])) {
+//		$writer->setIndentString("   ");
+//		$writer->setIndent(true);
+		}
 		$writer->startDocument('1.0', 'UTF-8');
 
 		$writer->startElement('correioslog');
@@ -226,6 +230,7 @@ class FecharPreListaDePostagem
 				}
 			}
 		}
+		$writer->writeElement('valor_declarado');
 
 		$writer->endElement();
 	}
@@ -236,8 +241,12 @@ class FecharPreListaDePostagem
 		$writer->writeElement('tipo_objeto', $dimensao->getTipo());
 		$writer->writeElement('dimensao_altura', $dimensao->getAltura());
 		$writer->writeElement('dimensao_largura', $dimensao->getLargura());
-		$writer->writeElement('dimensao_comprimento', $dimensao->getComprimento());
-		$writer->writeElement('dimensao_diametro', $dimensao->getDiametro());
+		$writer->writeElement('dimensao_comprimento', $dimensao->getComprimento() + 10);
+//		if (!$dimensao->getDiametro()) {
+//			$writer->writeElement('dimensao_diametro');
+//		} else {
+		$writer->writeElement('dimensao_diametro', $dimensao->getDiametro() + 5);
+//		}
 		$writer->endElement();
 	}
 }
