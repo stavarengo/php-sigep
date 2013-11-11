@@ -137,7 +137,7 @@ class SoapClient
 
 	public function fechaPlpVariosServicos(\Sigep\Model\PreListaDePostagem $params, \XMLWriter $xmlDaPreLista)
 	{
-		$idPlpCorreios = (int)\StaLib_Db::getInstance()->fetchOne('select max(idPlpCorreios) from ps_stasigep_plp');
+		$idPlpCorreios = time();
 		return ++$idPlpCorreios;
 			
 		ob_clean();
