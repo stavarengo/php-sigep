@@ -1,16 +1,19 @@
-SIGEP-PHP
-===
+SIGEP - Correios
+================
 
 Implementação do Web Service dos correios SIGEP Web.
-Consulte a [documentação](http://endel.github.io/sigep).
 
-Serviços implementados
----
+Consulte a [documentação](http://stavarengo.github.io/sigep).
 
-- Fechar pre lista de postagem
-- Gerar dígito verificador de etiquetas
-- Solicitar etiquetas
-- Verificar disponibilidade
+This API can:
+* Send the posting list (PLP) to Correios.
+   See: https://github.com/stavarengo/sigep/blob/master/Api/Services/FecharPreListaDePostagem.php
+* Check if one kind of service (Sedex, PAC, ...) is allowed between two address.
+   See: https://github.com/stavarengo/sigep/blob/master/Api/Services/VerificaDisponibilidadeServico.php
+* Request new tags ("etiqueta de postagem" in portuguese).
+   See: https://github.com/stavarengo/sigep/blob/master/Api/Services/SolicitaEtiquetas.php
+* Create and/or check the verifier digit of the tags.
+   See: https://github.com/stavarengo/sigep/blob/master/Api/Services/GeraDigitoVerificadorEtiquetas.php
 
 Composer
 ---
