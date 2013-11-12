@@ -14,6 +14,7 @@ class Sedex
 	const SERVICE_SEDEX      = 2;
 	const SERVICE_SEDEX_10   = 3;
 	const SERVICE_SEDEX_HOJE = 4;
+
 	/**
 	 * @var int
 	 */
@@ -52,7 +53,7 @@ class Sedex
 	public function draw(\Sigep\Pdf\ImprovedFPDF $pdf)
 	{
 		$pdf->saveState();
-		
+
 		// quantos mm cabem dentro de um pt do pdf
 		$un = 72 / 25.4;
 

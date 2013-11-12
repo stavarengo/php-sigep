@@ -1,5 +1,6 @@
 {
     "name": "stavarengo/sigep",
+    "version": "1.0.0-rc",
     "type": "library",
     "description": "Client para acesso à API SIGEP dos Correios",
     "keywords": ["correios", "sigep"],

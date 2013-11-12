@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "6c17ab1b2fc4b82241cc0944bdb13850",
+    "hash": "d7985518c546932f5e71c2c216a1b642",
     "packages": [
         {
             "name": "itbz/fpdf",

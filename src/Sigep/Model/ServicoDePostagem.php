@@ -18,6 +18,7 @@ class ServicoDePostagem extends AbstractModel
 	const SERVICE_SEDEX_HOJE        = 40878;
 	const SERVICE_SEDEX_AGRUPADO    = 41009;
 	const SERVICE_CARTA_REGISTRADA  = 10138;
+
 	private static $services = array(
 		self::SERVICE_E_SEDEX           => array('E-sedex', 104672),
 		self::SERVICE_PAC               => array('Pac', 109819),
@@ -31,6 +32,7 @@ class ServicoDePostagem extends AbstractModel
 		self::SERVICE_SEDEX_AGRUPADO    => array('Sedex Agrupado', 119461),
 		self::SERVICE_CARTA_REGISTRADA  => array('Carta Registrada', 116985),
 	);
+
 	/**
 	 * @var int
 	 */
