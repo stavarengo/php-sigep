@@ -1,6 +1,7 @@
 SIGEP-PHP
 ===
 
+Implementação do Web Service dos correios SIGEP Web.
 Consulte a [documentação](http://endel.github.io/sigep).
 
 Serviços implementados
