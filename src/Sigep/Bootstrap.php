@@ -1,8 +1,6 @@
 <?php
 namespace Sigep;
 
-use Sigep\Model\AccessData;
-
 require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'Loader.php';
 Loader::registerAutoLoader();
 

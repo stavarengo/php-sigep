@@ -23,8 +23,8 @@ class SoapClient
 	{
 		$wsdl             = Bootstrap::getConfig()->getWsdlAtendeCliente();
 		$this->soapClient = new \SoapClient($wsdl, array(
-			"trace"      => 1,
-			"exceptions" => 0,
+			"trace"      => Bootstrap::getConfig()->isDebug(),
+			"exceptions" => Bootstrap::getConfig()->isDebug(),
 			'encoding'   => 'ISO-8859-1',
 		));
 	}
