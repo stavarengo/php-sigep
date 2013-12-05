@@ -1,28 +1,36 @@
 PHP SIGEP - Correios
-================
+====================
 
 Implementação do Web Service dos correios SIGEP Web.
 
 Consulte a [documentação](http://stavarengo.github.io/php-sigep).
 
+
 This API can:
-* Send the posting list (PLP) to Correios.
-   See: https://github.com/stavarengo/php-sigep/blob/master/Api/Services/FecharPreListaDePostagem.php
-* Check if one kind of service (Sedex, PAC, ...) is allowed between two address.
-   See: https://github.com/stavarengo/php-sigep/blob/master/Api/Services/VerificaDisponibilidadeServico.php
-* Request new tags ("etiqueta de postagem" in portuguese).
-   See: https://github.com/stavarengo/php-sigep/blob/master/Api/Services/SolicitaEtiquetas.php
-* Create and/or check the verifier digit of the tags.
-   See: https://github.com/stavarengo/php-sigep/blob/master/Api/Services/GeraDigitoVerificadorEtiquetas.php
+* Enviar a pre-lista de postagem (PLP) para o Correios.
+   Veja: https://github.com/stavarengo/php-sigep/tree/master/src/Sigep/Services/FecharPreListaDePostagem.php
+* Verificar se um tipo de serviço (Sedex, PAC, ...) é permitido entre dois endereços.
+   Veja: https://github.com/stavarengo/php-sigep/tree/master/src/Sigep/Services/VerificaDisponibilidadeServico.php
+* Gerar novas etiquetas de postagem.
+   Veja: https://github.com/stavarengo/php-sigep/tree/master/src/Sigep/Services/SolicitaEtiquetas.php
+* Criar e/ou verificar validade do dígito verificador das etiquetas.
+   Veja: https://github.com/stavarengo/php-sigep/tree/master/src/Sigep/Services/GeraDigitoVerificadorEtiquetas.php
+* Gerar o relatório da PLP no formato PDF.
+   Veja: https://github.com/stavarengo/php-sigep/tree/master/src/Sigep/Services/GeraDigitoVerificadorEtiquetas.php
+* Gerar as etiquetas de postagem no formato PDF.
+* Gerar em PDF as chancelas para cada tipo de serviço (logo de cada tipo de servico). 
+
+Requisitos
+---
+
+* PHP >= 5.1.0
+* Se você precisar imprimir as etiquetas e relatórios, baixe também o FPDF 1.7. Não esqueça de configurar o FPDF para ser auto carregado antes de tentar imprimir os relatórios.
 
 Instalação manual
 ---
 
 * Faça o download da última versão.
-* Quando precisar usar o php-sigep no seu projeto, carregue o arquivo "php-sigep/src/PhpSigep/Bootstrap.php". Ele vai registrar
- o loader do php-sigep automaticamente.
-* Se você for precisar imprimir as etiquetas e relatórios, baixe também o FPDF 1.7 ou superior (testamos apenas com a versão 1.7).
-
+* Para usar as classe do php-sigep, você só precisa carregar o arquivo "php-sigep/src/PhpSigep/Bootstrap.php". Isso fara com que o loader seja registrado.
 
 Instalação com Composer
 ---
