@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit
+  bootstrap="./tests/bootstrap.php"
+	colors="true"
+	convertNoticesToExceptions="true"
+	convertWarningsToExceptions="true"
+	convertErrorsToExceptions="true"
+	stopOnError="false"
+	stopOnFailure="false"
+	stopOnIncomplete="false"
+	stopOnSkipped="false">
+	<testsuites>
+		<testsuite name="all">
+			<directory suffix=".php">./tests</directory>
+		</testsuite>
+	</testsuites>
+	<logging>
+		<log type="coverage-html" target="tmp/coverage" charset="UTF-8" showUncoveredFiles="true" />
+		<!--<log type="coverage-text" target="php://stdout" />-->
+	</logging>
+	<php>
+		<ini name="display_errors" value="1"/>
+		<ini name="display_startup_errors" value="1"/>
+	</php>
+</phpunit>
+

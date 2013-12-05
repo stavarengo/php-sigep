@@ -1,0 +1,26 @@
+{
+    "name": "stavarengo/sigep",
+    "version": "1.0.0-rc",
+    "type": "library",
+    "description": "Client para acesso à API SIGEP dos Correios",
+    "keywords": ["correios", "sigep"],
+    "require": {
+        "itbz/fpdf": "1.7"
+    },
+    "require-dev": {
+      "phpunit/phpunit": "3.7.*"
+    },
+    "autoload": {
+      "psr-0": {
+        "Sigep": "src/"
+      }
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Rafael Stavarengo",
+            "email": "faelsta@gmail.com"
+        }
+    ],
+    "minimum-stability": "beta"
+}
