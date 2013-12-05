@@ -1,5 +1,5 @@
 <?php
-namespace Sigep\Pdf\Chancela;
+namespace PhpSigep\Pdf\Chancela;
 
 /**
  * @author: Stavarengo

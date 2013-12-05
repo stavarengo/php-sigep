@@ -1,5 +1,5 @@
 <?php
-namespace Sigep\Model;
+namespace PhpSigep\Model;
 
 /**
  * @author: Stavarengo

@@ -1,5 +1,5 @@
 <?php
-namespace Sigep\Services;
+namespace PhpSigep\Services;
 
 use Sigep\Model\Destinatario;
 use Sigep\Model\Destino;

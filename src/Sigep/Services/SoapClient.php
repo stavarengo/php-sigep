@@ -1,5 +1,5 @@
 <?php
-namespace Sigep\Services;
+namespace PhpSigep\Services;
 
 use Sigep\Bootstrap;
 use Sigep\Model\Etiqueta;

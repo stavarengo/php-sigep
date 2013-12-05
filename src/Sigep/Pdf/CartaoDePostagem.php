@@ -1,5 +1,5 @@
 <?php
-namespace Sigep\Pdf;
+namespace PhpSigep\Pdf;
 
 use Sigep\Model\ServicoDePostagem;
 use Sigep\Pdf\Chancela\Pac;

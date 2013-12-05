@@ -1,5 +1,5 @@
 <?php
-namespace Sigep;
+namespace PhpSigep;
 
 require_once dirname(__FILE__) . DIRECTORY_SEPARATOR . 'Loader.php';
 Loader::registerAutoLoader();

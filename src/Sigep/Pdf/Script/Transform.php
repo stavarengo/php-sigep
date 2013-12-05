@@ -1,5 +1,5 @@
 <?php
-namespace Sigep\Pdf\Script;
+namespace PhpSigep\Pdf\Script;
 
 class Transform
 {
