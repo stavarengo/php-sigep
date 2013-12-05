@@ -26,6 +26,7 @@ class SoapClient
 			"trace"      => Bootstrap::getConfig()->isDebug(),
 			"exceptions" => Bootstrap::getConfig()->isDebug(),
 			'encoding'   => 'ISO-8859-1',
+//			'encoding'   => 'UTF-8',
 		));
 	}
 
@@ -148,6 +149,7 @@ class SoapClient
 		}
 
 		$xml = utf8_encode($xmlDaPreLista->flush());
+//		$xml = utf8_encode($xml);
 		$xml = iconv('UTF-8', 'ISO-8859-1', $xml);
 
 
@@ -158,7 +160,11 @@ class SoapClient
 		}
 
 		$xml = preg_replace('/\n/', '', $xml);
-
+		if (isset($_GET['file'])) {
+			file_put_contents('c:/sigep.xml', $xml);
+			echo 'veja aqui c:/sigep.xml';
+			exit;
+		}
 //		$domDoc = new \DOMDocument();
 //		$domDoc->loadXML($xml);
 //		if (!$domDoc->schemaValidate(Bootstrap::getConfig()->getXsdDir() . '/plp_schema.xsd')) {
@@ -170,15 +176,26 @@ class SoapClient
 			'xml'            => $xml,
 			'idPlpCliente'   => '',
 			'cartaoPostagem' => $params->getAccessData()->getCartaoPostagem(),
-			'listaEtiqueas'  => $listaEtiquetas,
+//			'listaEtiquetas' => $listaEtiquetas,
+//			'listaEtiquetas' => '{"20046776", "20046877", "20046878"}',
+			'listaEtiquetas' => json_encode($listaEtiquetas),
+//			'faixaEtiquetas' => 'DL20046776 BR, DL20046876 BR',
 			'usuario'        => $params->getAccessData()->getUsuario(),
 			'senha'          => $params->getAccessData()->getSenha(),
 		);
 
-		$r = $this->soapClient->fechaPlpVariosServicos($soapArgs);
-		echo "<pre>";
-		print_r($r);
-		exit;
-		return ($r && $r->return);
+		try {
+			echo "<pre>";
+			$r = $this->soapClient->fechaPlpVariosServicos($soapArgs);
+			echo "<pre>";
+			print_r($r);
+			exit;
+			return ($r && $r->return);
+		} catch (\Exception $e) {
+			echo $e;
+			echo "\n\n\REQUEST:\n" . htmlentities($this->soapClient->__getLastRequest()) . "\n";
+			echo "\n\nREQUEST HEADERS:\n" . htmlentities($this->soapClient->__getLastRequestHeaders()) . "\n";
+			exit;
+		}
 	}
 }
