@@ -25,6 +25,7 @@ class SoapClient
 		$this->soapClient = new \SoapClient($wsdl, array(
 			"trace"      => 1,
 			"exceptions" => 0,
+			'encoding'   => 'ISO-8859-1',
 		));
 	}
 
@@ -137,8 +138,8 @@ class SoapClient
 
 	public function fechaPlpVariosServicos(\Sigep\Model\PreListaDePostagem $params, \XMLWriter $xmlDaPreLista)
 	{
-		$idPlpCorreios = time();
-		return ++$idPlpCorreios;
+//		$idPlpCorreios = time();
+//		return ++$idPlpCorreios;
 
 		ob_clean();
 		$listaEtiquetas = array();
@@ -146,23 +147,24 @@ class SoapClient
 			$listaEtiquetas[] = $objetoPostal->getEtiqueta()->getNumeroSemDv();
 		}
 
-		$xml      = $xmlDaPreLista->flush();
+		$xml      = utf8_encode($xmlDaPreLista->flush());
+		$xml = iconv('UTF-8', 'ISO-8859-1', $xml);
 
 
 		if(isset($_GET['xml'])) {
-			header ("Content-Type:text/xml");
+			header ("Content-Type:text/xml; charset=ISO-8859-1");
 			echo $xml;
 			exit;
 		}
 
 		$xml = preg_replace('/\n/', '', $xml);
 
-		$domDoc = new \DOMDocument();
-		$domDoc->loadXML($xml);
-		if (!$domDoc->schemaValidate(Bootstrap::getConfig()->getXsdDir() . '/plp_schema.xsd')) {
-			echo 'falhou';
-			exit;
-		}
+//		$domDoc = new \DOMDocument();
+//		$domDoc->loadXML($xml);
+//		if (!$domDoc->schemaValidate(Bootstrap::getConfig()->getXsdDir() . '/plp_schema.xsd')) {
+//			echo 'falhou';
+//			exit;
+//		}
 
 		$soapArgs = array(
 			'xml'            => $xml,

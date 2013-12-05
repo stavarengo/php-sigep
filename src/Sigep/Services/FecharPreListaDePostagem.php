@@ -38,7 +38,7 @@ class FecharPreListaDePostagem
 //		$writer->setIndentString("   ");
 //		$writer->setIndent(true);
 		}
-		$writer->startDocument('1.0', 'UTF-8');
+		$writer->startDocument('1.0', 'ISO-8859-1');
 
 		$writer->startElement('correioslog');
 		$writer->writeElement('tipo_arquivo', 'Postagem');
@@ -78,7 +78,8 @@ class FecharPreListaDePostagem
 		$writer->writeCdata($this->_($data->getRemetente()->getLogradouro(), 40));
 		$writer->endElement();
 		$writer->startElement('numero_remetente');
-		$writer->writeCdata($this->_($data->getRemetente()->getNumero(), 6));
+		$numero_remetente = $data->getRemetente()->getNumero();
+		$writer->writeCdata($this->_(($numero_remetente ? $numero_remetente : 's/n'), 6));
 		$writer->endElement();
 		$writer->startElement('complemento_remetente');
 		$writer->writeCdata($this->_($data->getRemetente()->getComplemento(), 20));
@@ -242,11 +243,11 @@ class FecharPreListaDePostagem
 		$writer->writeElement('dimensao_altura', $dimensao->getAltura());
 		$writer->writeElement('dimensao_largura', $dimensao->getLargura());
 		$writer->writeElement('dimensao_comprimento', $dimensao->getComprimento() + 10);
-//		if (!$dimensao->getDiametro()) {
-//			$writer->writeElement('dimensao_diametro');
-//		} else {
-		$writer->writeElement('dimensao_diametro', $dimensao->getDiametro() + 5);
-//		}
+		if (!$dimensao->getDiametro()) {
+			$writer->writeElement('dimensao_diametro', 0);
+		} else {
+			$writer->writeElement('dimensao_diametro', $dimensao->getDiametro());
+		}
 		$writer->endElement();
 	}
 }
