@@ -1,8 +1,8 @@
 <?php
 namespace PhpSigep\Services;
 
-use Sigep\Bootstrap;
-use Sigep\Model\Etiqueta;
+use PhpSigep\Bootstrap;
+use PhpSigep\Model\Etiqueta;
 
 /**
  * @author: Stavarengo

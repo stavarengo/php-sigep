@@ -1,7 +1,7 @@
 <?php
 namespace PhpSigep\Services;
 
-use Sigep\Model\Etiqueta;
+use PhpSigep\Model\Etiqueta;
 
 /**
  * @author: Stavarengo

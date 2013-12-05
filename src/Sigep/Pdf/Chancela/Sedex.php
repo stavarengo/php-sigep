@@ -1,8 +1,8 @@
 <?php
 namespace PhpSigep\Pdf\Chancela;
 
-use Sigep\Pdf\Script\CircularText;
-use Sigep\Pdf\Script\Elipse;
+use PhpSigep\Pdf\Script\CircularText;
+use PhpSigep\Pdf\Script\Elipse;
 
 /**
  * @author: Stavarengo

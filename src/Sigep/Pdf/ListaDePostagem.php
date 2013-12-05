@@ -1,7 +1,7 @@
 <?php
 namespace PhpSigep\Pdf;
 
-use Sigep\Model\ServicoAdicional;
+use PhpSigep\Model\ServicoAdicional;
 
 /**
  * @author: Stavarengo

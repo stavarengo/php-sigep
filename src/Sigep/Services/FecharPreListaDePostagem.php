@@ -1,14 +1,14 @@
 <?php
 namespace PhpSigep\Services;
 
-use Sigep\Model\Destinatario;
-use Sigep\Model\Destino;
-use Sigep\Model\DestinoInternacional;
-use Sigep\Model\DestinoNacional;
-use Sigep\Model\Dimensao;
-use Sigep\Model\ObjetoPostal;
-use Sigep\Model\PreListaDePostagem;
-use Sigep\Model\ServicoAdicional;
+use PhpSigep\Model\Destinatario;
+use PhpSigep\Model\Destino;
+use PhpSigep\Model\DestinoInternacional;
+use PhpSigep\Model\DestinoNacional;
+use PhpSigep\Model\Dimensao;
+use PhpSigep\Model\ObjetoPostal;
+use PhpSigep\Model\PreListaDePostagem;
+use PhpSigep\Model\ServicoAdicional;
 
 /**
  * @author: Stavarengo

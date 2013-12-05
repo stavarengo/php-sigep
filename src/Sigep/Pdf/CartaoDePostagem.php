@@ -1,9 +1,9 @@
 <?php
 namespace PhpSigep\Pdf;
 
-use Sigep\Model\ServicoDePostagem;
-use Sigep\Pdf\Chancela\Pac;
-use Sigep\Pdf\Chancela\Sedex;
+use PhpSigep\Model\ServicoDePostagem;
+use PhpSigep\Pdf\Chancela\Pac;
+use PhpSigep\Pdf\Chancela\Sedex;
 
 /**
  * @author: Stavarengo
