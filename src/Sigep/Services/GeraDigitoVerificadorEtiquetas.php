@@ -16,7 +16,7 @@ class GeraDigitoVerificadorEtiquetas
 	 */
 	public function execute(\Sigep\Model\GeraDigitoVerificadorEtiquetas $params)
 	{
-		$soap     = new SoapClient();
+		$soap = new SoapClient();
 		return $soap->geraDigitoVerificadorEtiquetas($params);
 	}
 }

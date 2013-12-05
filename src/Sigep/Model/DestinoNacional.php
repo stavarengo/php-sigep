@@ -244,6 +244,6 @@ class DestinoNacional extends AbstractModel implements Destino
 	{
 		return $this->valorACobrar;
 	}
-	
+
 
 }

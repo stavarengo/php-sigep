@@ -2,8 +2,8 @@
 namespace Sigep\Pdf;
 
 use Sigep\Model\ServicoDePostagem;
-use Sigep\Pdf\Chancela\Sedex;
 use Sigep\Pdf\Chancela\Pac;
+use Sigep\Pdf\Chancela\Sedex;
 
 /**
  * @author: Stavarengo
@@ -160,15 +160,15 @@ class CartaoDePostagem
 				) {
 //					$chancela = new Sedex($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX_HOJE, $accessData);
 				}
-				
+
 				if ($chancela) {
 					$chancela->draw($this->pdf);
 				}
-				
+
 				// Peso
 				$this->setFillColor(100, 150, 200);
 				$this->pdf->SetFontSize(9);
-				$lineHeigth = $this->pdf->getLineHeigth(100/$this->pdf->k);
+				$lineHeigth = $this->pdf->getLineHeigth(100 / $this->pdf->k);
 				$this->pdf->SetXY($lPosHeaderCol2, $bPosHeader - $lineHeigth * 2);
 				$this->t($lPosChancela - $lPosHeaderCol2, 'Peso: ' . ((float)$objetoPostal->getPeso()) . 'g', 2, 'C', $lineHeigth);
 

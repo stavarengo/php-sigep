@@ -419,8 +419,7 @@ class ListaDePostagem
 	private function writeFooter()
 	{
 		$pdf = $this->pdf;
-		
-		
+
 
 		$pdf->AutoPageBreak = false;
 		$wInner             = $pdf->w - $pdf->lMargin - $pdf->rMargin;
@@ -428,11 +427,11 @@ class ListaDePostagem
 
 		foreach ($pdf->pages as $pNumber => $page) {
 			$pdf->page = $pNumber;
-			
+
 			$pdf->SetFont('Arial', '', 8);
-			
-			$pdf->x    = $pdf->lMargin;
-			$pdf->y    = $pdf->h - $pdf->bMargin;
+
+			$pdf->x = $pdf->lMargin;
+			$pdf->y = $pdf->h - $pdf->bMargin;
 
 			$pdf->CellXp($wInner, $dataEmissao);
 

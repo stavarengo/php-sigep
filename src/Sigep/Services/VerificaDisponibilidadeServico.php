@@ -9,7 +9,7 @@ class VerificaDisponibilidadeServico
 
 	public function execute(\Sigep\Model\VerificaDisponibilidadeServico $params)
 	{
-		$soap     = new SoapClient();
+		$soap = new SoapClient();
 		return $soap->verificaDisponibilidadeServico($params);
 	}
 }

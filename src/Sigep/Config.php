@@ -23,9 +23,9 @@ class Config
 	public function __construct(array $configData)
 	{
 		$this->wsdlDir = implode(DIRECTORY_SEPARATOR, array(dirname(__FILE__), 'Support', 'wsdl'));
-		$this->xsdDir = implode(DIRECTORY_SEPARATOR, array(dirname(__FILE__), 'Support', 'xsd'));
+		$this->xsdDir  = implode(DIRECTORY_SEPARATOR, array(dirname(__FILE__), 'Support', 'xsd'));
 		$this->isDebug = false;
-		
+
 		foreach ($configData as $attr => $value) {
 			if (!property_exists($this, $attr)) {
 				throw new Exception('A configuração "' . $attr . '" não existe.');
@@ -42,7 +42,7 @@ class Config
 	{
 		return (bool)$this->isDebug;
 	}
-	
+
 	/**
 	 * Return the WSDL directory without slash at the end.
 	 * Eg: /dir1/dir2/ become /dir1/dir2

@@ -40,7 +40,7 @@ class Loader
 
 		$namespace = __NAMESPACE__ . '\\';
 		if (strpos($className, $namespace) === 0) {
-			$c = 1;
+			$c    = 1;
 			$file = str_replace($namespace, '', $className, $c);
 			$file = dirname(__FILE__) . DIRECTORY_SEPARATOR . $file . '.php';
 			if (file_exists($file)) {

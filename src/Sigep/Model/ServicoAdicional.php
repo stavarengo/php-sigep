@@ -25,11 +25,11 @@ class ServicoAdicional extends AbstractModel
 	 */
 	protected $valorDeclarado;
 
-	public function is($codigo) 
+	public function is($codigo)
 	{
 		return $codigo == $this->getCodigoServicoAdicional();
 	}
-	
+
 	/**
 	 * @param int $codigoServicoAdicional
 	 */

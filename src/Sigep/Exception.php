@@ -6,5 +6,5 @@ namespace Sigep;
  */
 class Exception extends \Exception
 {
-	
+
 } 

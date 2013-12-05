@@ -1,16 +1,18 @@
 <?php
 
-class SolicitaEtiquetasTest extends TestCase {
+class SolicitaEtiquetasTest extends TestCase
+{
 
-	public function testEtiquetas() {
+	public function testEtiquetas()
+	{
 		$etiquetas = new Sigep\Services\SolicitaEtiquetas();
-		$params = new \Sigep\Model\SolicitaEtiquetas(array(
-			'qtdEtiquetas' => 1,
-			'servicoDePostagem' => new Sigep\Model\ServicoDePostagem( Sigep\Model\ServicoDePostagem::SERVICE_E_SEDEX ),
-			'accessData' => new Sigep\Model\AccessData(array(
+		$params    = new \Sigep\Model\SolicitaEtiquetas(array(
+			'qtdEtiquetas'      => 1,
+			'servicoDePostagem' => new Sigep\Model\ServicoDePostagem(Sigep\Model\ServicoDePostagem::SERVICE_E_SEDEX),
+			'accessData'        => new Sigep\Model\AccessData(array(
 				'cnpjEmpresa' => '16.646.849/0001-77',
-				'usuario' => 'usuario',
-				'senha' => 'senha',
+				'usuario'     => 'usuario',
+				'senha'       => 'senha',
 			))
 		));
 

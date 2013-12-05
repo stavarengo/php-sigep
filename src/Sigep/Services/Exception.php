@@ -6,4 +6,5 @@ namespace Sigep\Services;
  */
 class Exception extends \Exception
 {
+
 }

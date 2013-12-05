@@ -41,7 +41,7 @@ class Pac
 	public function draw(\Sigep\Pdf\ImprovedFPDF $pdf)
 	{
 		$pdf->saveState();
-		
+
 		// quantos mm cabem dentro de um pt do pdf
 		$un = 72 / 25.4;
 
@@ -61,12 +61,12 @@ class Pac
 		$pdf->SetFont('Arial', 'B', 30);
 		$pdf->SetXY($x, $y + 5 / $k);
 		$pdf->Cell($wRect, 30 / $k, 'PAC', 0, 2, 'C');
-		
+
 		// Número contrato e DR
 		$pdf->SetFont('', '', 7);
 		$texto = $this->accessData->getNumeroContrato() . '/' . $this->accessData->getAnoContrato() . '-DR/' . $this->accessData->getDiretoria()->getSigla();
 		$pdf->Cell($wRect, 7 / $k, $texto, 0, 2, 'C');
-		
+
 		// Nome do remetente
 		$pdf->SetFont('', 'B', 9);
 		$pdf->MultiCell($wRect, 9 / $k, $this->nomeRemetente, 0, 'C');

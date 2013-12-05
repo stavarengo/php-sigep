@@ -147,12 +147,12 @@ class SoapClient
 			$listaEtiquetas[] = $objetoPostal->getEtiqueta()->getNumeroSemDv();
 		}
 
-		$xml      = utf8_encode($xmlDaPreLista->flush());
+		$xml = utf8_encode($xmlDaPreLista->flush());
 		$xml = iconv('UTF-8', 'ISO-8859-1', $xml);
 
 
-		if(isset($_GET['xml'])) {
-			header ("Content-Type:text/xml; charset=ISO-8859-1");
+		if (isset($_GET['xml'])) {
+			header("Content-Type:text/xml; charset=ISO-8859-1");
 			echo $xml;
 			exit;
 		}
@@ -177,7 +177,8 @@ class SoapClient
 
 		$r = $this->soapClient->fechaPlpVariosServicos($soapArgs);
 		echo "<pre>";
-		print_r($r);exit;
+		print_r($r);
+		exit;
 		return ($r && $r->return);
 	}
 }

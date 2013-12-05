@@ -1,8 +1,6 @@
 <?php
 namespace Sigep\Pdf;
 
-use Sigep\Loader;
-
 class ImprovedFPDF extends \FPDF
 {
 
@@ -76,7 +74,7 @@ class ImprovedFPDF extends \FPDF
 	{
 		return $this->GetStringWidth($this->_($s));
 	}
-	
+
 	public function saveState()
 	{
 		$this->_savedState = array(
