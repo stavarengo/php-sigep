@@ -15,7 +15,16 @@ This API can:
 * Create and/or check the verifier digit of the tags.
    See: https://github.com/stavarengo/sigep/blob/master/Api/Services/GeraDigitoVerificadorEtiquetas.php
 
-Composer
+Instalação manual
+---
+
+* Faça o download da última versão.
+* Quando precisar usar o Sigep no seu projeto, carregue o arquivo "sigep/src/Sigep/Bootstrap.php". Ele vai registrar
+ o loader do Sigep automaticamente.
+* Se você for precisar imprimir as etiquetas e relatórios, baixe também o FPDF 1.7 ou superior (testamos apenas com a versão 1.7).
+
+
+Instalação com Composer
 ---
 
 Adicione a seguinte linha ao seu arquivo `composer.json`:

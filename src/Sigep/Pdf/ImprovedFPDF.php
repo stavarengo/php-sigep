@@ -3,8 +3,6 @@ namespace Sigep\Pdf;
 
 use Sigep\Loader;
 
-Loader::loadVendorFile('fpdf17/fpdf.php');
-
 class ImprovedFPDF extends \FPDF
 {
 
