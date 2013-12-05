@@ -16,14 +16,10 @@ class Bootstrap
 	 * @var \Sigep\Config
 	 */
 	protected static $config;
-	/**
-	 * @var AccessData
-	 */
-	protected static $accessData;
 
-	public static function execute(AccessData $accessData = null)
+	public static function start(Config $config)
 	{
-		self::$accessData = $accessData;
+		self::$config = $config;
 	}
 
 	/**
@@ -31,16 +27,6 @@ class Bootstrap
 	 */
 	public static function getConfig()
 	{
-		if (!self::$config) {
-			self::$config = new Config(array(
-				'wsdlDir'    => implode(DIRECTORY_SEPARATOR, array(dirname(__FILE__), 'Support', 'wsdl')),
-				'xsdDir'     => implode(DIRECTORY_SEPARATOR, array(dirname(__FILE__), 'Support', 'xsd')),
-				'accessData' => self::$accessData,
-			));
-		}
-
 		return self::$config;
 	}
 }
-
-Bootstrap::execute();
