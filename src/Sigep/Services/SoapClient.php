@@ -41,11 +41,11 @@ class SoapClient
 	}
 
 	/**
-	 * @param \Sigep\Model\VerificaDisponibilidadeServico $params
+	 * @param \PhpSigep\Model\VerificaDisponibilidadeServico $params
 	 *
 	 * @return bool
 	 */
-	public function verificaDisponibilidadeServico(\Sigep\Model\VerificaDisponibilidadeServico $params)
+	public function verificaDisponibilidadeServico(\PhpSigep\Model\VerificaDisponibilidadeServico $params)
 	{
 		$soapArgs = array(
 			'codAdministrativo' => $params->getAccessData()->getCodAdministrativo(),
@@ -60,13 +60,13 @@ class SoapClient
 	}
 
 	/**
-	 * @param \Sigep\Model\SolicitaEtiquetas $params
+	 * @param \PhpSigep\Model\SolicitaEtiquetas $params
 	 *
 	 * @throws \SoapFault
 	 * @throws \Exception
 	 * @return Etiqueta[]
 	 */
-	public function solicitaEtiquetas(\Sigep\Model\SolicitaEtiquetas $params)
+	public function solicitaEtiquetas(\PhpSigep\Model\SolicitaEtiquetas $params)
 	{
 		$soapArgs = array(
 			'tipoDestinatario' => 'C',
@@ -98,13 +98,13 @@ class SoapClient
 	}
 
 	/**
-	 * @param \Sigep\Model\GeraDigitoVerificadorEtiquetas $params
+	 * @param \PhpSigep\Model\GeraDigitoVerificadorEtiquetas $params
 	 *
 	 * @throws \SoapFault
 	 * @throws \Exception
 	 * @return string[]
 	 */
-	public function geraDigitoVerificadorEtiquetas(\Sigep\Model\GeraDigitoVerificadorEtiquetas $params)
+	public function geraDigitoVerificadorEtiquetas(\PhpSigep\Model\GeraDigitoVerificadorEtiquetas $params)
 	{
 		$soapArgs = array(
 			'etiquetas' => array(),
@@ -136,7 +136,7 @@ class SoapClient
 		return $etiquetas;
 	}
 
-	public function fechaPlpVariosServicos(\Sigep\Model\PreListaDePostagem $params, \XMLWriter $xmlDaPreLista)
+	public function fechaPlpVariosServicos(\PhpSigep\Model\PreListaDePostagem $params, \XMLWriter $xmlDaPreLista)
 	{
 //		$idPlpCorreios = time();
 //		return ++$idPlpCorreios;

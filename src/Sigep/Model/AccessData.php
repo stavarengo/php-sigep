@@ -153,7 +153,7 @@ class AccessData extends AbstractModel
 	}
 
 	/**
-	 * @return \Sigep\Model\Diretoria
+	 * @return \PhpSigep\Model\Diretoria
 	 */
 	public function getDiretoria()
 	{
@@ -161,7 +161,7 @@ class AccessData extends AbstractModel
 	}
 
 	/**
-	 * @param \Sigep\Model\Diretoria $diretoria
+	 * @param \PhpSigep\Model\Diretoria $diretoria
 	 */
 	public function setDiretoria($diretoria)
 	{

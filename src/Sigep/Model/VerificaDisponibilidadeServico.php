@@ -25,7 +25,7 @@ class VerificaDisponibilidadeServico extends AbstractModel
 	protected $accessData;
 
 	/**
-	 * @return \Sigep\Model\AccessData
+	 * @return \PhpSigep\Model\AccessData
 	 */
 	public function getAccessData()
 	{
@@ -33,7 +33,7 @@ class VerificaDisponibilidadeServico extends AbstractModel
 	}
 
 	/**
-	 * @param \Sigep\Model\AccessData $accessData
+	 * @param \PhpSigep\Model\AccessData $accessData
 	 */
 	public function setAccessData(AccessData $accessData)
 	{

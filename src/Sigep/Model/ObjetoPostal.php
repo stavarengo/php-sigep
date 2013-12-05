@@ -65,7 +65,7 @@ class ObjetoPostal extends AbstractModel
 	}
 
 	/**
-	 * @param \Sigep\Model\Destinatario $destinatario
+	 * @param \PhpSigep\Model\Destinatario $destinatario
 	 */
 	public function setDestinatario($destinatario)
 	{
@@ -73,7 +73,7 @@ class ObjetoPostal extends AbstractModel
 	}
 
 	/**
-	 * @return \Sigep\Model\Destinatario
+	 * @return \PhpSigep\Model\Destinatario
 	 */
 	public function getDestinatario()
 	{
@@ -81,7 +81,7 @@ class ObjetoPostal extends AbstractModel
 	}
 
 	/**
-	 * @param \Sigep\Model\Destino $destino
+	 * @param \PhpSigep\Model\Destino $destino
 	 */
 	public function setDestino($destino)
 	{
@@ -89,7 +89,7 @@ class ObjetoPostal extends AbstractModel
 	}
 
 	/**
-	 * @return \Sigep\Model\Destino
+	 * @return \PhpSigep\Model\Destino
 	 */
 	public function getDestino()
 	{
@@ -97,7 +97,7 @@ class ObjetoPostal extends AbstractModel
 	}
 
 	/**
-	 * @param \Sigep\Model\Dimensao $dimensao
+	 * @param \PhpSigep\Model\Dimensao $dimensao
 	 */
 	public function setDimensao($dimensao)
 	{
@@ -105,7 +105,7 @@ class ObjetoPostal extends AbstractModel
 	}
 
 	/**
-	 * @return \Sigep\Model\Dimensao
+	 * @return \PhpSigep\Model\Dimensao
 	 */
 	public function getDimensao()
 	{
@@ -113,7 +113,7 @@ class ObjetoPostal extends AbstractModel
 	}
 
 	/**
-	 * @param \Sigep\Model\Etiqueta $etiqueta
+	 * @param \PhpSigep\Model\Etiqueta $etiqueta
 	 */
 	public function setEtiqueta($etiqueta)
 	{
@@ -121,7 +121,7 @@ class ObjetoPostal extends AbstractModel
 	}
 
 	/**
-	 * @return \Sigep\Model\Etiqueta
+	 * @return \PhpSigep\Model\Etiqueta
 	 */
 	public function getEtiqueta()
 	{
@@ -147,7 +147,7 @@ class ObjetoPostal extends AbstractModel
 	}
 
 	/**
-	 * @param \Sigep\Model\ServicoDePostagem $servicoDePostagem
+	 * @param \PhpSigep\Model\ServicoDePostagem $servicoDePostagem
 	 */
 	public function setServicoDePostagem($servicoDePostagem)
 	{
@@ -155,7 +155,7 @@ class ObjetoPostal extends AbstractModel
 	}
 
 	/**
-	 * @return \Sigep\Model\ServicoDePostagem
+	 * @return \PhpSigep\Model\ServicoDePostagem
 	 */
 	public function getServicoDePostagem()
 	{
@@ -163,7 +163,7 @@ class ObjetoPostal extends AbstractModel
 	}
 
 	/**
-	 * @param \Sigep\Model\ServicoAdicional[] $servicosAdicionais
+	 * @param \PhpSigep\Model\ServicoAdicional[] $servicosAdicionais
 	 */
 	public function setServicosAdicionais($servicosAdicionais)
 	{
@@ -171,7 +171,7 @@ class ObjetoPostal extends AbstractModel
 	}
 
 	/**
-	 * @return \Sigep\Model\ServicoAdicional[]
+	 * @return \PhpSigep\Model\ServicoAdicional[]
 	 */
 	public function getServicosAdicionais()
 	{

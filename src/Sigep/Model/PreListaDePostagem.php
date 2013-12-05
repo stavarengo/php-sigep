@@ -28,7 +28,7 @@ class PreListaDePostagem extends AbstractModel
 	protected $encomendas;
 
 	/**
-	 * @param \Sigep\Model\AccessData $accessData
+	 * @param \PhpSigep\Model\AccessData $accessData
 	 */
 	public function setAccessData($accessData)
 	{
@@ -36,7 +36,7 @@ class PreListaDePostagem extends AbstractModel
 	}
 
 	/**
-	 * @return \Sigep\Model\AccessData
+	 * @return \PhpSigep\Model\AccessData
 	 */
 	public function getAccessData()
 	{
@@ -44,7 +44,7 @@ class PreListaDePostagem extends AbstractModel
 	}
 
 	/**
-	 * @param \Sigep\Model\ObjetoPostal[] $encomendas
+	 * @param \PhpSigep\Model\ObjetoPostal[] $encomendas
 	 */
 	public function setEncomendas($encomendas)
 	{
@@ -52,7 +52,7 @@ class PreListaDePostagem extends AbstractModel
 	}
 
 	/**
-	 * @return \Sigep\Model\ObjetoPostal[]
+	 * @return \PhpSigep\Model\ObjetoPostal[]
 	 */
 	public function getEncomendas()
 	{
@@ -60,7 +60,7 @@ class PreListaDePostagem extends AbstractModel
 	}
 
 	/**
-	 * @param \Sigep\Model\Remetente $remetente
+	 * @param \PhpSigep\Model\Remetente $remetente
 	 */
 	public function setRemetente($remetente)
 	{
@@ -68,7 +68,7 @@ class PreListaDePostagem extends AbstractModel
 	}
 
 	/**
-	 * @return \Sigep\Model\Remetente
+	 * @return \PhpSigep\Model\Remetente
 	 */
 	public function getRemetente()
 	{

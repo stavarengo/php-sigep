@@ -28,7 +28,7 @@ class Sedex
 	 */
 	private $nomeRemetente;
 	/**
-	 * @var \Sigep\Model\AccessData
+	 * @var \PhpSigep\Model\AccessData
 	 */
 	private $accessData;
 	private $tipoServico;
@@ -39,9 +39,9 @@ class Sedex
 	 * @param string $nomeRemetente
 	 * @param int $tipoServico
 	 *        Uma das contantes {@link Sedex}::SERVICO_*
-	 * @param \Sigep\Model\AccessData $accessData
+	 * @param \PhpSigep\Model\AccessData $accessData
 	 */
-	public function __construct($x, $y, $nomeRemetente, $tipoServico, \Sigep\Model\AccessData $accessData)
+	public function __construct($x, $y, $nomeRemetente, $tipoServico, \PhpSigep\Model\AccessData $accessData)
 	{
 		$this->x             = $x;
 		$this->y             = $y;
@@ -50,7 +50,7 @@ class Sedex
 		$this->accessData    = $accessData;
 	}
 
-	public function draw(\Sigep\Pdf\ImprovedFPDF $pdf)
+	public function draw(\PhpSigep\Pdf\ImprovedFPDF $pdf)
 	{
 		$pdf->saveState();
 

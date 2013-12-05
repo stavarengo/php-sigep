@@ -21,7 +21,7 @@ class SolicitaEtiquetas extends AbstractModel
 	protected $accessData;
 
 	/**
-	 * @return \Sigep\Model\AccessData
+	 * @return \PhpSigep\Model\AccessData
 	 */
 	public function getAccessData()
 	{

@@ -4,33 +4,33 @@ namespace PhpSigep\Pdf\Script;
 class Transform
 {
 
-	public function Transform(\Sigep\Pdf\ImprovedFPDF $pdf, $tm)
+	public function Transform(\PhpSigep\Pdf\ImprovedFPDF $pdf, $tm)
 	{
 		$pdf->_out(sprintf('%.3F %.3F %.3F %.3F %.3F %.3F cm', $tm[0], $tm[1], $tm[2], $tm[3], $tm[4], $tm[5]));
 	}
 
-	public function StartTransform(\Sigep\Pdf\ImprovedFPDF $pdf)
+	public function StartTransform(\PhpSigep\Pdf\ImprovedFPDF $pdf)
 	{
 		//save the current graphic state
 		$pdf->_out('q');
 	}
 
-	public function ScaleX(\Sigep\Pdf\ImprovedFPDF $pdf, $s_x, $x = '', $y = '')
+	public function ScaleX(\PhpSigep\Pdf\ImprovedFPDF $pdf, $s_x, $x = '', $y = '')
 	{
 		$this->Scale($pdf, $s_x, 100, $x, $y);
 	}
 
-	public function ScaleY(\Sigep\Pdf\ImprovedFPDF $pdf, $s_y, $x = '', $y = '')
+	public function ScaleY(\PhpSigep\Pdf\ImprovedFPDF $pdf, $s_y, $x = '', $y = '')
 	{
 		$this->Scale($pdf, 100, $s_y, $x, $y);
 	}
 
-	public function ScaleXY(\Sigep\Pdf\ImprovedFPDF $pdf, $s, $x = '', $y = '')
+	public function ScaleXY(\PhpSigep\Pdf\ImprovedFPDF $pdf, $s, $x = '', $y = '')
 	{
 		$this->Scale($pdf, $s, $s, $x, $y);
 	}
 
-	public function Scale(\Sigep\Pdf\ImprovedFPDF $pdf, $s_x, $s_y, $x = '', $y = '')
+	public function Scale(\PhpSigep\Pdf\ImprovedFPDF $pdf, $s_x, $s_y, $x = '', $y = '')
 	{
 		if ($x === '')
 			$x = $pdf->x;
@@ -53,38 +53,38 @@ class Transform
 		$this->Transform($pdf, $tm);
 	}
 
-	public function MirrorH(\Sigep\Pdf\ImprovedFPDF $pdf, $x = '')
+	public function MirrorH(\PhpSigep\Pdf\ImprovedFPDF $pdf, $x = '')
 	{
 		$this->Scale($pdf, -100, 100, $x);
 	}
 
-	public function MirrorV(\Sigep\Pdf\ImprovedFPDF $pdf, $y = '')
+	public function MirrorV(\PhpSigep\Pdf\ImprovedFPDF $pdf, $y = '')
 	{
 		$this->Scale($pdf, 100, -100, '', $y);
 	}
 
-	public function MirrorP(\Sigep\Pdf\ImprovedFPDF $pdf, $x = '', $y = '')
+	public function MirrorP(\PhpSigep\Pdf\ImprovedFPDF $pdf, $x = '', $y = '')
 	{
 		$this->Scale($pdf, -100, -100, $x, $y);
 	}
 
-	public function MirrorL(\Sigep\Pdf\ImprovedFPDF $pdf, $angle = 0, $x = '', $y = '')
+	public function MirrorL(\PhpSigep\Pdf\ImprovedFPDF $pdf, $angle = 0, $x = '', $y = '')
 	{
 		$this->Scale($pdf, -100, 100, $x, $y);
 		$this->Rotate($pdf, -2 * ($angle - 90), $x, $y);
 	}
 
-	public function TranslateX(\Sigep\Pdf\ImprovedFPDF $pdf, $t_x)
+	public function TranslateX(\PhpSigep\Pdf\ImprovedFPDF $pdf, $t_x)
 	{
 		$this->Translate($pdf, $t_x, 0, $x, $y);
 	}
 
-	public function TranslateY(\Sigep\Pdf\ImprovedFPDF $pdf, $t_y)
+	public function TranslateY(\PhpSigep\Pdf\ImprovedFPDF $pdf, $t_y)
 	{
 		$this->Translate($pdf, 0, $t_y, $x, $y);
 	}
 
-	public function Translate(\Sigep\Pdf\ImprovedFPDF $pdf, $t_x, $t_y)
+	public function Translate(\PhpSigep\Pdf\ImprovedFPDF $pdf, $t_x, $t_y)
 	{
 		//calculate elements of transformation matrix
 		$tm[0] = 1;
@@ -97,7 +97,7 @@ class Transform
 		$this->Transform($pdf, $tm);
 	}
 
-	public function Rotate(\Sigep\Pdf\ImprovedFPDF $pdf, $angle, $x = '', $y = '')
+	public function Rotate(\PhpSigep\Pdf\ImprovedFPDF $pdf, $angle, $x = '', $y = '')
 	{
 		if ($x === '')
 			$x = $pdf->x;
@@ -116,17 +116,17 @@ class Transform
 		$this->Transform($pdf, $tm);
 	}
 
-	public function SkewX(\Sigep\Pdf\ImprovedFPDF $pdf, $angle_x, $x = '', $y = '')
+	public function SkewX(\PhpSigep\Pdf\ImprovedFPDF $pdf, $angle_x, $x = '', $y = '')
 	{
 		$this->Skew($pdf, $angle_x, 0, $x, $y);
 	}
 
-	public function SkewY(\Sigep\Pdf\ImprovedFPDF $pdf, $angle_y, $x = '', $y = '')
+	public function SkewY(\PhpSigep\Pdf\ImprovedFPDF $pdf, $angle_y, $x = '', $y = '')
 	{
 		$this->Skew($pdf, 0, $angle_y, $x, $y);
 	}
 
-	public function Skew(\Sigep\Pdf\ImprovedFPDF $pdf, $angle_x, $angle_y, $x = '', $y = '')
+	public function Skew(\PhpSigep\Pdf\ImprovedFPDF $pdf, $angle_x, $angle_y, $x = '', $y = '')
 	{
 		if ($x === '')
 			$x = $pdf->x;
@@ -147,7 +147,7 @@ class Transform
 		$this->Transform($pdf, $tm);
 	}
 
-	public function StopTransform(\Sigep\Pdf\ImprovedFPDF $pdf)
+	public function StopTransform(\PhpSigep\Pdf\ImprovedFPDF $pdf)
 	{
 		//restore previous graphic state
 		$pdf->_out('Q');

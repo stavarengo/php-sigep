@@ -12,11 +12,11 @@ class CartaoDePostagem
 {
 
 	/**
-	 * @var \Sigep\Pdf\ImprovedFPDF
+	 * @var \PhpSigep\Pdf\ImprovedFPDF
 	 */
 	public $pdf;
 	/**
-	 * @var \Sigep\Model\PreListaDePostagem
+	 * @var \PhpSigep\Model\PreListaDePostagem
 	 */
 	private $plp;
 	/**
@@ -25,7 +25,7 @@ class CartaoDePostagem
 	private $idPlpCorreios;
 
 	/**
-	 * @param \Sigep\Model\PreListaDePostagem $plp
+	 * @param \PhpSigep\Model\PreListaDePostagem $plp
 	 * @param int $idPlpCorreios
 	 */
 	public function __construct($plp, $idPlpCorreios)
@@ -91,7 +91,7 @@ class CartaoDePostagem
 			$this->pdf->SetDrawColor(0, 0, 0);
 			for ($area = 0; $area < 4; $area++) {
 				if (!count($objetosPostais)) break;
-				/** @var $objetoPostal \Sigep\Model\ObjetoPostal */
+				/** @var $objetoPostal \PhpSigep\Model\ObjetoPostal */
 				$objetoPostal = array_shift($objetosPostais);
 
 				$lPosFourAreas = $margins[$area]['l'];
@@ -190,7 +190,7 @@ class CartaoDePostagem
 				$hEtiquetaBarCode    = 40;
 				$tPosEtiquetaBarCode = $this->pdf->GetY();
 				$wEtiquetaBarCode    = $un * 65.44;
-				$code128             = new \Sigep\Pdf\Script\BarCode128();
+				$code128             = new \PhpSigep\Pdf\Script\BarCode128();
 				$code128->draw($this->pdf, $lPosFourAreas + $wInnerFourAreas / 2 - $wEtiquetaBarCode / 2, $tPosEtiquetaBarCode, $etiquetaComDv, $wEtiquetaBarCode, $hEtiquetaBarCode);
 
 				// Destinatário
@@ -206,7 +206,7 @@ class CartaoDePostagem
 
 				$destino     = $objetoPostal->getDestino();
 				$hCepBarCode = 0;
-				if ($destino instanceof \Sigep\Model\DestinoNacional) {
+				if ($destino instanceof \PhpSigep\Model\DestinoNacional) {
 					// Número do CEP
 					$cep = $destino->getCep();
 					$cep = preg_replace('/[^\d]/', '', $cep);
@@ -238,7 +238,7 @@ class CartaoDePostagem
 
 	private function init()
 	{
-		$this->pdf = new \Sigep\Pdf\ImprovedFPDF('P', 'pt');
+		$this->pdf = new \PhpSigep\Pdf\ImprovedFPDF('P', 'pt');
 		$this->pdf->SetFont('Arial', '', 10);
 	}
 
@@ -261,7 +261,7 @@ class CartaoDePostagem
 		$cidade           = '';
 		$uf               = '';
 		$destino          = $objetoPostal->getDestino();
-		if ($destino instanceof \Sigep\Model\DestinoNacional) {
+		if ($destino instanceof \PhpSigep\Model\DestinoNacional) {
 			$bairro = $destino->getBairro();
 			$cidade = $destino->getCidade();
 			$uf     = $destino->getUf();
@@ -270,7 +270,7 @@ class CartaoDePostagem
 		return $this->writeEndereco($t, $l, $w, $titulo, $nomeDestinatario, $logradouro, $numero, $complemento, $bairro, $cidade, $uf);
 	}
 
-	private function writeRemetente($l, $t, $w, \Sigep\Model\Remetente $remetente)
+	private function writeRemetente($l, $t, $w, \PhpSigep\Model\Remetente $remetente)
 	{
 		$titulo           = 'Remetente';
 		$nomeDestinatario = $remetente->getNome();

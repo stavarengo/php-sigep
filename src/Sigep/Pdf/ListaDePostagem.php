@@ -10,11 +10,11 @@ class ListaDePostagem
 {
 
 	/**
-	 * @var \Sigep\Pdf\ImprovedFPDF
+	 * @var \PhpSigep\Pdf\ImprovedFPDF
 	 */
 	public $pdf;
 	/**
-	 * @var \Sigep\Model\PreListaDePostagem
+	 * @var \PhpSigep\Model\PreListaDePostagem
 	 */
 	private $plp;
 	/**
@@ -23,7 +23,7 @@ class ListaDePostagem
 	private $idPlpCorreios;
 
 	/**
-	 * @param \Sigep\Model\PreListaDePostagem $plp
+	 * @param \PhpSigep\Model\PreListaDePostagem $plp
 	 * @param int $idPlpCorreios
 	 */
 	public function __construct($plp, $idPlpCorreios)
@@ -333,7 +333,7 @@ class ListaDePostagem
 			}
 			$pdf->CellXp($wCol1, $etiquetaComDv);
 			$destino = $objetoPostal->getDestino();
-			if ($destino instanceof \Sigep\Model\DestinoNacional) {
+			if ($destino instanceof \PhpSigep\Model\DestinoNacional) {
 				$pdf->SetX($xCol2);
 				$pdf->CellXp($wCol2, preg_replace('/[^\d]/', '', $destino->getCep()), 'C');
 				$pdf->SetXY($xCol8, $y1);

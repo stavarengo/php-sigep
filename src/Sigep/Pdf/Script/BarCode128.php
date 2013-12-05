@@ -158,7 +158,7 @@ class BarCode128
 		}
 	}
 
-	public function draw(\Sigep\Pdf\ImprovedFPDF $pdf, $x, $y, $code, $w, $h)
+	public function draw(\PhpSigep\Pdf\ImprovedFPDF $pdf, $x, $y, $code, $w, $h)
 	{
 		$Aguid = ""; // Cr�ation des guides de choix ABC
 		$Bguid = "";

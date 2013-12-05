@@ -4,7 +4,7 @@ namespace PhpSigep\Pdf\Script;
 class Elipse
 {
 
-	public function ellipse(\Sigep\Pdf\ImprovedFPDF $pdf, $x, $y, $rx, $ry, $style = 'D')
+	public function ellipse(\PhpSigep\Pdf\ImprovedFPDF $pdf, $x, $y, $rx, $ry, $style = 'D')
 	{
 		if ($style == 'F') {
 			$op = 'f';

@@ -11,7 +11,7 @@ class Bootstrap
 {
 
 	/**
-	 * @var \Sigep\Config
+	 * @var \PhpSigep\Config
 	 */
 	protected static $config;
 
@@ -21,7 +21,7 @@ class Bootstrap
 	}
 
 	/**
-	 * @return \Sigep\Config
+	 * @return \PhpSigep\Config
 	 */
 	public static function getConfig()
 	{

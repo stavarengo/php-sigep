@@ -20,7 +20,7 @@ class Pac
 	 */
 	private $nomeRemetente;
 	/**
-	 * @var \Sigep\Model\AccessData
+	 * @var \PhpSigep\Model\AccessData
 	 */
 	private $accessData;
 
@@ -28,9 +28,9 @@ class Pac
 	 * @param int $x
 	 * @param int $y
 	 * @param string $nomeRemetente
-	 * @param \Sigep\Model\AccessData $accessData
+	 * @param \PhpSigep\Model\AccessData $accessData
 	 */
-	public function __construct($x, $y, $nomeRemetente, \Sigep\Model\AccessData $accessData)
+	public function __construct($x, $y, $nomeRemetente, \PhpSigep\Model\AccessData $accessData)
 	{
 		$this->x             = $x;
 		$this->y             = $y;
@@ -38,7 +38,7 @@ class Pac
 		$this->accessData    = $accessData;
 	}
 
-	public function draw(\Sigep\Pdf\ImprovedFPDF $pdf)
+	public function draw(\PhpSigep\Pdf\ImprovedFPDF $pdf)
 	{
 		$pdf->saveState();
 

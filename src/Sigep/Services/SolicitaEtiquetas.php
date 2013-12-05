@@ -8,11 +8,11 @@ class SolicitaEtiquetas
 {
 
 	/**
-	 * @param \Sigep\Model\SolicitaEtiquetas $params
+	 * @param \PhpSigep\Model\SolicitaEtiquetas $params
 	 *
 	 * @return \Etiqueta[]
 	 */
-	public function execute(\Sigep\Model\SolicitaEtiquetas $params)
+	public function execute(\PhpSigep\Model\SolicitaEtiquetas $params)
 	{
 		$soap = new SoapClient();
 		return $soap->solicitaEtiquetas($params);

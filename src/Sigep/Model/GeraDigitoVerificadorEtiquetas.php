@@ -17,7 +17,7 @@ class GeraDigitoVerificadorEtiquetas extends AbstractModel
 	protected $etiquetas;
 
 	/**
-	 * @param \Sigep\Model\AccessData $accessData
+	 * @param \PhpSigep\Model\AccessData $accessData
 	 */
 	public function setAccessData($accessData)
 	{
@@ -25,7 +25,7 @@ class GeraDigitoVerificadorEtiquetas extends AbstractModel
 	}
 
 	/**
-	 * @return \Sigep\Model\AccessData
+	 * @return \PhpSigep\Model\AccessData
 	 */
 	public function getAccessData()
 	{
