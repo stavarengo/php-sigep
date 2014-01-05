@@ -23,9 +23,57 @@ class FecharPreListaDePostagem
 	 */
 	public function execute(\PhpSigep\Model\PreListaDePostagem $params)
 	{
+		$args = array(
+			'idPlpCliente'   => '',
+			'cartaoPostagem' => $params->getAccessData()->getCartaoPostagem(),
+			'usuario'        => $params->getAccessData()->getUsuario(),
+			'senha'          => $params->getAccessData()->getSenha(),
+		);
 
-		$soap = SoapClient::getInstance();
-		return $soap->fechaPlpVariosServicos($params, $this->getPlpXml($params));
+		$servicos = array();
+		foreach($params->getEncomendas() as $encomenda) {
+			$codigo = $encomenda->getServicoDePostagem()->getCodigo();
+			if (!in_array($codigo, $servicos)) {
+				array_push($servicos, $codigo);
+			}
+		}
+
+		$encomendas = $params->getEncomendas();
+		$varios_servicos = count($servicos) > 1;
+		// $varios_servicos = true;
+		if ($varios_servicos) {
+			$method = 'fechaPlpVariosServicos';
+			$args['listaEtiquetas'] = array();
+			foreach ($encomendas as $objetoPostal) {
+				$args['listaEtiquetas'][] = $objetoPostal->getEtiqueta()->getEtiquetaSemDv();;
+			}
+		} else {
+			$method = 'fechaPlp';
+			$args['faixaEtiquetas'] = array_shift($encomendas)->getEtiqueta()->getEtiquetaSemDv();
+			if (count($encomendas) > 0) {
+				$args['faixaEtiquetas'] .= ',' . end($encomendas)->getEtiqueta()->getEtiquetaSemDv();
+			}
+		}
+
+		$xml = $this->getPlpXml($params)->flush();
+
+		if(isset($_GET['xml'])) {
+			header ("Content-Type:text/xml");
+			echo $xml;
+			exit;
+		}
+
+		$domDoc = new \DOMDocument();
+		$domDoc->loadXML($xml);
+		if (!$domDoc->schemaValidate(\PhpSigep\Bootstrap::getConfig()->getXsdDir() . '/plp_schema.xsd')) {
+			echo 'falhou';
+			exit;
+		}
+
+		$args['xml'] = preg_replace('/\n/', '', $xml);
+		$args['xml'] = str_replace('<?xml version="1.0" encoding="ISO-8859-1"?>', '', $args['xml']);
+
+		return SoapClient::getInstance()->{$method}($args);
 	}
 
 	private function getPlpXml(PreListaDePostagem $data)
@@ -34,21 +82,20 @@ class FecharPreListaDePostagem
 		$writer->openMemory();
 		$writer->setIndentString("");
 		$writer->setIndent(false);
-		if (isset($_GET['xml'])) {
-//		$writer->setIndentString("   ");
-//		$writer->setIndent(true);
-		}
 		$writer->startDocument('1.0', 'ISO-8859-1');
 
 		$writer->startElement('correioslog');
 		$writer->writeElement('tipo_arquivo', 'Postagem');
 		$writer->writeElement('versao_arquivo', '2.3');
+
 		$this->writePlp($writer, $data);
 		$this->writeRemetente($writer, $data);
 		$this->writeFormaPagamento($writer, $data);
+
 		foreach ($data->getEncomendas() as $objetoPostal) {
 			$this->writeObjetoPostal($writer, $objetoPostal);
 		}
+
 		$writer->endElement();
 
 		return $writer;
@@ -68,19 +115,16 @@ class FecharPreListaDePostagem
 	private function writeRemetente(\XMLWriter $writer, PreListaDePostagem $data)
 	{
 		$writer->startElement('remetente');
-		$writer->writeElement('numero_contrato', $data->getAccessData()->getNumeroContrato());
+		$writer->writeElement('numero_contrato', $data->getRemetente()->getNumeroContrato());
 		$writer->writeElement('numero_diretoria', $data->getRemetente()->getDiretoria());
-		$writer->writeElement('codigo_administrativo', $data->getAccessData()->getCodAdministrativo());
+		$writer->writeElement('codigo_administrativo', $data->getRemetente()->getCodigoAdministrativo());
 		$writer->startElement('nome_remetente');
 		$writer->writeCData($this->_($data->getRemetente()->getNome(), 50));
 		$writer->endElement();
 		$writer->startElement('logradouro_remetente');
 		$writer->writeCdata($this->_($data->getRemetente()->getLogradouro(), 40));
 		$writer->endElement();
-		$writer->startElement('numero_remetente');
-		$numero_remetente = $data->getRemetente()->getNumero();
-		$writer->writeCdata($this->_(($numero_remetente ? $numero_remetente : 's/n'), 6));
-		$writer->endElement();
+		$writer->writeElement('numero_remetente', $this->_($data->getRemetente()->getNumero(), 6));
 		$writer->startElement('complemento_remetente');
 		$writer->writeCdata($this->_($data->getRemetente()->getComplemento(), 20));
 		$writer->endElement();
@@ -117,7 +161,7 @@ class FecharPreListaDePostagem
 		$writer->writeElement('numero_etiqueta', $objetoPostal->getEtiqueta()->getEtiquetaComDv());
 		$writer->writeElement('codigo_objeto_cliente');
 		$writer->writeElement('codigo_servico_postagem', $objetoPostal->getServicoDePostagem()->getCodigo());
-		$writer->writeElement('cubagem', (float)$objetoPostal->getCubagem());
+		$writer->writeElement('cubagem', number_format($objetoPostal->getCubagem(), 4, ',', ''));
 		$writer->writeElement('peso', (float)$objetoPostal->getPeso() * 1000);
 		$writer->writeElement('rt1');
 		$writer->writeElement('rt2');
@@ -175,9 +219,7 @@ class FecharPreListaDePostagem
 		$writer->startElement('complemento_destinatario');
 		$writer->writeCdata($this->_($destinatario->getComplemento(), 30));
 		$writer->endElement();
-		$writer->startElement('numero_end_destinatario');
-		$writer->writeCdata($this->_($destinatario->getNumero(), 6));
-		$writer->endElement();
+		$writer->writeElement('numero_end_destinatario', $this->_($destinatario->getNumero(), 6));
 		$writer->endElement();
 	}
 
@@ -204,7 +246,7 @@ class FecharPreListaDePostagem
 			$writer->startElement('descricao_objeto');
 			$writer->writeCdata($this->_($destino->getDescricaoObjeto(), 20));
 			$writer->endElement();
-			$writer->writeElement('valor_a_cobrar', (float)$destino->getValorACobrar());
+			$writer->writeElement('valor_a_cobrar', number_format($destino->getValorACobrar(), 1, ',', ''));
 			$writer->endElement();
 		} else if ($destino instanceof DestinoInternacional) {
 			$writer->startElement('internacional');
@@ -220,15 +262,10 @@ class FecharPreListaDePostagem
 	{
 		$writer->startElement('servico_adicional');
 
-		// De acordo com o manual este serviço é obrigatório 
-		$writer->writeElement('codigo_servico_adicional', ServicoAdicional::SERVICE_REGISTRO);
-
 		foreach ($servicosAdicionais as $servicoAdicional) {
-			if ($servicoAdicional->getCodigoServicoAdicional() != ServicoAdicional::SERVICE_REGISTRO) {
-				$writer->writeElement('codigo_servico_adicional', $servicoAdicional->getCodigoServicoAdicional());
-				if ($servicoAdicional->getCodigoServicoAdicional() == ServicoAdicional::SERVICE_VALOR_DECLARADO()) {
-					$writer->writeElement('valor_declarado', (float)$servicoAdicional->getValorDeclarado());
-				}
+			$writer->writeElement('codigo_servico_adicional', str_pad($servicoAdicional->getCodigoServicoAdicional(), 3, '0', STR_PAD_LEFT));
+			if ($servicoAdicional->getCodigoServicoAdicional() == ServicoAdicional::SERVICE_VALOR_DECLARADO) {
+				$writer->writeElement('valor_declarado', number_format($servicoAdicional->getValorDeclarado(), 2, ',', ''));
 			}
 		}
 		$writer->writeElement('valor_declarado');
@@ -239,15 +276,16 @@ class FecharPreListaDePostagem
 	private function writeDimensaoObjeto(\XMLWriter $writer, Dimensao $dimensao)
 	{
 		$writer->startElement('dimensao_objeto');
-		$writer->writeElement('tipo_objeto', $dimensao->getTipo());
+		$writer->writeElement('tipo_objeto', str_pad($dimensao->getTipo(), 3, '0', STR_PAD_LEFT));
 		$writer->writeElement('dimensao_altura', $dimensao->getAltura());
 		$writer->writeElement('dimensao_largura', $dimensao->getLargura());
-		$writer->writeElement('dimensao_comprimento', $dimensao->getComprimento() + 10);
-		if (!$dimensao->getDiametro()) {
-			$writer->writeElement('dimensao_diametro', 0);
-		} else {
-			$writer->writeElement('dimensao_diametro', $dimensao->getDiametro());
-		}
+		$writer->writeElement('dimensao_comprimento', $dimensao->getComprimento());
+//		if (!$dimensao->getDiametro()) {
+//			$writer->writeElement('dimensao_diametro');
+//		} else {
+		$writer->writeElement('dimensao_diametro', $dimensao->getDiametro());
+//		}
 		$writer->endElement();
 	}
 }
+

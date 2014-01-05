@@ -23,7 +23,7 @@ class ServicoAdicional extends AbstractModel
 	 * {@link ServicoAdicional::SERVICE_MAO_PROPRIA}.
 	 * @var float
 	 */
-	protected $valorDeclarado;
+	protected $valorDeclarado = 0;
 
 	public function is($codigo)
 	{

@@ -13,44 +13,50 @@ class DestinoNacional extends AbstractModel implements Destino
 	 * @var string
 	 */
 	protected $bairro;
+
 	/**
 	 * CEP do destinatario.
 	 * Max length: 8
 	 * @var string
 	 */
 	protected $cep;
+
 	/**
 	 * Cidade do destinatario.
 	 * Max length: 30
 	 * @var string
 	 */
 	protected $cidade;
+
 	/**
 	 * Unidade de federação.
 	 * Max length: 2
 	 * @var string
 	 */
 	protected $uf;
+
 //	/**
-//	 * Código do usuário postal 
+//	 * Código do usuário postal
 //	 * Não obrigatório
 //	 * Max length: 20
 //	 * @var string
 //	 */
 //	protected $codigoUsuarioPostal;
 //	/**
-//	 * Centro de custo do cliente 
+//	 * Centro de custo do cliente
 //	 * Não obrigatório
 //	 * Max length: 20
 //	 * @var string
 //	 */
 //	protected $centroCustoCliente;
+	//
 	/**
 	 * Número da nota fiscal
 	 * Opcional.
 	 * @var int
 	 */
 	protected $numeroNotaFiscal;
+
 	/**
 	 * Série da nota fiscal
 	 * Não obrigatório
@@ -58,11 +64,13 @@ class DestinoNacional extends AbstractModel implements Destino
 	 * @var string
 	 */
 	protected $serieNotaFiscal;
+
 	/**
 	 * Valor da nota fiscal Numérico(9,2) Não obrigatório
 	 * @var float
 	 */
 	protected $valorNotaFiscal;
+
 	/**
 	 * Natureza da nota fiscal
 	 * Não obrigatório
@@ -70,6 +78,7 @@ class DestinoNacional extends AbstractModel implements Destino
 	 * @var string
 	 */
 	protected $naturezaNotaFiscal;
+
 	/**
 	 * Descrição do objeto
 	 * Não obrigatório
@@ -77,6 +86,7 @@ class DestinoNacional extends AbstractModel implements Destino
 	 * @var string
 	 */
 	protected $descricaoObjeto;
+
 	/**
 	 * Valor a cobrar do destinatário
 	 * No manual está escrito que é obrigatório para o serviço 40126, porem no mesmo manual não existe nada relacionado
