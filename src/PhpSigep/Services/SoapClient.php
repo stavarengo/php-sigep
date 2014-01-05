@@ -136,49 +136,4 @@ class SoapClient
 		return $etiquetas;
 	}
 
-	public function fechaPlpVariosServicos(\PhpSigep\Model\PreListaDePostagem $params, \XMLWriter $xmlDaPreLista)
-	{
-//		$idPlpCorreios = time();
-//		return ++$idPlpCorreios;
-
-		ob_clean();
-		$listaEtiquetas = array();
-		foreach ($params->getEncomendas() as $objetoPostal) {
-			$listaEtiquetas[] = $objetoPostal->getEtiqueta()->getNumeroSemDv();
-		}
-
-		$xml = utf8_encode($xmlDaPreLista->flush());
-		$xml = iconv('UTF-8', 'ISO-8859-1', $xml);
-
-
-		if (isset($_GET['xml'])) {
-			header("Content-Type:text/xml; charset=ISO-8859-1");
-			echo $xml;
-			exit;
-		}
-
-		$xml = preg_replace('/\n/', '', $xml);
-
-//		$domDoc = new \DOMDocument();
-//		$domDoc->loadXML($xml);
-//		if (!$domDoc->schemaValidate(Bootstrap::getConfig()->getXsdDir() . '/plp_schema.xsd')) {
-//			echo 'falhou';
-//			exit;
-//		}
-
-		$soapArgs = array(
-			'xml'            => $xml,
-			'idPlpCliente'   => '',
-			'cartaoPostagem' => $params->getAccessData()->getCartaoPostagem(),
-			'listaEtiqueas'  => $listaEtiquetas,
-			'usuario'        => $params->getAccessData()->getUsuario(),
-			'senha'          => $params->getAccessData()->getSenha(),
-		);
-
-		$r = $this->soapClient->fechaPlpVariosServicos($soapArgs);
-		echo "<pre>";
-		print_r($r);
-		exit;
-		return ($r && $r->return);
-	}
 }

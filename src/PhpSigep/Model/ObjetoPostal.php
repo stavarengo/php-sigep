@@ -13,40 +13,56 @@ class ObjetoPostal extends AbstractModel
 	 * @var Etiqueta
 	 */
 	protected $etiqueta;
+
 	/**
 	 * O serviço de postagem que será usado para enviar esta encomenda.
 	 * @var ServicoDePostagem
 	 */
 	protected $servicoDePostagem;
+
 	/**
 	 * @var float
 	 */
 	protected $cubagem;
+
 	/**
 	 * Pesto em gramas.
 	 * @var float
 	 */
 	protected $peso;
+
 	/**
 	 * Dados da pessoa que vai receber esta encomenda.
 	 * @var Destinatario
 	 */
 	protected $destinatario;
+
 	/**
 	 * Dados do endereço de destino da encomenda.
 	 * Pode ser nacional ou internacional.
 	 * @var Destino
 	 */
 	protected $destino;
+
 	/**
 	 * Lista de serviços adicionais usados nesta encomenda.
 	 * @var ServicoAdicional[]
 	 */
-	protected $servicosAdicionais;
+	protected $servicosAdicionais = array();
+
 	/**
 	 * @var Dimensao
 	 */
 	protected $dimensao;
+
+	public function __construct($params) {
+		parent::__construct($params);
+
+		// De acordo com o manual este serviço é obrigatório em todos os Objetos Postais
+		$this->addServicoAdicional(new ServicoAdicional(array(
+			'codigoServicoAdicional' => ServicoAdicional::SERVICE_REGISTRO
+		)));
+	}
 
 	/**
 	 * @param float $cubagem
@@ -168,6 +184,15 @@ class ObjetoPostal extends AbstractModel
 	public function setServicosAdicionais($servicosAdicionais)
 	{
 		$this->servicosAdicionais = $servicosAdicionais;
+	}
+
+	/**
+	 * @param \PhpSigep\Model\ServicoAdicional $servicoAdicional
+	 * @return int length
+	 */
+	public function addServicoAdicional($servicoAdicional)
+	{
+		return array_push($this->servicosAdicionais, $servicoAdicional);
 	}
 
 	/**

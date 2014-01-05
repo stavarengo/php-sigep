@@ -7,11 +7,11 @@ namespace PhpSigep\Model;
 class PreListaDePostagem extends AbstractModel
 {
 
-//	/**
-//	 * Identifica o registro da PLP no SIGEP Master. 
-//	 * @var int
-//	 */
-//	protected $id_plp;
+	/**
+	 * Identifica o registro da PLP no SIGEP Master.
+	 * @var int
+	 */
+	protected $idPlpCliente;
 	/**
 	 * @var AccessData
 	 */
@@ -26,6 +26,22 @@ class PreListaDePostagem extends AbstractModel
 	 * @var ObjetoPostal[]
 	 */
 	protected $encomendas;
+
+	/**
+	 * @param \PhpSigep\Model\AccessData $accessData
+	 */
+	public function setIdPlpCliente($idPlpCliente)
+	{
+		$this->idPlpCliente = $idPlpCliente;
+	}
+
+	/**
+	 * @return \PhpSigep\Model\AccessData
+	 */
+	public function getIdPlpCliente()
+	{
+		return $this->idPlpCliente;
+	}
 
 	/**
 	 * @param \PhpSigep\Model\AccessData $accessData

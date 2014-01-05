@@ -18,7 +18,7 @@ This API can:
 * Gerar o relatório da PLP no formato PDF.
    Veja: https://github.com/stavarengo/php-sigep/tree/master/src/Sigep/Services/GeraDigitoVerificadorEtiquetas.php
 * Gerar as etiquetas de postagem no formato PDF.
-* Gerar em PDF as chancelas para cada tipo de serviço (logo de cada tipo de servico). 
+* Gerar em PDF as chancelas para cada tipo de serviço (logo de cada tipo de servico).
 
 Requisitos
 ---
