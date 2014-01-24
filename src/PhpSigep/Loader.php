@@ -43,6 +43,7 @@ class Loader
 			$c    = 1;
 			$file = str_replace($namespace, '', $className, $c);
 			$file = dirname(__FILE__) . DIRECTORY_SEPARATOR . $file . '.php';
+			$file = str_replace('\\', '/', $file);
 			if (file_exists($file)) {
 				require_once $file;
 				self::$cache[$className] = true;
