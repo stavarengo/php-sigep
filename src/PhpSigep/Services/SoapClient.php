@@ -142,60 +142,72 @@ class SoapClient
 //		$idPlpCorreios = time();
 //		return ++$idPlpCorreios;
 
-		ob_clean();
+//		ob_clean();
 		$listaEtiquetas = array();
 		foreach ($params->getEncomendas() as $objetoPostal) {
-			$listaEtiquetas[] = $objetoPostal->getEtiqueta()->getNumeroSemDv();
+			$listaEtiquetas[] = $objetoPostal->getEtiqueta()->getEtiquetaSemDv();
 		}
 
 		$xml = utf8_encode($xmlDaPreLista->flush());
 //		$xml = utf8_encode($xml);
-		$xml = iconv('UTF-8', 'ISO-8859-1', $xml);
+//		$xml = iconv('UTF-8', 'ISO-8859-1', $xml);
 
 
-		if (isset($_GET['xml'])) {
-			header("Content-Type:text/xml; charset=ISO-8859-1");
-			echo $xml;
-			exit;
-		}
+//		if (isset($_GET['xml'])) {
+//			header("Content-Type:text/xml; charset=ISO-8859-1");
+//			echo $xml;
+//			exit;
+//		}
 
-		$xml = preg_replace('/\n/', '', $xml);
-		if (isset($_GET['file'])) {
-			file_put_contents('c:/sigep.xml', $xml);
-			echo 'veja aqui c:/sigep.xml';
-			exit;
-		}
+//		$xml = preg_replace('/\n/', '', $xml);
+//		if (isset($_GET['file'])) {
+//			file_put_contents('c:/sigep.xml', $xml);
+//			echo 'veja aqui c:/sigep.xml';
+//			exit;
+//		}
 //		$domDoc = new \DOMDocument();
 //		$domDoc->loadXML($xml);
 //		if (!$domDoc->schemaValidate(Bootstrap::getConfig()->getXsdDir() . '/plp_schema.xsd')) {
 //			echo 'falhou';
 //			exit;
 //		}
-
+		
 		$soapArgs = array(
 			'xml'            => $xml,
 			'idPlpCliente'   => '',
 			'cartaoPostagem' => $params->getAccessData()->getCartaoPostagem(),
-//			'listaEtiquetas' => $listaEtiquetas,
+			'listaEtiquetas' => $listaEtiquetas,
 //			'listaEtiquetas' => '{"20046776", "20046877", "20046878"}',
-			'listaEtiquetas' => json_encode($listaEtiquetas),
-//			'faixaEtiquetas' => 'DL20046776 BR, DL20046876 BR',
+//			'listaEtiquetas' => 'DL20046776BR',
+//			'listaEtiquetas' => 'PD389251751BR',
+//			'listaEtiquetas' => json_encode($listaEtiquetas),
+//			'faixaEtiquetas' => '"DL20046776 BR","DL20046876 BR"',
+//			'faixaEtiquetas' => '["DL20046776 BR","DL20046876 BR"]',
+//			'faixaEtiquetas' => 'DL20046776BR,DL20046876BR',
+//			'faixaEtiquetas' => 'DL20046776,DL20046876',
+//			'faixaEtiquetas' => '20046776,20046876"',
 			'usuario'        => $params->getAccessData()->getUsuario(),
 			'senha'          => $params->getAccessData()->getSenha(),
 		);
 
 		try {
-			echo "<pre>";
+//			echo "<pre>";
 			$r = $this->soapClient->fechaPlpVariosServicos($soapArgs);
-			echo "<pre>";
-			print_r($r);
-			exit;
-			return ($r && $r->return);
+//			$r = $this->soapClient->fechaPlp($soapArgs);
+//			echo "<pre>";
+//			print_r($r);
+//			exit;
+			if ($r && $r->return) {
+				return $r->return;
+			} else {
+				throw new Exception('Resposta recebida do serviço "fechaPlpVariosServicos" está em um formato inválido.');
+			}
 		} catch (\Exception $e) {
-			echo $e;
-			echo "\n\n\REQUEST:\n" . htmlentities($this->soapClient->__getLastRequest()) . "\n";
-			echo "\n\nREQUEST HEADERS:\n" . htmlentities($this->soapClient->__getLastRequestHeaders()) . "\n";
-			exit;
+//			echo $e;
+//			echo "\n\n\REQUEST:\n" . htmlentities($this->soapClient->__getLastRequest()) . "\n";
+//			echo "\n\nREQUEST HEADERS:\n" . htmlentities($this->soapClient->__getLastRequestHeaders()) . "\n";
+//			exit;
+			throw $e;
 		}
 	}
 }
