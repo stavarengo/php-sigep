@@ -23,15 +23,21 @@ class CartaoDePostagem
 	 * @var int
 	 */
 	private $idPlpCorreios;
+	/**
+	 * @var string
+	 */
+	private $logoFile;
 
 	/**
 	 * @param \PhpSigep\Model\PreListaDePostagem $plp
 	 * @param int $idPlpCorreios
+	 * @param string $logoFile
 	 */
-	public function __construct($plp, $idPlpCorreios)
+	public function __construct($plp, $idPlpCorreios, $logoFile)
 	{
 		$this->plp           = $plp;
 		$this->idPlpCorreios = $idPlpCorreios;
+		$this->logoFile = $logoFile;
 
 		$this->init();
 	}
@@ -109,7 +115,8 @@ class CartaoDePostagem
 				$this->setFillColor(222, 222, 222);
 				$headerColWidth = $wInnerFourAreas / 3;
 				$headerHeigth   = 106;
-				$this->t($headerColWidth, 'Logo', 0, 'C', $headerHeigth);
+//				$this->t($headerColWidth, 'Logo', 0, 'C', $headerHeigth);
+				$this->pdf->Image($this->logoFile);
 				$this->pdf->Line($headerColWidth + $lPosFourAreas, $tPosFourAreas, $headerColWidth + $lPosFourAreas, $tPosFourAreas + $headerHeigth);
 				$this->pdf->Line($lPosFourAreas, $tPosFourAreas + $headerHeigth, $lPosFourAreas + $headerColWidth, $tPosFourAreas + $headerHeigth);
 
