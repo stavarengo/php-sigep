@@ -2,7 +2,9 @@
 namespace PhpSigep\Services;
 
 use PhpSigep\Bootstrap;
+use PhpSigep\Model\Dimensao;
 use PhpSigep\Model\Etiqueta;
+use PhpSigep\Model\ServicoAdicional;
 
 /**
  * @author: Stavarengo
@@ -17,17 +19,36 @@ class SoapClient
 	/**
 	 * @var \SoapClient
 	 */
-	protected $soapClient;
+	protected $_soapClient;
+	/**
+	 * @var \SoapClient
+	 */
+	protected $_soapCalcPrecoPrazo;
 
-	public function __construct()
+	private function _getSoapClient()
 	{
-		$wsdl             = Bootstrap::getConfig()->getWsdlAtendeCliente();
-		$this->soapClient = new \SoapClient($wsdl, array(
-			"trace"      => Bootstrap::getConfig()->isDebug(),
-			"exceptions" => Bootstrap::getConfig()->isDebug(),
-			'encoding'   => 'ISO-8859-1',
-//			'encoding'   => 'UTF-8',
-		));
+		if (!$this->_soapClient) {
+			$wsdl              = Bootstrap::getConfig()->getWsdlAtendeCliente();
+			$this->_soapClient = new \SoapClient($wsdl, array(
+				"trace"      => Bootstrap::getConfig()->isDebug(),
+				"exceptions" => Bootstrap::getConfig()->isDebug(),
+				'encoding'   => 'ISO-8859-1',
+			));
+		}
+		return $this->_soapClient;
+	}
+
+	private function _getSoapCalcPrecoPrazo()
+	{
+		if (!$this->_soapCalcPrecoPrazo) {
+			$wsdl                      = Bootstrap::getConfig()->getWsdlCalcPrecoPrazo();
+			$this->_soapCalcPrecoPrazo = new \SoapClient($wsdl, array(
+				"trace"      => Bootstrap::getConfig()->isDebug(),
+				"exceptions" => Bootstrap::getConfig()->isDebug(),
+				'encoding'   => 'ISO-8859-1',
+			));
+		}
+		return $this->_soapCalcPrecoPrazo;
 	}
 
 	/**
@@ -56,7 +77,7 @@ class SoapClient
 			'usuario'           => $params->getAccessData()->getUsuario(),
 			'senha'             => $params->getAccessData()->getSenha(),
 		);
-		$r        = $this->soapClient->verificaDisponibilidadeServico($soapArgs);
+		$r        = $this->_getSoapClient()->verificaDisponibilidadeServico($soapArgs);
 		return ($r && $r->return);
 	}
 
@@ -80,7 +101,7 @@ class SoapClient
 
 		$etiquetasReservadas = array();
 		for ($i = 0; $i < $params->getQtdEtiquetas(); $i++) {
-			$r = $this->soapClient->solicitaEtiquetas($soapArgs);
+			$r = $this->_getSoapClient()->solicitaEtiquetas($soapArgs);
 			if ($r && is_object($r) && isset($r->return) && !($r instanceof \SoapFault)) {
 				$r = explode(',', $r->return);
 //				$etiquetasReservadas[] = str_replace(' ', '', $r[0]);
@@ -122,7 +143,7 @@ class SoapClient
 			$soapArgs['etiquetas'][] = $etiqueta->getEtiquetaSemDv();
 		}
 
-		$soapReturn = $this->soapClient->geraDigitoVerificadorEtiquetas($soapArgs);
+		$soapReturn = $this->_getSoapClient()->geraDigitoVerificadorEtiquetas($soapArgs);
 		if ($soapReturn && is_object($soapReturn) && $soapReturn->return) {
 			if (!is_array($soapReturn->return)) {
 				$soapReturn->return = (array)$soapReturn->return;
@@ -171,7 +192,7 @@ class SoapClient
 //			echo 'falhou';
 //			exit;
 //		}
-		
+
 		$soapArgs = array(
 			'xml'            => $xml,
 			'idPlpCliente'   => '',
@@ -192,7 +213,7 @@ class SoapClient
 
 		try {
 //			echo "<pre>";
-			$r = $this->soapClient->fechaPlpVariosServicos($soapArgs);
+			$r = $this->_getSoapClient()->fechaPlpVariosServicos($soapArgs);
 //			$r = $this->soapClient->fechaPlp($soapArgs);
 //			echo "<pre>";
 //			print_r($r);
@@ -209,5 +230,72 @@ class SoapClient
 //			exit;
 			throw $e;
 		}
+	}
+
+	public function calcPrecoPrazo(\PhpSigep\Model\CalcPrecoPrazo $params)
+	{
+		$tipoEmbalagem = $params->getDimensao()->getTipo();
+		$ehEnvelope    = false;
+		if ($tipoEmbalagem == Dimensao::TIPO_ENVELOPE) {
+			$ehEnvelope       = true;
+			$formatoEncomenda = 3;
+		} else if ($tipoEmbalagem == Dimensao::TIPO_PACOTE_CAIXA) {
+			$formatoEncomenda = 1;
+		} else if ($tipoEmbalagem == Dimensao::TIPO_ROLO_CILINDRO) {
+			$formatoEncomenda = 2;
+		} else {
+			throw new Exception('Tipo de embalagem "' . $tipoEmbalagem . '" não reconhecido.');
+		}
+
+		$maoPropria         = false;
+		$valorDeclarado     = 0;
+		$avisoRecebimento   = false;
+		$servicosAdicionais = $params->getServicosAdicionais();
+		foreach ($servicosAdicionais as $servicoAdicional) {
+			if ($servicoAdicional->is(ServicoAdicional::SERVICE_MAO_PROPRIA)) {
+				$maoPropria = true;
+			} else if ($servicoAdicional->is(ServicoAdicional::SERVICE_VALOR_DECLARADO)) {
+				if (!$servicoAdicional->getValorDeclarado()) {
+					throw new Exception('Para usar o serviço "valor declarado" é necessário informar o valor declarado.');
+				}
+				$valorDeclarado = $servicoAdicional->getValorDeclarado();
+			} else if ($servicoAdicional->is(ServicoAdicional::SERVICE_AVISO_DE_RECEBIMENTO)) {
+				$avisoRecebimento = true;
+			}
+		}
+
+		$soapArgs = array(
+			'nCdEmpresa'          => $params->getAccessData()->getCodAdministrativo(),
+			'sDsSenha'            => $params->getAccessData()->getSenha(),
+			'nCdServico'          => $params->getServicoPostagem()->getCodigo(),
+			'nCdServico'          => $params->getServicoPostagem()->getCodigo(),
+			'sCepOrigem'          => str_replace('-', '', $params->getCepOrigem()),
+			'sCepDestino'         => str_replace('-', '', $params->getCepDestino()),
+			'nVlPeso'             => $params->getPeso(),
+			'nCdFormato'          => $formatoEncomenda,
+			'nVlComprimento'      => (int)$params->getDimensao()->getComprimento(),
+			'nVlAltura'           => ($ehEnvelope ? 0 : ((int)$params->getDimensao()->getAltura())),
+			'nVlLargura'          => (int)$params->getDimensao()->getLargura(),
+			'nVlDiametro'         => (int)$params->getDimensao()->getDiametro(),
+			'sCdMaoPropria'       => ($maoPropria ? 'S' : 'N'),
+			'nVlValorDeclarado'   => $valorDeclarado,
+			'sCdAvisoRecebimento' => ($avisoRecebimento ? 'S' : 'N'),
+		);
+
+		try {
+			ob_clean();
+			echo "<pre>";
+			$r = $this->_getSoapCalcPrecoPrazo()->calcPrecoPrazo($soapArgs);
+			echo "<pre>";
+			print_r($r);
+			exit;
+		} catch (\Exception $e) {
+			echo $e;
+			echo "\n\n\REQUEST:\n" . htmlentities($this->_getSoapCalcPrecoPrazo()->__getLastRequest()) . "\n";
+			echo "\n\nREQUEST HEADERS:\n" . htmlentities($this->_getSoapCalcPrecoPrazo()->__getLastRequestHeaders()) . "\n";
+			exit;
+			throw $e;
+		}
+		return $r;
 	}
 }

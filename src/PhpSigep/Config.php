@@ -70,5 +70,13 @@ class Config
 	{
 		return $this->getWsdlDir() . DIRECTORY_SEPARATOR . 'AtendeClienteService.wsdl';
 	}
+	
+	/**
+	 * @return string
+	 */
+	public function getWsdlCalcPrecoPrazo()
+	{
+		return $this->getWsdlDir() . DIRECTORY_SEPARATOR . 'CalcPrecoPrazo.wsdl';
+	}
 
 }
