@@ -5,6 +5,7 @@ use PhpSigep\Bootstrap;
 use PhpSigep\Model\Dimensao;
 use PhpSigep\Model\Etiqueta;
 use PhpSigep\Model\ServicoAdicional;
+use PhpSigep\Model\ServicoDePostagem;
 
 /**
  * @author: Stavarengo
@@ -264,11 +265,16 @@ class SoapClient
 			}
 		}
 
+        $servivosDePostagem = array();
+        /** @var $servivoDePostagem ServicoDePostagem */
+        foreach ($params->getServicosPostagem() as $servivoDePostagem) {
+            $servivosDePostagem[] = $servivoDePostagem->getCodigo();
+        }
+
 		$soapArgs = array(
 			'nCdEmpresa'          => $params->getAccessData()->getCodAdministrativo(),
 			'sDsSenha'            => $params->getAccessData()->getSenha(),
-			'nCdServico'          => $params->getServicoPostagem()->getCodigo(),
-			'nCdServico'          => $params->getServicoPostagem()->getCodigo(),
+			'nCdServico'          => implode(',', $servivosDePostagem),
 			'sCepOrigem'          => str_replace('-', '', $params->getCepOrigem()),
 			'sCepDestino'         => str_replace('-', '', $params->getCepDestino()),
 			'nVlPeso'             => $params->getPeso(),
@@ -282,20 +288,36 @@ class SoapClient
 			'sCdAvisoRecebimento' => ($avisoRecebimento ? 'S' : 'N'),
 		);
 
-		try {
-			ob_clean();
-			echo "<pre>";
-			$r = $this->_getSoapCalcPrecoPrazo()->calcPrecoPrazo($soapArgs);
-			echo "<pre>";
-			print_r($r);
-			exit;
-		} catch (\Exception $e) {
-			echo $e;
-			echo "\n\n\REQUEST:\n" . htmlentities($this->_getSoapCalcPrecoPrazo()->__getLastRequest()) . "\n";
-			echo "\n\nREQUEST HEADERS:\n" . htmlentities($this->_getSoapCalcPrecoPrazo()->__getLastRequestHeaders()) . "\n";
-			exit;
-			throw $e;
-		}
-		return $r;
+        $r = $this->_getSoapCalcPrecoPrazo()->calcPrecoPrazo($soapArgs);
+
+        $retorno = array();
+        if (is_object($r) && $r->CalcPrecoPrazoResult) {
+            if (is_object($r->CalcPrecoPrazoResult) && $r->CalcPrecoPrazoResult->Servicos) {
+                if (is_object($r->CalcPrecoPrazoResult->Servicos) && $r->CalcPrecoPrazoResult->Servicos->cServico) {
+                    $servicos = $r->CalcPrecoPrazoResult->Servicos->cServico;
+                    foreach ($servicos as $servico) {
+                        $item = array(
+                            'servico'               => $servico->Codigo,
+                            'valor'                 => (float)str_replace(',', '.', str_replace('.', '', $servico->Valor)),
+                            'prazoEntrega'          => (int)$servico->PrazoEntrega,
+                            'valorMaoPropria'       => (float)str_replace(',', '.', str_replace('.', '', $servico->ValorMaoPropria)),
+                            'valorAvisoRecebimento' => (float)str_replace(',', '.', str_replace('.', '', $servico->ValorAvisoRecebimento)),
+                            'valorValorDeclarado'   => (float)str_replace(',', '.', str_replace('.', '', $servico->ValorValorDeclarado)),
+                            'entregaDomiciliar'     => ($servico->EntregaDomiciliar == 'S'),
+                            'entregaSabado'         => ($servico->EntregaSabado == 'S'),
+                        );
+                        if ($servico->Erro) {
+                            $item['erro'] = $servico->Erro;
+                            $msgErro = $servico->MsgErro;
+                            $msgErro = utf8_encode($msgErro);
+                            $item['msgErro'] = $msgErro;
+                        }
+                        $retorno[] = $item;
+                    }
+                }
+            }
+        }
+
+		return $retorno;
 	}
 }

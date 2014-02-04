@@ -13,9 +13,9 @@ class CalcPrecoPrazo extends AbstractModel
 	protected $accessData;
 
 	/**
-	 * @var ServicoDePostagem
+	 * @var ServicoDePostagem[]
 	 */
-	protected $servicoPostagem;
+	protected $servicosPostagem;
 
 	/**
 	 * @var string
@@ -121,19 +121,19 @@ class CalcPrecoPrazo extends AbstractModel
 	}
 
 	/**
-	 * @param \PhpSigep\Model\ServicoDePostagem $servicoPostagem
+	 * @param \PhpSigep\Model\ServicoDePostagem[] $servicosPostagem
 	 */
-	public function setServicoPostagem($servicoPostagem)
+	public function setServicosPostagem($servicosPostagem)
 	{
-		$this->servicoPostagem = $servicoPostagem;
+		$this->servicosPostagem = $servicosPostagem;
 	}
 
 	/**
-	 * @return \PhpSigep\Model\ServicoDePostagem
+	 * @return \PhpSigep\Model\ServicoDePostagem[]
 	 */
-	public function getServicoPostagem()
+	public function getServicosPostagem()
 	{
-		return $this->servicoPostagem;
+		return $this->servicosPostagem;
 	}
 
 	/**

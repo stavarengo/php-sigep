@@ -41,7 +41,7 @@ class Dimensao extends AbstractModel
 	 */
 	public function setAltura($altura)
 	{
-		$this->altura = $altura;
+		$this->altura = (float)$altura;
 	}
 
 	/**
@@ -57,7 +57,7 @@ class Dimensao extends AbstractModel
 	 */
 	public function setComprimento($comprimento)
 	{
-		$this->comprimento = $comprimento;
+		$this->comprimento = (float)$comprimento;
 	}
 
 	/**
@@ -73,7 +73,7 @@ class Dimensao extends AbstractModel
 	 */
 	public function setDiametro($diametro)
 	{
-		$this->diametro = $diametro;
+		$this->diametro = (float)$diametro;
 	}
 
 	/**
@@ -89,7 +89,7 @@ class Dimensao extends AbstractModel
 	 */
 	public function setLargura($largura)
 	{
-		$this->largura = $largura;
+		$this->largura = (float)$largura;
 	}
 
 	/**
