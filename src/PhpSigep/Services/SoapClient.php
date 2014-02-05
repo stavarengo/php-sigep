@@ -233,37 +233,47 @@ class SoapClient
 		}
 	}
 
-	public function calcPrecoPrazo(\PhpSigep\Model\CalcPrecoPrazo $params)
-	{
-		$tipoEmbalagem = $params->getDimensao()->getTipo();
-		$ehEnvelope    = false;
-		if ($tipoEmbalagem == Dimensao::TIPO_ENVELOPE) {
-			$ehEnvelope       = true;
-			$formatoEncomenda = 3;
-		} else if ($tipoEmbalagem == Dimensao::TIPO_PACOTE_CAIXA) {
-			$formatoEncomenda = 1;
-		} else if ($tipoEmbalagem == Dimensao::TIPO_ROLO_CILINDRO) {
-			$formatoEncomenda = 2;
-		} else {
-			throw new Exception('Tipo de embalagem "' . $tipoEmbalagem . '" não reconhecido.');
-		}
+    public function calcPrecoPrazo(\PhpSigep\Model\CalcPrecoPrazo $params)
+    {
+        $larguraMinima     = 0;
+        $alturaMinima      = 0;
+        $comprimentoMinimo = 16;
+        $diametroMinimo    = 0;
 
-		$maoPropria         = false;
-		$valorDeclarado     = 0;
-		$avisoRecebimento   = false;
-		$servicosAdicionais = $params->getServicosAdicionais();
-		foreach ($servicosAdicionais as $servicoAdicional) {
-			if ($servicoAdicional->is(ServicoAdicional::SERVICE_MAO_PROPRIA)) {
-				$maoPropria = true;
-			} else if ($servicoAdicional->is(ServicoAdicional::SERVICE_VALOR_DECLARADO)) {
-				if (!$servicoAdicional->getValorDeclarado()) {
-					throw new Exception('Para usar o serviço "valor declarado" é necessário informar o valor declarado.');
-				}
-				$valorDeclarado = $servicoAdicional->getValorDeclarado();
-			} else if ($servicoAdicional->is(ServicoAdicional::SERVICE_AVISO_DE_RECEBIMENTO)) {
-				$avisoRecebimento = true;
-			}
-		}
+        $tipoEmbalagem = $params->getDimensao()->getTipo();
+        $ehEnvelope    = false;
+        if ($tipoEmbalagem == Dimensao::TIPO_ENVELOPE) {
+            $ehEnvelope       = true;
+            $formatoEncomenda = 3;
+            $larguraMinima    = 11;
+        } else if ($tipoEmbalagem == Dimensao::TIPO_PACOTE_CAIXA) {
+            $formatoEncomenda = 1;
+            $alturaMinima     = 2;
+            $larguraMinima    = 11;
+        } else if ($tipoEmbalagem == Dimensao::TIPO_ROLO_CILINDRO) {
+            $formatoEncomenda  = 2;
+            $comprimentoMinimo = 18;
+            $diametroMinimo    = 5;
+        } else {
+            throw new Exception('Tipo de embalagem "' . $tipoEmbalagem . '" não reconhecido.');
+        }
+
+        $maoPropria         = false;
+        $valorDeclarado     = 0;
+        $avisoRecebimento   = false;
+        $servicosAdicionais = $params->getServicosAdicionais();
+        foreach ($servicosAdicionais as $servicoAdicional) {
+            if ($servicoAdicional->is(ServicoAdicional::SERVICE_MAO_PROPRIA)) {
+                $maoPropria = true;
+            } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_VALOR_DECLARADO)) {
+                if (!$servicoAdicional->getValorDeclarado()) {
+                    throw new Exception('Para usar o serviço "valor declarado" é necessário informar o valor declarado.');
+                }
+                $valorDeclarado = $servicoAdicional->getValorDeclarado();
+            } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_AVISO_DE_RECEBIMENTO)) {
+                $avisoRecebimento = true;
+            }
+        }
 
         $servivosDePostagem = array();
         /** @var $servivoDePostagem ServicoDePostagem */
@@ -271,22 +281,27 @@ class SoapClient
             $servivosDePostagem[] = $servivoDePostagem->getCodigo();
         }
 
-		$soapArgs = array(
-			'nCdEmpresa'          => $params->getAccessData()->getCodAdministrativo(),
-			'sDsSenha'            => $params->getAccessData()->getSenha(),
-			'nCdServico'          => implode(',', $servivosDePostagem),
-			'sCepOrigem'          => str_replace('-', '', $params->getCepOrigem()),
-			'sCepDestino'         => str_replace('-', '', $params->getCepDestino()),
-			'nVlPeso'             => $params->getPeso(),
-			'nCdFormato'          => $formatoEncomenda,
-			'nVlComprimento'      => (int)$params->getDimensao()->getComprimento(),
-			'nVlAltura'           => ($ehEnvelope ? 0 : ((int)$params->getDimensao()->getAltura())),
-			'nVlLargura'          => (int)$params->getDimensao()->getLargura(),
-			'nVlDiametro'         => (int)$params->getDimensao()->getDiametro(),
-			'sCdMaoPropria'       => ($maoPropria ? 'S' : 'N'),
-			'nVlValorDeclarado'   => $valorDeclarado,
-			'sCdAvisoRecebimento' => ($avisoRecebimento ? 'S' : 'N'),
-		);
+        $comprimento = (int)$params->getDimensao()->getComprimento();
+        $altura      = $ehEnvelope ? 0 : ((int)$params->getDimensao()->getAltura());
+        $largura     = (int)$params->getDimensao()->getLargura();
+        $diametro    = (int)$params->getDimensao()->getDiametro();
+
+        $soapArgs = array(
+            'nCdEmpresa'          => $params->getAccessData()->getCodAdministrativo(),
+            'sDsSenha'            => $params->getAccessData()->getSenha(),
+            'nCdServico'          => implode(',', $servivosDePostagem),
+            'sCepOrigem'          => str_replace('-', '', $params->getCepOrigem()),
+            'sCepDestino'         => str_replace('-', '', $params->getCepDestino()),
+            'nVlPeso'             => $params->getPeso(),
+            'nCdFormato'          => $formatoEncomenda,
+            'nVlComprimento'      => ($comprimento < $comprimentoMinimo && $params->getAjustarDimensaoMinima() ? $comprimentoMinimo : $comprimento),
+            'nVlAltura'           => ($altura < $alturaMinima && $params->getAjustarDimensaoMinima() ? $alturaMinima : $altura),
+            'nVlLargura'          => ($largura < $larguraMinima && $params->getAjustarDimensaoMinima() ? $larguraMinima : $largura),
+            'nVlDiametro'         => ($diametro < $diametroMinimo && $params->getAjustarDimensaoMinima() ? $diametroMinimo : $largura),
+            'sCdMaoPropria'       => ($maoPropria ? 'S' : 'N'),
+            'nVlValorDeclarado'   => $valorDeclarado,
+            'sCdAvisoRecebimento' => ($avisoRecebimento ? 'S' : 'N'),
+        );
 
         $r = $this->_getSoapCalcPrecoPrazo()->calcPrecoPrazo($soapArgs);
 
@@ -307,9 +322,9 @@ class SoapClient
                             'entregaSabado'         => ($servico->EntregaSabado == 'S'),
                         );
                         if ($servico->Erro) {
-                            $item['erro'] = $servico->Erro;
-                            $msgErro = $servico->MsgErro;
-                            $msgErro = utf8_encode($msgErro);
+                            $item['erro']    = $servico->Erro;
+                            $msgErro         = $servico->MsgErro;
+                            $msgErro         = utf8_encode($msgErro);
                             $item['msgErro'] = $msgErro;
                         }
                         $retorno[] = $item;
@@ -318,6 +333,6 @@ class SoapClient
             }
         }
 
-		return $retorno;
-	}
+        return $retorno;
+    }
 }

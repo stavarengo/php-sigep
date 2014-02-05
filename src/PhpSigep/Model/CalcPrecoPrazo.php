@@ -40,6 +40,13 @@ class CalcPrecoPrazo extends AbstractModel
 	 */
 	protected $servicosAdicionais;
 
+    /**
+     * Quando true, o sistema altera o tamanho das dimensões se elas forem menor que o mínimo permitido pelo
+     * correios.
+     * @var bool
+     */
+    protected $ajustarDimensaoMinima = true;
+
 	/**
 	 * @param \PhpSigep\Model\AccessData $accessData
 	 */
@@ -151,5 +158,21 @@ class CalcPrecoPrazo extends AbstractModel
 	{
 		return $this->servicosAdicionais;
 	}
+
+    /**
+     * @param boolean $ajustarDimensaoMinima
+     */
+    public function setAjustarDimensaoMinima($ajustarDimensaoMinima)
+    {
+        $this->ajustarDimensaoMinima = $ajustarDimensaoMinima;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getAjustarDimensaoMinima()
+    {
+        return $this->ajustarDimensaoMinima;
+    }
 
 }
