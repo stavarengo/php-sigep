@@ -8,17 +8,17 @@ Consulte a [documentação](http://stavarengo.github.io/php-sigep).
 
 This API can:
 * Enviar a pre-lista de postagem (PLP) para o Correios.
-   Veja: https://github.com/stavarengo/php-sigep/tree/master/src/Sigep/Services/FecharPreListaDePostagem.php
+   Veja: https://github.com/stavarengo/php-sigep/tree/master/src/PhpSigep/Services/FecharPreListaDePostagem.php
 * Calcular preços e prazos de entrega da encomenda.
    Veja: https://github.com/stavarengo/php-sigep/blob/master/src/PhpSigep/Services/CalcPrecoPrazo.php
 * Verificar se um tipo de serviço (Sedex, PAC, ...) é permitido entre dois endereços.
-   Veja: https://github.com/stavarengo/php-sigep/tree/master/src/Sigep/Services/VerificaDisponibilidadeServico.php
+   Veja: https://github.com/stavarengo/php-sigep/tree/master/src/PhpSigep/Services/VerificaDisponibilidadeServico.php
 * Gerar novas etiquetas de postagem.
-   Veja: https://github.com/stavarengo/php-sigep/tree/master/src/Sigep/Services/SolicitaEtiquetas.php
+   Veja: https://github.com/stavarengo/php-sigep/tree/master/src/PhpSigep/Services/SolicitaEtiquetas.php
 * Criar e/ou verificar validade do dígito verificador das etiquetas.
-   Veja: https://github.com/stavarengo/php-sigep/tree/master/src/Sigep/Services/GeraDigitoVerificadorEtiquetas.php
+   Veja: https://github.com/stavarengo/php-sigep/tree/master/src/PhpSigep/Services/GeraDigitoVerificadorEtiquetas.php
 * Gerar o relatório da PLP no formato PDF.
-   Veja: https://github.com/stavarengo/php-sigep/tree/master/src/Sigep/Services/GeraDigitoVerificadorEtiquetas.php
+   Veja: https://github.com/stavarengo/php-sigep/tree/master/src/PhpSigep/Services/GeraDigitoVerificadorEtiquetas.php
 * Gerar as etiquetas de postagem no formato PDF.
 * Gerar em PDF as chancelas para cada tipo de serviço (logo de cada tipo de servico). 
 
