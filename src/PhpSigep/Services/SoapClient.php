@@ -306,10 +306,12 @@ class SoapClient
         $r = $this->_getSoapCalcPrecoPrazo()->calcPrecoPrazo($soapArgs);
 
         $retorno = array();
+        $todosTemErro = false;
         if (is_object($r) && $r->CalcPrecoPrazoResult) {
             if (is_object($r->CalcPrecoPrazoResult) && $r->CalcPrecoPrazoResult->Servicos) {
                 if (is_object($r->CalcPrecoPrazoResult->Servicos) && $r->CalcPrecoPrazoResult->Servicos->cServico) {
                     $servicos = $r->CalcPrecoPrazoResult->Servicos->cServico;
+                    $todosTemErro = true;
                     foreach ($servicos as $servico) {
                         $item = array(
                             'servico'               => $servico->Codigo,
@@ -326,11 +328,33 @@ class SoapClient
                             $msgErro         = $servico->MsgErro;
                             $msgErro         = utf8_encode($msgErro);
                             $item['msgErro'] = $msgErro;
+                        } else {
+                            $todosTemErro = false;
                         }
                         $retorno[] = $item;
                     }
                 }
             }
+        }
+        if (class_exists('\StaLib_Logger')) {
+            \StaLib_Logger::log('Retorno SIGEP: ' . print_r($retorno, true));
+        }
+        if ($todosTemErro) {
+            $erros = array();
+            foreach ($retorno as $retItem) {
+                $erros[$retItem['erro']] = $retItem['msgErro'];
+            }
+            $exception = null;
+            $errosPrioritarios = array('999', '-3', '-2', '-4', '-33', '7');
+            foreach ($errosPrioritarios as $erroPrioritario)
+            if (isset($erros[$erroPrioritario])) {
+                $exception = $erros[$erroPrioritario];
+                break;
+            }
+            if (!$exception) {
+                $exception = reset($erros);
+            }
+            throw new Exception("Erro ao calcular prazos.\nResposta do Correios: \"" . ($exception ? $exception : 'não houve resposta') . '"');
         }
 
         return $retorno;
