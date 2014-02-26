@@ -287,8 +287,11 @@ class CartaoDePostagem
 		$bairro           = $remetente->getBairro();
 		$cidade           = $remetente->getCidade();
 		$uf               = $remetente->getUf();
+		$cep              = $remetente->getCep();
 
-		return $this->writeEndereco($t, $l, $w, $titulo, $nomeDestinatario, $logradouro, $numero, $complemento, $bairro, $cidade, $uf);
+        $cep = preg_replace('/(\d{5})-{0,1}(\d{3})/', '$1-$2', $cep);
+        
+		return $this->writeEndereco($t, $l, $w, $titulo, $nomeDestinatario, $logradouro, $numero, $complemento, $bairro, $cidade, $uf, $cep);
 	}
 
 	/**
@@ -303,12 +306,13 @@ class CartaoDePostagem
 	 * @param $bairro
 	 * @param $cidade
 	 * @param $uf
+	 * @param $cep
 	 *
 	 * @internal param $lineHeigth
 	 * @internal param $objetoPostal
 	 */
 	private function writeEndereco($t, $l, $w, $titulo, $nomeDestinatario, $logradouro, $numero1, $complemento, $bairro,
-		$cidade, $uf
+		$cidade, $uf, $cep = null
 	) {
 		// Titulo do bloco: destinatario ou remetente
 		$this->pdf->SetFont('', 'B');
@@ -348,7 +352,7 @@ class CartaoDePostagem
 		$this->multiLines($w, 'Bairro: ' . $bairro, 'L');
 		$this->setFillColor(100, 30, 210);
 		$this->pdf->SetX($l);
-		$this->multiLines($w, $cidade . ' - ' . $uf, 'L');
+		$this->multiLines($w, ($cep ? $cep . ' - ' : '') . $cidade . ' - ' . $uf, 'L');
 
 		return $this->pdf->GetY();
 	}
