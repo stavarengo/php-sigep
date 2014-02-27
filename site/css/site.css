@@ -1,0 +1,16 @@
+@import url(//fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic);
+
+[class*=load-spin-], [class*=load-bar-]
+{
+    background-position: center;
+    background-repeat: no-repeat;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.load-spin-xlarge
+{
+    background-image: url(../img/gif/spin64black.gif?20132411);
+    width: 64px;
+    height: 64px
+}

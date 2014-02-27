@@ -1,0 +1,3 @@
+[submodule "site/php/php-sigep"]
+	path = site/php/php-sigep
+	url = https://github.com/stavarengo/php-sigep.git
