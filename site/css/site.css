@@ -1,5 +1,10 @@
 @import url(//fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic);
 
+#modal-body pre
+{
+    max-height: 490px;
+}
+
 [class*=load-spin-], [class*=load-bar-]
 {
     background-position: center;

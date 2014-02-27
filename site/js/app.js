@@ -7,6 +7,9 @@
         }
     };
     
+//    hljs.configure({tabReplace: '    '}); // 4 spaces
+    dojo.toJsonIndentStr = '    ';
+    
     window.app = {
         btCalcPrecosClick: function() {
             $('#modal-body').html('<div class="text-center"><i class="load-spin-xlarge"></i> Aguarde...</div>');
@@ -22,16 +25,25 @@
                 if (!data || data.errorMsg) {
                     errback(data);
                 } else {
-                    $('#modal-body').html('<pre>' + dojo.toJson(data) + '</pre>');
+                    $('#modal-body').html('<pre>' + hljs.highlight('json', dojo.toJson(data, true)).value + '</pre>');
+//                    $('#modal-body').html('<pre><code>' + dojo.toJson(data, true) + '</code></pre>');
+//                    
+//                    $('#modal-body pre code').each(function(i, e) {hljs.highlightBlock(e)});
                 }
             }, errback);
         },
         
         _getFormData: function() {
             var data = {};
-            $('.container input,.container select').each(function(idx, element) {
-                if (element.id) {
-                    data[element.id] = $.trim(element.value);
+            $('.container input[name],.container select[name]').each(function(idx, element) {
+                if (element.name) {
+                    if (dojo.hasAttr(element, 'multiple')) {
+                        $(':selected', element).each(function(i, selected){
+                            data[element.id + '[' + i + ']'] = $(selected).val()
+                        });
+                    } else {
+                        data[element.name] = $.trim(element.value);
+                    }
                 }
             });
             return data;

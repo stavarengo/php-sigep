@@ -41,6 +41,7 @@
 
         <link href="/site/css/twbs/css/bootstrap.min.css" rel="stylesheet">
         <link href="/site/css/site.css" rel="stylesheet">
+        <link href="/site/js/highlight/styles/default.css" rel="stylesheet">
         <script src="/site/js/jquery-1.10.2.min.js"></script>
 
         <!--[if lt IE 9]>
@@ -57,13 +58,13 @@
                 <div class="col-md-6 col-lg-6">
                     <div class="form-group">
                         <label for="contratoCodAdministrativo">Código administrativo</label>
-                        <input type="text" class="form-control" id="contratoCodAdministrativo" value="">
+                        <input type="text" class="form-control" name="contratoCodAdministrativo" id="contratoCodAdministrativo">
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-6">
                     <div class="form-group">
                         <label for="contratoSenha">Senha</label>
-                        <input type="text" class="form-control" id="contratoSenha" value="">
+                        <input type="text" class="form-control" name="contratoSenha" id="contratoSenha">
                     </div>
                 </div>
             </div>
@@ -97,16 +98,13 @@
                         <div class="col-sm-4">
                             <div class="form-group">
                                 <label for="tipoTransporte">Tipo de transporte</label>
-                                <select class="form-control" name="tipoTransporte" id="tipoTransporte">
-                                    <option value="81019">E-sedex</option>
-                                    <option value="41068">Pac</option>
-                                    <option value="40096">Sedex</option>
-                                    <option value="40215">Sedex 10 Envelope</option>
-                                    <option value="10065">Carta</option>
-                                    <option value="40886">Sedex 10 Pacote</option>
-                                    <option value="40878">Sedex Hoje</option>
-                                    <option value="41009">Sedex Agrupado</option>
-                                    <option value="10138">Carta Registrada</option>
+                                <select class="form-control" name="tipoTransporte[]" id="tipoTransporte" multiple size="6">
+                                    <option value="81019" selected>81019 - E-sedex</option>
+                                    <option value="41068" selected>41068 - Pac</option>
+                                    <option value="40096" selected>40096 - Sedex</option>
+                                    <option value="40215" selected>40215 - Sedex 10 Envelope</option>
+                                    <option value="40886" selected>40886 - Sedex 10 Pacote</option>
+                                    <option value="40878" selected>40878 - Sedex Hoje</option>
                                 </select>
                             </div>
                         </div>
@@ -139,6 +137,7 @@
         
         <script src="/site/js/dojo.js"></script>
         <script src="/site/css/twbs/js/bootstrap.min.js"></script>
+        <script src="/site/js/highlight/highlight.pack.js"></script>
         <script src="/site/js/app.js"></script>
     </body>
 </html>

@@ -13,9 +13,10 @@ $destinatarioCep = $_POST['destinatarioCep'];
 $contratoCodAdministrativo = $_POST['contratoCodAdministrativo'];
 $contratoSenha             = $_POST['contratoSenha'];
 
-$servicosPostagem = array(
-    new \PhpSigep\Model\ServicoDePostagem($tipoTransporte),
-);
+$servicosPostagem = array();
+foreach ($tipoTransporte as $tipo) {
+    $servicosPostagem[] = new \PhpSigep\Model\ServicoDePostagem($tipo);
+} 
 
 $dimensao = new \PhpSigep\Model\Dimensao();
 $dimensao->setAltura(20);
@@ -61,4 +62,4 @@ try {
     $r = array('errorMsg' => $message);
 }
 
-die(json_encode($r));
+die(json_encode($r, JSON_PRETTY_PRINT));
