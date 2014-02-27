@@ -262,6 +262,7 @@ class SoapClient
         $valorDeclarado     = 0;
         $avisoRecebimento   = false;
         $servicosAdicionais = $params->getServicosAdicionais();
+        $servicosAdicionais = ($servicosAdicionais ? $servicosAdicionais : array());
         foreach ($servicosAdicionais as $servicoAdicional) {
             if ($servicoAdicional->is(ServicoAdicional::SERVICE_MAO_PROPRIA)) {
                 $maoPropria = true;
@@ -311,6 +312,7 @@ class SoapClient
             if (is_object($r->CalcPrecoPrazoResult) && $r->CalcPrecoPrazoResult->Servicos) {
                 if (is_object($r->CalcPrecoPrazoResult->Servicos) && $r->CalcPrecoPrazoResult->Servicos->cServico) {
                     $servicos = $r->CalcPrecoPrazoResult->Servicos->cServico;
+                    $servicos = (is_array($servicos) ? $servicos : array($servicos));
                     $todosTemErro = true;
                     foreach ($servicos as $servico) {
                         $item = array(
