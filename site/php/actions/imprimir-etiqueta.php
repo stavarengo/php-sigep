@@ -2,7 +2,7 @@
 
 
 $peso                           = $_POST['peso'];
-$tipoTransporte                 = $_POST['tipoTransporte'];
+$servicoDePostagem              = $_POST['servicoDePostagem'];
 $remetenteNome                  = $_POST['remetenteNome'];
 $remetenteLogradouro            = $_POST['remetenteLogradouro'];
 $remetenteNumero                = $_POST['remetenteNumero'];
@@ -21,7 +21,7 @@ $destinatarioEstado             = $_POST['destinatarioEstado'];
 $destinatarioCep                = $_POST['destinatarioCep'];
 $servicosAdicionaisSelecionados = $_POST['servicosAdicionais'];
 
-$servicoDePostagem = new \PhpSigep\Model\ServicoDePostagem($tipoTransporte);
+$servicoDePostagem = new \PhpSigep\Model\ServicoDePostagem($servicoDePostagem);
 
 $servicosAdicionais = array();
 foreach ($servicosAdicionaisSelecionados as $servicoAdicional) {
@@ -93,6 +93,6 @@ $params->setRemetente($remetente);
 
 
 $logoFile = __DIR__ . '/../../img/logo-etiqueta.png';
-$servico   = new \PhpSigep\Pdf\CartaoDePostagem($params, time(), $logoFile);
+$servico  = new \PhpSigep\Pdf\CartaoDePostagem($params, time(), $logoFile);
 
 $servico->render($params);

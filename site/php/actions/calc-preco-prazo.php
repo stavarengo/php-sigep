@@ -1,14 +1,14 @@
 <?php
 
 $peso                           = $_POST['peso'];
-$tipoTransporte                 = $_POST['tipoTransporte'];
+$servicosDePostagem             = $_POST['servicosDePostagem'];
 $remetenteCep                   = $_POST['remetenteCep'];
 $destinatarioCep                = $_POST['destinatarioCep'];
 $servicosAdicionaisSelecionados = $_POST['servicosAdicionais'];
 
-$servicosPostagem = array();
-foreach ($tipoTransporte as $tipo) {
-    $servicosPostagem[] = new \PhpSigep\Model\ServicoDePostagem($tipo);
+$servicosDePostagemArray = array();
+foreach ($servicosDePostagem as $tipo) {
+    $servicosDePostagemArray[] = new \PhpSigep\Model\ServicoDePostagem($tipo);
 }
 
 $servicosAdicionais = array();
@@ -37,7 +37,7 @@ $dimensao->setComprimento(20);
 $dimensao->setTipo(\PhpSigep\Model\Dimensao::TIPO_PACOTE_CAIXA);
 
 $params = new \PhpSigep\Model\CalcPrecoPrazo();
-$params->setServicosPostagem($servicosPostagem);
+$params->setServicosPostagem($servicosDePostagemArray);
 $params->setServicosAdicionais($servicosAdicionais);
 $params->setPeso($peso);
 $params->setDimensao($dimensao);
