@@ -55,13 +55,13 @@
         <div class="container">
 
             <div class="row">
-                <div class="col-md-6 col-lg-6">
+                <div class="col-sm-6">
                     <div class="form-group">
                         <label for="contratoCodAdministrativo">Código administrativo</label>
                         <input type="text" class="form-control" name="contratoCodAdministrativo" id="contratoCodAdministrativo">
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-6">
+                <div class="col-sm-6">
                     <div class="form-group">
                         <label for="contratoSenha">Senha</label>
                         <input type="text" class="form-control" name="contratoSenha" id="contratoSenha">
@@ -88,15 +88,6 @@
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <label for="peso">
-                                    Peso total 
-                                    <span style="font-size: 10px">Em gramas (caixa + produto)</span></label>
-                                <input type="text" class="form-control" id="peso" name="peso" value="0.500">
-<!--                                <span class="help-block">Embalagem + mercadoria.</span>-->
-                            </div>
-                        </div>
-                        <div class="col-sm-4">
-                            <div class="form-group">
                                 <label for="tipoTransporte">Tipo de transporte</label>
                                 <select class="form-control" name="tipoTransporte[]" id="tipoTransporte" multiple size="6">
                                     <option value="81019" selected>81019 - E-sedex</option>
@@ -106,6 +97,29 @@
                                     <option value="40886" selected>40886 - Sedex 10 Pacote</option>
                                     <option value="40878" selected>40878 - Sedex Hoje</option>
                                 </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="servicosAdicionais">Serviços adicionais</label>
+                                <select class="form-control" name="servicosAdicionais[]" id="servicosAdicionais" multiple size="6" onchange="app.servicosAdicionaisChange()">
+                                    <option value="mp" selected>Mão própria</option>
+                                    <option value="vd" selected>Valor declarado</option>
+                                    <option value="ar" selected>Aviso de recebimento</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <label for="peso">
+                                    Peso total
+                                    <span style="font-size: 10px">Em gramas (caixa + produto)</span>
+                                </label>
+                                <input type="text" class="form-control" id="peso" name="peso" value="0.500">
+                            </div>
+                            <div class="form-group" id="valorDeclarado-wp">
+                                <label for="valorDeclarado">Valor declarado</label>
+                                <input type="text" class="form-control" id="valorDeclarado" name="valorDeclarado" value="75.90">
                             </div>
                         </div>
                     </div>
@@ -120,7 +134,7 @@
         </div>
 
         <div class="modal fade" id="dlg-result" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>

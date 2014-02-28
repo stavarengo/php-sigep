@@ -5,6 +5,11 @@
     max-height: 490px;
 }
 
+ul.extra-margin-bottom li
+{
+    margin-bottom: 5px;
+}
+
 [class*=load-spin-], [class*=load-bar-]
 {
     background-position: center;

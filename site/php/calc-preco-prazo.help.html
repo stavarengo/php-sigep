@@ -1,0 +1,48 @@
+<p>
+    Documentação dos campos retornados:
+<ul class="extra-margin-bottom">
+    <li>
+        <code><b>servico:</b></code>
+        Código do <abbr title="Sedex, Pac, etc.">serviço de entrega</abbr>.
+    </li>
+    <li>
+        <code><b>valor:</b></code>
+        Preço total da encomenda, em Reais, incluindo os preços dos serviços opcionais.
+    </li>
+    <li>
+        <code><b>prazoEntrega:</b></code>
+        Prazo estimado em dias para entrega do produto. Se o valor retornado for 0 (zero), indica que o web service do Correios não retornou o prazo para esta entrega.
+    </li>
+    <li>
+        <code><b>valorMaoPropria:</b></code>
+        Preço do serviço adicional
+        <a href="http://www.correios.com.br/produtosaz/produto.cfm?id=BCB0DDD6-FF4B-D4FF-A53D23D8E974723A" target="_blank">Mão Própria</a>.
+    </li>
+    <li>
+        <code><b>valorAvisoRecebimento:</b></code>
+        Preço do serviço adicional
+        <a target="_blank" href="http://www.correios.com.br/produtosaz/produto.cfm?id=BCBDA5E8-D338-81BE-07B991FA2A259B16">Aviso de Recebimento</a>.
+    </li>
+    <li>
+        <code><b>valorValorDeclarado:</b></code>
+        Preço do serviço adicional
+        <a target="_blank" href="http://www.correios.com.br/produtosaz/produto.cfm?id=BC8CACFF-E48D-96BB-3A5391581BC67B89">Valor Declarado</a>.
+    </li>
+    <li>
+        <code><b>entregaDomiciliar:</b></code>
+        Informa se a localidade informada possui entrega domiciliária. Se o prazo não for retornado corretamente, o retorno deste parâmetro será vazio.
+    </li>
+    <li>
+        <code><b>entregaSabado:</b></code>
+        Informa se a localidade informada possui entrega domiciliária aos sábados. Se o prazo não for retornado corretamente, o retorno deste parâmetro será vazio.
+    </li>
+    <li>
+        <code><b>erro: </b></code>
+        Código do erro retornado pelo web service do Correios.
+    </li>
+    <li>
+        <code><b>msgErro: </b></code>
+        Retorna a descrição do erro gerado.
+    </li>
+</ul>
+</p>

@@ -9,6 +9,7 @@ $peso            = $_POST['peso'];
 $tipoTransporte  = $_POST['tipoTransporte'];
 $remetenteCep    = $_POST['remetenteCep'];
 $destinatarioCep = $_POST['destinatarioCep'];
+$servicosAdicionaisSelecionados = $_POST['servicosAdicionais'];
 
 $contratoCodAdministrativo = $_POST['contratoCodAdministrativo'];
 $contratoSenha             = $_POST['contratoSenha'];
@@ -16,6 +17,25 @@ $contratoSenha             = $_POST['contratoSenha'];
 $servicosPostagem = array();
 foreach ($tipoTransporte as $tipo) {
     $servicosPostagem[] = new \PhpSigep\Model\ServicoDePostagem($tipo);
+} 
+
+$servicosAdicionais = array();
+foreach ($servicosAdicionaisSelecionados as $servicoAdicional) {
+    $valorDeclarado = null;
+    if ($servicoAdicional == 'mp') {
+        $codServicosAdicional = \PhpSigep\Model\ServicoAdicional::SERVICE_MAO_PROPRIA;
+    } else if ($servicoAdicional == 'vd') {
+        $codServicosAdicional = \PhpSigep\Model\ServicoAdicional::SERVICE_VALOR_DECLARADO;
+        $valorDeclarado = (float)$_POST['valorDeclarado'];
+    } else if ($servicoAdicional == 'ar') {
+        $codServicosAdicional = \PhpSigep\Model\ServicoAdicional::SERVICE_AVISO_DE_RECEBIMENTO;
+    } else {
+        continue;
+    }
+    $servicosAdicionais[] = new \PhpSigep\Model\ServicoAdicional(array(
+        'codigoServicoAdicional' => $codServicosAdicional,
+        'valorDeclarado' => $valorDeclarado,
+    ));
 } 
 
 $dimensao = new \PhpSigep\Model\Dimensao();
@@ -37,6 +57,7 @@ $accessData = new \PhpSigep\Model\AccessData(array(
 
 $params = new \PhpSigep\Model\CalcPrecoPrazo();
 $params->setServicosPostagem($servicosPostagem);
+$params->setServicosAdicionais($servicosAdicionais);
 $params->setPeso($peso);
 $params->setDimensao($dimensao);
 $params->setCepOrigem($remetenteCep);
@@ -61,5 +82,10 @@ try {
     }
     $r = array('errorMsg' => $message);
 }
+$help = file_get_contents(__DIR__ . '/calc-preco-prazo.help.html');
 
+$r = array(
+    'resultado' => $r,
+    'help' => $help,
+);
 die(json_encode($r, JSON_PRETTY_PRINT));
