@@ -14,7 +14,7 @@ class SolicitaEtiquetas
 	 */
 	public function execute(\PhpSigep\Model\SolicitaEtiquetas $params)
 	{
-		$soap = new SoapClient();
+        $soap = SoapClientFactory::create();
 		return $soap->solicitaEtiquetas($params);
 	}
 }

@@ -20,6 +20,11 @@ class Config
 	 */
 	protected $isDebug;
 
+    /**
+     * @var bool
+     */
+    protected $simular = false;
+
 	public function __construct(array $configData)
 	{
 		$this->wsdlDir = implode(DIRECTORY_SEPARATOR, array(dirname(__FILE__), 'Support', 'wsdl'));
@@ -78,5 +83,21 @@ class Config
 	{
 		return $this->getWsdlDir() . DIRECTORY_SEPARATOR . 'CalcPrecoPrazo.wsdl';
 	}
+
+    /**
+     * @param boolean $simular
+     */
+    public function setSimular($simular)
+    {
+        $this->simular = $simular;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getSimular()
+    {
+        return $this->simular;
+    }
 
 }

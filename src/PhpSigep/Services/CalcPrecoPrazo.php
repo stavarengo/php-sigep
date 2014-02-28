@@ -14,7 +14,7 @@ class CalcPrecoPrazo
 	 */
 	public function execute(\PhpSigep\Model\CalcPrecoPrazo $params)
 	{
-		$soap = new SoapClient();
+		$soap = SoapClientFactory::create();
 		return $soap->calcPrecoPrazo($params);
 	}
 }

@@ -9,7 +9,7 @@ class VerificaDisponibilidadeServico
 
 	public function execute(\PhpSigep\Model\VerificaDisponibilidadeServico $params)
 	{
-		$soap = new SoapClient();
+        $soap = SoapClientFactory::create();
 		return $soap->verificaDisponibilidadeServico($params);
 	}
 }

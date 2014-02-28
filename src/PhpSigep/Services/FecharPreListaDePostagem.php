@@ -24,7 +24,7 @@ class FecharPreListaDePostagem
 	public function execute(\PhpSigep\Model\PreListaDePostagem $params)
 	{
 
-		$soap = SoapClient::getInstance();
+        $soap = SoapClientFactory::create();
 		return $soap->fechaPlpVariosServicos($params, $this->getPlpXml($params));
 	}
 

@@ -19,6 +19,7 @@ class ObjetoPostal extends AbstractModel
 	 */
 	protected $servicoDePostagem;
 	/**
+     * Cubagem do Objeto. Não obrigatório.
 	 * @var float
 	 */
 	protected $cubagem;

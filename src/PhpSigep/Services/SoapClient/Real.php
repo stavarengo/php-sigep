@@ -1,5 +1,5 @@
 <?php
-namespace PhpSigep\Services;
+namespace PhpSigep\Services\SoapClient;
 
 use PhpSigep\Bootstrap;
 use PhpSigep\Model\Dimensao;
@@ -10,13 +10,9 @@ use PhpSigep\Model\ServicoDePostagem;
 /**
  * @author: Stavarengo
  */
-class SoapClient
+class Real implements SoapClientInterface
 {
 
-	/**
-	 * @var SoapClient
-	 */
-	private static $instance;
 	/**
 	 * @var \SoapClient
 	 */
@@ -50,17 +46,6 @@ class SoapClient
 			));
 		}
 		return $this->_soapCalcPrecoPrazo;
-	}
-
-	/**
-	 * @return SoapClient
-	 */
-	public static function getInstance()
-	{
-		if (!self::$instance) {
-			self::$instance = new self();
-		}
-		return self::$instance;
 	}
 
 	/**
@@ -125,7 +110,7 @@ class SoapClient
 	 *
 	 * @throws \SoapFault
 	 * @throws \Exception
-	 * @return string[]
+     * @return Etiqueta[]
 	 */
 	public function geraDigitoVerificadorEtiquetas(\PhpSigep\Model\GeraDigitoVerificadorEtiquetas $params)
 	{
