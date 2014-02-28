@@ -1,0 +1,56 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-sm-6 col-lg-2">
+                <div class="form-group">
+                    <label for="destinatarioCep">CEP origem</label>
+                    <input type="text" class="form-control" name="remetenteCep" id="demo-calc-remetenteCep" value="30170-010">
+                </div>
+                <div class="form-group">
+                    <label for="remetenteCep">CEP destino</label>
+                    <input type="text" class="form-control" name="destinatarioCep" id="demo-calc-destinatarioCep" value="04538-132">
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+                <div class="form-group">
+                    <label for="tipoTransporte">Tipo de transporte</label>
+                    <select class="form-control" name="tipoTransporte[]" id="demo-calc-tipoTransporte" multiple size="6">
+                        <option value="81019" selected>81019 - E-sedex</option>
+                        <option value="41068" selected>41068 - Pac</option>
+                        <option value="40096" selected>40096 - Sedex</option>
+                        <option value="40215" selected>40215 - Sedex 10 Envelope</option>
+                        <option value="40886" selected>40886 - Sedex 10 Pacote</option>
+                        <option value="40878" selected>40878 - Sedex Hoje</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <div class="form-group">
+                    <label for="servicosAdicionais">Serviços adicionais</label>
+                    <select class="form-control" name="servicosAdicionais[]" id="demo-calc-servicosAdicionais" multiple size="6" onchange="app.servicosAdicionaisChange(this, '#calc-valorDeclarado-wp')">
+                        <option value="mp" selected>Mão própria</option>
+                        <option value="vd" selected>Valor declarado</option>
+                        <option value="ar" selected>Aviso de recebimento</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <div class="form-group">
+                    <label for="peso">
+                        Peso
+                        <span style="font-size: 10px">Em gramas (caixa + produto)</span>
+                    </label>
+                    <input type="text" class="form-control" id="demo-calc-peso" name="peso" value="0.500">
+                </div>
+                <div class="form-group" id="calc-valorDeclarado-wp">
+                    <label for="valorDeclarado">Valor declarado</label>
+                    <input type="text" class="form-control" id="demo-calc-valorDeclarado" name="valorDeclarado" value="75.90">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="well">
+    <button class="btn btn-primary" onclick="app.btCalcPrecosClick()">Calcular preços e prazos</button>
+</div>

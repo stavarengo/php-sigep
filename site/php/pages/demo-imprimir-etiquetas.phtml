@@ -1,0 +1,111 @@
+<?php
+    $addresses = array(
+        array(
+            '${demo-id-prefix}'   => 'demo-imprimir-etiquetas-',
+            '${tipo}'             => 'remetente',
+            '${valueNome}'        => 'Google São Paulo',
+            '${valueLogradouro}'  => 'Av. Brigadeiro Faria Lima',
+            '${valueNumero}'      => '3900',
+            '${valueComplemento}' => '5º andar',
+            '${valueBairro}'      => 'Itaim',
+            '${valueCidade}'      => 'São Paulo',
+            '${valueEstado}'      => '101',
+            '${valueCep}'         => '04538-132',
+        ),
+        array(
+            '${demo-id-prefix}'   => 'demo-imprimir-etiquetas-',
+            '${tipo}'             => 'destinatario',
+            '${valueNome}'        => 'Google Belo Horizonte',
+            '${valueLogradouro}'  => 'Av. Bias Fortes',
+            '${valueNumero}'      => '382',
+            '${valueComplemento}' => '6º andar',
+            '${valueBairro}'      => 'Lourdes',
+            '${valueCidade}'      => 'Belo Horizonte',
+            '${valueEstado}'      => '77',
+            '${valueCep}'         => '30170-010',
+        ),
+    );
+    $addressForm = file_get_contents(__DIR__ . '/_addressForm.html');
+    $remetenteForm = str_replace(array_keys($addresses[0]), array_values($addresses[0]), $addressForm);
+    $destinatarioForm = str_replace(array_keys($addresses[1]), array_values($addresses[1]), $addressForm);
+?>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel-group">
+            <div class="col-md-6 col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                Endereço do remetente
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="demo-imprimir-etiquetas-collapseOne" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <?php echo $remetenteForm ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                                Endereço do destinatário
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="demo-imprimir-etiquetas-collapseTwo" class="panel-collapse collapse">
+                        <div class="panel-body">
+                            <?php echo $destinatarioForm ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" style="margin-top: 10px">
+    <div class="col-sm-4">
+        <div class="form-group">
+            <label for="tipoTransporte">Tipo de transporte</label>
+            <select class="form-control" name="tipoTransporte" id="demo-imprimir-etiquetas-tipoTransporte">
+                <option value="81019">81019 - E-sedex</option>
+                <option value="41068">41068 - Pac</option>
+                <option value="40096">40096 - Sedex</option>
+                <option value="40215">40215 - Sedex 10 Envelope</option>
+                <option value="40886">40886 - Sedex 10 Pacote</option>
+                <option value="40878">40878 - Sedex Hoje</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="form-group">
+            <label for="servicosAdicionais">Serviços adicionais</label>
+            <select class="form-control" name="servicosAdicionais[]" id="demo-imprimir-etiquetas-servicosAdicionais" multiple size="6" onchange="app.servicosAdicionaisChange(this, '#imprimir-etiquetas-valorDeclarado-wp')">
+                <option value="mp" selected>Mão própria</option>
+                <option value="vd" selected>Valor declarado</option>
+                <option value="ar" selected>Aviso de recebimento</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-sm-4">
+        <div class="form-group">
+            <label for="peso">
+                Peso total
+                <span style="font-size: 10px">Em gramas (caixa + produto)</span>
+            </label>
+            <input type="text" class="form-control" id="demo-imprimir-etiquetas-peso" name="peso" value="0.500">
+        </div>
+        <div class="form-group" id="imprimir-etiquetas-valorDeclarado-wp">
+            <label for="valorDeclarado">Valor declarado</label>
+            <input type="text" class="form-control" id="demo-imprimir-etiquetas-valorDeclarado" name="valorDeclarado" value="75.90">
+        </div>
+    </div>
+</div>
+
+<div class="well">
+    <button class="btn btn-primary" type="submit">Imprimir etiquetas</button>
+</div>

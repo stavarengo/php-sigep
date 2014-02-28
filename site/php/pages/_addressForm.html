@@ -1,0 +1,81 @@
+<div class="row">
+    <div class="col-sm-6 col-md-12 col-lg-12">
+        <div class="form-group">
+            <label for="${tipo}Nome">Nome do ${tipo}</label>
+             <input type="text" class="form-control" name="${tipo}Nome" id="${demo-id-prefix}${tipo}Nome" value="${valueNome}">
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-8 col-lg-8">
+        <div class="form-group">
+            <label for="${tipo}Logradouro">Logradouro</label>
+             <input type="text" class="form-control" name="${tipo}Logradouro" id="${demo-id-prefix}${tipo}Logradouro" value="${valueLogradouro}">
+        </div>
+    </div>
+    <div class="col-sm-3 col-md-4 col-lg-4">
+        <div class="form-group">
+            <label for="${tipo}Numero">Número</label>
+             <input type="text" class="form-control" name="${tipo}Numero" id="${demo-id-prefix}${tipo}Numero" value="${valueNumero}">
+        </div>
+    </div>
+    <div class="col-sm-4 col-md-4 col-lg-4">
+        <div class="form-group">
+            <label for="${tipo}Complemento">Complemento</label>
+             <input type="text" class="form-control" name="${tipo}Complemento" id="${demo-id-prefix}${tipo}Complemento" value="${valueComplemento}">
+        </div>
+    </div>
+    <div class="col-sm-5 col-md-4 col-lg-4">
+        <div class="form-group">
+            <label for="${tipo}Bairro">Bairro</label>
+             <input type="text" class="form-control" name="${tipo}Bairro" id="${demo-id-prefix}${tipo}Bairro" value="${valueBairro}">
+        </div>
+    </div>
+    <div class="col-sm-3 col-md-4 col-lg-4">
+        <div class="form-group">
+            <label for="${tipo}Cep">CEP</label>
+             <input type="text" class="form-control" name="${tipo}Cep" id="${demo-id-prefix}${tipo}Cep" value="${valueCep}">
+        </div>
+    </div>
+    <div class="col-sm-5 col-md-6 col-lg-6">
+        <div class="form-group">
+            <label for="${tipo}Estado">Estado</label>
+             <select class="form-control" name="${tipo}Estado" id="${demo-id-prefix}${tipo}Estado" data-selected="${valueEstado}">
+                <option value="53">Acre</option>
+                <option value="55">Alagoas</option>
+                <option value="57">Amapá</option>
+                <option value="59">Amazonas</option>
+                <option value="61">Bahia</option>
+                <option value="63">Ceará</option>
+                <option value="65">Distrito Federal</option>
+                <option value="67">Espírito Santo</option>
+                <option value="69">Goiás</option>
+                <option value="71">Maranhão</option>
+                <option value="75">Mato Grosso do Sul</option>
+                <option value="73">Mato Grosso</option>
+                <option value="77">Minas Gerais</option>
+                <option value="79">Pará</option>
+                <option value="81">Paraíba</option>
+                <option value="83">Paraná</option>
+                <option value="85">Pernambuco</option>
+                <option value="87">Piauí</option>
+                <option value="89">Rio de Janeiro</option>
+                <option value="91">Rio Grande do Norte</option>
+                <option value="93">Rio Grande do Sul</option>
+                <option value="95">Rondônia</option>
+                <option value="97">Roraima</option>
+                <option value="99">Santa Catarina</option>
+                <option value="101">São Paulo</option>
+                <option value="103">Sergipe</option>
+                <option value="105">Tocantins</option>
+            </select>
+            <script type="application/javascript">
+                $('#${tipo}Estado option[value="${valueEstado}"]').attr('selected', '1');
+            </script>
+        </div>
+    </div>
+    <div class="col-sm-4 col-md-6 col-lg-6">
+        <div class="form-group">
+            <label for="${tipo}Cidade">Cidade</label>
+             <input type="text" class="form-control" name="${tipo}Cidade" id="${demo-id-prefix}${tipo}Cidade" value="${valueCidade}">
+        </div>
+    </div>
+</div>
