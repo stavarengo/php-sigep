@@ -14,11 +14,10 @@
         btCalcPrecosClick: function() {
             $('#modal-body').html('<div class="text-center"><i class="load-spin-xlarge"></i> Aguarde...</div>');
             $('#dlg-result').modal({});
-            this._getFormData();
-            
+
             dojo.xhr('POST', {
-                url: '/site/php/calc-preco-prazo.php',
-                content: this._getFormData(),
+                url: '/?action=calc-preco-prazo',
+                content: this._getFormData('#demo-calc-wp'),
                 preventCache: true,
                 handleAs: 'json'
             }).then(function(data) {
@@ -32,27 +31,28 @@
             }, errback);
         },
 
-        servicosAdicionaisChange: function() {
-            var servicosAdicionais = $('#servicosAdicionais').val() || [];
+        servicosAdicionaisChange: function(sender, target) {
+            var servicosAdicionais = $(sender).val() || [];
             var temValorDeclarado = dojo.some(servicosAdicionais, function(value){
                 return (value == 'vd');
             });
-            
+
+            var target = $(target);
             if (temValorDeclarado) {
-                $('#valorDeclarado-wp').removeClass('hide');
+                target.removeClass('hide');
             } else {
-                $('#valorDeclarado-wp').addClass('hide');
+                target.addClass('hide');
             }
         },
         
-        _getFormData: function() {
+        _getFormData: function(_parent) {
             var data = {};
-            $('.container input[name],.container select[name]').each(function(idx, element) {
+            $('input[name],select[name]', _parent).each(function(idx, element) {
                 if (element.name) {
                     if (dojo.hasAttr(element, 'multiple')) {
                         var multiple = $(element).val() || [];
                         dojo.forEach(multiple, function(selected, i){
-                            data[element.id + '[' + i + ']'] = selected;
+                            data[element.name.replace('[]', '') + '[' + i + ']'] = selected;
                         });
                     } else {
                         data[element.name] = $.trim(element.value);

@@ -1,5 +1,121 @@
 @import url(//fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic);
 
+/** jumbotron **/
+
+.jumbotron
+{
+    background: #F16C49;
+    background: no-repeat;
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #F16C49), color-stop(100%, #E66847));
+    background: -webkit-linear-gradient(top, #F16C49 0%, #E66847 100%);
+    background: -ms-linear-gradient(top, rgba(241, 108, 73, 1) 0%, rgba(230, 104, 71, 1) 100%);
+    background: -moz-linear-gradient(top, rgba(241, 108, 73, 1) 0%, rgba(230, 104, 71, 1) 100%);
+    background: -o-linear-gradient(top, rgba(241, 108, 73, 1) 0%, rgba(230, 104, 71, 1) 100%);
+    background: -khtml-gradient(linear, left top, left bottom, from(rgba(241, 108, 73, 1) 0%), to(rgba(230, 104, 71, 1) 100%));
+    background: linear-gradient(to bottom, #F16C49 0%, #E66847 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f16c49', endColorstr='#e66847', GradientType=0);
+
+    color: #FFF;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+    font-family: 'Open Sans', Arial, sans-serif;
+    text-align: center;
+    padding: 0;
+}
+
+.jumbotron .inner
+{
+    background: rgba(0, 0, 0, 0) url(../img/grid-18px.png) top center;
+    padding: 25px 30px 0;
+}
+
+.jumbotron a
+{
+    color: #FFF;
+
+}
+
+.jumbotron a:hover,
+.jumbotron a:focus
+{
+    text-decoration: none;
+}
+
+.jumbotron .navbar
+{
+    margin-bottom: 0;
+}
+
+.jumbotron .navbar li a:hover,
+.jumbotron .navbar li a:focus
+{
+    background-color: transparent;
+    text-decoration: underline;
+}
+
+.jumbotron .navbar li.price-lnk
+{
+    border-bottom: 2px white solid;
+}
+
+.jumbotron .navbar ul
+{
+    float: right;
+}
+.jumbotron .navbar li
+{
+    float: left;
+}
+.jumbotron .navbar li a
+{
+    font-size: 16px;
+    color: #FFF;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+    padding-bottom: 10px;
+}
+
+.jumbotron.section
+{
+    margin-bottom: 85px;
+}
+
+.jumbotron h1
+{
+    font-weight: 800;
+    font-size: 72px;
+    margin-bottom: 29px;
+}
+
+.jumbotron .p-b
+{
+    border-top: 2px solid white;
+    padding-top: 10px;
+}
+
+.jumbotron p
+{
+    font-weight: 300;
+    font-size: 36px;
+}
+
+.jumbotron .btn
+{
+    font-size: 30px;
+    position: relative;
+    top: 18px;
+}
+
+/** jumbotron END **/
+
+/** acoordio addresses **/
+
+@media (max-width: 991px) { 
+    .panel-group>div+div {
+        margin-top: 5px;
+    }
+}
+
+/** acoordio addresses END **/
+
 #modal-body pre
 {
     max-height: 490px;
