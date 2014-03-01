@@ -7,4 +7,6 @@ require_once __DIR__ . '/php-sigep/src/PhpSigep/Bootstrap.php';
     'simular' => true,
 )));
 
+
+$baseUrl = (isset($_SERVER['PHP_SELF']) ? dirname($_SERVER['PHP_SELF']) : '/');
 require_once __DIR__ . '/FakeDataAccess.php';

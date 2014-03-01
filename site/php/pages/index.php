@@ -10,10 +10,10 @@
 
         <title>PHP Sigep</title>
 
-        <link href="/site/css/twbs/css/bootstrap.min.css" rel="stylesheet">
-        <link href="/site/css/site.css" rel="stylesheet">
-        <link href="/site/js/highlight/styles/default.css" rel="stylesheet">
-        <script src="/site/js/jquery-1.10.2.min.js"></script>
+        <link href="<?php echo $baseUrl ?>/site/css/twbs/css/bootstrap.min.css" rel="stylesheet">
+        <link href="<?php echo $baseUrl ?>/site/css/site.css" rel="stylesheet">
+        <link href="<?php echo $baseUrl ?>/site/js/highlight/styles/default.css" rel="stylesheet">
+        <script src="<?php echo $baseUrl ?>/site/js/jquery-1.10.2.min.js"></script>
 
         <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -24,11 +24,11 @@
     <body>
         <div class="jumbotron section">
             <div class="inner">
-                <h1><a href="/">PHP Sigep</a></h1>
+                <h1><a href="<?php echo $baseUrl ?>/">PHP Sigep</a></h1>
                 <div class="social">
-                    <iframe src="/site/github-buttons/github-btn.html?user=stavarengo&repo=php-sigep&type=watch&count=true&size=large"
+                    <iframe src="<?php echo $baseUrl ?>/site/github-buttons/github-btn.html?user=stavarengo&repo=php-sigep&type=watch&count=true&size=large"
                         allowtransparency="true" frameborder="0" scrolling="0" width="160" height="40"></iframe>
-                    <iframe src="/site/github-buttons/github-btn.html?user=stavarengo&repo=php-sigep&type=fork&count=true&size=large"
+                    <iframe src="<?php echo $baseUrl ?>/site/github-buttons/github-btn.html?user=stavarengo&repo=php-sigep&type=fork&count=true&size=large"
                             allowtransparency="true" frameborder="0" scrolling="0" width="160" height="40"></iframe>
                 </div>
                 <a href="#demo-calc" class="btn btn-success btn-lg" role="button">Demonstração online</a>
@@ -124,9 +124,9 @@
             </div>
         </div>
         
-        <script src="/site/js/dojo.js"></script>
-        <script src="/site/css/twbs/js/bootstrap.min.js"></script>
-        <script src="/site/js/highlight/highlight.pack.js"></script>
-        <script src="/site/js/app.js"></script>
+        <script src="<?php echo $baseUrl ?>/site/js/dojo.js"></script>
+        <script src="<?php echo $baseUrl ?>/site/css/twbs/js/bootstrap.min.js"></script>
+        <script src="<?php echo $baseUrl ?>/site/js/highlight/highlight.pack.js"></script>
+        <script src="<?php echo $baseUrl ?>/site/js/app.js"></script>
     </body>
 </html>
