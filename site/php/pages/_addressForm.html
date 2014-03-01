@@ -1,43 +1,43 @@
 <div class="row">
     <div class="col-sm-6 col-md-12 col-lg-12">
         <div class="form-group">
-            <label for="${tipo}Nome">Nome do ${tipo}</label>
+            <label for="${demo-id-prefix}${tipo}Nome">Nome do ${tipo}</label>
              <input type="text" class="form-control" name="${tipo}Nome" id="${demo-id-prefix}${tipo}Nome" value="${valueNome}">
         </div>
     </div>
     <div class="col-sm-6 col-md-8 col-lg-8">
         <div class="form-group">
-            <label for="${tipo}Logradouro">Logradouro</label>
+            <label for="${demo-id-prefix}${tipo}Logradouro">Logradouro</label>
              <input type="text" class="form-control" name="${tipo}Logradouro" id="${demo-id-prefix}${tipo}Logradouro" value="${valueLogradouro}">
         </div>
     </div>
     <div class="col-sm-3 col-md-4 col-lg-4">
         <div class="form-group">
-            <label for="${tipo}Numero">Número</label>
+            <label for="${demo-id-prefix}${tipo}Numero">Número</label>
              <input type="text" class="form-control" name="${tipo}Numero" id="${demo-id-prefix}${tipo}Numero" value="${valueNumero}">
         </div>
     </div>
     <div class="col-sm-4 col-md-4 col-lg-4">
         <div class="form-group">
-            <label for="${tipo}Complemento">Complemento</label>
+            <label for="${demo-id-prefix}${tipo}Complemento">Complemento</label>
              <input type="text" class="form-control" name="${tipo}Complemento" id="${demo-id-prefix}${tipo}Complemento" value="${valueComplemento}">
         </div>
     </div>
     <div class="col-sm-5 col-md-4 col-lg-4">
         <div class="form-group">
-            <label for="${tipo}Bairro">Bairro</label>
+            <label for="${demo-id-prefix}${tipo}Bairro">Bairro</label>
              <input type="text" class="form-control" name="${tipo}Bairro" id="${demo-id-prefix}${tipo}Bairro" value="${valueBairro}">
         </div>
     </div>
     <div class="col-sm-3 col-md-4 col-lg-4">
         <div class="form-group">
-            <label for="${tipo}Cep">CEP</label>
+            <label for="${demo-id-prefix}${tipo}Cep">CEP</label>
              <input type="text" class="form-control" name="${tipo}Cep" id="${demo-id-prefix}${tipo}Cep" value="${valueCep}">
         </div>
     </div>
     <div class="col-sm-5 col-md-6 col-lg-6">
         <div class="form-group">
-            <label for="${tipo}Estado">Estado</label>
+            <label for="${demo-id-prefix}${tipo}Estado">Estado</label>
              <select class="form-control" name="${tipo}Estado" id="${demo-id-prefix}${tipo}Estado" data-selected="${valueEstado}">
                 <option value="53">Acre</option>
                 <option value="55">Alagoas</option>
@@ -68,13 +68,13 @@
                 <option value="105">Tocantins</option>
             </select>
             <script type="application/javascript">
-                $('#${tipo}Estado option[value="${valueEstado}"]').attr('selected', '1');
+                $('#${demo-id-prefix}${tipo}Estado option[value="${valueEstado}"]').attr('selected', '1');
             </script>
         </div>
     </div>
     <div class="col-sm-4 col-md-6 col-lg-6">
         <div class="form-group">
-            <label for="${tipo}Cidade">Cidade</label>
+            <label for="${demo-id-prefix}${tipo}Cidade">Cidade</label>
              <input type="text" class="form-control" name="${tipo}Cidade" id="${demo-id-prefix}${tipo}Cidade" value="${valueCidade}">
         </div>
     </div>
