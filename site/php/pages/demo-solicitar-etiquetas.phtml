@@ -1,0 +1,25 @@
+<div class="row">
+    <div class="col-sm-3 col-md-2">
+        <div class="form-group">
+            <label for="solicitar-etiquetas-qtdEtiquetas">Qtd. etiquetas</label>
+            <input type="text" class="form-control" name="qtdEtiquetas" id="solicitar-etiquetas-qtdEtiquetas" value="3">
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-4">
+        <div class="form-group">
+            <label for="servicoDePostagem">Serviço de postagem</label>
+            <select class="form-control" name="servicoDePostagem" id="solicitar-etiquetas-servicoDePostagem">
+                <option value="81019" selected>81019 - E-sedex</option>
+                <option value="41068" selected>41068 - Pac</option>
+                <option value="40096" selected>40096 - Sedex</option>
+                <option value="40215" selected>40215 - Sedex 10 Envelope</option>
+                <option value="40886" selected>40886 - Sedex 10 Pacote</option>
+                <option value="40878" selected>40878 - Sedex Hoje</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="well">
+    <button class="btn btn-primary" onclick="app.btSolicitarEtiquetasClick()">Solicitar etiquetas</button>
+</div>

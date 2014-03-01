@@ -49,6 +49,37 @@
                 }
             }, errback);
         },
+
+        btSolicitarEtiquetasClick: function() {
+            this._request('solicitar-etiquetas');
+        },
+        
+        _request: function(action, callback) {
+            $('#modal-body').html('<div class="text-center"><i class="load-spin-xlarge"></i> Aguarde...</div>');
+            $('#dlg-result').modal({});
+
+            dojo.xhr('POST', {
+                url: '/?action=' + action,
+                content: this._getFormData('#demo-' + action + '-wp'),
+                preventCache: true,
+                handleAs: 'json'
+            }).then(function(data) {
+                if (!data || data.errorMsg || !data.resultado) {
+                    errback(data);
+                } else {
+                    try {
+                        if (callback) {
+                            callback(data);
+                        } else {
+                            var html = '<pre>' + hljs.highlight('json', dojo.toJson(data.resultado, true)).value + '</pre>';
+                            $('#modal-body').html(html);
+                        }
+                    } catch (e) {
+                        errback(e);
+                    }
+                }
+            }, errback);
+        },
         
         servicosAdicionaisChange: function(sender, target) {
             var servicosAdicionais = $(sender).val() || [];
