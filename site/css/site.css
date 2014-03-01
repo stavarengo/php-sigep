@@ -140,3 +140,8 @@ ul.extra-margin-bottom li
     width: 64px;
     height: 64px
 }
+
+label small
+{
+    font-size: 10px
+}

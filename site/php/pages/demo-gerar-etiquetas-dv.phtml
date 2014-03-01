@@ -1,0 +1,17 @@
+<div class="row">
+    <div class="col-xm-12 col-sm-6">
+        <div class="form-group">
+            <label for="gerar-etiquetas-dv-qtdEtiquetas">
+                Etiquetas s/ DV
+                <small>uma por linha</small>
+            </label>
+            <textarea class="form-control" name="etiquetas" id="gerar-etiquetas-dv-etiquetas" cols="15" rows="5">SI<?php echo mt_rand(10000000, 99999999) ?> BR
+SI<?php echo mt_rand(10000000, 99999999) ?> BR
+SI<?php echo mt_rand(10000000, 99999999) ?> BR</textarea>
+        </div>
+    </div>
+</div>
+
+<div class="well">
+    <button class="btn btn-primary" onclick="app.btGerarEtiquetasDvClick()">Solicitar DV das etiquetas</button>
+</div>

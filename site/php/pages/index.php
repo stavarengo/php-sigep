@@ -39,6 +39,7 @@
                         <li><a href="#demo-imprimir-plp">Imprimir PLP</a></li>
                         <li><a href="#demo-disponibilidade-servico">Verificar disponibilidade do serviço</a></li>
                         <li><a href="#demo-solicitar-etiquetas">Solicitar etiquetas</a></li>
+                        <li><a href="#demo-gerar-etiquetas-dv">Calcular <abbr title="Dígito Verificador">DV</abbr> das etiquetas</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-10">
@@ -83,6 +84,15 @@
                             <h1>Solicitar etiquetas</h1>
                             <div id="demo-solicitar-etiquetas-wp">
                                 <?php include __DIR__ . '/demo-solicitar-etiquetas.phtml' ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <a id="demo-gerar-etiquetas-dv"></a>
+                            <h1>Solicitar <abbr title="Dígito Verificador">DV</abbr> das etiquetas</h1>
+                            <div id="demo-gerar-etiquetas-dv-wp">
+                                <?php include __DIR__ . '/demo-gerar-etiquetas-dv.phtml' ?>
                             </div>
                         </div>
                     </div>

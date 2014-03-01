@@ -54,6 +54,10 @@
             this._request('solicitar-etiquetas');
         },
         
+        btGerarEtiquetasDvClick: function() {
+            this._request('gerar-etiquetas-dv');
+        },
+        
         _request: function(action, callback) {
             $('#modal-body').html('<div class="text-center"><i class="load-spin-xlarge"></i> Aguarde...</div>');
             $('#dlg-result').modal({});
@@ -97,7 +101,7 @@
         
         _getFormData: function(_parent) {
             var data = {};
-            $('input[name],select[name]', _parent).each(function(idx, element) {
+            $('input[name],select[name],textarea[name]', _parent).each(function(idx, element) {
                 if (element.name) {
                     if (dojo.hasAttr(element, 'multiple')) {
                         var multiple = $(element).val() || [];
