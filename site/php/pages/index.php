@@ -1,3 +1,7 @@
+<?php 
+    $cssCacheBust = 'c-20140301';
+    $jsCacheBust = 'j-20140301';
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
@@ -10,14 +14,14 @@
 
         <title>PHP Sigep</title>
 
-        <link href="<?php echo $baseUrl ?>/site/css/twbs/css/bootstrap.min.css" rel="stylesheet">
-        <link href="<?php echo $baseUrl ?>/site/css/site.css" rel="stylesheet">
-        <link href="<?php echo $baseUrl ?>/site/js/highlight/styles/default.css" rel="stylesheet">
-        <script src="<?php echo $baseUrl ?>/site/js/jquery-1.10.2.min.js"></script>
+        <link href="<?php echo $baseUrl ?>/site/css/twbs/css/bootstrap.min.css?<?php echo $cssCacheBust ?>" rel="stylesheet">
+        <link href="<?php echo $baseUrl ?>/site/css/site.css?<?php echo $cssCacheBust ?>" rel="stylesheet">
+        <link href="<?php echo $baseUrl ?>/site/js/highlight/styles/default.css?<?php echo $cssCacheBust ?>" rel="stylesheet">
+        <script src="<?php echo $baseUrl ?>/site/js/jquery-1.10.2.min.js?<?php echo $jsCacheBust ?>"></script>
 
         <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js?<?php echo $jsCacheBust ?>"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js?<?php echo $jsCacheBust ?>"></script>
         <![endif]-->
     </head>
 
@@ -124,10 +128,10 @@
             </div>
         </div>
         
-        <script src="<?php echo $baseUrl ?>/site/js/dojo.js"></script>
-        <script src="<?php echo $baseUrl ?>/site/css/twbs/js/bootstrap.min.js"></script>
-        <script src="<?php echo $baseUrl ?>/site/js/highlight/highlight.pack.js"></script>
-        <script src="<?php echo $baseUrl ?>/site/js/app.js"></script>
+        <script src="<?php echo $baseUrl ?>/site/js/dojo.js?<?php echo $jsCacheBust ?>"></script>
+        <script src="<?php echo $baseUrl ?>/site/css/twbs/js/bootstrap.min.js?<?php echo $jsCacheBust ?>"></script>
+        <script src="<?php echo $baseUrl ?>/site/js/highlight/highlight.pack.js?<?php echo $jsCacheBust ?>"></script>
+        <script src="<?php echo $baseUrl ?>/site/js/app.js?<?php echo $jsCacheBust ?>"></script>
         <script>
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
                 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
