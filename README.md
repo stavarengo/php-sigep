@@ -4,7 +4,7 @@ PHP SIGEP - Correios
 Implementação do Web Service dos correios SIGEP Web.
 ### [Veja o demo online, exemplos e documentação em nossa página](http://stavarengo.github.io/php-sigep).
 
-Integração com Web Service do Correios. Consulta preços e prazos, imprimi etiquetas e PLP, etc.
+Integração com Web Service do Correios. Consulta preços e prazos, imprime etiquetas e PLP, etc.
 Esta API pode:
 * Calcular preços e prazos de entrega da encomenda.   
 * Verificar se um tipo de serviço (Sedex, PAC, ...) é permitido entre dois endereços.   
