@@ -11,5 +11,6 @@ require_once __DIR__ . '/php-sigep/src/PhpSigep/Bootstrap.php';
 
 
 $baseUrl = (isset($_SERVER['PHP_SELF']) ? dirname($_SERVER['PHP_SELF']) : '/');
+$baseUrl = str_replace('\\', '/', $baseUrl);
 if ($baseUrl == '/') $baseUrl = '';
 require_once __DIR__ . '/FakeDataAccess.php';
