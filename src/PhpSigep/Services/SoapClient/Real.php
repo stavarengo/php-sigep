@@ -12,8 +12,9 @@ use PhpSigep\Model\ServicoDePostagem;
  */
 class Real implements SoapClientInterface
 {
+    private static $calcPrecosPrazosServiceUnavailable = false;
 
-	/**
+    /**
 	 * @var \SoapClient
 	 */
 	protected $_soapClient;
@@ -289,7 +290,20 @@ class Real implements SoapClientInterface
             'sCdAvisoRecebimento' => ($avisoRecebimento ? 'S' : 'N'),
         );
 
-        $r = $this->_getSoapCalcPrecoPrazo()->calcPrecoPrazo($soapArgs);
+        try {
+            $r = $this->_getSoapCalcPrecoPrazo()->calcPrecoPrazo($soapArgs);
+        } catch (\Exception $e) {
+            $message = $e->getMessage();
+            if ($message == 'Service Unavailable') {
+                if (!self::$calcPrecosPrazosServiceUnavailable) {
+                    //Tenta mais uma vez
+                    self::$calcPrecosPrazosServiceUnavailable = true;
+                    sleep(1);
+                    return $this->calcPrecoPrazo($params);
+                }
+            }
+            throw $e;
+        }
 
         $retorno = array();
         $todosTemErro = false;

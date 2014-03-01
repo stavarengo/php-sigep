@@ -2,12 +2,9 @@
 namespace PhpSigep\Services;
 
 use PhpSigep\Bootstrap;
-use PhpSigep\Model\Dimensao;
-use PhpSigep\Model\Etiqueta;
-use PhpSigep\Model\ServicoAdicional;
-use PhpSigep\Model\ServicoDePostagem;
 use PhpSigep\Services\SoapClient\Real;
 use PhpSigep\Services\SoapClient\Simulador;
+use PhpSigep\Services\SoapClient\SoapClientInterface;
 
 /**
  * @author: Stavarengo
@@ -21,7 +18,7 @@ class SoapClientFactory
     }
 
     /**
-     * @return Real|Simulador
+     * @return SoapClientInterface
      */
     public static function create()
     {
