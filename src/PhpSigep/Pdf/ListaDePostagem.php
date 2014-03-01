@@ -348,7 +348,7 @@ class ListaDePostagem
 			$pdf->CellXp($wCol5, ($temMp ? 'S' : 'N'), 'C');
 			$pdf->SetX($xCol6);
 			$pdf->CellXp($wCol6, ($temVd ? 'S' : 'N'), 'C');
-			$pdf->SetXY($xCol7, $y1);
+			$pdf->SetX($xCol7);
 			$pdf->MultiCellXp($wCol7, ($temVd ? $valorDeclarado : ''), null, 0, 'C');
 			$pdf->SetXY($xCol9, $y2);
 			$pdf->CellXp($wCol9, '1/1', 'C');
