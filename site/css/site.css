@@ -25,7 +25,7 @@
 .jumbotron .inner
 {
     background: rgba(0, 0, 0, 0) url(../img/grid-18px.png) top center;
-    padding: 25px 30px 0;
+    padding: 25px 30px 40px;
 }
 
 .jumbotron a
@@ -97,11 +97,9 @@
     font-size: 36px;
 }
 
-.jumbotron .btn
+.jumbotron .social
 {
-    font-size: 30px;
-    position: relative;
-    top: 18px;
+    padding: 0 0 20px 50px;
 }
 
 /** jumbotron END **/

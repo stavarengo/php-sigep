@@ -25,7 +25,15 @@
         <div class="jumbotron section">
             <div class="inner">
                 <h1><a href="/">PHP Sigep</a></h1>
-                <a href="#demo-calc" class="btn btn-primary btn-lg" role="button">Demo</a>
+                <div class="social">
+                    <iframe src="/site/github-buttons/github-btn.html?user=stavarengo&repo=php-sigep&type=watch&count=true&size=large"
+                        allowtransparency="true" frameborder="0" scrolling="0" width="160" height="40"></iframe>
+                    <iframe src="/site/github-buttons/github-btn.html?user=stavarengo&repo=php-sigep&type=fork&count=true&size=large"
+                            allowtransparency="true" frameborder="0" scrolling="0" width="160" height="40"></iframe>
+                </div>
+                <a href="#demo-calc" class="btn btn-success btn-lg" role="button">Demonstração online</a>
+                &nbsp;&nbsp;&nbsp;
+                <a href="https://github.com/stavarengo/php-sigep" class="btn btn-success btn-lg" role="button">Download on GitHub</a>
             </div>
         </div>
         
@@ -35,8 +43,7 @@
                     <ul class="nav nav-pills nav-stacked">
                         <li class="active"><a href="#home">Home</a></li>
                         <li><a href="#demo-calc">Calcular preços e prazos</a></li>
-                        <li><a href="#demo-relatorios-pdf">Imprimir etiquetas</a></li>
-                        <li><a href="#demo-imprimir-plp">Imprimir PLP</a></li>
+                        <li><a href="#demo-relatorios-pdf">Imprimir etiquetas e PLP</a></li>
                         <li><a href="#demo-disponibilidade-servico">Verificar disponibilidade do serviço</a></li>
                         <li><a href="#demo-solicitar-etiquetas">Solicitar etiquetas</a></li>
                         <li><a href="#demo-gerar-etiquetas-dv">Calcular <abbr title="Dígito Verificador">DV</abbr> das etiquetas</a></li>
