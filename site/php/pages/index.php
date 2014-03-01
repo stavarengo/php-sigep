@@ -37,6 +37,7 @@
                         <li><a href="#demo-calc">Calcular preços e prazos</a></li>
                         <li><a href="#demo-imprimir-etiquetas">Imprimir etiquetas</a></li>
                         <li><a href="#demo-imprimir-plp">Imprimir PLP</a></li>
+                        <li><a href="#demo-disponibilidade-servico">Verificar disponibilidade do serviço</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-10">
@@ -63,6 +64,15 @@
                                 <form action="/?action=imprimir-etiqueta" method="post" target="_blank">
                                     <?php include __DIR__ . '/demo-imprimir-etiquetas.phtml' ?>
                                 </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <a id="demo-disponibilidade-servico"></a>
+                            <h1>Verificar disponibilidade do serviço</h1>
+                            <div id="demo-disponibilidade-servico-wp">
+                                <?php include __DIR__ . '/demo-disponibilidade-servico.phtml' ?>
                             </div>
                         </div>
                     </div>

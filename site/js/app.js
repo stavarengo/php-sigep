@@ -31,6 +31,25 @@
             }, errback);
         },
 
+        btDisponibilidadeServicoClick: function() {
+            $('#modal-body').html('<div class="text-center"><i class="load-spin-xlarge"></i> Aguarde...</div>');
+            $('#dlg-result').modal({});
+
+            dojo.xhr('POST', {
+                url: '/?action=disponibilidade-servico',
+                content: this._getFormData('#demo-disponibilidade-servico-wp'),
+                preventCache: true,
+                handleAs: 'json'
+            }).then(function(data) {
+                if (!data || data.errorMsg) {
+                    errback(data);
+                } else {
+                    var resultado = '<pre>' + hljs.highlight('json', dojo.toJson(data, true)).value + '</pre>';
+                    $('#modal-body').html(resultado);
+                }
+            }, errback);
+        },
+        
         servicosAdicionaisChange: function(sender, target) {
             var servicosAdicionais = $(sender).val() || [];
             var temValorDeclarado = dojo.some(servicosAdicionais, function(value){
