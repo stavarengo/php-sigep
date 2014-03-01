@@ -4,7 +4,7 @@ $qtdEtiquetas      = (int)$_POST['qtdEtiquetas'];
 $servicoDePostagem = $_POST['servicoDePostagem'];
 
 if ($qtdEtiquetas > 10) {
-    die(json_encode(array('errorMsg' => 'Não peça mais do que 10 etiquetas.'), JSON_PRETTY_PRINT));    
+    die(json_encode(array('errorMsg' => 'Não peça mais do que 10 etiquetas.')));    
 }
 
 $params = new \PhpSigep\Model\SolicitaEtiquetas();
@@ -23,4 +23,8 @@ $r = array(
     'resultado' => $r,
 );
 
-die(json_encode($r, JSON_PRETTY_PRINT));
+if (defined('JSON_PRETTY_PRINT')) {
+    die(json_encode($r, JSON_PRETTY_PRINT));
+} else {
+    die(json_encode($r));
+}

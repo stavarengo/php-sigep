@@ -54,4 +54,8 @@ $r = array(
     'resultado' => $r,
     'help'      => $help,
 );
-die(json_encode($r, JSON_PRETTY_PRINT));
+if (defined('JSON_PRETTY_PRINT')) {
+    die(json_encode($r, JSON_PRETTY_PRINT));
+} else {
+    die(json_encode($r));
+}

@@ -22,4 +22,8 @@ $servico = new \PhpSigep\Services\VerificaDisponibilidadeServico();
 
 $r = $servico->execute($params);
 
-die(json_encode($r, JSON_PRETTY_PRINT));
+if (defined('JSON_PRETTY_PRINT')) {
+    die(json_encode($r, JSON_PRETTY_PRINT));
+} else {
+    die(json_encode($r));
+}

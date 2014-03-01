@@ -3,7 +3,7 @@
 $etiquetas = explode("\n", $_POST['etiquetas']);
 
 if (count($etiquetas) > 10) {
-    die(json_encode(array('errorMsg' => 'Não peça mais do que 10 etiquetas.'), JSON_PRETTY_PRINT));
+    die(json_encode(array('errorMsg' => 'Não peça mais do que 10 etiquetas.')));
 }
 
 $etiquetasArray = array();
@@ -29,4 +29,8 @@ $r = array(
     'resultado' => $r,
 );
 
-die(json_encode($r, JSON_PRETTY_PRINT));
+if (defined('JSON_PRETTY_PRINT')) {
+    die(json_encode($r, JSON_PRETTY_PRINT));
+} else {
+    die(json_encode($r));
+}
