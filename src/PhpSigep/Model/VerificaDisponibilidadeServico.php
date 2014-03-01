@@ -8,9 +8,9 @@ class VerificaDisponibilidadeServico extends AbstractModel
 {
 
 	/**
-	 * @var string
+	 * @var ServicoDePostagem
 	 */
-	protected $numeroServico;
+	protected $servico;
 	/**
 	 * @var string
 	 */
@@ -73,19 +73,19 @@ class VerificaDisponibilidadeServico extends AbstractModel
 	}
 
 	/**
-	 * @return string
+	 * @return ServicoDePostagem
 	 */
-	public function getNumeroServico()
+	public function getServico()
 	{
-		return $this->numeroServico;
+		return $this->servico;
 	}
 
 	/**
-	 * @param string $numeroServico
+	 * @param ServicoDePostagem $servico
 	 */
-	public function setNumeroServico($numeroServico)
+	public function setServico(ServicoDePostagem $servico)
 	{
-		$this->numeroServico = $numeroServico;
+		$this->servico = $servico;
 	}
 
 

@@ -58,7 +58,7 @@ class Real implements SoapClientInterface
 	{
 		$soapArgs = array(
 			'codAdministrativo' => $params->getAccessData()->getCodAdministrativo(),
-			'numeroServico'     => $params->getNumeroServico(),
+			'numeroServico'     => $params->getServico()->getCodigo(),
 			'cepOrigem'         => $params->getCepOrigem(),
 			'cepDestino'        => $params->getCepDestino(),
 			'usuario'           => $params->getAccessData()->getUsuario(),
