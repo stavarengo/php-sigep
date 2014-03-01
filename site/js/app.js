@@ -12,15 +12,7 @@
     
     window.app = {
         btCalcPrecosClick: function() {
-            $('#modal-body').html('<div class="text-center"><i class="load-spin-xlarge"></i> Aguarde...</div>');
-            $('#dlg-result').modal({});
-
-            dojo.xhr('POST', {
-                url: '/?action=calc-preco-prazo',
-                content: this._getFormData('#demo-calc-wp'),
-                preventCache: true,
-                handleAs: 'json'
-            }).then(function(data) {
+            this._request('calc-preco-prazo', function(data) {
                 if (!data || data.errorMsg || !data.resultado || !data.help) {
                     errback(data);
                 } else {
@@ -28,26 +20,11 @@
                     var html = '<div class="row"><div class="col-sm-6">' + data.help + '</div><div class="col-sm-6">' + resultado + '</div></div>';
                     $('#modal-body').html(html);
                 }
-            }, errback);
+            });
         },
 
         btDisponibilidadeServicoClick: function() {
-            $('#modal-body').html('<div class="text-center"><i class="load-spin-xlarge"></i> Aguarde...</div>');
-            $('#dlg-result').modal({});
-
-            dojo.xhr('POST', {
-                url: '/?action=disponibilidade-servico',
-                content: this._getFormData('#demo-disponibilidade-servico-wp'),
-                preventCache: true,
-                handleAs: 'json'
-            }).then(function(data) {
-                if (!data || data.errorMsg) {
-                    errback(data);
-                } else {
-                    var resultado = '<pre>' + hljs.highlight('json', dojo.toJson(data, true)).value + '</pre>';
-                    $('#modal-body').html(resultado);
-                }
-            }, errback);
+            this._request('disponibilidade-servico');
         },
 
         btSolicitarEtiquetasClick: function() {
@@ -61,9 +38,10 @@
         _request: function(action, callback) {
             $('#modal-body').html('<div class="text-center"><i class="load-spin-xlarge"></i> Aguarde...</div>');
             $('#dlg-result').modal({});
-
+            
+            var cacheBust = new Date();
             dojo.xhr('POST', {
-                url: '/?action=' + action,
+                url: '/?action=' + action + '&' + cacheBust.getTime(),
                 content: this._getFormData('#demo-' + action + '-wp'),
                 preventCache: true,
                 handleAs: 'json'

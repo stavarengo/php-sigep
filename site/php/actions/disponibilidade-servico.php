@@ -21,7 +21,9 @@ $params->setAccessData(FakeDataAccess::create());
 $servico = new \PhpSigep\Services\VerificaDisponibilidadeServico();
 
 $r = $servico->execute($params);
-
+$r = array(
+    'resultado' => $r,
+);
 if (defined('JSON_PRETTY_PRINT')) {
     die(json_encode($r, JSON_PRETTY_PRINT));
 } else {

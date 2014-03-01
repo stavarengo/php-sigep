@@ -31,7 +31,7 @@
                     <iframe src="<?php echo $baseUrl ?>/site/github-buttons/github-btn.html?user=stavarengo&repo=php-sigep&type=fork&count=true&size=large"
                             allowtransparency="true" frameborder="0" scrolling="0" width="160" height="40"></iframe>
                 </div>
-                <a href="#demo-calc" class="btn btn-success btn-lg" role="button">Demonstração online</a>
+                <a href="#demo-calc-preco-prazo" class="btn btn-success btn-lg" role="button">Demonstração online</a>
                 &nbsp;&nbsp;&nbsp;
                 <a href="https://github.com/stavarengo/php-sigep" class="btn btn-success btn-lg" role="button">Download on GitHub</a>
             </div>
@@ -42,7 +42,7 @@
                 <div class="col-sm-2">
                     <ul class="nav nav-pills nav-stacked">
                         <li class="active"><a href="#home">Home</a></li>
-                        <li><a href="#demo-calc">Calcular preços e prazos</a></li>
+                        <li><a href="#demo-calc-preco-prazo">Calcular preços e prazos</a></li>
                         <li><a href="#demo-relatorios-pdf">Imprimir etiquetas e PLP</a></li>
                         <li><a href="#demo-disponibilidade-servico">Verificar disponibilidade do serviço</a></li>
                         <li><a href="#demo-solicitar-etiquetas">Solicitar etiquetas</a></li>
@@ -61,10 +61,10 @@
                     </div>
                     <div class="row">
                         <div class="col-xs-12">
-                            <a id="demo-calc"></a>
+                            <a id="demo-calc-preco-prazo"></a>
                             <h1>Calcular preços e prazos</h1>
-                            <div id="demo-calc-wp">
-                                <?php include __DIR__ . '/demo-calc.phtml' ?>
+                            <div id="demo-calc-preco-prazo-wp">
+                                <?php include __DIR__ . '/demo-calc-preco-prazo.phtml' ?>
                             </div>
                         </div>
                     </div>
