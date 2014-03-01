@@ -35,7 +35,7 @@
                     <ul class="nav nav-pills nav-stacked">
                         <li class="active"><a href="#home">Home</a></li>
                         <li><a href="#demo-calc">Calcular preços e prazos</a></li>
-                        <li><a href="#demo-imprimir-etiquetas">Imprimir etiquetas</a></li>
+                        <li><a href="#demo-relatorios-pdf">Imprimir etiquetas</a></li>
                         <li><a href="#demo-imprimir-plp">Imprimir PLP</a></li>
                         <li><a href="#demo-disponibilidade-servico">Verificar disponibilidade do serviço</a></li>
                         <li><a href="#demo-solicitar-etiquetas">Solicitar etiquetas</a></li>
@@ -60,12 +60,10 @@
                     </div>
                     <div class="row">
                         <div class="col-xs-12">
-                            <a id="demo-imprimir-etiquetas"></a>
-                            <h1>Imprimir etiquetas</h1>
-                            <div id="demo-imprimir-etiquetas-wp">
-                                <form action="/?action=imprimir-etiqueta" method="post" target="_blank">
-                                    <?php include __DIR__ . '/demo-imprimir-etiquetas.phtml' ?>
-                                </form>
+                            <a id="demo-relatorios-pdf"></a>
+                            <h1>Imprimir etiquetas e PLP</h1>
+                            <div id="demo-relatorios-pdf-wp">
+                                <?php include __DIR__ . '/demo-relatorios-pdf.phtml' ?>
                             </div>
                         </div>
                     </div>

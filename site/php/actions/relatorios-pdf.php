@@ -20,6 +20,7 @@ $destinatarioCidade             = $_POST['destinatarioCidade'];
 $destinatarioEstado             = $_POST['destinatarioEstado'];
 $destinatarioCep                = $_POST['destinatarioCep'];
 $servicosAdicionaisSelecionados = $_POST['servicosAdicionais'];
+$relatorio = $_POST['relatorio'];
 
 $servicoDePostagem = new \PhpSigep\Model\ServicoDePostagem($servicoDePostagem);
 
@@ -91,8 +92,11 @@ $params->setAccessData($accessData);
 $params->setEncomendas(array($encomenda));
 $params->setRemetente($remetente);
 
-
-$logoFile = __DIR__ . '/../../img/logo-etiqueta.png';
-$servico  = new \PhpSigep\Pdf\CartaoDePostagem($params, time(), $logoFile);
+if ($relatorio == 'etiquetas') {
+    $logoFile = __DIR__ . '/../../img/logo-etiqueta.png';
+    $servico  = new \PhpSigep\Pdf\CartaoDePostagem($params, time(), $logoFile);
+} else {
+    $servico  = new \PhpSigep\Pdf\ListaDePostagem($params, time());
+}
 
 $servico->render($params);

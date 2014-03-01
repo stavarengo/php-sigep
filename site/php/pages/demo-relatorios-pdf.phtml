@@ -1,0 +1,116 @@
+<?php
+    $addresses = array(
+        array(
+            '${demo-id-prefix}'   => 'demo-relatorios-pdf-',
+            '${tipo}'             => 'remetente',
+            '${valueNome}'        => 'Google São Paulo',
+            '${valueLogradouro}'  => 'Av. Brigadeiro Faria Lima',
+            '${valueNumero}'      => '3900',
+            '${valueComplemento}' => '5º andar',
+            '${valueBairro}'      => 'Itaim',
+            '${valueCidade}'      => 'São Paulo',
+            '${valueEstado}'      => '101',
+            '${valueCep}'         => '04538-132',
+        ),
+        array(
+            '${demo-id-prefix}'   => 'demo-relatorios-pdf-',
+            '${tipo}'             => 'destinatario',
+            '${valueNome}'        => 'Google Belo Horizonte',
+            '${valueLogradouro}'  => 'Av. Bias Fortes',
+            '${valueNumero}'      => '382',
+            '${valueComplemento}' => '6º andar',
+            '${valueBairro}'      => 'Lourdes',
+            '${valueCidade}'      => 'Belo Horizonte',
+            '${valueEstado}'      => '77',
+            '${valueCep}'         => '30170-010',
+        ),
+    );
+    $addressForm = file_get_contents(__DIR__ . '/_addressForm.html');
+    $remetenteForm = str_replace(array_keys($addresses[0]), array_values($addresses[0]), $addressForm);
+    $destinatarioForm = str_replace(array_keys($addresses[1]), array_values($addresses[1]), $addressForm);
+?>
+<form action="/?action=relatorios-pdf" method="post" target="_blank">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel-group">
+                <div class="col-md-6 col-lg-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#demo-relatorios-pdf-collapseOne">
+                                    Endereço do remetente
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="demo-relatorios-pdf-collapseOne" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <?php echo $remetenteForm ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#demo-relatorios-pdf-collapseTwo">
+                                    Endereço do destinatário
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="demo-relatorios-pdf-collapseTwo" class="panel-collapse collapse">
+                            <div class="panel-body">
+                                <?php echo $destinatarioForm ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 10px">
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label for="demo-relatorios-pdf-servicoDePostagem">Serviço de postagem</label>
+                <select class="form-control" name="servicoDePostagem" id="demo-relatorios-pdf-servicoDePostagem">
+                    <option value="81019">81019 - E-sedex</option>
+                    <option value="41068">41068 - Pac</option>
+                    <option value="40096">40096 - Sedex</option>
+                    <option value="40215">40215 - Sedex 10 Envelope</option>
+                    <option value="40886">40886 - Sedex 10 Pacote</option>
+                    <option value="40878">40878 - Sedex Hoje</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label for="demo-relatorios-pdf-servicosAdicionais">Serviços adicionais</label>
+                <select class="form-control" name="servicosAdicionais[]" id="demo-relatorios-pdf-servicosAdicionais" multiple size="6" onchange="app.servicosAdicionaisChange(this, '#relatorios-pdf-valorDeclarado-wp')">
+                    <option value="mp" selected>Mão própria</option>
+                    <option value="vd" selected>Valor declarado</option>
+                    <option value="ar" selected>Aviso de recebimento</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="form-group">
+                <label for="demo-relatorios-pdf-peso">
+                    Peso total
+                    <small>Em gramas (caixa + produto)</small>
+                </label>
+                <input type="text" class="form-control" id="demo-relatorios-pdf-peso" name="peso" value="0.500">
+            </div>
+            <div class="form-group" id="relatorios-pdf-valorDeclarado-wp">
+                <label for="demo-relatorios-pdf-valorDeclarado">Valor declarado</label>
+                <input type="text" class="form-control" id="demo-relatorios-pdf-valorDeclarado" name="valorDeclarado" value="75.90">
+            </div>
+        </div>
+    </div>
+    
+    <div class="well">
+        <input type="hidden" name="relatorio" id="demo-relatorios-pdf-relatorio"/>
+        
+        <button class="btn btn-primary" type="submit" onclick="$('#demo-relatorios-pdf-relatorio').val('etiquetas')">Imprimir etiquetas</button>
+        <button class="btn btn-primary" type="submit" onclick="$('#demo-relatorios-pdf-relatorio').val('plp')">Imprimir <abbr title="Pre Lista de Postagem">PLP</abbr></button>
+    </div>
+</form>
