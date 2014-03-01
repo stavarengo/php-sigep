@@ -1,6 +1,7 @@
 <?php
 namespace PhpSigep\Pdf;
 
+use PhpSigep\Bootstrap;
 use PhpSigep\Model\ServicoDePostagem;
 use PhpSigep\Pdf\Chancela\Pac;
 use PhpSigep\Pdf\Chancela\Sedex;
@@ -24,6 +25,7 @@ class CartaoDePostagem
 	 */
 	private $idPlpCorreios;
 	/**
+     * Uma imagem com tamanho 120 x 140
 	 * @var string
 	 */
 	private $logoFile;
@@ -85,6 +87,17 @@ class CartaoDePostagem
 		$total          = count($objetosPostais);
 		while (count($objetosPostais)) {
 			$this->pdf->AddPage();
+            
+            if (Bootstrap::getConfig()->getSimular()) {
+                $this->pdf->SetFont('Arial','B',50);
+                $this->pdf->SetTextColor(240,240,240);
+                $this->pdf->SetXY($lMarginFourAreas, $hFourAreas / 2 - $this->pdf->getLineHeigth() / 2);
+                $this->pdf->MultiCellXp($this->pdf->w - $this->pdf->lMargin - $this->pdf->rMargin, "Simulação Documento sem valor", null, 0, 'C');
+                $this->pdf->SetXY($lMarginFourAreas, $margins[2]['t'] + $hFourAreas / 2 - $this->pdf->getLineHeigth() / 2);
+                $this->pdf->MultiCellXp($this->pdf->w - $this->pdf->lMargin - $this->pdf->rMargin, "Simulação Documento sem valor", null, 0, 'C');
+                $this->pdf->SetTextColor(0,0,0);
+            }
+            
 			$crossMargin = 50;
 			$this->pdf->SetDrawColor(200, 200, 200);
 			for ($lineY = $crossMargin; $lineY < $this->pdf->h - $crossMargin; $lineY += 10) {

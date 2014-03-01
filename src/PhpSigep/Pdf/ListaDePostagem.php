@@ -1,6 +1,7 @@
 <?php
 namespace PhpSigep\Pdf;
 
+use PhpSigep\Bootstrap;
 use PhpSigep\Model\ServicoAdicional;
 
 /**
@@ -446,6 +447,18 @@ class ListaDePostagem
 	{
 		$pdf = $this->pdf;
 		$pdf->AddPage();
+        
+        if (Bootstrap::getConfig()->getSimular()) {
+            $this->pdf->SetFont('Arial','B',50);
+            $this->pdf->SetTextColor(200,200,200);
+            $hInner = $pdf->h - $pdf->tMargin - $pdf->bMargin;
+            $lineHeigth = $pdf->getLineHeigth();
+            $pdf->SetY($hInner / 2 - $lineHeigth / 2);
+            $this->pdf->MultiCellXp($this->pdf->w - $this->pdf->lMargin - $this->pdf->rMargin, "Simulação Documento sem valor", null, 0, 'C');
+
+            $this->pdf->SetTextColor(0,0,0);
+        }
+        
 		$pdf->x = $pdf->lMargin;
 		$pdf->y = $pdf->tMargin;
 	}

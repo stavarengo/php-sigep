@@ -148,7 +148,7 @@ class Sedex
 
 		// Nome do remetente
 		$pdf->SetFont('', 'B', 9);
-		$pdf->MultiCell($wRect, 9 / $k, $this->nomeRemetente, 0, 'C');
+		$pdf->MultiCell($wRect, 9 / $k, $pdf->_($this->nomeRemetente), 0, 'C');
 
 		// Escreve CORREIOS na parte inferior
 		$text = 'CORREIOS';

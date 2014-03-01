@@ -32,7 +32,7 @@ class Simulador implements SoapClientInterface
         $etiquetas    = array();
         for ($i = 0; $i < $qtdEtiquetas; $i++) {
             $etiqueta = new \PhpSigep\Model\Etiqueta();
-            $etiqueta->setEtiquetaSemDv('SI' . $i . mt_rand(1000000, 9999999) . 'BR');
+            $etiqueta->setEtiquetaSemDv('SI' . $i . mt_rand(10000000, 99999999) . 'BR');
 
             $etiquetas[] = $etiqueta;
         }
