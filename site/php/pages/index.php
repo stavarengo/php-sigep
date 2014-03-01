@@ -25,7 +25,7 @@
         <div class="jumbotron section">
             <div class="inner">
                 <h1><a href="/">PHP Sigep</a></h1>
-                <a href="#como-funciona" class="btn btn-primary btn-lg" role="button">Demo</a>
+                <a href="#demo-calc" class="btn btn-primary btn-lg" role="button">Demo</a>
             </div>
         </div>
         
@@ -42,11 +42,14 @@
                         <li><a href="#demo-gerar-etiquetas-dv">Calcular <abbr title="Dígito Verificador">DV</abbr> das etiquetas</a></li>
                     </ul>
                 </div>
-                <div class="col-sm-10">
+                <div class="col-sm-10 the-body">
                     <div class="row">
                         <div class="col-xs-12">
                             <a id="home"></a>
-                            <h1>Home page</h1>
+                            <h1 style="padding-top: 0">Home page</h1>
+                            <div id="home-page-wp">
+                                <?php include __DIR__ . '/home-page.phtml' ?>
+                            </div>
                         </div>
                     </div>
                     <div class="row">
