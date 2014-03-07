@@ -23,6 +23,44 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js?<?php echo $jsCacheBust ?>"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js?<?php echo $jsCacheBust ?>"></script>
         <![endif]-->
+        <script type="application/javascript">
+            //Returns true if it is a DOM node
+            function isNode(o){
+                return (
+                    typeof Node === "object" ? o instanceof Node :
+                        o && typeof o === "object" && typeof o.nodeType === "number" && typeof o.nodeName==="string"
+                    );
+            }
+
+            //Returns true if it is a DOM element    
+            function isElement(o){
+                return (
+                    typeof HTMLElement === "object" ? o instanceof HTMLElement : //DOM2
+                        o && typeof o === "object" && o !== null && o.nodeType === 1 && typeof o.nodeName==="string"
+                    );
+            }
+            
+            function _sendEvent(evt, action, desc) {
+                try {
+                    if (typeof(ga) == 'function') {
+                        ga('send', 'event', evt, action, desc);
+                    }
+                } catch (e) {
+                }
+            }
+            function _pageView(title) {
+                try {
+                    if (typeof(ga) == 'function') {
+                        title = (isElement(title) ? $.trim($(title).html()) : title);
+                        var newVar = {
+                            title: (title || document.title + ' - _pageView')
+                        };
+                        ga('send', 'pageview', newVar);
+                    }
+                } catch (e) {
+                }
+            }
+        </script>
     </head>
 
     <body>
@@ -35,9 +73,9 @@
                     <iframe src="<?php echo $baseUrl ?>/site/github-buttons/github-btn.html?user=stavarengo&repo=php-sigep&type=fork&count=true&size=large"
                             allowtransparency="true" frameborder="0" scrolling="0" width="160" height="40"></iframe>
                 </div>
-                <a href="#demo-calc-preco-prazo" class="btn btn-success btn-lg" role="button">Demonstração online</a>
+                <a href="#demo-calc-preco-prazo" class="btn btn-success btn-lg" onclick="_pageView(this)" role="button">Demonstração online</a>
                 &nbsp;&nbsp;&nbsp;
-                <a href="https://github.com/stavarengo/php-sigep" class="btn btn-success btn-lg" role="button">Download on GitHub</a>
+                <a href="https://github.com/stavarengo/php-sigep" onclick="_pageView(this)" class="btn btn-success btn-lg" role="button">Download on GitHub</a>
             </div>
         </div>
         
@@ -46,11 +84,11 @@
                 <div class="col-sm-2">
                     <ul class="nav nav-pills nav-stacked">
                         <li class="active"><a href="#home">Home</a></li>
-                        <li><a href="#demo-calc-preco-prazo">Calcular preços e prazos</a></li>
-                        <li><a href="#demo-relatorios-pdf">Imprimir etiquetas e PLP</a></li>
-                        <li><a href="#demo-disponibilidade-servico">Verificar disponibilidade do serviço</a></li>
-                        <li><a href="#demo-solicitar-etiquetas">Solicitar etiquetas</a></li>
-                        <li><a href="#demo-gerar-etiquetas-dv">Calcular <abbr title="Dígito Verificador">DV</abbr> das etiquetas</a></li>
+                        <li><a onclick="_pageView(this)" href="#demo-calc-preco-prazo">Calcular preços e prazos</a></li>
+                        <li><a onclick="_pageView(this)" href="#demo-relatorios-pdf">Imprimir etiquetas e PLP</a></li>
+                        <li><a onclick="_pageView(this)" href="#demo-disponibilidade-servico">Verificar disponibilidade do serviço</a></li>
+                        <li><a onclick="_pageView(this)" href="#demo-solicitar-etiquetas">Solicitar etiquetas</a></li>
+                        <li><a onclick="_pageView(this)" href="#demo-gerar-etiquetas-dv">Calcular <abbr title="Dígito Verificador">DV</abbr> das etiquetas</a></li>
                     </ul>
                 </div>
                 <div class="col-sm-10 the-body">
