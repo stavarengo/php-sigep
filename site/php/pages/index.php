@@ -51,7 +51,9 @@
             function _pageView(title) {
                 try {
                     if (typeof(ga) == 'function') {
-                        title = (isElement(title) ? $.trim($(title).html()) : title);
+                        if (isElement(title)) {
+                            title = title.tagName + ': ' + $.trim($(title).text());
+                        }
                         var newVar = {
                             title: (title || document.title + ' - _pageView')
                         };
@@ -75,7 +77,7 @@
                 </div>
                 <a href="#demo-calc-preco-prazo" class="btn btn-success btn-lg" onclick="_pageView(this)" role="button">Demonstração online</a>
                 &nbsp;&nbsp;&nbsp;
-                <a href="https://github.com/stavarengo/php-sigep" onclick="_pageView(this)" class="btn btn-success btn-lg" role="button">Download on GitHub</a>
+                <a href="https://github.com/stavarengo/php-sigep" onclick="_pageView(this)" class="btn btn-success btn-lg" role="button" target="_blank">Download on GitHub</a>
             </div>
         </div>
         
