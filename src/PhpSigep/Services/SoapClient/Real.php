@@ -31,6 +31,7 @@ class Real implements SoapClientInterface
 				"trace"      => Bootstrap::getConfig()->isDebug(),
 				"exceptions" => Bootstrap::getConfig()->isDebug(),
 				'encoding'   => 'ISO-8859-1',
+                'connection_timeout' => 60,
 			));
 		}
 		return $this->_soapClient;
@@ -44,6 +45,7 @@ class Real implements SoapClientInterface
 				"trace"      => Bootstrap::getConfig()->isDebug(),
 				"exceptions" => Bootstrap::getConfig()->isDebug(),
 				'encoding'   => 'ISO-8859-1',
+                'connection_timeout' => 60,
 			));
 		}
 		return $this->_soapCalcPrecoPrazo;
