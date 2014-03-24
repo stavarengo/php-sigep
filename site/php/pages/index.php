@@ -40,10 +40,10 @@
                     );
             }
             
-            function _sendEvent(evt, action, desc) {
+            function _sendEvent(evt, action, desc, value) {
                 try {
                     if (typeof(ga) == 'function') {
-                        ga('send', 'event', evt, action, desc);
+                        ga('send', 'event', evt, action, desc, value);
                     }
                 } catch (e) {
                 }
@@ -51,12 +51,17 @@
             function _pageView(title) {
                 try {
                     if (typeof(ga) == 'function') {
+                        var url = null;
                         if (isElement(title)) {
                             title = title.tagName + ': ' + $.trim($(title).text());
+                            url = title.toLowerCase().replace(/[ :]/g, '---').replace(/--/g, '-').replace(/--/g, '-').replace(/--/g, '-');
                         }
                         var newVar = {
                             title: (title || document.title + ' - _pageView')
                         };
+                        if (url) {
+                            newVar.page = url;
+                        }
                         ga('send', 'pageview', newVar);
                     }
                 } catch (e) {
@@ -77,7 +82,7 @@
                 </div>
                 <a href="#demo-calc-preco-prazo" class="btn btn-success btn-lg" onclick="_pageView(this)" role="button">Demonstração online</a>
                 &nbsp;&nbsp;&nbsp;
-                <a href="https://github.com/stavarengo/php-sigep" onclick="_pageView(this)" class="btn btn-success btn-lg" role="button" target="_blank">Download on GitHub</a>
+                <a href="https://github.com/stavarengo/php-sigep" onclick="_sendEvent('Button', 'Click', 'Download', 1);" class="btn btn-success btn-lg" role="button" target="_blank">Download on GitHub</a>
             </div>
         </div>
         
