@@ -10,10 +10,6 @@ class Config
 	/**
 	 * @var string
 	 */
-	protected $wsdlDir;
-	/**
-	 * @var string
-	 */
 	protected $xsdDir;
 	/**
 	 * @var bool
@@ -27,7 +23,6 @@ class Config
 
 	public function __construct(array $configData)
 	{
-		$this->wsdlDir = implode(DIRECTORY_SEPARATOR, array(dirname(__FILE__), 'Support', 'wsdl'));
 		$this->xsdDir  = implode(DIRECTORY_SEPARATOR, array(dirname(__FILE__), 'Support', 'xsd'));
 		$this->isDebug = false;
 
@@ -49,16 +44,6 @@ class Config
 	}
 
 	/**
-	 * Return the WSDL directory without slash at the end.
-	 * Eg: /dir1/dir2/ become /dir1/dir2
-	 * @return string
-	 */
-	public function getWsdlDir()
-	{
-		return rtrim($this->wsdlDir, '/\\');
-	}
-
-	/**
 	 * Return the schema files directory without slash at the end.
 	 * Eg: /dir1/dir2/ become /dir1/dir2
 	 * @return string
@@ -73,7 +58,7 @@ class Config
 	 */
 	public function getWsdlAtendeCliente()
 	{
-		return $this->getWsdlDir() . DIRECTORY_SEPARATOR . 'AtendeClienteService.wsdl';
+		return 'http://sigep.correios.com.br/sigep/update/AtendeClienteService.wsdl';
 	}
 	
 	/**
@@ -81,7 +66,7 @@ class Config
 	 */
 	public function getWsdlCalcPrecoPrazo()
 	{
-		return $this->getWsdlDir() . DIRECTORY_SEPARATOR . 'CalcPrecoPrazo.wsdl';
+		return 'http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx?WSDL';
 	}
 
     /**
