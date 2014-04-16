@@ -54,7 +54,7 @@
                         var url = null;
                         if (isElement(title)) {
                             title = title.tagName + ': ' + $.trim($(title).text());
-                            url = title.toLowerCase().replace(/[ :]/g, '---').replace(/--/g, '-').replace(/--/g, '-').replace(/--/g, '-');
+                            url = '/' + title.toLowerCase().replace(/[ :]/g, '---').replace(/--/g, '-').replace(/--/g, '-').replace(/--/g, '-');
                         }
                         var newVar = {
                             title: (title || document.title + ' - _pageView')
@@ -88,7 +88,7 @@
         
         <div class="container">
             <div class="row">
-                <div class="col-sm-2">
+                <div class="col-sm-3">
                     <ul class="nav nav-pills nav-stacked">
                         <li class="active"><a href="#home">Home</a></li>
                         <li><a onclick="_pageView(this)" href="#demo-calc-preco-prazo">Calcular preços e prazos</a></li>
@@ -96,9 +96,23 @@
                         <li><a onclick="_pageView(this)" href="#demo-disponibilidade-servico">Verificar disponibilidade do serviço</a></li>
                         <li><a onclick="_pageView(this)" href="#demo-solicitar-etiquetas">Solicitar etiquetas</a></li>
                         <li><a onclick="_pageView(this)" href="#demo-gerar-etiquetas-dv">Calcular <abbr title="Dígito Verificador">DV</abbr> das etiquetas</a></li>
+                        <li>
+                            <p>
+                                <br/>
+                                Quer contribuir financeiramente?
+                                <br/>
+                                Pague-me um cafezinho.
+                            </p>
+                            <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" class="text-center">
+                                <input type="hidden" name="cmd" value="_s-xclick">
+                                <input type="hidden" name="hosted_button_id" value="VBH6Q3JQDFGLA">
+                                <input type="image" src="https://www.paypalobjects.com/pt_BR/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - A maneira fácil e segura de enviar pagamentos online!">
+                                <img alt="" border="0" src="https://www.paypalobjects.com/pt_BR/i/scr/pixel.gif" width="1" height="1"> <small>com Paypal</small>
+                            </form>
+                        </li>
                     </ul>
                 </div>
-                <div class="col-sm-10 the-body">
+                <div class="col-sm-9 the-body">
                     <div class="row">
                         <div class="col-xs-12">
                             <a id="home"></a>
