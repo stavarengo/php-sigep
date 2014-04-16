@@ -103,7 +103,7 @@
                                 <br/>
                                 Pague-me um cafezinho.
                             </p>
-                            <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" class="text-center">
+                            <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_blank" class="text-center" onsubmit="_sendEvent('Button', 'Click', 'Cafezinho Paypal', 1);">
                                 <input type="hidden" name="cmd" value="_s-xclick">
                                 <input type="hidden" name="hosted_button_id" value="VBH6Q3JQDFGLA">
                                 <input type="image" src="https://www.paypalobjects.com/pt_BR/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal - A maneira fácil e segura de enviar pagamentos online!">
