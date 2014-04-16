@@ -8,8 +8,8 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="">
+        <meta name="description" content="Integração com Web Service do Correios. Veja o demo online. Consulta preços e prazos, imprime etiquetas e PLP, etc.">
+        <meta name="author" content="Stavarengo">
         <!--        <link rel="shortcut icon" href="../../assets/ico/favicon.ico">-->
 
         <title>PHP Sigep</title>
