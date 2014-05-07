@@ -62,6 +62,10 @@ class Simulador implements SoapClientInterface
         return time();
     }
 
+    /**
+     * @param \PhpSigep\Model\CalcPrecoPrazo $params
+     * @return \PhpSigep\Model\CalcPrecoPrazoRespostaIterator
+     */
     public function calcPrecoPrazo(\PhpSigep\Model\CalcPrecoPrazo $params)
     {
         $retorno  = array();
@@ -88,9 +92,9 @@ class Simulador implements SoapClientInterface
             $valorValorDeclarado   = round($valorValorDeclarado, 2);
             $valorFrete            = round($valorFrete, 2);
             $total                 = $valorFrete + $valorValorDeclarado + $valorMaoPropria + $valorAvisoRecebimento;
-
-            $item = array(
-                'servico'               => $servico->getCodigo(),
+            
+            $item = new \PhpSigep\Model\CalcPrecoPrazoResposta(array(
+                'servico'               => $servico,
                 'valor'                 => $total,
                 'prazoEntrega'          => mt_rand(1, 9),
                 'valorMaoPropria'       => $valorMaoPropria,
@@ -98,10 +102,10 @@ class Simulador implements SoapClientInterface
                 'valorValorDeclarado'   => $valorValorDeclarado,
                 'entregaDomiciliar'     => true,
                 'entregaSabado'         => true,
-            );
+            ));
             $retorno[] = $item;
         }
         
-        return $retorno;
+        return new \PhpSigep\Model\CalcPrecoPrazoRespostaIterator($retorno);
     }
 } 

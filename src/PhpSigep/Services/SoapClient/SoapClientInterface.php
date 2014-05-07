@@ -36,5 +36,9 @@ interface SoapClientInterface
 
     public function fechaPlpVariosServicos(\PhpSigep\Model\PreListaDePostagem $params, \XMLWriter $xmlDaPreLista);
 
+    /**
+     * @param \PhpSigep\Model\CalcPrecoPrazo $params
+     * @return \PhpSigep\Model\CalcPrecoPrazoRespostaIterator
+     */
     public function calcPrecoPrazo(\PhpSigep\Model\CalcPrecoPrazo $params);
 }

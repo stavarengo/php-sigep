@@ -10,7 +10,7 @@ class CalcPrecoPrazo
 	/**
 	 * @param \PhpSigep\Model\CalcPrecoPrazo $params
 	 *
-	 * @return \Etiqueta[]
+	 * @return \PhpSigep\Model\CalcPrecoPrazoRespostaIterator
 	 */
 	public function execute(\PhpSigep\Model\CalcPrecoPrazo $params)
 	{

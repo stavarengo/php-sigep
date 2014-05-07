@@ -221,6 +221,12 @@ class Real implements SoapClientInterface
 		}
 	}
 
+    /**
+     * @param \PhpSigep\Model\CalcPrecoPrazo $params
+     * @return \PhpSigep\Model\CalcPrecoPrazoRespostaIterator
+     * @throws Exception
+     * @throws \Exception
+     */
     public function calcPrecoPrazo(\PhpSigep\Model\CalcPrecoPrazo $params)
     {
         $larguraMinima     = 0;
@@ -307,17 +313,20 @@ class Real implements SoapClientInterface
             throw $e;
         }
 
+        if (class_exists('\StaLib_Logger')) {
+            \StaLib_Logger::log('Retorno SIGEP: ' . print_r($r, true));
+        }
+        
         $retorno = array();
-        $todosTemErro = false;
         if (is_object($r) && $r->CalcPrecoPrazoResult) {
             if (is_object($r->CalcPrecoPrazoResult) && $r->CalcPrecoPrazoResult->Servicos) {
                 if (is_object($r->CalcPrecoPrazoResult->Servicos) && $r->CalcPrecoPrazoResult->Servicos->cServico) {
                     $servicos = $r->CalcPrecoPrazoResult->Servicos->cServico;
                     $servicos = (is_array($servicos) ? $servicos : array($servicos));
-                    $todosTemErro = true;
+                    
                     foreach ($servicos as $servico) {
-                        $item = array(
-                            'servico'               => $servico->Codigo,
+                        $item = new \PhpSigep\Model\CalcPrecoPrazoResposta(array(
+                            'servico'               => new \PhpSigep\Model\ServicoDePostagem($servico->Codigo),
                             'valor'                 => (float)str_replace(',', '.', str_replace('.', '', $servico->Valor)),
                             'prazoEntrega'          => (int)$servico->PrazoEntrega,
                             'valorMaoPropria'       => (float)str_replace(',', '.', str_replace('.', '', $servico->ValorMaoPropria)),
@@ -325,27 +334,29 @@ class Real implements SoapClientInterface
                             'valorValorDeclarado'   => (float)str_replace(',', '.', str_replace('.', '', $servico->ValorValorDeclarado)),
                             'entregaDomiciliar'     => ($servico->EntregaDomiciliar == 'S'),
                             'entregaSabado'         => ($servico->EntregaSabado == 'S'),
-                        );
-                        if ($servico->Erro) {
-                            $item['erro']    = $servico->Erro;
+                        ));
+                        $item->setErroCodigo($servico->Erro);
+                        if ($item->getErroCodigo() && ($item->getErroCodigo() != 10 || !$item->getValor())) {
+                            // Esse IF retorna true quando tem Erro e esse Erro é diferente de 10 ou quando
+                            // o Erro for 10 mas não tiver Valor.
+                            // Idendificamos que o erro "10" é mais um aviso do que um erro.
+                            // Se for erro 10 e tiver valor, agente considera que não houve erros
                             $msgErro         = $servico->MsgErro;
                             $msgErro         = utf8_encode($msgErro);
-                            $item['msgErro'] = $msgErro;
-                        } else {
-                            $todosTemErro = false;
+                            $item->setErroMsg($msgErro);
                         }
                         $retorno[] = $item;
                     }
                 }
             }
         }
-        if (class_exists('\StaLib_Logger')) {
-            \StaLib_Logger::log('Retorno SIGEP: ' . print_r($retorno, true));
-        }
-        if ($todosTemErro) {
+        
+        $retorno = new \PhpSigep\Model\CalcPrecoPrazoRespostaIterator($retorno);
+        if ($retorno->todosTemErro()) {
             $erros = array();
+            /** @var $retItem \PhpSigep\Model\CalcPrecoPrazoResposta */
             foreach ($retorno as $retItem) {
-                $erros[$retItem['erro']] = $retItem['msgErro'];
+                $erros[$retItem->getErroCodigo()] = $retItem->getErroMsg();
             }
             $exception = null;
             $errosPrioritarios = array('999', '-3', '-2', '-4', '-33', '7');
