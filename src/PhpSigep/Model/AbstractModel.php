@@ -26,6 +26,12 @@ abstract class AbstractModel
         foreach ($vars as $var => $val) {
             if (is_object($val)) {
                 $val = $this->_toArray($val);
+            } else if (is_array($val)) {
+                $novoVal = array();
+                foreach ($val as $k => $v) {
+                    $novoVal[$k] = $this->_toArray($v);
+                }
+                $val = $novoVal;
             }
             $result[$var] = $val; 
         }
