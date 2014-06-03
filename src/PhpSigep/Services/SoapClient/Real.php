@@ -101,7 +101,7 @@ class Real implements SoapClientInterface
 				if ($r instanceof \SoapFault) {
 					throw $r;
 				}
-				throw new \Exception('Não foi possível obter as etiquetas solicitadas.');
+                throw new \Exception('Não foi possível obter as etiquetas solicitadas. Retorno: "' . $r . '"');
 			}
 		}
 
