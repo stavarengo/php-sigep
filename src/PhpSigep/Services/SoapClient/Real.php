@@ -210,7 +210,12 @@ class Real implements SoapClientInterface
 			if ($r && $r->return) {
 				return $r->return;
 			} else {
-				throw new Exception('Resposta recebida do serviço "fechaPlpVariosServicos" está em um formato inválido.');
+                if ($r instanceof \SoapFault) {
+                    $r = $r->getMessage();
+                } else {
+                    $r = $r . '';
+                }
+				throw new Exception('Resposta recebida do serviço "fechaPlpVariosServicos" está em um formato inválido. Resposta foi: "' . $r . '"');
 			}
 		} catch (\Exception $e) {
 //			echo $e;
