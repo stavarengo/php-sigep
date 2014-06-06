@@ -58,7 +58,12 @@ class Config
 	 */
 	public function getWsdlAtendeCliente()
 	{
-		return 'http://sigep.correios.com.br/sigep/update/AtendeClienteService.wsdl';
+		if ($this->getSimular()) {
+			return 'https://apphom.correios.com.br/SigepMasterJPA/AtendeClienteService/AtendeCliente?wsdl';
+		} else {
+			return 'https://apps.correios.com.br/SigepMasterJPA/AtendeClienteService/AtendeCliente?wsdl';			
+		}
+	 	// return 'http://sigep.correios.com.br/sigep/update/AtendeClienteService.wsdl';
 	}
 	
 	/**
