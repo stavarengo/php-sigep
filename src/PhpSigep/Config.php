@@ -58,7 +58,7 @@ class Config
 	 */
 	public function getWsdlAtendeCliente()
 	{
-		if ($this->getSimular()) {
+		if ($this->isDebug()) {
 			return 'https://apphom.correios.com.br/SigepMasterJPA/AtendeClienteService/AtendeCliente?wsdl';
 		} else {
 			return 'https://apps.correios.com.br/SigepMasterJPA/AtendeClienteService/AtendeCliente?wsdl';			
