@@ -8,10 +8,6 @@ class Config
 {
 
 	/**
-	 * @var string
-	 */
-	protected $xsdDir;
-	/**
 	 * @var bool
 	 */
 	protected $isDebug;
@@ -41,16 +37,6 @@ class Config
 	public function isDebug()
 	{
 		return (bool)$this->isDebug;
-	}
-
-	/**
-	 * Return the schema files directory without slash at the end.
-	 * Eg: /dir1/dir2/ become /dir1/dir2
-	 * @return string
-	 */
-	public function getXsdDir()
-	{
-		return rtrim($this->xsdDir, '/\\');
 	}
 
 	/**
