@@ -14,6 +14,7 @@ class Sedex
     const SERVICE_SEDEX      = 2;
     const SERVICE_SEDEX_10   = 3;
     const SERVICE_SEDEX_HOJE = 4;
+    const SERVICE_SEDEX_12   = 5;
 
     /**
      * @var int
@@ -82,6 +83,9 @@ class Sedex
         } else if ($this->tipoServico == self::SERVICE_SEDEX_10) {
             $fontSize = 13;
             $texto    = 'SEDEX 10';
+        } else if ($this->tipoServico == self::SERVICE_SEDEX_12) {
+            $fontSize = 13;
+            $texto    = 'SEDEX 12';
         } else {
             if ($this->tipoServico == self::SERVICE_SEDEX_HOJE) {
                 $fontSize = 12;

@@ -6,37 +6,42 @@ namespace PhpSigep\Model;
  */
 class ServicoDePostagem extends AbstractModel
 {
-
-    const SERVICE_E_SEDEX               = 81019;
-    const SERVICE_PAC                   = 41068;
+    const SERVICE_SEDEX_CONTRATO       = 40096;
+    const SERVICE_PAC                  = 41068;
+    const SERVICE_SEDEX_12             = 40169;
+    const SERVICE_E_SEDEX_STANDARD     = 81019;
+    const SERVICE_SEDEX_10_ENVELOPE    = 40215;
+    const SERVICE_SEDEX_HOJE_VAREJO    = 40290;
+    const SERVICE_PAC_GRANDES_FORMATOS = 41300;
+    //--
     const SERVICE_PAC_VAREJO            = 41106;
     const SERVICE_SEDEX_40436           = 40436;
-    const SERVICE_SEDEX_40096           = 40096;
     const SERVICE_SEDEX_40444           = 40444;
     const SERVICE_SEDEX_VAREJO          = 40010;
     const SERVICE_SEDEX_VAREJO_A_COBRAR = 40045;
-    const SERVICE_SEDEX_10_ENVELOPE     = 40215;
     const SERVICE_CARTA                 = 10065;
     const SERVICE_SEDEX_10_PACOTE       = 40886;
     const SERVICE_SEDEX_HOJE            = 40878;
-    const SERVICE_SEDEX_HOJE_VAREJO     = 40290;
     const SERVICE_SEDEX_AGRUPADO        = 41009;
     const SERVICE_CARTA_REGISTRADA      = 10138;
 
     private static $services = array(
-        self::SERVICE_E_SEDEX               => array('E-sedex', 104672),
+        self::SERVICE_SEDEX_CONTRATO        => array('Sedex Contrato', 104625),
         self::SERVICE_PAC                   => array('Pac', 109819),
+        self::SERVICE_SEDEX_12              => array('Sedex 12', 115218),
+        self::SERVICE_E_SEDEX_STANDARD      => array('E-Sedex Standard', 104672),
+        self::SERVICE_SEDEX_10_ENVELOPE     => array('Sedex 10 Envelope', 104707),
+        self::SERVICE_SEDEX_HOJE_VAREJO     => array('Sedex Hoje Varejo', 108934),
+        self::SERVICE_PAC_GRANDES_FORMATOS  => array('Pac Grandes Formatos', 120366),
+        //--
         self::SERVICE_PAC_VAREJO            => array('Pac Varejo', null),
         self::SERVICE_SEDEX_40436           => array('Sedex', 109810),
-        self::SERVICE_SEDEX_40096           => array('Sedex', 104625),
         self::SERVICE_SEDEX_40444           => array('Sedex', 109811),
         self::SERVICE_SEDEX_VAREJO          => array('Sedex Varejo', null),
         self::SERVICE_SEDEX_VAREJO_A_COBRAR => array('Sedex Varejo a Cobrar', null),
-        self::SERVICE_SEDEX_10_ENVELOPE     => array('Sedex 10 Envelope', 104707),
         self::SERVICE_CARTA                 => array('Carta', 109480),
         self::SERVICE_SEDEX_10_PACOTE       => array('Sedex 10 Pacote', null),
         self::SERVICE_SEDEX_HOJE            => array('Sedex Hoje', null),
-        self::SERVICE_SEDEX_HOJE_VAREJO     => array('Sedex Hoje Varejo', null),
         self::SERVICE_SEDEX_AGRUPADO        => array('Sedex Agrupado', 119461),
         self::SERVICE_CARTA_REGISTRADA      => array('Carta Registrada', 116985),
     );

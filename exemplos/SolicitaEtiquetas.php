@@ -5,7 +5,7 @@ $service = new PhpSigep\Services\SolicitaEtiquetas();
 
 $params = new \PhpSigep\Model\SolicitaEtiquetas(array(
 	'qtdEtiquetas'      => 1,
-	'servicoDePostagem' => new PhpSigep\Model\ServicoDePostagem(PhpSigep\Model\ServicoDePostagem::SERVICE_E_SEDEX),
+	'servicoDePostagem' => new PhpSigep\Model\ServicoDePostagem(PhpSigep\Model\ServicoDePostagem::SERVICE_E_SEDEX_STANDARD),
 	'accessData'        => new PhpSigep\Model\AccessData(array(
 		'cnpjEmpresa' => '19.852.175/0001-55',
 		'usuario'     => 'usuario',

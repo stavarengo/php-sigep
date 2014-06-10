@@ -113,4 +113,17 @@ class Simulador implements SoapClientInterface
 
         return new \PhpSigep\Model\CalcPrecoPrazoRespostaIterator($retorno);
     }
+
+    /**
+     * @todo tratar o retorno
+     *
+     * @param \PhpSigep\Model\AccessData $params
+     * @return mixed
+     */
+    public function buscaCliente(\PhpSigep\Model\AccessData $params)
+    {
+        return new \stdClass();
+    }
+
+
 } 

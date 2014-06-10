@@ -202,7 +202,7 @@ class CartaoDePostagem
                 $nomeRemetente     = $this->plp->getRemetente()->getNome();
                 $accessData        = $this->plp->getAccessData();
                 if ($servicoDePostagem->is(ServicoDePostagem::SERVICE_SEDEX_40436)
-                    || $servicoDePostagem->is(ServicoDePostagem::SERVICE_SEDEX_40096)
+                    || $servicoDePostagem->is(ServicoDePostagem::SERVICE_SEDEX_CONTRATO)
                     || $servicoDePostagem->is(ServicoDePostagem::SERVICE_SEDEX_40444)
                     || $servicoDePostagem->is(ServicoDePostagem::SERVICE_SEDEX_AGRUPADO)
                 ) {
@@ -211,9 +211,13 @@ class CartaoDePostagem
                     || $servicoDePostagem->is(ServicoDePostagem::SERVICE_SEDEX_10_ENVELOPE)
                 ) {
                     $chancela = new Sedex($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX_10, $accessData);
-                } else if ($servicoDePostagem->is(ServicoDePostagem::SERVICE_E_SEDEX)) {
+                } else if ($servicoDePostagem->is(ServicoDePostagem::SERVICE_SEDEX_12)) {
+                    $chancela = new Sedex($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX_12, $accessData);
+                } else if ($servicoDePostagem->is(ServicoDePostagem::SERVICE_E_SEDEX_STANDARD)) {
                     $chancela = new Sedex($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_E_SEDEX, $accessData);
-                } else if ($servicoDePostagem->is(ServicoDePostagem::SERVICE_SEDEX_HOJE)) {
+                } else if ($servicoDePostagem->is(ServicoDePostagem::SERVICE_SEDEX_HOJE)
+                    || $servicoDePostagem->is(ServicoDePostagem::SERVICE_SEDEX_HOJE_VAREJO)
+                ) {
                     $chancela = new Sedex($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX_HOJE, $accessData);
                 } else if ($servicoDePostagem->is(ServicoDePostagem::SERVICE_PAC)) {
                     $chancela = new Pac($lPosChancela, $tPosChancela, $nomeRemetente, $accessData);

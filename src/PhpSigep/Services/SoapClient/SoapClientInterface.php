@@ -41,4 +41,12 @@ interface SoapClientInterface
      * @return \PhpSigep\Model\CalcPrecoPrazoRespostaIterator
      */
     public function calcPrecoPrazo(\PhpSigep\Model\CalcPrecoPrazo $params);
+
+    /**
+     * @todo documentar o retorno
+     * 
+     * @param \PhpSigep\Model\AccessData $params
+     * @return mixed
+     */
+    public function buscaCliente(\PhpSigep\Model\AccessData $params);
 }

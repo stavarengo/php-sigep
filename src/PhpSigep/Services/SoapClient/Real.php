@@ -428,4 +428,22 @@ class Real implements SoapClientInterface
 
         return $retorno;
     }
+
+    /**
+     * @todo tratar o retorno
+     *
+     * @param \PhpSigep\Model\AccessData $params
+     * @return mixed
+     */
+    public function buscaCliente(\PhpSigep\Model\AccessData $params)
+    {
+        $soapArgs = array(
+            'idContrato' => $params->getNumeroContrato(),
+            'idCartaoPostagem' => $params->getCartaoPostagem(),
+            'usuario'   => $params->getUsuario(),
+            'senha'     => $params->getSenha(),
+        );
+
+        return $this->_getSoapClient()->buscaCliente($soapArgs);
+    }
 }
