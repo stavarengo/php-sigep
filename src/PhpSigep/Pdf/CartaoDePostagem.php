@@ -46,7 +46,7 @@ class CartaoDePostagem
 
     public function render()
     {
-        $cacheKey = md5(serialize($this->plp) . $this->idPlpCorreios);
+        $cacheKey = md5(serialize($this->plp) . $this->idPlpCorreios . get_class($this));
         if ($pdfContent = Bootstrap::getConfig()->getCacheInstance()->getItem($cacheKey)) {
             header('Content-Type: application/pdf');
             header('Content-Disposition: inline; filename="doc.pdf"');
