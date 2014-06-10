@@ -2,6 +2,7 @@
 
 namespace PhpSigep\Cache\Storage\Adapter;
 
+use PhpSigep\Cache\Storage\Adapter\Exception\InvalidArgumentException;
 use PhpSigep\Cache\StorageInterface;
 
 abstract class AbstractAdapter implements StorageInterface

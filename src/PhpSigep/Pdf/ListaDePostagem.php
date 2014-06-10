@@ -37,23 +37,32 @@ class ListaDePostagem
 
     public function render()
     {
-        $pdf    = $this->pdf;
-        $k      = $pdf->k;
-        $wInner = $pdf->w - $pdf->lMargin - $pdf->rMargin;
+        $cacheKey = md5(serialize($this->plp) . $this->idPlpCorreios);
+        if ($pdfContent = Bootstrap::getConfig()->getCacheInstance()->getItem($cacheKey)) {
+            header('Content-Type: application/pdf');
+            header('Content-Disposition: inline; filename="doc.pdf"');
+            header('Cache-Control: private, max-age=0, must-revalidate');
+            header('Pragma: public');
+            echo $pdfContent;
+        } else {
+            $pdf    = $this->pdf;
+            $k      = $pdf->k;
+            $wInner = $pdf->w - $pdf->lMargin - $pdf->rMargin;
+            
+            $this->addPage();
+    
+            $this->writeTitle($k, $pdf, $wInner);
+            $this->writeHeader($pdf, $k, $wInner);
+            $pdf->Ln();
+            $this->writeList();
+            $pdf->Ln();
+            $pdf->Ln();
+            $this->writeBottom();
+            $this->writeFooter();
 
-        $this->addPage();
-
-        $this->writeTitle($k, $pdf, $wInner);
-        $this->writeHeader($pdf, $k, $wInner);
-        $pdf->Ln();
-        $this->writeList();
-        $pdf->Ln();
-        $pdf->Ln();
-        $this->writeBottom();
-        $this->writeFooter();
-
-        $pdf->Output();
-
+            $pdf->Output();
+            Bootstrap::getConfig()->getCacheInstance()->setItem($cacheKey, $pdf->buffer);
+        }
     }
 
     /**

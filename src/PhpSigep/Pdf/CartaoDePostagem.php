@@ -46,6 +46,21 @@ class CartaoDePostagem
 
     public function render()
     {
+        $cacheKey = md5(serialize($this->plp) . $this->idPlpCorreios);
+        if ($pdfContent = Bootstrap::getConfig()->getCacheInstance()->getItem($cacheKey)) {
+            header('Content-Type: application/pdf');
+            header('Content-Disposition: inline; filename="doc.pdf"');
+            header('Cache-Control: private, max-age=0, must-revalidate');
+            header('Pragma: public');
+            echo $pdfContent;
+        } else {
+            $this->_render();
+            Bootstrap::getConfig()->getCacheInstance()->setItem($cacheKey, $this->pdf->buffer);
+        }
+    }
+    
+    private function _render()
+    {
         $un               = 72 / 25.4;
         $wFourAreas       = $this->pdf->w / 2;
         $hFourAreas       = ($this->pdf->h - ($un * 15)) / 2; //-Menos 1.5CM porque algumas impressoras não conseguem imprimir nos ultimos 1cm da página 
