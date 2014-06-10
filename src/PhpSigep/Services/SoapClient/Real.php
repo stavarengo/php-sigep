@@ -28,8 +28,8 @@ class Real implements SoapClientInterface
 		if (!$this->_soapClient) {
 			$wsdl              = Bootstrap::getConfig()->getWsdlAtendeCliente();
 			$this->_soapClient = new \SoapClient($wsdl, array(
-				"trace"      => Bootstrap::getConfig()->isDebug(),
-				"exceptions" => Bootstrap::getConfig()->isDebug(),
+				"trace"      => Bootstrap::getConfig()->getIsDebug(),
+				"exceptions" => Bootstrap::getConfig()->getIsDebug(),
 				'encoding'   => 'ISO-8859-1',
                 'connection_timeout' => 60,
 			));
@@ -42,8 +42,8 @@ class Real implements SoapClientInterface
 		if (!$this->_soapCalcPrecoPrazo) {
 			$wsdl                      = Bootstrap::getConfig()->getWsdlCalcPrecoPrazo();
 			$this->_soapCalcPrecoPrazo = new \SoapClient($wsdl, array(
-				"trace"      => Bootstrap::getConfig()->isDebug(),
-				"exceptions" => Bootstrap::getConfig()->isDebug(),
+				"trace"      => Bootstrap::getConfig()->getIsDebug(),
+				"exceptions" => Bootstrap::getConfig()->getIsDebug(),
 				'encoding'   => 'ISO-8859-1',
                 'connection_timeout' => 60,
 			));
@@ -303,6 +303,12 @@ class Real implements SoapClientInterface
             'sCdAvisoRecebimento' => ($avisoRecebimento ? 'S' : 'N'),
         );
 
+        $cacheKey = md5(serialize($soapArgs));
+        $cache = Bootstrap::getConfig()->getCacheInstance();
+        if ($cachedResult = $cache->getItem($cacheKey)) {
+            return unserialize($cachedResult);
+        }
+        
         try {
             $r = $this->_getSoapCalcPrecoPrazo()->calcPrecoPrazo($soapArgs);
         } catch (\Exception $e) {
@@ -374,6 +380,8 @@ class Real implements SoapClientInterface
                 $exception = reset($erros);
             }
             throw new Exception("Erro ao calcular prazos.\nResposta do Correios: \"" . ($exception ? $exception : 'não houve resposta') . '"');
+        } else {
+            $cache->setItem($cacheKey, serialize($retorno));
         }
 
         return $retorno;
