@@ -4,7 +4,7 @@
  *
  * @link      ${GITHUB_URL} Source code
  */
- 
+
 namespace PhpSigep;
 
 interface FactoryInterface

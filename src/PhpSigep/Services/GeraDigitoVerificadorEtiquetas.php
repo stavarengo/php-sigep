@@ -9,14 +9,15 @@ use PhpSigep\Model\Etiqueta;
 class GeraDigitoVerificadorEtiquetas
 {
 
-	/**
-	 * @param \PhpSigep\Model\GeraDigitoVerificadorEtiquetas $params
-	 *
-	 * @return Etiqueta[]
-	 */
-	public function execute(\PhpSigep\Model\GeraDigitoVerificadorEtiquetas $params)
-	{
+    /**
+     * @param \PhpSigep\Model\GeraDigitoVerificadorEtiquetas $params
+     *
+     * @return Etiqueta[]
+     */
+    public function execute(\PhpSigep\Model\GeraDigitoVerificadorEtiquetas $params)
+    {
         $soap = SoapClientFactory::create();
-		return $soap->geraDigitoVerificadorEtiquetas($params);
-	}
+
+        return $soap->geraDigitoVerificadorEtiquetas($params);
+    }
 }

@@ -3,7 +3,7 @@ namespace PhpSigep\Model;
 
 /**
  * @author: Stavarengo
- * 
+ *
  * method \PhpSigep\Model\CalcPrecoPrazoResposta offsetGet(int $index)
  * method offsetSet(int $index, \PhpSigep\Model\CalcPrecoPrazoResposta $newval)
  * method append(\PhpSigep\Model\CalcPrecoPrazoResposta $value)
@@ -12,12 +12,12 @@ namespace PhpSigep\Model;
 class CalcPrecoPrazoRespostaIterator extends \ArrayObject
 {
     protected $todosTemErro = null;
-    
+
     public function __construct(array $itens)
     {
         parent::__construct($itens);
     }
-    
+
     public function todosTemErro()
     {
         if ($this->todosTemErro === null) {
@@ -30,6 +30,7 @@ class CalcPrecoPrazoRespostaIterator extends \ArrayObject
                 }
             }
         }
+
         return $this->todosTemErro;
     }
 }

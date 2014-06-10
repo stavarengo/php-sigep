@@ -10,21 +10,21 @@ Loader::registerAutoLoader();
 class Bootstrap
 {
 
-	/**
-	 * @var \PhpSigep\Config
-	 */
-	protected static $config;
+    /**
+     * @var \PhpSigep\Config
+     */
+    protected static $config;
 
-	public static function start(Config $config)
-	{
-		self::$config = $config;
-	}
+    public static function start(Config $config)
+    {
+        self::$config = $config;
+    }
 
-	/**
-	 * @return \PhpSigep\Config
-	 */
-	public static function getConfig()
-	{
-		return self::$config;
-	}
+    /**
+     * @return \PhpSigep\Config
+     */
+    public static function getConfig()
+    {
+        return self::$config;
+    }
 }

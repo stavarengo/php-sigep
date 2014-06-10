@@ -20,7 +20,7 @@ class CalcPrecoPrazoResposta extends AbstractModel
     protected $valor;
 
     /**
-     * Prazo estimado em dias para entrega do produto. 
+     * Prazo estimado em dias para entrega do produto.
      * Se o valor retornado for 0 (zero), indica que o web service do Correios não retornou o prazo para esta entrega.
      * @var int
      */
@@ -45,14 +45,14 @@ class CalcPrecoPrazoResposta extends AbstractModel
     protected $valorValorDeclarado;
 
     /**
-     * Informa se a localidade informada possui entrega domiciliária. 
+     * Informa se a localidade informada possui entrega domiciliária.
      * Se o prazo não for retornado corretamente, o retorno deste parâmetro será vazio.
      * @var  bool
      */
     protected $entregaDomiciliar;
 
     /**
-     * Informa se a localidade informada possui entrega domiciliária aos sábados. 
+     * Informa se a localidade informada possui entrega domiciliária aos sábados.
      * Se o prazo não for retornado corretamente, o retorno deste parâmetro será vazio.
      * @var bool
      */

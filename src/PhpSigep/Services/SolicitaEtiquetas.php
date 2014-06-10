@@ -1,5 +1,6 @@
 <?php
 namespace PhpSigep\Services;
+
 use PhpSigep\Model\Etiqueta;
 
 /**
@@ -8,14 +9,15 @@ use PhpSigep\Model\Etiqueta;
 class SolicitaEtiquetas
 {
 
-	/**
-	 * @param \PhpSigep\Model\SolicitaEtiquetas $params
-	 *
-	 * @return Etiqueta[]
-	 */
-	public function execute(\PhpSigep\Model\SolicitaEtiquetas $params)
-	{
+    /**
+     * @param \PhpSigep\Model\SolicitaEtiquetas $params
+     *
+     * @return Etiqueta[]
+     */
+    public function execute(\PhpSigep\Model\SolicitaEtiquetas $params)
+    {
         $soap = SoapClientFactory::create();
-		return $soap->solicitaEtiquetas($params);
-	}
+
+        return $soap->solicitaEtiquetas($params);
+    }
 }

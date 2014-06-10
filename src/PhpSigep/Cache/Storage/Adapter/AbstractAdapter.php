@@ -83,7 +83,7 @@ abstract class AbstractAdapter implements StorageInterface
         if (!$this->getOptions()->getEnabled()) {
             return null;
         }
-        
+
         $this->normalizeKey($key);
 
         $result = null;
@@ -120,7 +120,7 @@ abstract class AbstractAdapter implements StorageInterface
         if (!$this->getOptions()->getEnabled()) {
             return false;
         }
-        
+
         $this->normalizeKey($key);
 
         $result = false;
@@ -156,7 +156,7 @@ abstract class AbstractAdapter implements StorageInterface
         if (!$this->getOptions()->getEnabled()) {
             return false;
         }
-        
+
         $this->normalizeKey($key);
 
         $result = false;
@@ -191,7 +191,7 @@ abstract class AbstractAdapter implements StorageInterface
         if (!$this->getOptions()->getEnabled()) {
             return false;
         }
-        
+
         $this->normalizeKey($key);
 
         $result = false;

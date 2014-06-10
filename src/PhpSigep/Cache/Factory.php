@@ -7,7 +7,6 @@
 
 namespace PhpSigep\Cache;
 
-use PhpSigep\Cache\Storage\Adapter\AbstractAdapter;
 use PhpSigep\Cache\Storage\Adapter\AdapterOptions;
 use PhpSigep\Cache\Storage\Adapter\Exception\InvalidAdapterNameException;
 use PhpSigep\Cache\Storage\Adapter\FileSystem;
@@ -28,6 +27,7 @@ class Factory implements FactoryInterface
         $options = $config->getCacheOptions();
 
         $storage = new FileSystem($options->getStorageOptions());
+
         return $storage;
     }
 

@@ -31,7 +31,7 @@ abstract class ErrorHandler
      */
     public static function started()
     {
-        return (bool) static::getNestedLevel();
+        return (bool)static::getNestedLevel();
     }
 
     /**
@@ -101,10 +101,10 @@ abstract class ErrorHandler
     /**
      * Add an error to the stack
      *
-     * @param int    $errno
+     * @param int $errno
      * @param string $errstr
      * @param string $errfile
-     * @param int    $errline
+     * @param int $errline
      * @return void
      */
     public static function addError($errno, $errstr = '', $errfile = '', $errline = 0)

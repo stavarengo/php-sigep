@@ -86,7 +86,7 @@ class FileSystemOptions extends AdapterOptions
         // disable file/directory permissions by default on windows systems
         if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN') {
             $this->filePermission = false;
-            $this->dirPermission = false;
+            $this->dirPermission  = false;
         }
 
         parent::__construct($options);
@@ -122,6 +122,7 @@ class FileSystemOptions extends AdapterOptions
         }
 
         $this->cacheDir = $cacheDir;
+
         return $this;
     }
 
@@ -147,8 +148,9 @@ class FileSystemOptions extends AdapterOptions
      */
     public function setClearStatCache($clearStatCache)
     {
-        $clearStatCache = (bool) $clearStatCache;
+        $clearStatCache       = (bool)$clearStatCache;
         $this->clearStatCache = $clearStatCache;
+
         return $this;
     }
 
@@ -171,13 +173,14 @@ class FileSystemOptions extends AdapterOptions
      */
     public function setDirLevel($dirLevel)
     {
-        $dirLevel = (int) $dirLevel;
+        $dirLevel = (int)$dirLevel;
         if ($dirLevel < 0 || $dirLevel > 16) {
             throw new Exception\InvalidArgumentException(
                 "Directory level '{$dirLevel}' must be between 0 and 16"
             );
         }
         $this->dirLevel = $dirLevel;
+
         return $this;
     }
 
@@ -206,7 +209,7 @@ class FileSystemOptions extends AdapterOptions
             if (is_string($dirPermission)) {
                 $dirPermission = octdec($dirPermission);
             } else {
-                $dirPermission = (int) $dirPermission;
+                $dirPermission = (int)$dirPermission;
             }
 
             // validate
@@ -242,8 +245,9 @@ class FileSystemOptions extends AdapterOptions
      */
     public function setFileLocking($fileLocking)
     {
-        $fileLocking = (bool) $fileLocking;
+        $fileLocking       = (bool)$fileLocking;
         $this->fileLocking = $fileLocking;
+
         return $this;
     }
 
@@ -273,7 +277,7 @@ class FileSystemOptions extends AdapterOptions
             if (is_string($filePermission)) {
                 $filePermission = octdec($filePermission);
             } else {
-                $filePermission = (int) $filePermission;
+                $filePermission = (int)$filePermission;
             }
 
             // validate
@@ -313,8 +317,9 @@ class FileSystemOptions extends AdapterOptions
      */
     public function setNamespaceSeparator($namespaceSeparator)
     {
-        $namespaceSeparator = (string) $namespaceSeparator;
+        $namespaceSeparator       = (string)$namespaceSeparator;
         $this->namespaceSeparator = $namespaceSeparator;
+
         return $this;
     }
 
@@ -347,7 +352,7 @@ class FileSystemOptions extends AdapterOptions
             if (is_string($umask)) {
                 $umask = octdec($umask);
             } else {
-                $umask = (int) $umask;
+                $umask = (int)$umask;
             }
 
             // validate

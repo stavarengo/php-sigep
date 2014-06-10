@@ -12,67 +12,67 @@ class PreListaDePostagem extends AbstractModel
 //	 * @var int
 //	 */
 //	protected $id_plp;
-	/**
-	 * @var AccessData
-	 */
-	protected $accessData;
-	/**
-	 * Dados da pessoa que está remetendo esta encomenda.
-	 * @var Remetente
-	 */
-	protected $remetente;
-	/**
-	 * Os objetos que estão sendo postados.
-	 * @var ObjetoPostal[]
-	 */
-	protected $encomendas;
+    /**
+     * @var AccessData
+     */
+    protected $accessData;
+    /**
+     * Dados da pessoa que está remetendo esta encomenda.
+     * @var Remetente
+     */
+    protected $remetente;
+    /**
+     * Os objetos que estão sendo postados.
+     * @var ObjetoPostal[]
+     */
+    protected $encomendas;
 
-	/**
-	 * @param \PhpSigep\Model\AccessData $accessData
-	 */
-	public function setAccessData($accessData)
-	{
-		$this->accessData = $accessData;
-	}
+    /**
+     * @param \PhpSigep\Model\AccessData $accessData
+     */
+    public function setAccessData($accessData)
+    {
+        $this->accessData = $accessData;
+    }
 
-	/**
-	 * @return \PhpSigep\Model\AccessData
-	 */
-	public function getAccessData()
-	{
-		return $this->accessData;
-	}
+    /**
+     * @return \PhpSigep\Model\AccessData
+     */
+    public function getAccessData()
+    {
+        return $this->accessData;
+    }
 
-	/**
-	 * @param \PhpSigep\Model\ObjetoPostal[] $encomendas
-	 */
-	public function setEncomendas($encomendas)
-	{
-		$this->encomendas = $encomendas;
-	}
+    /**
+     * @param \PhpSigep\Model\ObjetoPostal[] $encomendas
+     */
+    public function setEncomendas($encomendas)
+    {
+        $this->encomendas = $encomendas;
+    }
 
-	/**
-	 * @return \PhpSigep\Model\ObjetoPostal[]
-	 */
-	public function getEncomendas()
-	{
-		return $this->encomendas;
-	}
+    /**
+     * @return \PhpSigep\Model\ObjetoPostal[]
+     */
+    public function getEncomendas()
+    {
+        return $this->encomendas;
+    }
 
-	/**
-	 * @param \PhpSigep\Model\Remetente $remetente
-	 */
-	public function setRemetente($remetente)
-	{
-		$this->remetente = $remetente;
-	}
+    /**
+     * @param \PhpSigep\Model\Remetente $remetente
+     */
+    public function setRemetente($remetente)
+    {
+        $this->remetente = $remetente;
+    }
 
-	/**
-	 * @return \PhpSigep\Model\Remetente
-	 */
-	public function getRemetente()
-	{
-		return $this->remetente;
-	}
+    /**
+     * @return \PhpSigep\Model\Remetente
+     */
+    public function getRemetente()
+    {
+        return $this->remetente;
+    }
 
 }

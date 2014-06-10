@@ -30,9 +30,10 @@ class FileSystem extends AbstractAdapter
     public function setOptions($options)
     {
         if (!$options instanceof FileSystemOptions) {
-            $options = new FileSystemOptions(($options instanceof AdapterOptions ? $options->toArray() : (array)$options));
+            $options = new FileSystemOptions(($options instanceof AdapterOptions ? $options->toArray(
+            ) : (array)$options));
         }
-        
+
         return parent::setOptions($options);
     }
 

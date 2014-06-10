@@ -7,53 +7,53 @@ namespace PhpSigep\Model;
 class GeraDigitoVerificadorEtiquetas extends AbstractModel
 {
 
-	/**
-	 * @var AccessData
-	 */
-	protected $accessData;
-	/**
-	 * @var Etiqueta[]
-	 */
-	protected $etiquetas;
+    /**
+     * @var AccessData
+     */
+    protected $accessData;
+    /**
+     * @var Etiqueta[]
+     */
+    protected $etiquetas;
 
-	/**
-	 * @param \PhpSigep\Model\AccessData $accessData
-	 */
-	public function setAccessData($accessData)
-	{
-		$this->accessData = $accessData;
-	}
+    /**
+     * @param \PhpSigep\Model\AccessData $accessData
+     */
+    public function setAccessData($accessData)
+    {
+        $this->accessData = $accessData;
+    }
 
-	/**
-	 * @return \PhpSigep\Model\AccessData
-	 */
-	public function getAccessData()
-	{
-		return $this->accessData;
-	}
+    /**
+     * @return \PhpSigep\Model\AccessData
+     */
+    public function getAccessData()
+    {
+        return $this->accessData;
+    }
 
-	/**
-	 * @param Etiqueta $etiqueta
-	 */
-	public function addEtiqueta($etiqueta)
-	{
-		$this->etiquetas[] = $etiqueta;
-	}
+    /**
+     * @param Etiqueta $etiqueta
+     */
+    public function addEtiqueta($etiqueta)
+    {
+        $this->etiquetas[] = $etiqueta;
+    }
 
-	/**
-	 * @param Etiqueta[] $etiquetas
-	 */
-	public function setEtiquetas(array $etiquetas)
-	{
-		$this->etiquetas = $etiquetas;
-	}
+    /**
+     * @param Etiqueta[] $etiquetas
+     */
+    public function setEtiquetas(array $etiquetas)
+    {
+        $this->etiquetas = $etiquetas;
+    }
 
-	/**
-	 * @return Etiqueta[]
-	 */
-	public function getEtiquetas()
-	{
-		return (array)$this->etiquetas;
-	}
+    /**
+     * @return Etiqueta[]
+     */
+    public function getEtiquetas()
+    {
+        return (array)$this->etiquetas;
+    }
 
 }

@@ -14,7 +14,7 @@ class AdapterOptions extends DefaultStdClass
 {
 
     protected $enabled = false;
-    
+
     /**
      * The adapter using these options
      *
@@ -186,6 +186,6 @@ class AdapterOptions extends DefaultStdClass
             throw new InvalidArgumentException("TTL can't be negative");
         }
     }
-    
-    
+
+
 }

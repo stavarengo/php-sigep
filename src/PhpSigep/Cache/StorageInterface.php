@@ -4,7 +4,7 @@
  *
  * @link      ${GITHUB_URL} Source code
  */
- 
+
 namespace PhpSigep\Cache;
 
 interface StorageInterface
@@ -29,7 +29,7 @@ interface StorageInterface
      * Add an item.
      *
      * @param  string $key
-     * @param  mixed  $value
+     * @param  mixed $value
      * @return bool
      */
     public function setItem($key, $value);

@@ -80,10 +80,15 @@ class Simulador implements SoapClientInterface
             foreach ($servicoAdicionais as $servicoAdicional) {
                 if ($servicoAdicional->is(ServicoAdicional::SERVICE_AVISO_DE_RECEBIMENTO)) {
                     $valorAvisoRecebimento = mt_rand(1, 50) / 10; // Valores entre 0.1 e 5
-                } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_MAO_PROPRIA)) {
-                    $valorMaoPropria = mt_rand(1, 50) / 10; // Valores entre 0.1 e 5
-                } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_VALOR_DECLARADO)) {
-                    $valorValorDeclarado = $servicoAdicional->getValorDeclarado() * 1 / 100; //1% do valor declarado
+                } else {
+                    if ($servicoAdicional->is(ServicoAdicional::SERVICE_MAO_PROPRIA)) {
+                        $valorMaoPropria = mt_rand(1, 50) / 10; // Valores entre 0.1 e 5
+                    } else {
+                        if ($servicoAdicional->is(ServicoAdicional::SERVICE_VALOR_DECLARADO)) {
+                            $valorValorDeclarado = $servicoAdicional->getValorDeclarado(
+                                ) * 1 / 100; //1% do valor declarado
+                        }
+                    }
                 }
             }
 
@@ -92,20 +97,20 @@ class Simulador implements SoapClientInterface
             $valorValorDeclarado   = round($valorValorDeclarado, 2);
             $valorFrete            = round($valorFrete, 2);
             $total                 = $valorFrete + $valorValorDeclarado + $valorMaoPropria + $valorAvisoRecebimento;
-            
-            $item = new \PhpSigep\Model\CalcPrecoPrazoResposta(array(
-                'servico'               => $servico,
-                'valor'                 => $total,
-                'prazoEntrega'          => mt_rand(1, 9),
-                'valorMaoPropria'       => $valorMaoPropria,
-                'valorAvisoRecebimento' => $valorAvisoRecebimento,
-                'valorValorDeclarado'   => $valorValorDeclarado,
-                'entregaDomiciliar'     => true,
-                'entregaSabado'         => true,
-            ));
+
+            $item      = new \PhpSigep\Model\CalcPrecoPrazoResposta(array(
+                                                                        'servico'               => $servico,
+                                                                        'valor'                 => $total,
+                                                                        'prazoEntrega'          => mt_rand(1, 9),
+                                                                        'valorMaoPropria'       => $valorMaoPropria,
+                                                                        'valorAvisoRecebimento' => $valorAvisoRecebimento,
+                                                                        'valorValorDeclarado'   => $valorValorDeclarado,
+                                                                        'entregaDomiciliar'     => true,
+                                                                        'entregaSabado'         => true,
+                                                                    ));
             $retorno[] = $item;
         }
-        
+
         return new \PhpSigep\Model\CalcPrecoPrazoRespostaIterator($retorno);
     }
 } 

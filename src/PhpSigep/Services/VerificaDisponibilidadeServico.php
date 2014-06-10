@@ -7,9 +7,10 @@ namespace PhpSigep\Services;
 class VerificaDisponibilidadeServico
 {
 
-	public function execute(\PhpSigep\Model\VerificaDisponibilidadeServico $params)
-	{
+    public function execute(\PhpSigep\Model\VerificaDisponibilidadeServico $params)
+    {
         $soap = SoapClientFactory::create();
-		return $soap->verificaDisponibilidadeServico($params);
-	}
+
+        return $soap->verificaDisponibilidadeServico($params);
+    }
 }

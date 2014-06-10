@@ -7,8 +7,8 @@ namespace PhpSigep;
 abstract class DefaultStdClass
 {
 
-	public function __construct(array $initialValues = array())
-	{
+    public function __construct(array $initialValues = array())
+    {
         $this->setFromArray($initialValues);
     }
 
@@ -22,11 +22,12 @@ abstract class DefaultStdClass
         $method = 'set' . ucfirst($attributeName);
         if (is_callable(array($this, $method))) {
             $this->$method($value);
+
             return;
         }
 
-        throw new InvalidArgument('Não existe um método para definir o valor do atributo "' . get_class($this) . '::' 
-            . $attributeName . '"');
+        throw new InvalidArgument('Não existe um método para definir o valor do atributo "' . get_class($this) . '::'
+                                  . $attributeName . '"');
     }
 
     /**
@@ -46,7 +47,7 @@ abstract class DefaultStdClass
         }
 
         throw new InvalidArgument('Não existe um método para retornar o valor do atributo: "'
-            . $attributeName . '"');
+                                  . $attributeName . '"');
     }
 
     /**
@@ -64,7 +65,7 @@ abstract class DefaultStdClass
     private function _toArray($value)
     {
         $result = array();
-        $vars = get_object_vars($value);
+        $vars   = get_object_vars($value);
         foreach ($vars as $var => $val) {
             try {
                 if (is_object($value) && $value instanceof DefaultStdClass) {
@@ -74,15 +75,17 @@ abstract class DefaultStdClass
                 // Ignora essa propiedade se ela não tiver um método get definido.
                 continue;
             }
-            
+
             if (is_object($val)) {
                 $val = $this->_toArray($val);
-            } else if (is_array($val)) {
-                $novoVal = array();
-                foreach ($val as $k => $v) {
-                    $novoVal[$k] = $this->_toArray($v);
+            } else {
+                if (is_array($val)) {
+                    $novoVal = array();
+                    foreach ($val as $k => $v) {
+                        $novoVal[$k] = $this->_toArray($v);
+                    }
+                    $val = $novoVal;
                 }
-                $val = $novoVal;
             }
             $result[$var] = $val;
         }
