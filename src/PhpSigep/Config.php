@@ -4,17 +4,45 @@ namespace PhpSigep;
 use PhpSigep\Cache\Options;
 use PhpSigep\Cache\Storage\Adapter\AdapterOptions;
 use PhpSigep\Cache\StorageInterface;
+use PhpSigep\Model\AccessData;
+use PhpSigep\Model\AccessDataHomologacao;
 
 /**
  * @author: Stavarengo
  */
 class Config extends DefaultStdClass
 {
+    /**
+     * Indica que estamos no ambiente real (ambiente de producao).
+     */
+    const ENV_PRODUCTION = 1;
+    /**
+     * Indica que estamos no ambiente de desenvolvimento.
+     */
+    const ENV_DEVELOPMENT = 2;
+
+    const WSDL_ATENDE_CLIENTE_PRODUCTION = 'https://apps.correios.com.br/SigepMasterJPA/AtendeClienteService/AtendeCliente?wsdl';
+
+    const WSDL_ATENDE_CLIENTE_DEVELOPMENT = 'https://apphom.correios.com.br/SigepMasterJPA/AtendeClienteService/AtendeCliente?wsdl';
+
+    const WSDL_CAL_PRECO_PRAZO = 'http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx?WSDL';
 
     /**
-     * @var bool
+     * Endereço para o WSDL AtendeCliente.
+     * Esse WSDL possui duas versões, uma para o ambiente de produção e outra para o ambiente de desenvolvimento.
+     * @var string
      */
-    protected $isDebug;
+    protected $wsdlAtendeCliente = self::WSDL_ATENDE_CLIENTE_DEVELOPMENT;
+
+    /**
+     * @var string
+     */
+    protected $wsdlCalPrecoPrazo = self::WSDL_CAL_PRECO_PRAZO;
+
+    /**
+     * @var int
+     */
+    protected $env = self::ENV_DEVELOPMENT;
 
     /**
      * @var bool
@@ -37,29 +65,71 @@ class Config extends DefaultStdClass
      */
     protected $cacheInstance;
 
-    public function __construct(array $configData)
+    /**
+     * Muitos dos métodos do php-sigep recebem como parâmetro uma instância de {@link AccessData}, mas você não precisa
+     * passar essa informação todas as vezes que for pedido.
+     * O valor setado neste atributo será usado sempre que um método precisar dos dados de acesso mas você não tiver
+     * informado um.
+     *
+     * @var AccessData
+     */
+    protected $accessData;
+
+    /**
+     * @param array $configData
+     *      Qualquer atributo desta classe pode ser usado como uma chave deste array.
+     *      Ex: array('cacheOptions' => ...)
+     */
+    public function __construct(array $configData = array())
     {
-        $this->xsdDir  = implode(DIRECTORY_SEPARATOR, array(dirname(__FILE__), 'Support', 'xsd'));
-        $this->isDebug = false;
+        $this->setAccessData(new AccessDataHomologacao());
 
         parent::__construct($configData);
     }
 
     /**
-     * Não defina isDebug como true em ambiente de produção.
+     * Não defina env como true em ambiente de produção.
      * @return bool
      */
-    public function getIsDebug()
+    public function getEnv()
     {
-        return (bool)$this->isDebug;
+        return (int)$this->env;
     }
 
     /**
-     * @param boolean $isDebug
+     * @param \PhpSigep\Model\AccessData $accessData
+     * @return $this;
      */
-    public function setIsDebug($isDebug)
+    public function setAccessData(\PhpSigep\Model\AccessData $accessData)
     {
-        $this->isDebug = $isDebug;
+        $this->accessData = $accessData;
+
+        return $this;
+    }
+
+    /**
+     * @return \PhpSigep\Model\AccessData
+     */
+    public function getAccessData()
+    {
+        return $this->accessData;
+    }
+
+    /**
+     * @param int $env
+     * @param bool $updateWsdlUrl
+     * @return $this
+     */
+    public function setEnv($env, $updateWsdlUrl = true)
+    {
+        $this->env = $env;
+        if ($updateWsdlUrl) {
+            if ($env == self::ENV_DEVELOPMENT) {
+                $this->setWsdlAtendeCliente(self::WSDL_ATENDE_CLIENTE_DEVELOPMENT);
+            } else {
+                $this->setWsdlAtendeCliente(self::WSDL_ATENDE_CLIENTE_PRODUCTION);
+            }
+        }
 
         return $this;
     }
@@ -69,20 +139,37 @@ class Config extends DefaultStdClass
      */
     public function getWsdlAtendeCliente()
     {
-        if ($this->getIsDebug()) {
-            return 'https://apphom.correios.com.br/SigepMasterJPA/AtendeClienteService/AtendeCliente?wsdl';
-        } else {
-            return 'https://apps.correios.com.br/SigepMasterJPA/AtendeClienteService/AtendeCliente?wsdl';
-        }
-        // return 'http://sigep.correios.com.br/sigep/update/AtendeClienteService.wsdl';
+        return $this->wsdlAtendeCliente;
+    }
+
+    /**
+     * @param string $wsdlAtendeCliente
+     * @return $this
+     */
+    public function setWsdlAtendeCliente($wsdlAtendeCliente)
+    {
+        $this->wsdlAtendeCliente = $wsdlAtendeCliente;
+
+        return $this;
+    }
+
+    /**
+     * @param string $wsdlCalPrecoPrazo
+     * @return $this;
+     */
+    public function setWsdlCalPrecoPrazo($wsdlCalPrecoPrazo)
+    {
+        $this->wsdlCalPrecoPrazo = $wsdlCalPrecoPrazo;
+
+        return $this;
     }
 
     /**
      * @return string
      */
-    public function getWsdlCalcPrecoPrazo()
+    public function getWsdlCalPrecoPrazo()
     {
-        return 'http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx?WSDL';
+        return $this->wsdlCalPrecoPrazo;
     }
 
     /**

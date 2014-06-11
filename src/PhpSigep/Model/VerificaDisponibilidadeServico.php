@@ -20,6 +20,8 @@ class VerificaDisponibilidadeServico extends AbstractModel
      */
     protected $cepDestino;
     /**
+     * Opcional.
+     * Quando não informado será usado o valor retornado pelo método {@link \PhpSigep\Bootstrap::getConfig() }
      * @var AccessData
      */
     protected $accessData;
@@ -34,6 +36,8 @@ class VerificaDisponibilidadeServico extends AbstractModel
 
     /**
      * @param \PhpSigep\Model\AccessData $accessData
+     *      Opcional.
+     *      Quando null será usado o valor retornado pelo método {@link \PhpSigep\Bootstrap::getConfig() }
      */
     public function setAccessData(AccessData $accessData)
     {

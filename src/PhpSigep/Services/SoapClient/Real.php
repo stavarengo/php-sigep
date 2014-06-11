@@ -2,6 +2,7 @@
 namespace PhpSigep\Services\SoapClient;
 
 use PhpSigep\Bootstrap;
+use PhpSigep\Config;
 use PhpSigep\Model\Dimensao;
 use PhpSigep\Model\Etiqueta;
 use PhpSigep\Model\ServicoAdicional;
@@ -28,8 +29,8 @@ class Real implements SoapClientInterface
         if (!$this->_soapClient) {
             $wsdl              = Bootstrap::getConfig()->getWsdlAtendeCliente();
             $this->_soapClient = new \SoapClient($wsdl, array(
-                "trace"              => Bootstrap::getConfig()->getIsDebug(),
-                "exceptions"         => Bootstrap::getConfig()->getIsDebug(),
+                "trace"              => Bootstrap::getConfig()->getEnv() != Config::ENV_PRODUCTION,
+                "exceptions"         => Bootstrap::getConfig()->getEnv() != Config::ENV_PRODUCTION,
                 'encoding'           => 'ISO-8859-1',
                 'connection_timeout' => 60,
             ));
@@ -43,8 +44,8 @@ class Real implements SoapClientInterface
         if (!$this->_soapCalcPrecoPrazo) {
             $wsdl                      = Bootstrap::getConfig()->getWsdlCalcPrecoPrazo();
             $this->_soapCalcPrecoPrazo = new \SoapClient($wsdl, array(
-                "trace"              => Bootstrap::getConfig()->getIsDebug(),
-                "exceptions"         => Bootstrap::getConfig()->getIsDebug(),
+                "trace"              => Bootstrap::getConfig()->getEnv() != Config::ENV_PRODUCTION,
+                "exceptions"         => Bootstrap::getConfig()->getEnv() != Config::ENV_PRODUCTION,
                 'encoding'           => 'ISO-8859-1',
                 'connection_timeout' => 60,
             ));
