@@ -1,40 +1,52 @@
 <?php
-namespace PhpSigep\Services\SoapClient;
-
-use PhpSigep\Model\Etiqueta;
+namespace PhpSigep\Services;
 
 /**
  * @author: Stavarengo
  */
-interface SoapClientInterface
+interface ServiceInterface
 {
 
     /**
      * @param \PhpSigep\Model\VerificaDisponibilidadeServico $params
      *
-     * @return bool
+     * @return Result<\PhpSigep\Model\VerificaDisponibilidadeServicoResposta>
      */
     public function verificaDisponibilidadeServico(\PhpSigep\Model\VerificaDisponibilidadeServico $params);
 
     /**
+     * @param $cep
+     * 
+     * @return Result<\PhpSigep\Model\ConsultaCepResposta>
+     */
+    public function consultaCep($cep);
+
+    /**
      * @param \PhpSigep\Model\SolicitaEtiquetas $params
      *
-     * @throws \SoapFault
-     * @throws \Exception
-     * @return Etiqueta[]
+     * @return \PhpSigep\Model\Etiqueta[]
      */
     public function solicitaEtiquetas(\PhpSigep\Model\SolicitaEtiquetas $params);
 
     /**
-     * @param \PhpSigep\Model\GeraDigitoVerificadorEtiquetas $params
+     * Pede para o WebService do Correios calcular o dígito verificador de uma etiqueta.
      *
-     * @throws \SoapFault
-     * @throws \Exception
+     * Se preferir você pode usar o método {@linnk \PhpSigep\Model\Etiqueta::getDv() } para calcular o dígito
+     * verificador, visto que esse método é mais rádido pois faz o cálculo local sem precisar se comunicar com o
+     * WebService.
+     * 
+     * @param \PhpSigep\Model\GeraDigitoVerificadorEtiquetas $params
+     * 
      * @return string[]
      */
     public function geraDigitoVerificadorEtiquetas(\PhpSigep\Model\GeraDigitoVerificadorEtiquetas $params);
 
-    public function fechaPlpVariosServicos(\PhpSigep\Model\PreListaDePostagem $params, \XMLWriter $xmlDaPreLista);
+    /**
+     * @param \PhpSigep\Model\PreListaDePostagem $params
+     * @param \XMLWriter $xmlDaPreLista
+     * @return mixed
+     */
+    public function fechaPlpVariosServicos(\PhpSigep\Model\PreListaDePostagem $params);
 
     /**
      * @param \PhpSigep\Model\CalcPrecoPrazo $params
@@ -49,4 +61,5 @@ interface SoapClientInterface
      * @return mixed
      */
     public function buscaCliente(\PhpSigep\Model\AccessData $params);
+
 }

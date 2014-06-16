@@ -7,14 +7,8 @@ use PhpSigep\Pdf\Script\Elipse;
 /**
  * @author: Stavarengo
  */
-class Sedex
+class Carta
 {
-
-    const SERVICE_E_SEDEX    = 1;
-    const SERVICE_SEDEX      = 2;
-    const SERVICE_SEDEX_10   = 3;
-    const SERVICE_SEDEX_HOJE = 4;
-    const SERVICE_SEDEX_12   = 5;
 
     /**
      * @var int
@@ -32,22 +26,18 @@ class Sedex
      * @var \PhpSigep\Model\AccessData
      */
     private $accessData;
-    private $tipoServico;
 
     /**
      * @param int $x
      * @param int $y
      * @param string $nomeRemetente
-     * @param int $tipoServico
-     *        Uma das contantes {@link Sedex}::SERVICO_*
      * @param \PhpSigep\Model\AccessData $accessData
      */
-    public function __construct($x, $y, $nomeRemetente, $tipoServico, \PhpSigep\Model\AccessData $accessData)
+    public function __construct($x, $y, $nomeRemetente, \PhpSigep\Model\AccessData $accessData)
     {
         $this->x             = $x;
         $this->y             = $y;
         $this->nomeRemetente = $nomeRemetente;
-        $this->tipoServico   = $tipoServico;
         $this->accessData    = $accessData;
     }
 
@@ -60,8 +50,8 @@ class Sedex
 
         // Desenha o elipse
         $k         = $pdf->k;
-        $wRect     = $un * 35 / $k;
-        $h         = $un * 23 / $k;
+        $wRect     = $un * 30 / $k;
+        $h         = $un * 28 / $k;
         $lineWidth = 2 / $k;
         $pdf->SetLineWidth($lineWidth);
         $x      = $this->x;
@@ -72,47 +62,20 @@ class Sedex
         $pdf->SetDrawColor(0, 0, 0);
         $elipse->ellipse($pdf, $x, $y, $rx, $ry);
 
-        // Escreve o texto PAC
+        // Escreve o texto
         $pdf->SetFont('Arial', 'BI');
-        $pdf->SetXY($x, $y + 5 / $k);
+        $pdf->SetXY($x, $y + 10 / $k);
         $fontSize = 15;
-        if ($this->tipoServico == self::SERVICE_E_SEDEX) {
-            $texto = 'e-SEDEX';
-        } else if ($this->tipoServico == self::SERVICE_SEDEX) {
-            $texto = 'SEDEX';
-        } else if ($this->tipoServico == self::SERVICE_SEDEX_10) {
-            $fontSize = 13;
-            $texto    = 'SEDEX 10';
-        } else if ($this->tipoServico == self::SERVICE_SEDEX_12) {
-            $fontSize = 13;
-            $texto    = 'SEDEX 12';
-        } else {
-            if ($this->tipoServico == self::SERVICE_SEDEX_HOJE) {
-                $fontSize = 12;
-                $texto    = 'SEDEX Hoje';
-            }
-        }
+        $texto    = 'Carta';
         $pdf->SetFontSize($fontSize);
         $pdf->Cell($wRect, 23 / $k, $texto, 0, 2, 'C');
-
-        //Faz os dois riscos brancos da parte superior
-        $pdf->SetDrawColor(255, 255, 255);
-        $pdf->SetLineWidth(4 / $k);
-        $x1 = $x + 11 / $k;
-        $x2 = $x1 + (4.4 / $k);
-        $y1 = $y + 12 / $k;
-        $y2 = $y1 - (3 / $k);
-        $pdf->Line($x1, $y1, $x2, $y2);
-        $x1 = $x + $wRect - 11 / $k;
-        $x2 = $x1 - (4.4 / $k);
-        $pdf->Line($x1, $y1, $x2, $y2);
 
         //Faz os dois riscos brancos da parte inferior - lado esquerdo
         $pdf->SetDrawColor(255, 255, 255);
         $pdf->SetLineWidth(3 / $k);
         $x1 = $x + 11 / $k;
         $x2 = $x1 - 1 / $k;
-        $y1 = $y + $h - 13.5 / $k;
+        $y1 = $y + $h - 15.5 / $k;
         $y2 = $y1 + (1 / $k);
         $pdf->Line($x1, $y1, $x2, $y2);
         $space = 3.5 / $k;
@@ -130,9 +93,9 @@ class Sedex
         //Faz os dois riscos brancos da parte inferior - lado direito
         $pdf->SetDrawColor(255, 255, 255);
         $pdf->SetLineWidth(3 / $k);
-        $x1 = $x + $wRect - 11 / $k;
+        $x1 = $x + $wRect - 7.5 / $k;
         $x2 = $x1 + 1 / $k;
-        $y1 = $y + $h - 13.5 / $k;
+        $y1 = $y + $h - 17.5 / $k;
         $y2 = $y1 + (1 / $k);
         $pdf->Line($x1, $y1, $x2, $y2);
         $space = 3.5 / $k;
@@ -160,14 +123,14 @@ class Sedex
         // Escreve CORREIOS na parte inferior
         $text = 'CORREIOS';
         $pdf->SetDrawColor(255, 255, 255);
-        $pdf->SetLineWidth(10 / $k);
-        $x1 = $x + 28 / $k;
-        $x2 = $x1 + $pdf->GetStringWidth($text) - 3 / $k;
-        $y1 = $y + $h - 3.8 / $k;
+        $pdf->SetLineWidth(15 / $k);
+        $x1 = $x + 24.5 / $k;
+        $x2 = $x1 + $pdf->GetStringWidth($text) - 9.5 / $k;
+        $y1 = $y + $h - 6 / $k;
         $pdf->Line($x1, $y1, $x2, $y1);
         $pdf->SetFontSize(9);
         $circularText = new CircularText();
-        $circularText->CircularText($pdf, $x + $wRect / 2 + 1, $y - 6.5 / $k, 75, $text, 'bottom');
+        $circularText->CircularText($pdf, $x + $wRect / 2 + 1, $y + 7 / $k, 75, $text, 'bottom');
 
         $pdf->restoreLastState();
     }

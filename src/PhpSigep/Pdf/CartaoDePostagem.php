@@ -3,6 +3,7 @@ namespace PhpSigep\Pdf;
 
 use PhpSigep\Bootstrap;
 use PhpSigep\Model\ServicoDePostagem;
+use PhpSigep\Pdf\Chancela\Carta;
 use PhpSigep\Pdf\Chancela\Pac;
 use PhpSigep\Pdf\Chancela\Sedex;
 
@@ -34,9 +35,15 @@ class CartaoDePostagem
      * @param \PhpSigep\Model\PreListaDePostagem $plp
      * @param int $idPlpCorreios
      * @param string $logoFile
+     * @throws InvalidArgument
+     *      Se o arquivo $logoFile não existir.
      */
     public function __construct($plp, $idPlpCorreios, $logoFile)
     {
+        if ($logoFile && !file_exists($logoFile)) {
+            throw new InvalidArgument('O arquivo "' . $logoFile . '" não existe.');
+        }
+
         $this->plp           = $plp;
         $this->idPlpCorreios = $idPlpCorreios;
         $this->logoFile      = $logoFile;
@@ -58,7 +65,7 @@ class CartaoDePostagem
             Bootstrap::getConfig()->getCacheInstance()->setItem($cacheKey, $this->pdf->buffer);
         }
     }
-    
+
     private function _render()
     {
         $un               = 72 / 25.4;
@@ -150,18 +157,22 @@ class CartaoDePostagem
                 $tPosFourAreas = $margins[$area]['t'];
                 $bPosFourAreas = $margins[$area]['b'];
 
-                $this->pdf->Line($lPosFourAreas, $tPosFourAreas, $lPosFourAreas, $bPosFourAreas);
-                $this->pdf->Line($lPosFourAreas, $tPosFourAreas, $rPosFourAreas, $tPosFourAreas);
-                $this->pdf->Line($rPosFourAreas, $tPosFourAreas, $rPosFourAreas, $bPosFourAreas);
-                $this->pdf->Line($lPosFourAreas, $bPosFourAreas, $rPosFourAreas, $bPosFourAreas);
-
                 // Logo
                 $this->pdf->SetXY($lPosFourAreas, $tPosFourAreas);
                 $this->setFillColor(222, 222, 222);
                 $headerColWidth = $wInnerFourAreas / 3;
                 $headerHeigth   = 106;
+                if ($this->logoFile) {
+                    $this->pdf->Image($this->logoFile);
+                }
+                
+                $this->pdf->Line($lPosFourAreas, $tPosFourAreas, $lPosFourAreas, $bPosFourAreas);
+                $this->pdf->Line($lPosFourAreas, $tPosFourAreas, $rPosFourAreas, $tPosFourAreas);
+                $this->pdf->Line($rPosFourAreas, $tPosFourAreas, $rPosFourAreas, $bPosFourAreas);
+                $this->pdf->Line($lPosFourAreas, $bPosFourAreas, $rPosFourAreas, $bPosFourAreas);
+                
 //				$this->t($headerColWidth, 'Logo', 0, 'C', $headerHeigth);
-                $this->pdf->Image($this->logoFile);
+
                 $this->pdf->Line(
                     $headerColWidth + $lPosFourAreas,
                     $tPosFourAreas,
@@ -201,30 +212,50 @@ class CartaoDePostagem
                 $servicoDePostagem = $objetoPostal->getServicoDePostagem();
                 $nomeRemetente     = $this->plp->getRemetente()->getNome();
                 $accessData        = $this->plp->getAccessData();
-                if ($servicoDePostagem->is(ServicoDePostagem::SERVICE_SEDEX_40436)
-                    || $servicoDePostagem->is(ServicoDePostagem::SERVICE_SEDEX_CONTRATO)
-                    || $servicoDePostagem->is(ServicoDePostagem::SERVICE_SEDEX_40444)
-                    || $servicoDePostagem->is(ServicoDePostagem::SERVICE_SEDEX_AGRUPADO)
-                ) {
-                    $chancela = new Sedex($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX, $accessData);
-                } else if ($servicoDePostagem->is(ServicoDePostagem::SERVICE_SEDEX_10_PACOTE)
-                    || $servicoDePostagem->is(ServicoDePostagem::SERVICE_SEDEX_10_ENVELOPE)
-                ) {
-                    $chancela = new Sedex($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX_10, $accessData);
-                } else if ($servicoDePostagem->is(ServicoDePostagem::SERVICE_SEDEX_12)) {
-                    $chancela = new Sedex($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX_12, $accessData);
-                } else if ($servicoDePostagem->is(ServicoDePostagem::SERVICE_E_SEDEX_STANDARD)) {
-                    $chancela = new Sedex($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_E_SEDEX, $accessData);
-                } else if ($servicoDePostagem->is(ServicoDePostagem::SERVICE_SEDEX_HOJE)
-                    || $servicoDePostagem->is(ServicoDePostagem::SERVICE_SEDEX_HOJE_VAREJO)
-                ) {
-                    $chancela = new Sedex($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX_HOJE, $accessData);
-                } else if ($servicoDePostagem->is(ServicoDePostagem::SERVICE_PAC)) {
-                    $chancela = new Pac($lPosChancela, $tPosChancela, $nomeRemetente, $accessData);
-                } else if ($servicoDePostagem->is(ServicoDePostagem::SERVICE_CARTA)
-                    || $servicoDePostagem->is(ServicoDePostagem::SERVICE_CARTA_REGISTRADA)
-                ) {
-//					$chancela = new Sedex($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX_HOJE, $accessData);
+
+                switch ($servicoDePostagem->getCodigo()) {
+                    case ServicoDePostagem::SERVICE_PAC_41068:
+                    case ServicoDePostagem::SERVICE_PAC_41106:
+                    case ServicoDePostagem::SERVICE_PAC_GRANDES_FORMATOS:
+                        $chancela = new Pac($lPosChancela, $tPosChancela, $nomeRemetente, $accessData);
+                        break;
+
+                    case ServicoDePostagem::SERVICE_E_SEDEX_STANDARD:
+                        $chancela = new Sedex($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_E_SEDEX, $accessData);
+                        break;
+
+                    case ServicoDePostagem::SERVICE_SEDEX_40096:
+                    case ServicoDePostagem::SERVICE_SEDEX_40436:
+                    case ServicoDePostagem::SERVICE_SEDEX_40444:
+                    case ServicoDePostagem::SERVICE_SEDEX_A_VISTA:
+                    case ServicoDePostagem::SERVICE_SEDEX_VAREJO_A_COBRAR:
+                    case ServicoDePostagem::SERVICE_SEDEX_PAGAMENTO_NA_ENTREGA:
+                    case ServicoDePostagem::SERVICE_SEDEX_AGRUPADO:
+                        $chancela = new Sedex($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX, $accessData);
+                        break;
+
+                    case ServicoDePostagem::SERVICE_SEDEX_12:
+                        $chancela = new Sedex($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX_12, $accessData);
+                        break;
+
+                    case ServicoDePostagem::SERVICE_SEDEX_10:
+                    case ServicoDePostagem::SERVICE_SEDEX_10_PACOTE:
+                        $chancela = new Sedex($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX_10, $accessData);
+                        break;
+
+                    case ServicoDePostagem::SERVICE_SEDEX_HOJE_40290:
+                    case ServicoDePostagem::SERVICE_SEDEX_HOJE_40878:
+                        $chancela = new Sedex($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX_HOJE, $accessData);
+                        break;
+
+                    case ServicoDePostagem::SERVICE_CARTA_COMERCIAL_A_FATURAR:
+                    case ServicoDePostagem::SERVICE_CARTA_REGISTRADA:
+    					$chancela = new Carta($lPosChancela, $tPosChancela, $nomeRemetente, $accessData);
+                        break;
+                    case ServicoDePostagem::SERVICE_SEDEX_REVERSO:
+                    default:
+                        $chancela = null;
+                        break;
                 }
 
                 if ($chancela) {
@@ -424,7 +455,8 @@ class CartaoDePostagem
      * @internal param $lineHeigth
      * @internal param $objetoPostal
      */
-    private function writeEndereco($t, $l, $w, $titulo, $nomeDestinatario, $logradouro, $numero1, $complemento, $bairro,
+    private function writeEndereco(
+        $t, $l, $w, $titulo, $nomeDestinatario, $logradouro, $numero1, $complemento, $bairro,
         $cidade, $uf, $cep = null
     ) {
         // Titulo do bloco: destinatario ou remetente

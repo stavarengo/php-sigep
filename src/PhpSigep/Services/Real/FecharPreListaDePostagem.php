@@ -1,14 +1,16 @@
 <?php
-namespace PhpSigep\Services;
+namespace PhpSigep\Services\Real;
 
 use PhpSigep\Model\Destinatario;
 use PhpSigep\Model\Destino;
 use PhpSigep\Model\DestinoInternacional;
 use PhpSigep\Model\DestinoNacional;
 use PhpSigep\Model\Dimensao;
+use PhpSigep\Model\FechaPlpVariosServicosRetorno;
 use PhpSigep\Model\ObjetoPostal;
 use PhpSigep\Model\PreListaDePostagem;
 use PhpSigep\Model\ServicoAdicional;
+use PhpSigep\Services\Result;
 
 /**
  * @author: Stavarengo
@@ -23,10 +25,51 @@ class FecharPreListaDePostagem
      */
     public function execute(\PhpSigep\Model\PreListaDePostagem $params)
     {
+        $xmlDaPreLista = $this->getPlpXml($params);
 
-        $soap = SoapClientFactory::create();
+        $listaEtiquetas = array();
+        foreach ($params->getEncomendas() as $objetoPostal) {
+            $listaEtiquetas[] = $objetoPostal->getEtiqueta()->getEtiquetaSemDv();
+        }
 
-        return $soap->fechaPlpVariosServicos($params, $this->getPlpXml($params));
+        $xml = utf8_encode($xmlDaPreLista->flush());
+//		$xml = utf8_encode($xml);
+//		$xml = iconv('UTF-8', 'ISO-8859-1', $xml);
+
+        $soapArgs = array(
+            'xml'            => $xml,
+            'idPlpCliente'   => '',
+            'cartaoPostagem' => $params->getAccessData()->getCartaoPostagem(),
+            'listaEtiquetas' => $listaEtiquetas,
+            'usuario'        => $params->getAccessData()->getUsuario(),
+            'senha'          => $params->getAccessData()->getSenha(),
+        );
+        
+        $result = new Result();
+        try {
+            $r = SoapClientFactory::getSoapClient()->fechaPlpVariosServicos($soapArgs);
+            if ($r instanceof \SoapFault) {
+                throw $r;
+            }
+            if ($r && $r->return) {
+                $result->setResult(new FechaPlpVariosServicosRetorno(array('idPlp' => $r->return)));
+            } else {
+                $result->setErrorCode(0);
+                $result->setErrorMsg('A resposta do Correios não está no formato esperado. Resposta recebida: "' . 
+                    $r . '"');
+            }
+        } catch (\Exception $e) {
+            if ($e instanceof \SoapFault) {
+                $result->setIsSoapFault(true);
+                $result->setErrorCode($e->getCode());
+                $result->setErrorMsg(SoapClientFactory::convertEncoding($e->getMessage()));
+            } else {
+                $result->setErrorCode($e->getCode());
+                $result->setErrorMsg($e->getMessage());
+            }
+        }
+        
+        return $result;
     }
 
     private function getPlpXml(PreListaDePostagem $data)
@@ -35,10 +78,6 @@ class FecharPreListaDePostagem
         $writer->openMemory();
         $writer->setIndentString("");
         $writer->setIndent(false);
-        if (isset($_GET['xml'])) {
-//		$writer->setIndentString("   ");
-//		$writer->setIndent(true);
-        }
         $writer->startDocument('1.0', 'UTF-8');
 
         $writer->startElement('correioslog');
@@ -144,16 +183,8 @@ class FecharPreListaDePostagem
         if ($maxLength) {
             $str = substr($str, 0, $maxLength);
         }
-        if ($cdata) {
-            //$str = $this->getCData($str);
-        }
 
         return $str;
-    }
-
-    private function getCData($str)
-    {
-        return "<![CDATA[$str]]>";
     }
 
     private function writeDestinatario(\XMLWriter $writer, Destinatario $destinatario)

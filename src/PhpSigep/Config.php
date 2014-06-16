@@ -167,7 +167,7 @@ class Config extends DefaultStdClass
     /**
      * @return string
      */
-    public function getWsdlCalPrecoPrazo()
+    public function getWsdlCalcPrecoPrazo()
     {
         return $this->wsdlCalPrecoPrazo;
     }

@@ -59,7 +59,7 @@ class ServicoAdicional extends AbstractModel
      */
     public function getValorDeclarado()
     {
-        return $this->valorDeclarado;
+        return (float)$this->valorDeclarado;
     }
 
 

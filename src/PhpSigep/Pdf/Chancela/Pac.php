@@ -70,7 +70,7 @@ class Pac
 
         // Nome do remetente
         $pdf->SetFont('', 'B', 9);
-        $pdf->MultiCell($wRect, 9 / $k, $this->nomeRemetente, 0, 'C');
+        $pdf->MultiCell($wRect, 9 / $k, $pdf->_($this->nomeRemetente), 0, 'C');
 
         // Escreve o texto CORREIOS
         $pdf->SetDrawColor(255, 255, 255);

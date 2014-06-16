@@ -1,5 +1,6 @@
 <?php
 namespace PhpSigep\Model;
+use PhpSigep\InvalidArgument;
 
 /**
  * @author: Stavarengo
@@ -8,9 +9,9 @@ class VerificaDisponibilidadeServico extends AbstractModel
 {
 
     /**
-     * @var ServicoDePostagem
+     * @var ServicoDePostagem[]
      */
-    protected $servico;
+    protected $servicos = array();
     /**
      * @var string
      */
@@ -77,20 +78,43 @@ class VerificaDisponibilidadeServico extends AbstractModel
     }
 
     /**
-     * @return ServicoDePostagem
+     * @return ServicoDePostagem[]
      */
-    public function getServico()
+    public function getServicos()
     {
-        return $this->servico;
+        return $this->servicos;
+    }
+
+    /**
+     * @param \PhpSigep\Model\ServicoDePostagem|\PhpSigep\Model\ServicoDePostagem[] $servicos
+     * @throws \PhpSigep\InvalidArgument
+     */
+    public function setServicos($servicos)
+    {
+        $piece = $servicos;
+        if (is_array($servicos)) {
+            $piece = null;
+            if (count($servicos)) {
+                $piece = reset($servicos);
+            }
+        } else {
+            $servicos = array($servicos);
+        }
+        if ($piece && !($piece instanceof ServicoDePostagem)) {
+            throw new InvalidArgument('Este parâmetro precisa ser uma instância de ' .
+                '"PhpSigep\Model\ServicoDePostagem" ou um array de "PhpSigep\Model\ServicoDePostagem"');
+        }
+        
+        $this->servicos = $servicos;
     }
 
     /**
      * @param ServicoDePostagem $servico
+     * @return $this
      */
-    public function setServico(ServicoDePostagem $servico)
+    public function addServico(ServicoDePostagem $servico)
     {
-        $this->servico = $servico;
+        $this->servicos[] = $servico;
+        return $this;
     }
-
-
 }

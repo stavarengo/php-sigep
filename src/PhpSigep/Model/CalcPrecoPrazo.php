@@ -113,6 +113,7 @@ class CalcPrecoPrazo extends AbstractModel
 
     /**
      * @param float $peso
+     *      Em kilogramas, ou seja, 0.400 significa 400 gramas.
      */
     public function setPeso($peso)
     {
@@ -121,6 +122,7 @@ class CalcPrecoPrazo extends AbstractModel
 
     /**
      * @return float
+     *      Em kilogramas, ou seja, 0.400 significa 400 gramas.
      */
     public function getPeso()
     {
@@ -161,6 +163,8 @@ class CalcPrecoPrazo extends AbstractModel
 
     /**
      * @param boolean $ajustarDimensaoMinima
+     *      Quando true, o sistema altera o tamanho das dimensões se elas forem menor que o mínimo permitido pelo
+     *      correios.
      */
     public function setAjustarDimensaoMinima($ajustarDimensaoMinima)
     {

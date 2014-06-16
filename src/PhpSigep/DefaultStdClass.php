@@ -7,6 +7,8 @@ namespace PhpSigep;
 abstract class DefaultStdClass
 {
 
+    protected $_failIfAtributeNotExiste = true;
+
     public function __construct(array $initialValues = array())
     {
         $this->setFromArray($initialValues);
@@ -26,8 +28,12 @@ abstract class DefaultStdClass
             return;
         }
 
-        throw new InvalidArgument('Não existe um método para definir o valor do atributo "' . get_class($this) . '::'
-                                  . $attributeName . '"');
+        if ($this->_failIfAtributeNotExiste) {
+            throw new InvalidArgument('Não existe um método para definir o valor do atributo "'
+                . get_class($this) . '::' . $attributeName . '"');
+        }
+        
+        $this->$attributeName = $value;
     }
 
     /**
@@ -46,8 +52,12 @@ abstract class DefaultStdClass
             return $this->$method();
         }
 
-        throw new InvalidArgument('Não existe um método para retornar o valor do atributo: "'
-                                  . $attributeName . '"');
+        if ($this->_failIfAtributeNotExiste) {
+            throw new InvalidArgument('Não existe um método para retornar o valor do atributo: "'
+                . $attributeName . '"');
+        }
+        
+        return null;
     }
 
     /**
