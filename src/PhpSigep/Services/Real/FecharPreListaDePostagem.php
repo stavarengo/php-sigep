@@ -21,7 +21,7 @@ class FecharPreListaDePostagem
     /**
      * @param PreListaDePostagem $params
      *
-     * @return int
+     * @return \PhpSigep\Services\Result<\PhpSigep\Model\FechaPlpVariosServicosRetorno>
      */
     public function execute(\PhpSigep\Model\PreListaDePostagem $params)
     {

@@ -1,6 +1,15 @@
 PHP SIGEP - Correios
 ====================
 
+
+------
+
+### Não baixe a branch master
+* Estamos atualizando o PhpSigep para versão 2.0 e por conta disto a branch master não está estável.
+* Baixe a última versão estável aqui: [https://github.com/stavarengo/php-sigep/tags](https://github.com/stavarengo/php-sigep/tags) 
+
+------
+
 Implementação do Web Service dos correios SIGEP Web.
 ### [Veja o demo online, exemplos e documentação em nossa página](http://stavarengo.github.io/php-sigep).
 
@@ -19,22 +28,60 @@ Requisitos
 ---
 
 * PHP >= 5.1.0
-* Se você precisar imprimir as etiquetas e relatórios, baixe também o FPDF 1.7. Não esqueça de configurar o FPDF para ser auto carregado antes de tentar imprimir os relatórios.
+* Se você precisar imprimir as etiquetas e relatórios, baixe também o FPDF 1.7 [www.fpdf.org](http://www.fpdf.org/).   
+  Não esqueça de configurar o FPDF para ser auto carregado antes de tentar imprimir os relatórios.
+
+Instalação com Composer (recomendado)
+---
+
+* Nós não controlamos versão através das tags, porem, a branch master só é atualizada quando o código está estável.
+  Portanto, a versão estável mais atual sempre será a branch master.
+
+Adicione a seguinte linha ao seu arquivo `composer.json`:
+	"stavarengo/php-sigep": "1.0.0-rc"
+
+E então execute `composer update` via linha de comando.
+
+
 
 Instalação manual
 ---
 
+* Nós não controlamos versão através das tags, porem, a branch master só é atualizada quando o código está estável.
+  Portanto, a versão estável mais atual sempre será a branch master.
+
 * Faça o download da última versão.
 * Para usar as classe do php-sigep, você só precisa carregar o arquivo "php-sigep/src/PhpSigep/Bootstrap.php". Isso fara com que o loader seja registrado.
 
-Instalação com Composer
+Funções
 ---
 
-Adicione a seguinte linha ao seu arquivo `composer.json`:
+Cache
+---
 
-	"stavarengo/php-sigep": "1.0.0-rc"
+O componente de cache do PhpSigep foi inspirado no [componente de cache do Zend Framework](http://framework.zend.com/manual/2.3/en/index.html#zend-cache).
 
-E então execute `composer update` via linha de comando.
+Por padrão o cache do PhpSigep está desabilitado.   
+Este cache armazena algumas respostadas do WebService dos correios que podem ser reutilizadas posteriomente.
+Alem de aumentar a velocidade de respostas das requisições, também evitamos que os usuários fiquem impedidos de continuar
+mesmo quando o servidor do Correios esteja instavel (acredite: ele fica instável com muita frequencia).
+
+Para habilitar o cache, use a chave "cacheOptions" ao criar a configuração do PhpSigep.
+Ex:
+    ```php
+        new \PhpSigep\Config(
+            array(
+                'cacheOptions' => array(
+                    'storageOptions' => array(
+                        'enabled' => true,
+                        'ttl' => 60*60*24*7,// Uma semana
+                    ),
+                ),
+                ...
+            ),
+        );
+    ```
+Dentro do `array` `storageOptions` você pode usar o nome de qualquer atributo da classe `PhpSigep\Cache\Storage\Adapter\AdapterOptions`.
 
 Contribua
 ---

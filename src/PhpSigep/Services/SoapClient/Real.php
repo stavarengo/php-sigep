@@ -17,7 +17,7 @@ class Real implements ServiceInterface
     /**
      * @param \PhpSigep\Model\VerificaDisponibilidadeServico $params
      *
-     * @return bool
+     * @return Result<\PhpSigep\Model\VerificaDisponibilidadeServicoResposta>
      */
     public function verificaDisponibilidadeServico(\PhpSigep\Model\VerificaDisponibilidadeServico $params)
     {
@@ -39,7 +39,7 @@ class Real implements ServiceInterface
     /**
      * @param \PhpSigep\Model\SolicitaEtiquetas $params
      *
-     * @return Etiqueta[]
+     * @return Result<\PhpSigep\Model\Etiqueta[]>
      */
     public function solicitaEtiquetas(\PhpSigep\Model\SolicitaEtiquetas $params)
     {
@@ -66,6 +66,10 @@ class Real implements ServiceInterface
         return $service->execute($params);
     }
 
+    /**
+     * @param \PhpSigep\Model\PreListaDePostagem $params
+     * @return \PhpSigep\Services\Result<\PhpSigep\Model\FechaPlpVariosServicosRetorno>
+     */
     public function fechaPlpVariosServicos(\PhpSigep\Model\PreListaDePostagem $params)
     {
         $service = new ServiceImplementation\FecharPreListaDePostagem();
@@ -74,9 +78,7 @@ class Real implements ServiceInterface
 
     /**
      * @param \PhpSigep\Model\CalcPrecoPrazo $params
-     * @return \PhpSigep\Model\CalcPrecoPrazoRespostaIterator
-     * @throws Exception
-     * @throws \Exception
+     * @return Result<\PhpSigep\Model\CalcPrecoPrazoResposta[]>
      */
     public function calcPrecoPrazo(\PhpSigep\Model\CalcPrecoPrazo $params)
     {

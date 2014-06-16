@@ -12,14 +12,14 @@ use PhpSigep\Services\Result;
  */
 class CalcPrecoPrazo
 {
-    protected static $calcPrecosPrazosServiceUnavailable = false;
+    public static $calcPrecosPrazosServiceUnavailable = false;
 
     /**
      * @param \PhpSigep\Model\CalcPrecoPrazo $params
      *
      * @throws Exception
      * @throws \Exception
-     * @return \PhpSigep\Model\CalcPrecoPrazoRespostaIterator
+     * @return Result<\PhpSigep\Model\CalcPrecoPrazoRespostaIterator[]>
      */
     public function execute(\PhpSigep\Model\CalcPrecoPrazo $params)
     {

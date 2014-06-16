@@ -18,5 +18,5 @@ if (!$result->hasError()) {
 }
 
 echo '<pre>';
-print_r((array)$result);
+var_dump($result);
 echo '</pre>';

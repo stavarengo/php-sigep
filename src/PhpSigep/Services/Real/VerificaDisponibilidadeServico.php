@@ -1,5 +1,6 @@
 <?php
 namespace PhpSigep\Services\Real;
+use PhpSigep\Bootstrap;
 use PhpSigep\Model\ServicoDePostagem;
 use PhpSigep\Model\VerificaDisponibilidadeServicoResposta;
 use PhpSigep\Services\Result;
@@ -10,6 +11,10 @@ use PhpSigep\Services\Result;
 class VerificaDisponibilidadeServico
 {
 
+    /**
+     * @param \PhpSigep\Model\VerificaDisponibilidadeServico $params
+     * @return Result<\PhpSigep\Model\VerificaDisponibilidadeServicoResposta>
+     */
     public function execute(\PhpSigep\Model\VerificaDisponibilidadeServico $params)
     {
         $servicosDePostagem = $params->getServicos();
@@ -24,6 +29,12 @@ class VerificaDisponibilidadeServico
             'usuario'           => $params->getAccessData()->getUsuario(),
             'senha'             => $params->getAccessData()->getSenha(),
         );
+
+        $cacheKey = md5(serialize($soapArgs));
+        $cache    = Bootstrap::getConfig()->getCacheInstance();
+        if ($cachedResult = $cache->getItem($cacheKey)) {
+            return unserialize($cachedResult);
+        }
         
         $r = SoapClientFactory::getSoapClient()->verificaDisponibilidadeServico($soapArgs);
 
@@ -38,6 +49,7 @@ class VerificaDisponibilidadeServico
             $result->setSoapFault($r);
         } else if ($r instanceof \stdClass && property_exists($r, 'return')) {
             $result->setResult(new VerificaDisponibilidadeServicoResposta(array('disponivel' => (bool)$r->return)));
+            $cache->setItem($cacheKey, serialize($result));
         } else {
             $errorCode = 0;
             $errorMsg = "A resposta do Correios não está no formato esperado.";

@@ -24,7 +24,8 @@ class ServicoDePostagem extends AbstractModel
     const SERVICE_SEDEX_REVERSO              = 40380;
     const SERVICE_SEDEX_PAGAMENTO_NA_ENTREGA = 40630;
     const SERVICE_CARTA_COMERCIAL_A_FATURAR  = 10065;
-    const SERVICE_CARTA_REGISTRADA           = 10138;
+    const SERVICE_CARTA_REGISTRADA           = 10014;
+//    const SERVICE_CARTA_REGISTRADA           = 10138;
 
     private static $services = array(
         self::SERVICE_PAC_41068                  => array('Pac 41068', 109819),

@@ -1,18 +1,16 @@
 {
     "name": "stavarengo/sigep",
-    "version": "1.0.0-rc",
+    "version": "0.0.1",
     "type": "library",
-    "description": "Client para acesso à API SIGEP dos Correios",
+    "description": "Integração com Web Service do Correios. Gera etiquetas, consulta preços e prazos, imprime etiquetas e PLP, etc.",
     "keywords": ["correios", "sigep"],
     "require": {
-        "itbz/fpdf": "1.7"
-    },
-    "require-dev": {
-      "phpunit/phpunit": "3.7.*"
+        "stavarengo/php-sigep-fpdf": "1.7"
+        "php": ">=5.1.0"
     },
     "autoload": {
       "psr-0": {
-        "Sigep": "src/"
+        "PhpSigep": "src/"
       }
     },
     "license": "MIT",
@@ -22,5 +20,5 @@
             "email": "faelsta@gmail.com"
         }
     ],
-    "minimum-stability": "beta"
+    "minimum-stability": "stable"
 }
