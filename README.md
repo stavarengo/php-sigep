@@ -1,14 +1,7 @@
 PHP SIGEP - Correios
 ====================
 
-
-------
-
-### Não baixe a branch master
-* Estamos atualizando o PhpSigep para versão 2.0 e por conta disto a branch master não está estável.
 * Baixe a última versão estável aqui: [https://github.com/stavarengo/php-sigep/tags](https://github.com/stavarengo/php-sigep/tags) 
-
-------
 
 Implementação do Web Service dos correios SIGEP Web.
 ### [Veja o demo online, exemplos e documentação em nossa página](http://stavarengo.github.io/php-sigep).
