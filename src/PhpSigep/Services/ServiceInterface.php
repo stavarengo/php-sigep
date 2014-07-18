@@ -62,4 +62,11 @@ interface ServiceInterface
      */
     public function buscaCliente(\PhpSigep\Model\AccessData $params);
 
+    /**
+     *
+     * @param \PhpSigep\Model\RastrearObjeto $params
+     * @return \PhpSigep\Services\Result<\PhpSigep\Model\RastrearObjetoResultado[]>
+     */
+    public function rastrearObjeto(\PhpSigep\Model\RastrearObjeto $params);
+
 }

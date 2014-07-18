@@ -97,4 +97,15 @@ class Real implements ServiceInterface
         $service = new ServiceImplementation\BuscaCliente();
         return $service->execute($params);
     }
+
+    /**
+     *
+     * @param \PhpSigep\Model\RastrearObjeto $params
+     * @return \PhpSigep\Services\Result<\PhpSigep\Model\RastrearObjetoResultado[]>
+     */
+    public function rastrearObjeto(\PhpSigep\Model\RastrearObjeto $params)
+    {
+        $service = new ServiceImplementation\RastrearObjeto();
+        return $service->execute($params);
+    }
 }

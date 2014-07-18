@@ -48,6 +48,9 @@ class FecharPreListaDePostagem
         $result = new Result();
         try {
             $r = SoapClientFactory::getSoapClient()->fechaPlpVariosServicos($soapArgs);
+            if (class_exists('\StaLib_Logger')) {
+                \StaLib_Logger::log('Retorno SIGEP fecha PLP: ' . print_r($r, true));
+            }
             if ($r instanceof \SoapFault) {
                 throw $r;
             }

@@ -46,6 +46,9 @@ class SolicitaEtiquetas implements RealServiceInterface
             $etiquetasReservadas = array();
             for ($i = 0; $i < $params->getQtdEtiquetas(); $i++) {
                 $r = SoapClientFactory::getSoapClient()->solicitaEtiquetas($soapArgs);
+                if (class_exists('\StaLib_Logger')) {
+                    \StaLib_Logger::log('Retorno SIGEP solicitar etiquetas: ' . print_r($r, true));
+                }
                 if ($r && is_object($r) && isset($r->return) && !($r instanceof \SoapFault)) {
                     $r = explode(',', $r->return);
     //				$etiquetasReservadas[] = str_replace(' ', '', $r[0]);
