@@ -9,6 +9,7 @@ Implementação do Web Service dos correios SIGEP Web.
 Integração com Web Service do Correios. Consulta preços e prazos, imprime etiquetas e PLP, etc.
 Esta API pode:
 * Calcular preços e prazos de entrega da encomenda.   
+* Obter os dados de rastreamento das encomendas.   
 * Verificar se um tipo de serviço (Sedex, PAC, ...) é permitido entre dois endereços.   
 * Gerar e enviar o XML da pre-lista de postagem (PLP) para o Correios.   
 * Gerar novos números de etiquetas de postagem.
