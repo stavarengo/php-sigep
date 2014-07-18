@@ -25,6 +25,10 @@ class RastrearObjetoEvento extends AbstractModel
     /**
      * @var string
      */
+    protected $detalhes;
+    /**
+     * @var string
+     */
     protected $local;
     /**
      * @var string
@@ -189,6 +193,25 @@ class RastrearObjetoEvento extends AbstractModel
     public function getUf()
     {
         return $this->uf;
+    }
+
+    /**
+     * @param string $detalhes
+     * @return $this;
+     */
+    public function setDetalhes($detalhes)
+    {
+        $this->detalhes = $detalhes;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDetalhes()
+    {
+        return $this->detalhes;
     }
     
 }

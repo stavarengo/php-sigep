@@ -81,6 +81,20 @@ class RastrearObjeto extends AbstractModel
 
         return $this;
     }
+    
+    /**
+     * @param \PhpSigep\Model\Etiqueta $etiqueta
+     * @return $this;
+     */
+    public function addEtiqueta(Etiqueta $etiqueta)
+    {
+        if (!is_array($this->etiquetas)) {
+            $this->etiquetas = array();
+        }
+        $this->etiquetas[] = $etiqueta;
+
+        return $this;
+    }
 
     /**
      * @param int $tipo

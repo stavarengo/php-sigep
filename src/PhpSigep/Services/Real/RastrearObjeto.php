@@ -15,7 +15,7 @@ class RastrearObjeto
 
     /**
      * @param \PhpSigep\Model\RastrearObjeto $params
-     * @return \PhpSigep\Services\Result<\PhpSigep\Model\RastrearObjetoEvento[]>
+     * @return \PhpSigep\Services\Result<\PhpSigep\Model\RastrearObjetoResultado[]>
      * @throws Exception\RastrearObjeto\TipoResultadoInvalidoException
      * @throws Exception\RastrearObjeto\TipoInvalidoException
      */
@@ -128,11 +128,33 @@ class RastrearObjeto
                 foreach ($objeto->evento as $evento) {
                     $dataHoraStr = $evento->data . ' ' . $evento->hora;
                     $dataHora    = \DateTime::createFromFormat('d/m/Y H:i', $dataHoraStr);
+                    $tipo = strtoupper($evento->tipo);
+                    $status = (int)$evento->status;
+                    $descricao = $evento->descricao;
+                    $detalhes = null;
+                    if ($tipo == 'PO' && $status === 9) {
+                        $detalhes = 'Objeto sujeito a encaminhamento no próximo dia útil.';
+                    } else if ($evento->destino
+                        && (($tipo == 'DO' && in_array($status, array(0, 1, 2)))
+                        || ($tipo == 'PMT' && $status === 1)
+                        || ($tipo == 'TRI' && $status === 1)
+                        || ($tipo == 'RO' && in_array($status, array(0, 1)))
+                    )) {
+                        $detalhes = 'Objeto encaminhado para ' . $evento->destino->cidade . '/' . $evento->destino->uf;
+                        if ($evento->destino->bairro) {
+                            $detalhes .= ' - Bairro: ' . $evento->destino->bairro;
+                        }
+                        if ($evento->destino->local) {
+                            $detalhes .= ' - Local: ' . $evento->destino->local;
+                        }
+                    }
+
                     $resultado->addEvento(new RastrearObjetoEvento(array(
-                        'tipo'      => $evento->tipo,
-                        'status'    => $evento->status,
+                        'tipo'      => $tipo,
+                        'status'    => $status,
                         'dataHora'  => $dataHora,
-                        'descricao' => $evento->descricao,
+                        'descricao' => $descricao,
+                        'detalhes'  => $detalhes,
                         'local'     => $evento->local,
                         'codigo'    => $evento->codigo,
                         'cidade'    => $evento->cidade,
