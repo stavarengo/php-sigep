@@ -170,6 +170,8 @@ class CalcPrecoPrazo
                     $msgErro = $servico->MsgErro;
                     $msgErro = SoapClientFactory::convertEncoding($msgErro);
                     $item->setErroMsg($msgErro);
+                } else {
+                    $item->setErroCodigo(null);
                 }
                 $retorno[] = $item;
             }
