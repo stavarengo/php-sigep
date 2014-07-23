@@ -137,48 +137,56 @@ class CalcPrecoPrazo
         $retorno = array();
         if (is_object($r) && $r->CalcPrecoPrazoResult && is_object($r->CalcPrecoPrazoResult) 
             && $r->CalcPrecoPrazoResult->Servicos && is_object($r->CalcPrecoPrazoResult->Servicos) 
-            && $r->CalcPrecoPrazoResult->Servicos->cServico
         ) {
-            $servicos = $r->CalcPrecoPrazoResult->Servicos->cServico;
-            $servicos = (is_array($servicos) ? $servicos : array($servicos));
-
-            foreach ($servicos as $servico) {
-                $valor                 = (float)str_replace(',', '.', str_replace('.', '', $servico->Valor));
-                $valorMaoPropria       = str_replace('.', '', $servico->ValorMaoPropria);
-                $valorMaoPropria       = (float)str_replace(',', '.', $valorMaoPropria);
-                $valorAvisoRecebimento = str_replace('.', '', $servico->ValorAvisoRecebimento);
-                $valorAvisoRecebimento = (float)str_replace(',', '.', $valorAvisoRecebimento);
-                $valorValorDeclarado   = str_replace('.', '', $servico->ValorValorDeclarado);
-                $valorValorDeclarado   = (float)str_replace(',', '.', $valorValorDeclarado);
-
-                $item = new \PhpSigep\Model\CalcPrecoPrazoResposta(array(
-                    'servico'               => new \PhpSigep\Model\ServicoDePostagem($servico->Codigo),
-                    'valor'                 => $valor,
-                    'prazoEntrega'          => (int)$servico->PrazoEntrega,
-                    'valorMaoPropria'       => $valorMaoPropria,
-                    'valorAvisoRecebimento' => $valorAvisoRecebimento,
-                    'valorValorDeclarado'   => $valorValorDeclarado,
-                    'entregaDomiciliar'     => ($servico->EntregaDomiciliar == 'S'),
-                    'entregaSabado'         => ($servico->EntregaSabado == 'S'),
-                ));
-
-                $item->setErroCodigo($servico->Erro);
-                if ($item->getErroCodigo() && ($item->getErroCodigo() != 10 || !$item->getValor())) {
-                    // Se entrar aqui significa que tem Erro e que esse Erro é diferente de 10 ou o Erro é 10 mas não
-                    // não foi retornando o Valor.
-                    // O erro "10" é mais um aviso do que um erro. Se for erro 10 e tiver valor, não considera um erro.
-                    $msgErro = $servico->MsgErro;
-                    $msgErro = SoapClientFactory::convertEncoding($msgErro);
-                    $item->setErroMsg($msgErro);
-                } else {
-                    $item->setErroCodigo(null);
+            if ($r->CalcPrecoPrazoResult->Servicos->cServico) {
+                $servicos = $r->CalcPrecoPrazoResult->Servicos->cServico;
+                $servicos = (is_array($servicos) ? $servicos : array($servicos));
+    
+                foreach ($servicos as $servico) {
+                    $valor                 = (float)str_replace(',', '.', str_replace('.', '', $servico->Valor));
+                    $valorMaoPropria       = str_replace('.', '', $servico->ValorMaoPropria);
+                    $valorMaoPropria       = (float)str_replace(',', '.', $valorMaoPropria);
+                    $valorAvisoRecebimento = str_replace('.', '', $servico->ValorAvisoRecebimento);
+                    $valorAvisoRecebimento = (float)str_replace(',', '.', $valorAvisoRecebimento);
+                    $valorValorDeclarado   = str_replace('.', '', $servico->ValorValorDeclarado);
+                    $valorValorDeclarado   = (float)str_replace(',', '.', $valorValorDeclarado);
+    
+                    $item = new \PhpSigep\Model\CalcPrecoPrazoResposta(array(
+                        'servico'               => new \PhpSigep\Model\ServicoDePostagem($servico->Codigo),
+                        'valor'                 => $valor,
+                        'prazoEntrega'          => (int)$servico->PrazoEntrega,
+                        'valorMaoPropria'       => $valorMaoPropria,
+                        'valorAvisoRecebimento' => $valorAvisoRecebimento,
+                        'valorValorDeclarado'   => $valorValorDeclarado,
+                        'entregaDomiciliar'     => ($servico->EntregaDomiciliar == 'S'),
+                        'entregaSabado'         => ($servico->EntregaSabado == 'S'),
+                    ));
+    
+                    $item->setErroCodigo($servico->Erro);
+                    if ($item->getErroCodigo() && ($item->getErroCodigo() != 10 || !$item->getValor())) {
+                        // Se entrar aqui significa que tem Erro e que esse Erro é diferente de 10 ou o Erro é 10 mas não
+                        // não foi retornando o Valor.
+                        // O erro "10" é mais um aviso do que um erro. Se for erro 10 e tiver valor, não considera um erro.
+                        $msgErro = $servico->MsgErro;
+                        $msgErro = SoapClientFactory::convertEncoding($msgErro);
+                        $item->setErroMsg($msgErro);
+                    } else {
+                        $item->setErroCodigo(null);
+                    }
+                    $retorno[] = $item;
                 }
-                $retorno[] = $item;
+            } else {
+                $result->setErrorCode(0);
+                $result->setErrorMsg('A resposta do Correios não está no formato esperado. Detalhes do problema: "Faltando a entrada \'cServico\'."');
             }
         } else {
             $result->setErrorCode(0);
-            $result->setErrorMsg('A resposta do Correios não está no formato esperado. Resposta recebida: "' .
-                $r . '"');
+            if (is_object($r)) {
+                $result->setErrorMsg('A resposta do Correios não está no formato esperado. Detalhes do problema: "A resposta recebida é um objeto, mas este objeto não possui todos as entradas necessárias."');
+            } else {
+                $result->setErrorMsg('A resposta do Correios não está no formato esperado. Resposta recebida: "' .
+                    $r . '"');
+            }
         }
 
         $retornoIterator = new \PhpSigep\Model\CalcPrecoPrazoRespostaIterator($retorno);
