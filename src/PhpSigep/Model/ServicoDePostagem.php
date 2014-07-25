@@ -27,7 +27,7 @@ class ServicoDePostagem extends AbstractModel
     const SERVICE_CARTA_REGISTRADA           = 10014;
 //    const SERVICE_CARTA_REGISTRADA           = 10138;
 
-    private static $services = array(
+    protected static $services = array(
         self::SERVICE_PAC_41068                  => array('Pac 41068', 109819),
         self::SERVICE_PAC_41106                  => array('Pac 41106', 110353),
         self::SERVICE_PAC_GRANDES_FORMATOS       => array('Pac Grandes Formatos', 120366),
@@ -70,7 +70,6 @@ class ServicoDePostagem extends AbstractModel
      */
     public function __construct($serviceCode)
     {
-        $serviceCode = (int)$serviceCode;
         if (!isset(self::$services[$serviceCode])) {
             throw new Exception('There is no service with the code "' . $serviceCode . '".');
         }
