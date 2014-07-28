@@ -418,10 +418,10 @@ class ListaDePostagem
             if ($destino instanceof \PhpSigep\Model\DestinoNacional) {
                 $pdf->SetX($xCol2);
                 $pdf->CellXp($wCol2, preg_replace('/[^\d]/', '', $destino->getCep()), 'C');
-                $pdf->SetXY($xCol8, $y1);
+                $pdf->SetXY($xCol8, $y2);
                 $pdf->MultiCellXp($wCol8, $destino->getNumeroNotaFiscal(), null, 0, 'C');
             }
-            $pdf->SetX($xCol3);
+            $pdf->SetXY($xCol3, $y2);
             $pdf->CellXp($wCol3, $objetoPostal->getPeso(), 'C');
             $pdf->SetX($xCol4);
             $pdf->CellXp($wCol4, ($temAr ? 'S' : 'N'), 'C');
