@@ -16,15 +16,6 @@ $params->setAccessData($accessData);
 
 $phpSigep = new PhpSigep\Services\SoapClient\Real();
 
-echo <<<HTML
-    <div style="display:inline-block;color: red;font-weight: bold;border: 1px solid silver;padding: 20px;background-color: #fffcfc">
-        O Correios sempre retorna "A autenticacao de sigep falhou!" quando solicitamos etiquetas
-        <strong>usando o servidor de homologação</strong>.
-    </div>
-HTML;
-
-var_dump($phpSigep->solicitaEtiquetas($params));
-
 ?>
 <!doctype html>
 <html lang="pt">
@@ -46,20 +37,18 @@ var_dump($phpSigep->solicitaEtiquetas($params));
             <br/>
             Troque estes dados por um usuário e senha real para, caso contrario o Correios responderá que não foi possível autentificar o usuário.
             <br/>
+            <br/>
             <label for="usuario">Usuário</label>
             <input type="text" name="usuario" value="<?php echo htmlspecialchars($accessData->getUsuario(), ENT_QUOTES); ?>"/>
+            <br/>
             <label for="senha">Senha</label>
             <input type="text" name="senha" value="<?php echo htmlspecialchars($accessData->getSenha(), ENT_QUOTES); ?>"/>
             <br/>
-            <br/>
-            <label for="etiquetas">Etiquetas - separadas por vírgula</label>
-            <br/>
-            <textarea name="etiquetas" id="etiquetas" cols="60" rows="3"><?php echo htmlspecialchars($etiquetasFromQueryRaw); ?></textarea>
-            <button type="submit">Rastrear</button>
+            <button type="submit">Gerar etiquetas</button>
         </form>
         <br/>
         <h1>Resposta</h1>
         <hr/>
-        <?php echo $dumpResult ?>
+        <pre><?php var_dump($phpSigep->solicitaEtiquetas($params)); ?></pre>
     </body>
 </html>
