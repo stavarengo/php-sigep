@@ -15,14 +15,14 @@ $dimensao->setTipo(\PhpSigep\Model\Dimensao::TIPO_PACOTE_CAIXA);
 $params = new \PhpSigep\Model\VerificaDisponibilidadeServico();
 $params->setCepDestino($destinatarioCep);
 $params->setCepOrigem($remetenteCep);
-$params->setServico($servicoPostagem);
-$params->setAccessData(FakeDataAccess::create());
+$params->setServicos(array($servicoPostagem));
+$params->setAccessData(\PhpSigep\Bootstrap::getConfig()->getAccessData());
 
-$servico = new \PhpSigep\Services\VerificaDisponibilidadeServico();
+$phpSigep = new PhpSigep\Services\SoapClient\Real();
+$r = $phpSigep->verificaDisponibilidadeServico($params);
 
-$r = $servico->execute($params);
 $r = array(
-    'resultado' => $r,
+    'resultado' => $r->toArray(),
 );
 if (defined('JSON_PRETTY_PRINT')) {
     die(json_encode($r, JSON_PRETTY_PRINT));

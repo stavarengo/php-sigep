@@ -43,15 +43,15 @@ $params->setPeso($peso);
 $params->setDimensao($dimensao);
 $params->setCepOrigem($remetenteCep);
 $params->setCepDestino($destinatarioCep);
-$params->setAccessData(FakeDataAccess::create());
+$params->setAccessData(\PhpSigep\Bootstrap::getConfig()->getAccessData());
 
-$servico = new \PhpSigep\Services\CalcPrecoPrazo();
+$phpSigep = new PhpSigep\Services\SoapClient\Real();
+$r = $phpSigep->calcPrecoPrazo($params);
 
-$r    = $servico->execute($params);
 $help = file_get_contents(__DIR__ . '/calc-preco-prazo.help.html');
 
 $r = array(
-    'resultado' => $r,
+    'resultado' => $r->toArray(),
     'help'      => $help,
 );
 if (defined('JSON_PRETTY_PRINT')) {

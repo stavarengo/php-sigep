@@ -49,7 +49,7 @@ $dimensao->setLargura(20);
 $dimensao->setComprimento(20);
 $dimensao->setTipo(\PhpSigep\Model\Dimensao::TIPO_PACOTE_CAIXA);
 
-$accessData = FakeDataAccess::create();
+$accessData = \PhpSigep\Bootstrap::getConfig()->getAccessData();
 
 $destinatario = new \PhpSigep\Model\Destinatario();
 $destinatario->setNome($destinatarioNome);

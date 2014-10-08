@@ -15,13 +15,13 @@ foreach ($etiquetas as $etiquetaSemDv) {
 }
 
 $params = new \PhpSigep\Model\GeraDigitoVerificadorEtiquetas();
-$params->setAccessData(FakeDataAccess::create());
+$params->setAccessData(\PhpSigep\Bootstrap::getConfig()->getAccessData());
 $params->setEtiquetas($etiquetasArray);
 
-$servico       = new \PhpSigep\Services\GeraDigitoVerificadorEtiquetas();
-$serviceResult = $servico->execute($params);
+$phpSigep = new PhpSigep\Services\SoapClient\Real();
+$serviceResult = $phpSigep->geraDigitoVerificadorEtiquetas($params);
 $r             = array();
-foreach ($serviceResult as $result) {
+foreach ($serviceResult->getResult() as $result) {
     $r[$result->getEtiquetaSemDv()] = $result->getDv();
 }
 

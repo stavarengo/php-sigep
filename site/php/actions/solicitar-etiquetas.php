@@ -8,12 +8,12 @@ if ($qtdEtiquetas > 10) {
 }
 
 $params = new \PhpSigep\Model\SolicitaEtiquetas();
-$params->setAccessData(FakeDataAccess::create());
+$params->setAccessData(\PhpSigep\Bootstrap::getConfig()->getAccessData());
 $params->setQtdEtiquetas($qtdEtiquetas);
 $params->setServicoDePostagem(new \PhpSigep\Model\ServicoDePostagem($servicoDePostagem));
 
-$servico  = new \PhpSigep\Services\SolicitaEtiquetas();
-$serviceResult = $servico->execute($params);
+$phpSigep = new PhpSigep\Services\SoapClient\Real();
+$serviceResult = $phpSigep->solicitaEtiquetas($params);
 $r = array();
 foreach ($serviceResult as $result) {
     $r[] = $result->getEtiquetaComDv();
