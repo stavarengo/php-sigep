@@ -79,7 +79,7 @@ abstract class DefaultStdClass
         foreach ($vars as $var => $val) {
             try {
                 if (is_object($value) && $value instanceof DefaultStdClass) {
-                    $val = $this->get($var);
+                    $val = $value->get($var);
                 }
             } catch (InvalidArgument $e) {
                 // Ignora essa propiedade se ela não tiver um método get definido.
@@ -87,12 +87,12 @@ abstract class DefaultStdClass
             }
 
             if (is_object($val)) {
-                $val = $this->_toArray($val);
+                $val = $value->_toArray($val);
             } else {
                 if (is_array($val)) {
                     $novoVal = array();
                     foreach ($val as $k => $v) {
-                        $novoVal[$k] = $this->_toArray($v);
+                        $novoVal[$k] = $value->_toArray($v);
                     }
                     $val = $novoVal;
                 }
