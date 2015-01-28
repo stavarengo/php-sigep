@@ -11,9 +11,7 @@
         }
     },
     "require": {
-        "php": ">=5.1.0"
-    },
-    "require-dev": {
+        "php": ">=5.1.0",
         "stavarengo/php-sigep-fpdf": "dev-master"
     },
     "autoload": {
