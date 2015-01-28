@@ -31,8 +31,9 @@ Instalação com Composer (recomendado)
 * Nós não controlamos versão através das tags, porem, a branch master só é atualizada quando o código está estável.
   Portanto, a versão estável mais atual sempre será a branch master.
 
-Adicione a seguinte linha ao seu arquivo `composer.json`:
-	"stavarengo/php-sigep": "1.0.0-rc"
+Adicione as seguintes linha ao seu arquivo `composer.json`:
+	"stavarengo/php-sigep": "dev-master"    
+    "stavarengo/php-sigep-fpdf": "dev-master"
 
 E então execute `composer update` via linha de comando.
 
