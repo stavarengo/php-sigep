@@ -601,7 +601,7 @@ class CartaoDePostagem
 	$str .= '-00.000000';
 	$str .= '-00.000000';
 	$str .= '|';
-	$str .= 'msg do usuario php-sigep';
+	$str .= 'msg do usuario - php-sigep';
 	return $str;
      }
 }
