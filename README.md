@@ -1,8 +1,10 @@
+###Ajude o projeto a crescer. Envie pull request de suas alterações no código fonte ou na documentação do projeto.
+
 PHP SIGEP - Correios
 ====================
 
 * Baixe a última versão estável aqui: [https://github.com/stavarengo/php-sigep/tags](https://github.com/stavarengo/php-sigep/tags) 
-
+ 
 Implementação do Web Service dos correios SIGEP Web.
 ### [Veja o demo online, exemplos e documentação em nossa página](http://stavarengo.github.io/php-sigep).
 
