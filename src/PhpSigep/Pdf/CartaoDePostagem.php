@@ -344,29 +344,29 @@ class CartaoDePostagem
                         $hCepBarCode
                     );
                 $valorDeclarado = null;
-+		$sSer = "";
-+                foreach ($objetoPostal->getServicosAdicionais() as $servicoAdicional) {
-+                if ($servicoAdicional->is(ServicoAdicional::SERVICE_AVISO_DE_RECEBIMENTO)) {
-+                      $temAr = true;
-+		      $sSer = $sSer."01";
-+	            } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_MAO_PROPRIA)) {
-+                      $temMp = true;
-+		      $sSer = $sSer."02";
-+                    } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_VALOR_DECLARADO)) {
-+                      $temVd = true;
-+		      $sSer = $sSer."19";
-+                      $valorDeclarado = $servicoAdicional->getValorDeclarado();
-+		    } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_REGISTRO)) {
-+		      $temRe = true;
-+		      $sSer = $sSer."25";
-+                    }
-+            	}
-+		while ( strlen($sSer) < 12 ) {
-+		  $sSer = $sSer."00";
-+		}
-+		$sM2Dtext = '';
-+		$sM2Dtext = $this->getM2Dstr($cep, $objetoPostal->getDestinatario()->getNumero(), $this->plp->getRemetente()->getCep(), $this->plp->getRemetente()->getNumero(), $etiquetaComDv,$sSer, $this->plp->getAccessData()->getCartaoPostagem(), $objetoPostal->getServicoDePostagem()->getCodigo(), $valorDeclarado,"085123456789", $objetoPostal->getDestinatario()->getComplemento());
-+		//echo $sM2Dtext;
+		$sSer = "";
+                foreach ($objetoPostal->getServicosAdicionais() as $servicoAdicional) {
+                if ($servicoAdicional->is(ServicoAdicional::SERVICE_AVISO_DE_RECEBIMENTO)) {
+                      $temAr = true;
+		      $sSer = $sSer."01";
+	            } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_MAO_PROPRIA)) {
+                      $temMp = true;
+		      $sSer = $sSer."02";
+                    } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_VALOR_DECLARADO)) {
+                      $temVd = true;
+		      $sSer = $sSer."19";
+                      $valorDeclarado = $servicoAdicional->getValorDeclarado();
+		    } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_REGISTRO)) {
+		      $temRe = true;
+		      $sSer = $sSer."25";
+                    }
+            	}
+		while ( strlen($sSer) < 12 ) {
+		  $sSer = $sSer."00";
+		}
+		$sM2Dtext = '';
+		$sM2Dtext = $this->getM2Dstr($cep, $objetoPostal->getDestinatario()->getNumero(), $this->plp->getRemetente()->getCep(), $this->plp->getRemetente()->getNumero(), $etiquetaComDv,$sSer, $this->plp->getAccessData()->getCartaoPostagem(), $objetoPostal->getServicoDePostagem()->getCodigo(), $valorDeclarado,"085123456789", $objetoPostal->getDestinatario()->getComplemento());
+		//echo $sM2Dtext;
 		exec("php ./sema.php "."'$sM2Dtext'");
 		$this->setFillColor(222, 222, 222);
 		$this->pdf->Image('./sema.png', $lPosFourAreas+80, $tPosFourAreas+12, 72);
@@ -561,37 +561,37 @@ class CartaoDePostagem
         $this->t($w, $txt, null, $align, $h, true, $utf8);
     }
     private function CalcDigCep($cep)
-+    {
-+	$str = str_split($cep);
-+	$sum = 0;
-+	for ($i = 0; $i <= 7; $i++) {
-+		$sum = $sum + intval($str[$i]);
-+	}
-+	$mul = $sum - $sum%10 + 10;
-+	return $mul - $sum;
-+     }
-+     private function getM2Dstr($cepD, $numD, $cepO, $numO, $etq, $srvA, $carP, $codS, $valD, $telD, $cplD)
-+     {
-+	$str = '';
-+	$str .= str_replace('-', '', $cepD);
-+	$str .= sprintf('%05d',$numD);
-+	$str .= str_replace('-', '', $cepO);
-+        $str .= sprintf('%05d',$numO);
-+	$str .= intval($this->CalcDigCep(str_replace('-', '', $cepD)));
-+	$str .= '51';
-+	$str .= $etq;
-+	$str .= $srvA;
-+	$str .= $carP;
-+	$str .= sprintf('%05d',$codS);
-+	$str .= '01';
-+	$str .= sprintf('%05d',$numD);
-+	$str .= $cplD;
-+	$str .= sprintf('%05d',(int) $valD);
-+	$str .= $telD;
-+	$str .= '-00.000000';
-+	$str .= '-00.000000';
-+	$str .= '|';
-+	$str .= 'msg do usuario - php-sigep';
-+	return $str;
-+     }
+    {
+	$str = str_split($cep);
+	$sum = 0;
+	for ($i = 0; $i <= 7; $i++) {
+		$sum = $sum + intval($str[$i]);
+	}
+	$mul = $sum - $sum%10 + 10;
+	return $mul - $sum;
+     }
+     private function getM2Dstr($cepD, $numD, $cepO, $numO, $etq, $srvA, $carP, $codS, $valD, $telD, $cplD)
+     {
+	$str = '';
+	$str .= str_replace('-', '', $cepD);
+	$str .= sprintf('%05d',$numD);
+	$str .= str_replace('-', '', $cepO);
+        $str .= sprintf('%05d',$numO);
+	$str .= intval($this->CalcDigCep(str_replace('-', '', $cepD)));
+	$str .= '51';
+	$str .= $etq;
+	$str .= $srvA;
+	$str .= $carP;
+	$str .= sprintf('%05d',$codS);
+	$str .= '01';
+	$str .= sprintf('%05d',$numD);
+	$str .= $cplD;
+	$str .= sprintf('%05d',(int) $valD);
+	$str .= $telD;
+	$str .= '-00.000000';
+	$str .= '-00.000000';
+	$str .= '|';
+	$str .= 'msg do usuario - php-sigep';
+	return $str;
+     }
 }
