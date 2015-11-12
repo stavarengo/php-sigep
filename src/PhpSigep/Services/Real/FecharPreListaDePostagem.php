@@ -112,7 +112,7 @@ class FecharPreListaDePostagem
     {
         $writer->startElement('remetente');
         $writer->writeElement('numero_contrato', $data->getAccessData()->getNumeroContrato());
-        $writer->writeElement('numero_diretoria', $data->getRemetente()->getDiretoria());
+        $writer->writeElement('numero_diretoria', $data->getRemetente()->getDiretoria()->getNumero());
         $writer->writeElement('codigo_administrativo', $data->getAccessData()->getCodAdministrativo());
         $writer->startElement('nome_remetente');
         $writer->writeCData($this->_($data->getRemetente()->getNome(), 50));
