@@ -367,7 +367,12 @@ class CartaoDePostagem
 		$sM2Dtext = '';
 		$sM2Dtext = $this->getM2Dstr($cep, $objetoPostal->getDestinatario()->getNumero(), $this->plp->getRemetente()->getCep(), $this->plp->getRemetente()->getNumero(), $etiquetaComDv,$sSer, $this->plp->getAccessData()->getCartaoPostagem(), $objetoPostal->getServicoDePostagem()->getCodigo(), $valorDeclarado,"085123456789", $objetoPostal->getDestinatario()->getComplemento());
 		//echo $sM2Dtext;
-		exec("php ./sema.php "."'$sM2Dtext'");
+		//exec("php ./sema.php "."'$sM2Dtext'");
+                
+                require_once  'Semacode.php';
+                $semacode = new \Semacode();
+                $semacode->sendPNG($sM2Dtext);
+                
 		$this->setFillColor(222, 222, 222);
 		$this->pdf->Image('./sema.png', $lPosFourAreas+80, $tPosFourAreas+12, 72);
                 }
