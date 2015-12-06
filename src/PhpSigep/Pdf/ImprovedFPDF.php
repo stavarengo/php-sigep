@@ -17,6 +17,8 @@ class ImprovedFPDF extends \PhpSigepFPDF
     {
         parent::__construct($orientation, $unit, $size);
         $this->lineHeightPadding = 33 / $this->k;
+
+        stream_wrapper_register("var", 'PhpSigep\Pdf\VariableStream') or die("Failed to register protocol");
     }
 
     public function _($str)
@@ -112,5 +114,116 @@ class ImprovedFPDF extends \PhpSigepFPDF
                 }
             }
         }
+    }
+
+    function memImage($data, $x=null, $y=null, $w=0, $h=0, $link='')
+    {
+        //Display the image contained in $data
+        $v = 'img'.md5($data);
+        $GLOBALS[$v] = $data;
+        $a = getimagesize('var://'.$v);
+        if(!$a)
+            $this->Error('Invalid image data');
+        $type = substr(strstr($a['mime'],'/'),1);
+        $this->Image('var://'.$v, $x, $y, $w, $h, $type, $link);
+        unset($GLOBALS[$v]);
+    }
+
+    function gdImage($im, $x=null, $y=null, $w=0, $h=0, $link='')
+    {
+        //Display the GD image associated to $im
+        ob_start();
+        imagepng($im);
+        $data = ob_get_clean();
+        $this->MemImage($data, $x, $y, $w, $h, $link);
+    }
+}
+
+//Stream handler to read from global variables
+class VariableStream {
+    var $position;
+    var $varname;
+
+    function stream_open($path, $mode, $options, &$opened_path)
+    {
+        $url = parse_url($path);
+        $this->varname = $url["host"];
+        $this->position = 0;
+
+        return true;
+    }
+
+    function stream_read($count)
+    {
+        $ret = substr($GLOBALS[$this->varname], $this->position, $count);
+        $this->position += strlen($ret);
+        return $ret;
+    }
+
+    function stream_write($data)
+    {
+        $left = substr($GLOBALS[$this->varname], 0, $this->position);
+        $right = substr($GLOBALS[$this->varname], $this->position + strlen($data));
+        $GLOBALS[$this->varname] = $left . $data . $right;
+        $this->position += strlen($data);
+        return strlen($data);
+    }
+
+    function stream_tell()
+    {
+        return $this->position;
+    }
+
+    function stream_eof()
+    {
+        return $this->position >= strlen($GLOBALS[$this->varname]);
+    }
+
+    function stream_seek($offset, $whence)
+    {
+        switch ($whence) {
+            case SEEK_SET:
+                if ($offset < strlen($GLOBALS[$this->varname]) && $offset >= 0) {
+                    $this->position = $offset;
+                    return true;
+                } else {
+                    return false;
+                }
+                break;
+
+            case SEEK_CUR:
+                if ($offset >= 0) {
+                    $this->position += $offset;
+                    return true;
+                } else {
+                    return false;
+                }
+                break;
+
+            case SEEK_END:
+                if (strlen($GLOBALS[$this->varname]) + $offset >= 0) {
+                    $this->position = strlen($GLOBALS[$this->varname]) + $offset;
+                    return true;
+                } else {
+                    return false;
+                }
+                break;
+
+            default:
+                return false;
+        }
+    }
+
+    function stream_metadata($path, $option, $var)
+    {
+        if($option == STREAM_META_TOUCH) {
+            $url = parse_url($path);
+            $varname = $url["host"];
+            if(!isset($GLOBALS[$varname])) {
+                $GLOBALS[$varname] = '';
+            }
+            return true;
+        }
+        return false;
     }
 }

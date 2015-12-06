@@ -45,9 +45,9 @@ class CartaoDePostagem
             throw new InvalidArgument('O arquivo "' . $logoFile . '" não existe.');
         }
 
-        $this->plp           = $plp;
+        $this->plp = $plp;
         $this->idPlpCorreios = $idPlpCorreios;
-        $this->logoFile      = $logoFile;
+        $this->logoFile = $logoFile;
 
         $this->init();
     }
@@ -69,15 +69,15 @@ class CartaoDePostagem
 
     private function _render()
     {
-        $un               = 72 / 25.4;
-        $wFourAreas       = $this->pdf->w / 2;
-        $hFourAreas       = ($this->pdf->h - ($un * 15)) / 2; //-Menos 1.5CM porque algumas impressoras não conseguem imprimir nos ultimos 1cm da página 
+        $un = 72 / 25.4;
+        $wFourAreas = $this->pdf->w / 2;
+        $hFourAreas = ($this->pdf->h - ($un * 15)) / 2; //-Menos 1.5CM porque algumas impressoras não conseguem imprimir nos ultimos 1cm da página
         $tMarginFourAreas = $un * 5;
         $rMarginFourAreas = $un * 5;
         $bMarginFourAreas = $un * 5;
         $lMarginFourAreas = $un * 5;
-        $wInnerFourAreas  = $wFourAreas - $lMarginFourAreas - $rMarginFourAreas;
-        $hInnerFourAreas  = $hFourAreas - $tMarginFourAreas - $bMarginFourAreas;
+        $wInnerFourAreas = $wFourAreas - $lMarginFourAreas - $rMarginFourAreas;
+        $hInnerFourAreas = $hFourAreas - $tMarginFourAreas - $bMarginFourAreas;
 
         $margins = array(
             array(
@@ -107,7 +107,7 @@ class CartaoDePostagem
         );
 
         $objetosPostais = $this->plp->getEncomendas();
-        $total          = count($objetosPostais);
+        $total = count($objetosPostais);
         while (count($objetosPostais)) {
             $this->pdf->AddPage();
 
@@ -162,16 +162,16 @@ class CartaoDePostagem
                 $this->pdf->SetXY($lPosFourAreas, $tPosFourAreas);
                 $this->setFillColor(222, 222, 222);
                 $headerColWidth = $wInnerFourAreas / 3;
-                $headerHeigth   = 106;
+                $headerHeigth = 106;
                 if ($this->logoFile) {
                     $this->pdf->Image($this->logoFile);
                 }
-                
+
                 //$this->pdf->Line($lPosFourAreas, $tPosFourAreas, $lPosFourAreas, $bPosFourAreas);
                 //$this->pdf->Line($lPosFourAreas, $tPosFourAreas, $rPosFourAreas, $tPosFourAreas);
                 //$this->pdf->Line($rPosFourAreas, $tPosFourAreas, $rPosFourAreas, $bPosFourAreas);
                 //$this->pdf->Line($lPosFourAreas, $bPosFourAreas, $rPosFourAreas, $bPosFourAreas);
-                
+
 //				$this->t($headerColWidth, 'Logo', 0, 'C', $headerHeigth);
 
                 //$this->pdf->Line(
@@ -199,20 +199,20 @@ class CartaoDePostagem
                 $this->setFillColor(150, 200, 200);
                 $this->pdf->SetFont('', '');
                 $this->pdf->SetFontSize(10);
-                //$this->t($headerColWidth * 2, $this->idPlpCorreios, 0, 'C');
+                $this->t($headerColWidth * 2, $this->idPlpCorreios, 0, 'C');
 
                 // Chancela
                 $this->setFillColor(150, 150, 200);
-                $wChancela    = 101.5;
-                $hChancela    = 72.5;
+                $wChancela = 101.5;
+                $hChancela = 72.5;
                 $lPosChancela = $rPosFourAreas - $wChancela;
-                $bPosHeader   = $tPosFourAreas + $headerHeigth;
-                $tPosChancela = $bPosHeader - $hChancela - 20;
-                $this->pdf->SetXY($lPosChancela, $tPosChancela);
+                $bPosHeader = $tPosFourAreas + $headerHeigth;
+                $tPosChancela = ($bPosHeader - $hChancela - 20) + 22;
+                $this->pdf->SetXY($lPosChancela, $tPosChancela );
                 //$this->t($wChancela, 'Chancela', 0, 'C', $hChancela);
                 $servicoDePostagem = $objetoPostal->getServicoDePostagem();
-                $nomeRemetente     = $this->plp->getRemetente()->getNome();
-                $accessData        = $this->plp->getAccessData();
+                $nomeRemetente = $this->plp->getRemetente()->getNome();
+                $accessData = $this->plp->getAccessData();
 
                 switch ($servicoDePostagem->getCodigo()) {
                     case ServicoDePostagem::SERVICE_PAC_41068:
@@ -251,7 +251,7 @@ class CartaoDePostagem
 
                     case ServicoDePostagem::SERVICE_CARTA_COMERCIAL_A_FATURAR:
                     case ServicoDePostagem::SERVICE_CARTA_REGISTRADA:
-    					$chancela = new Carta($lPosChancela, $tPosChancela, $nomeRemetente, $accessData);
+                        $chancela = new Carta($lPosChancela, $tPosChancela, $nomeRemetente, $accessData);
                         break;
                     case ServicoDePostagem::SERVICE_SEDEX_REVERSO:
                     default:
@@ -264,26 +264,27 @@ class CartaoDePostagem
                 }
 
                 // Peso
-                $this->setFillColor(100, 150, 200);
-                $this->pdf->SetFontSize(9);
-                $lineHeigth = $this->pdf->getLineHeigth(100 / $this->pdf->k);
-                $this->pdf->SetXY($lPosHeaderCol2, $bPosHeader - $lineHeigth * 2);
-                //$this->t(
-                //    $lPosChancela - $lPosHeaderCol2,
-                //    'Peso: ' . ((float)$objetoPostal->getPeso()) . 'g',
-                //    2,
-                //    'C',
-                //    $lineHeigth
-                //);
+//                $this->setFillColor(100, 150, 200);
+//                $this->pdf->SetFontSize(9);
+//                $lineHeigth = $this->pdf->getLineHeigth(100 / $this->pdf->k);
+//                $this->pdf->SetXY($lPosHeaderCol2, ($bPosHeader - $lineHeigth * 2) + 10);
+//                $this->t(
+//                    $lPosChancela - $lPosHeaderCol2,
+//                    'Peso: ' . ((float)$objetoPostal->getPeso()) . 'kg',
+//                    2,
+//                    'C',
+//                    $lineHeigth
+//                );
 
                 // Volume
                 $this->setFillColor(100, 150, 200);
+                $this->pdf->SetXY(($lPosChancela - $lPosHeaderCol2) * 1.42, $bPosHeader + 18);
 //				$this->t($lPosChancela - $lPosHeaderCol2, 'Volume: ' . ($total - count($objetosPostais)) . '/' . $total, 0, 'C', $lineHeigth);
-                $this->t($lPosChancela - $lPosHeaderCol2, 'Volume: 1/1    '.'Peso(g): ' . ((float)$objetoPostal->getPeso()) . '    NF: '.((float)$objetoPostal->getDestino()->getNumeroNotaFiscal()), 0, 'C', $lineHeigth);
+                $this->t($lPosChancela - $lPosHeaderCol2, 'Volume: 1/1    '.'Peso(g): ' . ((float)$objetoPostal->getPeso()) . '    NF: '.((float)$objetoPostal->getDestino()->getNumeroNotaFiscal()), 1, 'C',  null);
 
                 // Número da etiqueta
                 $this->setFillColor(100, 100, 200);
-                $this->pdf->SetXY($lPosFourAreas, $bPosHeader + 5);
+                $this->pdf->SetXY($lPosFourAreas, $bPosHeader + 35);
                 $this->pdf->SetFontSize(10);
                 $this->pdf->SetFont('', 'B');
                 $etiquetaComDv = $objetoPostal->getEtiqueta()->getEtiquetaComDv();
@@ -291,10 +292,10 @@ class CartaoDePostagem
 
                 // Código de barras da etiqueta
                 $this->setFillColor(0, 0, 0);
-                $hEtiquetaBarCode    = 40;
+                $hEtiquetaBarCode = 40;
                 $tPosEtiquetaBarCode = $this->pdf->GetY();
-                $wEtiquetaBarCode    = $un * 65.44;
-                $code128             = new \PhpSigep\Pdf\Script\BarCode128();
+                $wEtiquetaBarCode = $un * 65.44;
+                $code128 = new \PhpSigep\Pdf\Script\BarCode128();
                 $code128->draw(
                     $this->pdf,
                     $lPosFourAreas + $wInnerFourAreas / 2 - $wEtiquetaBarCode / 2,
@@ -305,12 +306,12 @@ class CartaoDePostagem
                 );
 
                 // Destinatário
-                $wAddressLeftCol  = $wInnerFourAreas / 4 * 2.2;
+                $wAddressLeftCol = $wInnerFourAreas / 4 * 2.2;
                 $wAddressRightCol = $wInnerFourAreas - $wAddressLeftCol;
                 $lAddressRigthCol = $wAddressLeftCol + $lPosFourAreas;
 
                 $tPosAfterBarCode = $tPosEtiquetaBarCode + $hEtiquetaBarCode + 5;
-                $t                = $this->writeDestinatario(
+                $t = $this->writeDestinatario(
                     $lPosFourAreas,
                     $tPosAfterBarCode,
                     $wAddressLeftCol,
@@ -320,7 +321,7 @@ class CartaoDePostagem
                 $t += $this->pdf->getLineHeigth() / 2;
                 $this->writeRemetente($lPosFourAreas, $t, $wAddressLeftCol, $this->plp->getRemetente());
 
-                $destino     = $objetoPostal->getDestino();
+                $destino = $objetoPostal->getDestino();
                 $hCepBarCode = 0;
                 if ($destino instanceof \PhpSigep\Model\DestinoNacional) {
                     // Número do CEP
@@ -343,38 +344,51 @@ class CartaoDePostagem
                         $wCepBarCode,
                         $hCepBarCode
                     );
-                $valorDeclarado = null;
-		$sSer = "";
-                foreach ($objetoPostal->getServicosAdicionais() as $servicoAdicional) {
-                if ($servicoAdicional->is(ServicoAdicional::SERVICE_AVISO_DE_RECEBIMENTO)) {
-                      $temAr = true;
-		      $sSer = $sSer."01";
-	            } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_MAO_PROPRIA)) {
-                      $temMp = true;
-		      $sSer = $sSer."02";
-                    } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_VALOR_DECLARADO)) {
-                      $temVd = true;
-		      $sSer = $sSer."19";
-                      $valorDeclarado = $servicoAdicional->getValorDeclarado();
-		    } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_REGISTRO)) {
-		      $temRe = true;
-		      $sSer = $sSer."25";
+                    $valorDeclarado = null;
+                    $sSer = "";
+                    foreach ($objetoPostal->getServicosAdicionais() as $servicoAdicional) {
+                        if ($servicoAdicional->is(ServicoAdicional::SERVICE_AVISO_DE_RECEBIMENTO)) {
+                            $temAr = true;
+                            $sSer = $sSer . "01";
+                        } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_MAO_PROPRIA)) {
+                            $temMp = true;
+                            $sSer = $sSer . "02";
+                        } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_VALOR_DECLARADO)) {
+                            $temVd = true;
+                            $sSer = $sSer . "19";
+                            $valorDeclarado = $servicoAdicional->getValorDeclarado();
+                        } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_REGISTRO)) {
+                            $temRe = true;
+                            $sSer = $sSer . "25";
+                        }
                     }
-            	}
-		while ( strlen($sSer) < 12 ) {
-		  $sSer = $sSer."00";
-		}
-		$sM2Dtext = '';
-		$sM2Dtext = $this->getM2Dstr($cep, $objetoPostal->getDestinatario()->getNumero(), $this->plp->getRemetente()->getCep(), $this->plp->getRemetente()->getNumero(), $etiquetaComDv,$sSer, $this->plp->getAccessData()->getCartaoPostagem(), $objetoPostal->getServicoDePostagem()->getCodigo(), $valorDeclarado,"085123456789", $objetoPostal->getDestinatario()->getComplemento());
-		//echo $sM2Dtext;
-		//exec("php ./sema.php "."'$sM2Dtext'");
-                
-                require_once  'Semacode.php';
-                $semacode = new \Semacode();
-                $semacode->sendPNG($sM2Dtext);
-                
-		$this->setFillColor(222, 222, 222);
-		$this->pdf->Image('./sema.png', $lPosFourAreas+80, $tPosFourAreas+12, 72);
+                    while (strlen($sSer) < 12) {
+                        $sSer = $sSer . "00";
+                    }
+
+		            $sM2Dtext = $this->getM2Dstr(
+                        $cep,
+                        $objetoPostal->getDestinatario()->getNumero(),
+                        $this->plp->getRemetente()->getCep(),
+                        $this->plp->getRemetente()->getNumero(),
+                        $etiquetaComDv,
+                        $sSer,
+                        $this->plp->getAccessData()->getCartaoPostagem(),
+                        $objetoPostal->getServicoDePostagem()->getCodigo(),
+                        $valorDeclarado,
+                        $objetoPostal->getDestinatario()->getTelefone(),
+                        $objetoPostal->getDestinatario()->getComplemento()
+                    );
+
+                    require_once  'Semacode.php';
+                    $semacode = new \Semacode();
+
+                    $semaCodeGD = $semacode->asGDImage($sM2Dtext);
+
+		            $this->setFillColor(222, 222, 222);
+		            $this->pdf->gdImage($semaCodeGD, $lPosFourAreas+108, $tPosFourAreas + 50, 42);
+                    imagedestroy($semaCodeGD);
+
                 }
             }
         }
@@ -387,7 +401,7 @@ class CartaoDePostagem
         $replaces = array(
             'ā' => 'a',
         );
-        $str      = str_replace(array_keys($replaces), array_values($replaces), $str);
+        $str = str_replace(array_keys($replaces), array_values($replaces), $str);
         if (extension_loaded('iconv')) {
             return iconv('UTF-8', 'ISO-8859-1', $str);
         } else {
@@ -411,19 +425,19 @@ class CartaoDePostagem
      */
     private function writeDestinatario($l, $t, $w, $objetoPostal)
     {
-        $titulo           = 'Destinatário';
+        $titulo = 'Destinatário';
         $nomeDestinatario = $objetoPostal->getDestinatario()->getNome();
-        $logradouro       = $objetoPostal->getDestinatario()->getLogradouro();
-        $numero           = $objetoPostal->getDestinatario()->getNumero();
-        $complemento      = $objetoPostal->getDestinatario()->getComplemento();
-        $bairro           = '';
-        $cidade           = '';
-        $uf               = '';
-        $destino          = $objetoPostal->getDestino();
+        $logradouro = $objetoPostal->getDestinatario()->getLogradouro();
+        $numero = $objetoPostal->getDestinatario()->getNumero();
+        $complemento = $objetoPostal->getDestinatario()->getComplemento();
+        $bairro = '';
+        $cidade = '';
+        $uf = '';
+        $destino = $objetoPostal->getDestino();
         if ($destino instanceof \PhpSigep\Model\DestinoNacional) {
             $bairro = $destino->getBairro();
             $cidade = $destino->getCidade();
-            $uf     = $destino->getUf();
+            $uf = $destino->getUf();
         }
 
         return $this->writeEndereco(
@@ -443,15 +457,15 @@ class CartaoDePostagem
 
     private function writeRemetente($l, $t, $w, \PhpSigep\Model\Remetente $remetente)
     {
-        $titulo           = 'Remetente';
+        $titulo = 'Remetente';
         $nomeDestinatario = $remetente->getNome();
-        $logradouro       = $remetente->getLogradouro();
-        $numero           = $remetente->getNumero();
-        $complemento      = $remetente->getComplemento();
-        $bairro           = $remetente->getBairro();
-        $cidade           = $remetente->getCidade();
-        $uf               = $remetente->getUf();
-        $cep              = $remetente->getCep();
+        $logradouro = $remetente->getLogradouro();
+        $numero = $remetente->getNumero();
+        $complemento = $remetente->getComplemento();
+        $bairro = $remetente->getBairro();
+        $cidade = $remetente->getCidade();
+        $uf = $remetente->getUf();
+        $cep = $remetente->getCep();
 
         $cep = preg_replace('/(\d{5})-{0,1}(\d{3})/', '$1-$2', $cep);
 
@@ -491,7 +505,8 @@ class CartaoDePostagem
     private function writeEndereco(
         $t, $l, $w, $titulo, $nomeDestinatario, $logradouro, $numero1, $complemento, $bairro,
         $cidade, $uf, $cep = null
-    ) {
+    )
+    {
         // Titulo do bloco: destinatario ou remetente
         $this->pdf->SetFont('', 'B');
         $this->setFillColor(60, 60, 60);
@@ -500,8 +515,8 @@ class CartaoDePostagem
         $this->t($w, $titulo, 2, '');
 
         $addressPadding = 5;
-        $w              = $w - $addressPadding;
-        $l              = $l + $addressPadding;
+        $w = $w - $addressPadding;
+        $l = $l + $addressPadding;
 
         // Nome da pessoa
         $this->pdf->SetFont('', '');
@@ -511,7 +526,7 @@ class CartaoDePostagem
 
         //Primeria parte do endereco
         $address1 = $logradouro;
-        $numero   = $numero1;
+        $numero = $numero1;
         if (!$numero || strtolower($numero) == 'sn') {
             $address1 .= ', s/ nº';
         } else {
@@ -548,7 +563,7 @@ class CartaoDePostagem
 //		$border = 1;
 //		$fill   = true;
         $border = 0;
-        $fill   = false;
+        $fill = false;
 
         if ($h === null) {
             $h = $this->pdf->getLineHeigth();
@@ -565,38 +580,40 @@ class CartaoDePostagem
     {
         $this->t($w, $txt, null, $align, $h, true, $utf8);
     }
+
     private function CalcDigCep($cep)
     {
-	$str = str_split($cep);
-	$sum = 0;
-	for ($i = 0; $i <= 7; $i++) {
-		$sum = $sum + intval($str[$i]);
-	}
-	$mul = $sum - $sum%10 + 10;
-	return $mul - $sum;
-     }
-     private function getM2Dstr($cepD, $numD, $cepO, $numO, $etq, $srvA, $carP, $codS, $valD, $telD, $cplD)
-     {
-	$str = '';
-	$str .= str_replace('-', '', $cepD);
-	$str .= sprintf('%05d',$numD);
-	$str .= str_replace('-', '', $cepO);
-        $str .= sprintf('%05d',$numO);
-	$str .= intval($this->CalcDigCep(str_replace('-', '', $cepD)));
-	$str .= '51';
-	$str .= $etq;
-	$str .= $srvA;
-	$str .= $carP;
-	$str .= sprintf('%05d',$codS);
-	$str .= '01';
-	$str .= sprintf('%05d',$numD);
-	$str .= $cplD;
-	$str .= sprintf('%05d',(int) $valD);
-	$str .= $telD;
-	$str .= '-00.000000';
-	$str .= '-00.000000';
-	$str .= '|';
-	$str .= 'msg do usuario - php-sigep';
-	return $str;
-     }
+        $str = str_split($cep);
+        $sum = 0;
+        for ($i = 0; $i <= 7; $i++) {
+            $sum = $sum + intval($str[$i]);
+        }
+        $mul = $sum - $sum % 10 + 10;
+        return $mul - $sum;
+    }
+
+    private function getM2Dstr($cepD, $numD, $cepO, $numO, $etq, $srvA, $carP, $codS, $valD, $telD, $cplD)
+    {
+        $str = '';
+        $str .= str_replace('-', '', $cepD);
+        $str .= sprintf('%05d', $numD);
+        $str .= str_replace('-', '', $cepO);
+        $str .= sprintf('%05d', $numO);
+        $str .= intval($this->CalcDigCep(str_replace('-', '', $cepD)));
+        $str .= '51';
+        $str .= $etq;
+        $str .= $srvA;
+        $str .= $carP;
+        $str .= sprintf('%05d', $codS);
+        $str .= '01';
+        $str .= sprintf('%05d', $numD);
+        $str .= $cplD;
+        $str .= sprintf('%05d', (int)$valD);
+        $str .= $telD;
+        $str .= '-00.000000';
+        $str .= '-00.000000';
+        $str .= '|';
+        $str .= 'msg do usuario - php-sigep';
+        return $str;
+    }
 }
