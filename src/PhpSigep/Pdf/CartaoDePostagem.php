@@ -188,18 +188,20 @@ class CartaoDePostagem
                 //);
 
                 // Título da etiqueta
-                $lPosHeaderCol2 = $headerColWidth + $lPosFourAreas;
-                $this->pdf->SetXY($lPosHeaderCol2, $tPosFourAreas);
-                $this->setFillColor(200, 200, 200);
-                $this->pdf->SetFontSize(15);
-                $this->pdf->SetFont('', 'B');
-                $this->t($headerColWidth * 2, 'Cartão de Postagem', 2, 'C');
+                if($this->idPlpCorreios > 0) {
+                    $lPosHeaderCol2 = $headerColWidth + $lPosFourAreas;
+                    $this->pdf->SetXY($lPosHeaderCol2, $tPosFourAreas);
+                    $this->setFillColor(200, 200, 200);
+                    $this->pdf->SetFontSize(15);
+                    $this->pdf->SetFont('', 'B');
+                    $this->t($headerColWidth * 2, 'Cartão de Postagem', 2, 'C');
 
-                // Número da plp
-                $this->setFillColor(150, 200, 200);
-                $this->pdf->SetFont('', '');
-                $this->pdf->SetFontSize(10);
-                $this->t($headerColWidth * 2, $this->idPlpCorreios, 0, 'C');
+                    // Número da plp
+                    $this->setFillColor(150, 200, 200);
+                    $this->pdf->SetFont('', '');
+                    $this->pdf->SetFontSize(10);
+                    $this->t($headerColWidth * 2, $this->idPlpCorreios, 0, 'C');
+                }
 
                 // Chancela
                 $this->setFillColor(150, 150, 200);
@@ -278,9 +280,9 @@ class CartaoDePostagem
 
                 // Volume
                 $this->setFillColor(100, 150, 200);
-                $this->pdf->SetXY(($lPosChancela - $lPosHeaderCol2) * 1.42, $bPosHeader + 18);
+                $this->pdf->SetXY($lPosFourAreas + 43, $bPosHeader + 15);
 //				$this->t($lPosChancela - $lPosHeaderCol2, 'Volume: ' . ($total - count($objetosPostais)) . '/' . $total, 0, 'C', $lineHeigth);
-                $this->t($lPosChancela - $lPosHeaderCol2, 'Volume: 1/1    '.'Peso(g): ' . ((float)$objetoPostal->getPeso()) . '    NF: '.((float)$objetoPostal->getDestino()->getNumeroNotaFiscal()), 1, 'C',  null);
+                $this->t($lPosChancela, 'Volume: 1/1    '.'Peso(g): ' . ((float)$objetoPostal->getPeso()) . '    NF: '.((float)$objetoPostal->getDestino()->getNumeroNotaFiscal()), 1, 'C',  null);
 
                 // Número da etiqueta
                 $this->setFillColor(100, 100, 200);
@@ -366,7 +368,7 @@ class CartaoDePostagem
                         $sSer = $sSer . "00";
                     }
 
-		            $sM2Dtext = $this->getM2Dstr(
+                    $sM2Dtext = $this->getM2Dstr(
                         $cep,
                         $objetoPostal->getDestinatario()->getNumero(),
                         $this->plp->getRemetente()->getCep(),
@@ -385,8 +387,8 @@ class CartaoDePostagem
 
                     $semaCodeGD = $semacode->asGDImage($sM2Dtext);
 
-		            $this->setFillColor(222, 222, 222);
-		            $this->pdf->gdImage($semaCodeGD, $lPosFourAreas+108, $tPosFourAreas + 50, 42);
+                    $this->setFillColor(222, 222, 222);
+                    $this->pdf->gdImage($semaCodeGD, $lPosFourAreas+108, $tPosFourAreas + 50, 42);
                     imagedestroy($semaCodeGD);
 
                 }
