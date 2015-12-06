@@ -282,7 +282,13 @@ class CartaoDePostagem
                 $this->setFillColor(100, 150, 200);
                 $this->pdf->SetXY($lPosFourAreas + 43, $bPosHeader + 15);
 //				$this->t($lPosChancela - $lPosHeaderCol2, 'Volume: ' . ($total - count($objetosPostais)) . '/' . $total, 0, 'C', $lineHeigth);
-                $this->t($lPosChancela, 'Volume: 1/1    '.'Peso(g): ' . ((float)$objetoPostal->getPeso()) . '    NF: '.((float)$objetoPostal->getDestino()->getNumeroNotaFiscal()), 1, 'C',  null);
+
+                $nf = (float)$objetoPostal->getDestino()->getNumeroNotaFiscal();
+                if($nf > 0) {
+                    $nf = '    NF: '. $nf;
+                }
+
+                $this->t($lPosChancela, 'Volume: 1/1    '.'Peso(g): ' . ((float)$objetoPostal->getPeso()) . $nf, 1, 'C',  null);
 
                 // Número da etiqueta
                 $this->setFillColor(100, 100, 200);
