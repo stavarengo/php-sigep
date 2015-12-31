@@ -288,7 +288,7 @@ class CartaoDePostagem
                     $nf = '    NF: '. $nf;
                 }
 
-                $this->t($lPosChancela, 'Volume: 1/1    '.'Peso(g): ' . ((float)$objetoPostal->getPeso()) . $nf, 1, 'C',  null);
+                $this->t($lPosChancela, 'Volume: 1/1    '.'Peso(kg): ' . ((float)$objetoPostal->getPeso()) . $nf, 1, 'C',  null);
 
                 // Número da etiqueta
                 $this->setFillColor(100, 100, 200);
