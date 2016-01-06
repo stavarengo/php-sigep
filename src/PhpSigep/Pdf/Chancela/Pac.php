@@ -49,8 +49,8 @@ class Pac
         $pdf->SetFillColor(0, 0, 0);
         $pdf->SetDrawColor(0, 0, 0);
         $k         = $pdf->k;
-        $wRect     = $un * 35 / $k;
-        $h         = $un * 25 / $k;
+        $wRect     = $un * 31.5 / $k;
+        $h         = $un * 22.5 / $k;
         $lineWidth = 2 / $k;
         $pdf->SetLineWidth($lineWidth);
         $x = $this->x;
@@ -58,15 +58,15 @@ class Pac
         $pdf->Rect($x, $y, $wRect, $h);
 
         // Escreve o texto PAC
-        $pdf->SetFont('Arial', 'B', 30);
-        $pdf->SetXY($x, $y + 5 / $k);
-        $pdf->Cell($wRect, 30 / $k, 'PAC', 0, 2, 'C');
+        $pdf->SetFont('Arial', 'B', 27);
+        $pdf->SetXY($x, $y + 4.5 / $k);
+        $pdf->Cell($wRect, 27 / $k, 'PAC', 0, 2, 'C');
 
         // Número contrato e DR
-        $pdf->SetFont('', '', 7);
+        $pdf->SetFont('', '', 6);
         $texto = $this->accessData->getNumeroContrato() . '/' . $this->accessData->getAnoContrato(
             ) . '-DR/' . $this->accessData->getDiretoria()->getSigla();
-        $pdf->Cell($wRect, 7 / $k, $texto, 0, 2, 'C');
+        $pdf->Cell($wRect, 6 / $k, $texto, 0, 2, 'C');
 
         // Nome do remetente
         $pdf->SetFont('', 'B', 9);
@@ -76,11 +76,11 @@ class Pac
         $pdf->SetDrawColor(255, 255, 255);
         $pdf->SetLineWidth(2 / $k);
 
-        $x1    = $x + (3.5 * $un / $k);
-        $x2    = $x1 + (0.6 / $k);
-        $y1    = $y + $h + (.5 / $k);
-        $y2    = $y1 - (1 / $k);
-        $space = 4 / $k;
+        $x1    = $x + (3.15 * $un / $k);
+        $x2    = $x1 + (0.54 / $k);
+        $y1    = $y + $h + (.45 / $k);
+        $y2    = $y1 - (0.9 / $k);
+        $space = 3.6 / $k;
         $pdf->Line($x1, $y1, $x2, $y2);
         $x1 += $space;
         $x2 += $space;
@@ -91,13 +91,12 @@ class Pac
 
         $texto = 'CORREIOS';
         $x1 += $space;
-        $pdf->SetFontSize(10);
+        $pdf->SetFontSize(9);
         $stringWidth = $pdf->GetStringWidth($texto);
         $x2 += $space + $stringWidth;
         $pdf->SetLineWidth(2.5 / $k);
         $pdf->Line($x1, $y + $h, $x2, $y + $h);
-        $pdf->Text($x1, $y1, $texto);
-//		$pdf->Cell($stringWidth, 10/$k, $texto, 0);
+        $pdf->Text($x1, $y1 + .9, $texto);
 
         $x1 += $space + $pdf->GetStringWidth($texto);
         $x2 += $space;
