@@ -60,8 +60,8 @@ class Sedex
 
         // Desenha o elipse
         $k         = $pdf->k;
-        $wRect     = $un * 35 / $k;
-        $h         = $un * 23 / $k;
+        $wRect     = $un * 31.5 / $k;
+        $h         = $un * 20.7 / $k;
         $lineWidth = 2 / $k;
         $pdf->SetLineWidth($lineWidth);
         $x      = $this->x;
@@ -75,99 +75,98 @@ class Sedex
         // Escreve o texto PAC
         $pdf->SetFont('Arial', 'BI');
         $pdf->SetXY($x, $y + 5 / $k);
-        $fontSize = 15;
+        $fontSize = 12;
         if ($this->tipoServico == self::SERVICE_E_SEDEX) {
             $texto = 'e-SEDEX';
         } else if ($this->tipoServico == self::SERVICE_SEDEX) {
             $texto = 'SEDEX';
         } else if ($this->tipoServico == self::SERVICE_SEDEX_10) {
-            $fontSize = 13;
+            $fontSize = 11;
             $texto    = 'SEDEX 10';
         } else if ($this->tipoServico == self::SERVICE_SEDEX_12) {
-            $fontSize = 13;
+            $fontSize = 11;
             $texto    = 'SEDEX 12';
         } else {
             if ($this->tipoServico == self::SERVICE_SEDEX_HOJE) {
-                $fontSize = 12;
+                $fontSize = 11;
                 $texto    = 'SEDEX Hoje';
             }
         }
         $pdf->SetFontSize($fontSize);
-        $pdf->Cell($wRect, 23 / $k, $texto, 0, 2, 'C');
+        $pdf->Cell($wRect, 18 / $k, $texto, 0, 2, 'C');
 
         //Faz os dois riscos brancos da parte superior
         $pdf->SetDrawColor(255, 255, 255);
         $pdf->SetLineWidth(4 / $k);
-        $x1 = $x + 11 / $k;
-        $x2 = $x1 + (4.4 / $k);
-        $y1 = $y + 12 / $k;
-        $y2 = $y1 - (3 / $k);
+        $x1 = $x + 9.9 / $k;
+        $x2 = $x1 + (3.96 / $k);
+        $y1 = $y + 10.8 / $k;
+        $y2 = $y1 - (2.7 / $k);
         $pdf->Line($x1, $y1, $x2, $y2);
-        $x1 = $x + $wRect - 11 / $k;
-        $x2 = $x1 - (4.4 / $k);
+        $x1 = $x + $wRect - 9.9 / $k;
+        $x2 = $x1 - (3.96 / $k);
         $pdf->Line($x1, $y1, $x2, $y2);
 
         //Faz os dois riscos brancos da parte inferior - lado esquerdo
         $pdf->SetDrawColor(255, 255, 255);
-        $pdf->SetLineWidth(3 / $k);
-        $x1 = $x + 11 / $k;
-        $x2 = $x1 - 1 / $k;
-        $y1 = $y + $h - 13.5 / $k;
-        $y2 = $y1 + (1 / $k);
+        $pdf->SetLineWidth(2.7 / $k);
+        $x1 = $x + 9.9 / $k;
+        $x2 = $x1 - 0.99 / $k;
+        $y1 = $y + $h - 12.15 / $k;
+        $y2 = $y1 + (.99 / $k);
         $pdf->Line($x1, $y1, $x2, $y2);
-        $space = 3.5 / $k;
+        $space = 2.835 / $k;
         $x1 += $space;
-        $x2 = $x1 - 1 / $k;
+        $x2 = $x1 - .99 / $k;
         $y1 += $space;
-        $y2 = $y1 + (1 / $k);
+        $y2 = $y1 + (.99 / $k);
         $pdf->Line($x1, $y1, $x2, $y2);
-        $x1 = $x + 19.3 / $k;
-        $x2 = $x1 - .85 / $k;
-        $y1 = $y + 57.26 / $k;
-        $y2 = $y1 + .85 / $k;
+        $x1 = $x + 17.37 / $k;
+        $x2 = $x1 - 0.765 / $k;
+        $y1 = $y + 51.534 / $k;
+        $y2 = $y1 + 0.765 / $k;
         $pdf->Line($x1, $y1, $x2, $y2);
 
         //Faz os dois riscos brancos da parte inferior - lado direito
         $pdf->SetDrawColor(255, 255, 255);
-        $pdf->SetLineWidth(3 / $k);
-        $x1 = $x + $wRect - 11 / $k;
-        $x2 = $x1 + 1 / $k;
-        $y1 = $y + $h - 13.5 / $k;
-        $y2 = $y1 + (1 / $k);
+        $pdf->SetLineWidth(2.7 / $k);
+        $x1 = $x + $wRect - 9.9 / $k;
+        $x2 = $x1 + 0.99 / $k;
+        $y1 = $y + $h - 12.15 / $k;
+        $y2 = $y1 + (0.99 / $k);
         $pdf->Line($x1, $y1, $x2, $y2);
-        $space = 3.5 / $k;
-        $x1 += $space - 7.6 / $k;
-        $x2 = $x1 + 1 / $k;
-        $y1 += $space - .4 / $k;
-        $y2 = $y1 + (1 / $k);
+        $space = 2.835 / $k;
+        $x1 += $space - 6.84 / $k;
+        $x2 = $x1 + .99 / $k;
+        $y1 += $space - 0.36 / $k;
+        $y2 = $y1 + (.99 / $k);
         $pdf->Line($x1, $y1, $x2, $y2);
-        $x1 = $x1 - 4 / $k;
-        $x2 = $x1 + .85 / $k;
-        $y1 = $y + 58.26 / $k;
-        $y2 = $y1 + .85 / $k;
+        $x1 = $x1 - 3.6 / $k;
+        $x2 = $x1 + 0.765 / $k;
+        $y1 = $y + 52.434 / $k;
+        $y2 = $y1 + .765 / $k;
         $pdf->Line($x1, $y1, $x2, $y2);
 
         // Número contrato e DR
-        $pdf->SetFont('', '', 7);
-        $texto = $this->accessData->getNumeroContrato() . '/' . $this->accessData->getAnoContrato(
-            ) . '-DR/' . $this->accessData->getDiretoria()->getSigla();
-        $pdf->Cell($wRect, 7 / $k, $texto, 0, 2, 'C');
+        $pdf->SetFont('', '', 6);
+        $texto = $this->accessData->getNumeroContrato() . '/' . $this->accessData->getAnoContrato() . '-DR/' . $this->accessData->getDiretoria()->getSigla();
+        $pdf->Cell($wRect, 6 / $k, $texto, 0, 2, 'C');
 
         // Nome do remetente
-        $pdf->SetFont('', 'B', 9);
-        $pdf->MultiCell($wRect, 9 / $k, $pdf->_($this->nomeRemetente), 0, 'C');
+        $pdf->SetFont('', 'B', 8);
+        $pdf->MultiCell($wRect, 8 / $k, $pdf->_($this->nomeRemetente), 0, 'C');
 
         // Escreve CORREIOS na parte inferior
         $text = 'CORREIOS';
         $pdf->SetDrawColor(255, 255, 255);
         $pdf->SetLineWidth(10 / $k);
-        $x1 = $x + 28 / $k;
-        $x2 = $x1 + $pdf->GetStringWidth($text) - 3 / $k;
+        $x1 = $x + 23.60 / $k;
+        $x2 = ($x1) + $pdf->GetStringWidth($text) - 1 / $k;
         $y1 = $y + $h - 3.8 / $k;
         $pdf->Line($x1, $y1, $x2, $y1);
-        $pdf->SetFontSize(9);
+        $pdf->SetFontSize(8);
         $circularText = new CircularText();
-        $circularText->CircularText($pdf, $x + $wRect / 2 + 1, $y - 6.5 / $k, 75, $text, 'bottom');
+        $circularText->CircularText($pdf, $x + $wRect / 2, -144 / $k, 75, $text, 'bottom');
 
         $pdf->restoreLastState();
     }

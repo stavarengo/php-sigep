@@ -33,15 +33,6 @@ class SoapClientFactory
                 "exceptions"         => Bootstrap::getConfig()->getEnv() != Config::ENV_PRODUCTION,
                 'encoding'           => self::WEB_SERVICE_CHARSET,
                 'connection_timeout' => 60,
-                'stream_context'     => stream_context_create(
-                    array(
-                        'ssl' => array(
-                            'verify_peer' => false,
-                            'verify_peer_name' => false,
-                            'allow_self_signed' => true,
-                        ),
-                    )
-                ),
             ));
         }
 
@@ -58,15 +49,6 @@ class SoapClientFactory
                 "exceptions"         => Bootstrap::getConfig()->getEnv() != Config::ENV_PRODUCTION,
                 'encoding'           => self::WEB_SERVICE_CHARSET,
                 'connection_timeout' => 60,
-                'stream_context'     => stream_context_create(
-                    array(
-                        'ssl' => array(
-                            'verify_peer' => false,
-                            'verify_peer_name' => false,
-                            'allow_self_signed' => true,
-                        ),
-                    )
-                ),
             ));
         }
 

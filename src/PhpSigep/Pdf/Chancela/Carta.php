@@ -111,10 +111,10 @@ class Carta
         $pdf->Line($x1, $y1, $x2, $y2);
 
         // Número contrato e DR
-        $pdf->SetFont('', '', 7);
+        $pdf->SetFont('', '', 6);
         $texto = $this->accessData->getNumeroContrato() . '/' . $this->accessData->getAnoContrato(
             ) . '-DR/' . $this->accessData->getDiretoria()->getSigla();
-        $pdf->Cell($wRect, 7 / $k, $texto, 0, 2, 'C');
+        $pdf->Cell($wRect, 6 / $k, $texto, 0, 2, 'C');
 
         // Nome do remetente
         $pdf->SetFont('', 'B', 9);
@@ -130,7 +130,7 @@ class Carta
         $pdf->Line($x1, $y1, $x2, $y1);
         $pdf->SetFontSize(9);
         $circularText = new CircularText();
-        $circularText->CircularText($pdf, $x + $wRect / 2 + 1, $y + 7 / $k, 75, $text, 'bottom');
+        $circularText->CircularText($pdf, $x + $wRect / 2 + .5, ($y / $k) - 50, 80, $text, 'bottom', 110);
 
         $pdf->restoreLastState();
     }

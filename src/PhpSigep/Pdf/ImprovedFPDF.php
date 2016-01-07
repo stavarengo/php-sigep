@@ -16,7 +16,8 @@ class ImprovedFPDF extends \PhpSigepFPDF
     function __construct($orientation = 'P', $unit = 'mm', $size = 'A4')
     {
         parent::__construct($orientation, $unit, $size);
-        $this->lineHeightPadding = 33 / $this->k;
+        $this->lineHeightPadding = 30 / $this->k;
+        $this->SetAutoPageBreak(false);
 
         stream_wrapper_register("var", 'PhpSigep\Pdf\VariableStream') or die("Failed to register protocol");
     }
