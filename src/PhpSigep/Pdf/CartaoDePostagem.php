@@ -254,8 +254,13 @@ class CartaoDePostagem
                     $nf = '    NF: '. $nf;
                 }
 
+                $numeroPedido = trim($objetoPostal->getDestino()->getNumeroPedido());
+                if(!empty($numeroPedido)) {
+                    $numeroPedido = '    Pedido: ' . $numeroPedido;
+                }
+
                 $this->pdf->SetFontSize(7);
-                $this->t($this->pdf->w, 'Volume: 1/1    '.'Peso(kg): ' . ((float)$objetoPostal->getPeso()) . $nf, 1, 'C',  null);
+                $this->t($this->pdf->w, 'Volume: 1/1    '.'Peso(kg): ' . ((float)$objetoPostal->getPeso()) . $nf . $numeroPedido, 1, 'C',  null);
 
                 // Número da etiqueta
                 $this->setFillColor(100, 100, 200);
