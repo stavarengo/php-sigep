@@ -46,6 +46,12 @@ class DestinoNacional extends AbstractModel implements Destino
 //	 */
 //	protected $centroCustoCliente;
     /**
+     * Número do pedido
+     * Opcional.
+     * @var int
+     */
+    protected $numeroPedido;
+    /**
      * Número da nota fiscal
      * Opcional.
      * @var int
@@ -147,6 +153,22 @@ class DestinoNacional extends AbstractModel implements Destino
     public function setDescricaoObjeto($descricaoObjeto)
     {
         $this->descricaoObjeto = $descricaoObjeto;
+    }
+
+    /**
+     * @return int
+     */
+    public function getNumeroPedido()
+    {
+        return $this->numeroPedido;
+    }
+
+    /**
+     * @param int $numeroPedido
+     */
+    public function setNumeroPedido($numeroPedido)
+    {
+        $this->numeroPedido = $numeroPedido;
     }
 
     /**
