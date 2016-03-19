@@ -167,23 +167,6 @@ class CartaoDePostagem
                     $this->pdf->Image($this->logoFile, 3, 0, 25);
                 }
 
-//                // Título da etiqueta
-//                if($this->idPlpCorreios > 0) {
-//                    $lPosHeaderCol2 = $headerColWidth + $lPosFourAreas;
-//                    $this->pdf->SetXY($lPosHeaderCol2, $tPosFourAreas);
-//                    $this->setFillColor(200, 200, 200);
-//                    $this->pdf->SetFontSize(12);
-//                    $this->pdf->SetFont('', 'B');
-//                    $this->t($headerColWidth, 'Cartão de Postagem', 2, 'C');
-//
-//                    // Número da plp
-//                    $this->pdf->SetXY($lPosHeaderCol2, $tPosFourAreas + 5);
-//                    $this->setFillColor(150, 200, 200);
-//                    $this->pdf->SetFont('', '');
-//                    $this->pdf->SetFontSize(9);
-//                    $this->t($headerColWidth * 2, $this->idPlpCorreios, 0, 'C');
-//                }
-
                 // Chancela
                 $this->pdf->SetXY(66, $this->pdf->GetY() + 3);
                 $this->setFillColor(150, 150, 200);
@@ -243,6 +226,23 @@ class CartaoDePostagem
 
                 if ($chancela) {
                     $chancela->draw($this->pdf);
+                }
+
+                // Título da etiqueta
+                if($this->idPlpCorreios > 0) {
+                    $lPosHeaderCol2 = $headerColWidth + $lPosFourAreas;
+                    // $this->pdf->SetXY($lPosHeaderCol2, $tPosFourAreas);
+                    // $this->setFillColor(200, 200, 200);
+                    // $this->pdf->SetFontSize(12);
+                    // $this->pdf->SetFont('', 'B');
+                    // $this->t($headerColWidth, 'Cartão de Postagem', 2, 'C');
+
+                    // Número da plp
+                    $this->pdf->SetXY($lPosHeaderCol2, $tPosFourAreas + 32);
+                    $this->setFillColor(150, 200, 200);
+                    $this->pdf->SetFont('', '');
+                    $this->pdf->SetFontSize(9);
+                    $this->t($headerColWidth * 3, 'PLP: ' . $this->idPlpCorreios, 0, 'C');
                 }
 
                 // Volume
