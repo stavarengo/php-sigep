@@ -41,7 +41,7 @@ class CartaoDePostagem
      */
     public function __construct($plp, $idPlpCorreios, $logoFile)
     {
-        if ($logoFile && !file_exists($logoFile)) {
+        if ($logoFile && !getimagesize($logoFile)) {
             throw new InvalidArgument('O arquivo "' . $logoFile . '" não existe.');
         }
 
