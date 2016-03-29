@@ -15,9 +15,9 @@ class BarCode128
     // Set C du jeu des caract�res �ligibles
     private $Cset = "";
     // Convertisseur source des jeux vers le tableau
-    private $SetFrom;
+    private $SetFrom = array("A" => "", "B" => "");
     // Convertisseur destination des jeux vers le tableau
-    private $SetTo;
+    private $SetTo = array("A" => "", "B" => "");
     // Caract�res de s�lection de jeu au d�but du C128
     private $JStart = array("A" => 103, "B" => 104, "C" => 105);
     // Caract�res de changement de jeu
