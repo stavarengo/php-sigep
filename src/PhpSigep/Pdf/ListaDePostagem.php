@@ -35,7 +35,7 @@ class ListaDePostagem
         $this->init();
     }
 
-    public function render()
+    public function render($dest='')
     {
         $cacheKey = md5(serialize($this->plp) . $this->idPlpCorreios . get_class($this));
         if ($pdfContent = Bootstrap::getConfig()->getCacheInstance()->getItem($cacheKey)) {
@@ -60,8 +60,13 @@ class ListaDePostagem
             $this->writeBottom();
             $this->writeFooter();
 
-            $pdf->Output();
-            Bootstrap::getConfig()->getCacheInstance()->setItem($cacheKey, $pdf->buffer);
+            if($dest == 'S'){
+               return $pdf->Output('',$dest);
+            }
+            else{
+                $pdf->Output('',$dest);
+                Bootstrap::getConfig()->getCacheInstance()->setItem($cacheKey, $pdf->buffer);
+            }
         }
     }
 

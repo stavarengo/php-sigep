@@ -41,7 +41,7 @@ class CartaoDePostagem
      */
     public function __construct($plp, $idPlpCorreios, $logoFile)
     {
-        if ($logoFile && !getimagesize($logoFile)) {
+        if ($logoFile && !@getimagesize($logoFile)) {
             throw new InvalidArgument('O arquivo "' . $logoFile . '" não existe.');
         }
 
@@ -52,7 +52,7 @@ class CartaoDePostagem
         $this->init();
     }
 
-    public function render()
+    public function render($dest='')
     {
         $cacheKey = md5(serialize($this->plp) . $this->idPlpCorreios . get_class($this));
         if ($pdfContent = Bootstrap::getConfig()->getCacheInstance()->getItem($cacheKey)) {
@@ -62,12 +62,17 @@ class CartaoDePostagem
             header('Pragma: public');
             echo $pdfContent;
         } else {
-            $this->_render();
-            Bootstrap::getConfig()->getCacheInstance()->setItem($cacheKey, $this->pdf->buffer);
+            if($dest == 'S'){
+                return $this->_render($dest);
+            }
+            else{
+                $this->_render($dest);
+                Bootstrap::getConfig()->getCacheInstance()->setItem($cacheKey, $this->pdf->buffer);
+            }
         }
     }
 
-    private function _render()
+    private function _render($dest='')
     {
         $un = 72 / 25.4;
         $wFourAreas = $this->pdf->w;
@@ -374,7 +379,12 @@ class CartaoDePostagem
             }
         }
 
-        $this->pdf->Output();
+        if($dest == 'S'){
+            return $this->pdf->Output('',$dest);
+        }
+        else{
+        $this->pdf->Output('',$dest);
+        }
     }
 
     private function _($str)
