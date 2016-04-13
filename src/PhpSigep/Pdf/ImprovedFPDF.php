@@ -125,7 +125,7 @@ class ImprovedFPDF extends \PhpSigepFPDF
         //Display the image contained in $data
         $v = 'img'.md5($data);
         $GLOBALS[$v] = $data;
-        $a = getimagesize('var://'.$v);
+        $a = @getimagesize('var://'.$v);
         if(!$a)
             $this->Error('Invalid image data');
         $type = substr(strstr($a['mime'],'/'),1);
