@@ -292,13 +292,22 @@ class CartaoDePostagem
                     $hEtiquetaBarCode
                 );
 
+                // Nome legivel, doc e rubrica
+                // 
+                $this->pdf->SetFontSize(7);
+                $this->pdf->SetXY(1, $this->pdf->GetY() + 23);
+                $this->t(0, 'Nome Legível:___________________________________________',1, 'L',  null);
+                $this->pdf->SetXY(1, $this->pdf->GetY() + 1);
+                $this->t(0, 'Documento:_______________________Rubrica:_____________________',1, 'L',  null);
+
                 // Destinatário
                 $wAddressLeftCol = $this->pdf->w - 5;
 
-                $tPosAfterBarCode = $this->pdf->GetY() + 25;
+                $tPosAfterNameBlock = 71 ;
+
                 $t = $this->writeDestinatario(
                     $lPosFourAreas,
-                    $tPosAfterBarCode,
+                    $tPosAfterNameBlock,
                     $wAddressLeftCol,
                     $objetoPostal
                 );
