@@ -8,4 +8,4 @@ $params = include __DIR__ . '/helper-criar-pre-lista.php';
 $logoFile = __DIR__ . '/logo-etiqueta.png';
 
 $pdf = new \PhpSigep\Pdf\CartaoDePostagem($params, time(), $logoFile);
-$pdf->render($params);
+$pdf->render();
