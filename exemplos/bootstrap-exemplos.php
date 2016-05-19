@@ -9,10 +9,16 @@ error_reporting(E_ALL);
 
 header('Content-Type: text/html; charset=utf-8');
 
-$autoload = __DIR__ . '/../vendor/autoload.php';
-if (file_exists($autoload)) {
-    require_once $autoload;
+$included = include file_exists(__DIR__ . '/../vendor/autoload.php') ? __DIR__ . '/../vendor/autoload.php' : __DIR__ . '/../../../autoload.php';
+
+if (!$included) {
+    echo 'You must set up the project dependencies, run the following commands:' . PHP_EOL . 'curl -sS https://getcomposer.org/installer | php' . PHP_EOL . 'php composer.phar install' . PHP_EOL;
+    
+    throw new Exception("Erro disparado a partir de __FILE__");
+
+    exit(1);
 }
+
 if (!class_exists('PhpSigepFPDF')) {
     throw new RuntimeException(
         'Não encontrei a classe PhpSigepFPDF. Execute "php composer.phar install" ou baixe o projeto ' .
