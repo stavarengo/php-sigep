@@ -9,15 +9,27 @@ error_reporting(E_ALL);
 
 header('Content-Type: text/html; charset=utf-8');
 
-$included = include file_exists(__DIR__ . '/../vendor/autoload.php') ? __DIR__ . '/../vendor/autoload.php' : __DIR__ . '/../../../autoload.php';
+// FIX: MOZG
+
+$depth = 3;
+$path = dirname(__FILE__);
+for( $d=1 ; $d <= $depth ; $d++ ){
+    $path = dirname($path);
+}
+$vendorModuleDir = $path;
+
+$autoload_path = $vendorModuleDir . '/autoload.php';
+
+//print_r($autoload_path);
+
+$included = include $autoload_path;
 
 if (!$included) {
-    echo 'You must set up the project dependencies, run the following commands:' . PHP_EOL . 'curl -sS https://getcomposer.org/installer | php' . PHP_EOL . 'php composer.phar install' . PHP_EOL;
-    
-    throw new Exception("Erro disparado a partir de __FILE__");
-
+    echo 'Falha no carregamento do autoload';
     exit(1);
 }
+
+// FIX: MOZG
 
 if (!class_exists('PhpSigepFPDF')) {
     throw new RuntimeException(
