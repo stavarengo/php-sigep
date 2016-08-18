@@ -1,5 +1,5 @@
 <?php
-namespace Sigep\Pdf;
+namespace PhpSigep\Pdf;
 /**
  * @author: Stavarengo
  * @modify Anderson Luiz Silvério <andersonlsilverio@gmail.com>
