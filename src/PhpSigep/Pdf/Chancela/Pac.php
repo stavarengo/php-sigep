@@ -1,5 +1,5 @@
 <?php
-namespace Sigep\Pdf\Chancela;
+namespace PhpSigep\Pdf\Chancela;
 
 /**
  * @author: Stavarengo
@@ -20,25 +20,25 @@ class Pac
      */
     private $nomeRemetente;
     /**
-     * @var \Sigep\contrato
+     * @var PhpSigep\Model\AccessData
      */
-    private $contrato;
+    private $accessData;
 
     /**
      * @param int $x
      * @param int $y
      * @param string $nomeRemetente
-     * @param \Sigep\contrato $contrato
+     * @param \PhpSigep\Model\AccessData $accessData
      */
-    public function __construct($x, $y, $nomeRemetente, \Sigep\contrato $contrato)
+    public function __construct($x, $y, $nomeRemetente, \PhpSigep\Model\AccessData $accessData)
     {
         $this->x             = $x;
         $this->y             = $y;
         $this->nomeRemetente = $nomeRemetente;
-        $this->contrato    = $contrato;
+        $this->accessData    = $accessData;
     }
 
-    public function draw(\Sigep\Pdf\ImprovedFPDF $pdf)
+    public function draw(\PhpSigep\Pdf\ImprovedFPDF $pdf)
     {
         $pdf->saveState();
 
@@ -64,8 +64,8 @@ class Pac
 
         // Número contrato e DR
         $pdf->SetFont('', '', 7);
-        $texto = $this->contrato->getNumeroContrato() . '/' . $this->contrato->getAnoContrato(
-            ) . '-DR/' . $this->contrato->getDiretoria()->getSigla();
+                $texto = $this->accessData->getNumeroContrato() . '/' . $this->accessData->getAnoContrato(
+-            ) . '-DR/' . $this->accessData->getDiretoria()->getSigla();
         $pdf->Cell($wRect, 6 / $k, $texto, 0, 2, 'C');
 
         // Nome do remetente
