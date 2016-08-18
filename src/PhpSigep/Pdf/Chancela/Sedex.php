@@ -40,7 +40,7 @@ class Sedex
      * @param string $nomeRemetente
      * @param int $tipoServico
      *        Uma das contantes {@link Sedex}::SERVICO_*
-     * @param \Sigep\contrato $contrato
+     * @param \PhpSigep\Model\AccessData $accessData
      */
     public function __construct($x, $y, $nomeRemetente, $tipoServico, \PhpSigep\Model\AccessData $accessData)
     {
