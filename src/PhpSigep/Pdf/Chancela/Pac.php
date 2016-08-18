@@ -1,5 +1,5 @@
 <?php
-namespace PhpSigep\Pdf\Chancela;
+namespace Sigep\Pdf\Chancela;
 
 /**
  * @author: Stavarengo
@@ -20,25 +20,25 @@ class Pac
      */
     private $nomeRemetente;
     /**
-     * @var \PhpSigep\Model\AccessData
+     * @var \Sigep\contrato
      */
-    private $accessData;
+    private $contrato;
 
     /**
      * @param int $x
      * @param int $y
      * @param string $nomeRemetente
-     * @param \PhpSigep\Model\AccessData $accessData
+     * @param \Sigep\contrato $contrato
      */
-    public function __construct($x, $y, $nomeRemetente, \PhpSigep\Model\AccessData $accessData)
+    public function __construct($x, $y, $nomeRemetente, \Sigep\contrato $contrato)
     {
         $this->x             = $x;
         $this->y             = $y;
         $this->nomeRemetente = $nomeRemetente;
-        $this->accessData    = $accessData;
+        $this->contrato    = $contrato;
     }
 
-    public function draw(\PhpSigep\Pdf\ImprovedFPDF $pdf)
+    public function draw(\Sigep\Pdf\ImprovedFPDF $pdf)
     {
         $pdf->saveState();
 
@@ -55,7 +55,7 @@ class Pac
         $pdf->SetLineWidth($lineWidth);
         $x = $this->x;
         $y = $this->y;
-        $pdf->Rect($x, $y, $wRect, $h);
+        $pdf->RoundedRect($x, $y, $wRect, $h, 5);
 
         // Escreve o texto PAC
         $pdf->SetFont('Arial', 'B', 27);
@@ -63,14 +63,14 @@ class Pac
         $pdf->Cell($wRect, 27 / $k, 'PAC', 0, 2, 'C');
 
         // Número contrato e DR
-        $pdf->SetFont('', '', 6);
-        $texto = $this->accessData->getNumeroContrato() . '/' . $this->accessData->getAnoContrato(
-            ) . '-DR/' . $this->accessData->getDiretoria()->getSigla();
+        $pdf->SetFont('', '', 7);
+        $texto = $this->contrato->getNumeroContrato() . '/' . $this->contrato->getAnoContrato(
+            ) . '-DR/' . $this->contrato->getDiretoria()->getSigla();
         $pdf->Cell($wRect, 6 / $k, $texto, 0, 2, 'C');
 
         // Nome do remetente
         $pdf->SetFont('', 'B', 9);
-        $pdf->MultiCell($wRect, 9 / $k, $pdf->_($this->nomeRemetente), 0, 'C');
+        $pdf->MultiCell($wRect, 8 / $k, $pdf->_($this->nomeRemetente), 0, 'C');
 
         // Escreve o texto CORREIOS
         $pdf->SetDrawColor(255, 255, 255);
@@ -84,30 +84,18 @@ class Pac
         $pdf->Line($x1, $y1, $x2, $y2);
         $x1 += $space;
         $x2 += $space;
-        $pdf->Line($x1, $y1, $x2, $y2);
         $x1 += $space;
         $x2 += $space;
-        $pdf->Line($x1, $y1, $x2, $y2);
 
-        $texto = 'CORREIOS';
         $x1 += $space;
         $pdf->SetFontSize(9);
-        $stringWidth = $pdf->GetStringWidth($texto);
+        $stringWidth = $pdf->GetStringWidth('CORREIOS');
         $x2 += $space + $stringWidth;
         $pdf->SetLineWidth(2.5 / $k);
         $pdf->Line($x1, $y + $h, $x2, $y + $h);
-        $pdf->Text($x1, $y1 + .9, $texto);
 
-        $x1 += $space + $pdf->GetStringWidth($texto);
-        $x2 += $space;
-        $pdf->Line($x1, $y1, $x2, $y2);
-        $x1 += $space;
-        $x2 += $space;
-        $pdf->Line($x1, $y1, $x2, $y2);
-        $x1 += $space;
-        $x2 += $space;
-        $pdf->Line($x1, $y1, $x2, $y2);
-
+        $pdf->Image(realpath(dirname(__FILE__)) . '/../correios-logo.png', $x1 , $y1 - 3);
+        
         $pdf->restoreLastState();
     }
 }
