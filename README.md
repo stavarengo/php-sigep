@@ -87,11 +87,11 @@ Correção manual
 
 Alguns usuarios tem problema com a conexão do webservice de Produção devido a versão do PHP, então para resolver esse problema basta fazer o download do wsdl do webservice e utilizar ele no seu servidor para fazer conexão.
 
-1 - Acesse https://apps.correios.com.br/SigepMasterJPA/AtendeClienteService/AtendeCliente?wsdl; <br />
-2 - Clique com o botão direito e selecione salvar como; <br />
-3 - Nomeie o arquivo como desejado; <br />
-4 - Salve o arquivo em seu servidor; <br />
-5 - Altere o link do arquivo Config de produção pelo destino de onde esta o arquivo que você baixou (ex: const WSDL_ATENDE_CLIENTE_PRODUCTION = 'http://www.seusite.com/AtendeCliente.xml?wsdl';). <br />
+1 - Acesse https://apps.correios.com.br/SigepMasterJPA/AtendeClienteService/AtendeCliente?wsdl
+2 - Clique com o botão direito e selecione salvar como
+3 - Nomeie o arquivo como desejado
+4 - Salve o arquivo em seu servidor
+5 - Altere o link do arquivo Config de produção pelo destino de onde esta o arquivo que você baixou (ex: const WSDL_ATENDE_CLIENTE_PRODUCTION = 'http://www.seusite.com/AtendeCliente.xml?wsdl';).
 
 OBS: Não irá funcionar em um servidor local, como Wamp, Xammp entre outros.
 
