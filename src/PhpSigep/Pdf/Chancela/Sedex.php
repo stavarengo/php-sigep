@@ -1,8 +1,8 @@
 <?php
-namespace Sigep\Pdf\Chancela;
+namespace PhpSigep\Pdf\Chancela;
 
-use Sigep\Pdf\Script\CircularText;
-use Sigep\Pdf\Script\Elipse;
+use PhpSigep\Pdf\Script\CircularText;
+use PhpSigep\Pdf\Script\Elipse;
 
 /**
  * @author: Stavarengo
@@ -29,9 +29,9 @@ class Sedex
      */
     private $nomeRemetente;
     /**
-     * @var \Sigep\contrato
+     * @var \PhpSigep\Model\AccessData
      */
-    private $contrato;
+    private $accessData;
     private $tipoServico;
 
     /**
@@ -42,16 +42,16 @@ class Sedex
      *        Uma das contantes {@link Sedex}::SERVICO_*
      * @param \Sigep\contrato $contrato
      */
-    public function __construct($x, $y, $nomeRemetente, $tipoServico, \Sigep\contrato $contrato)
+    public function __construct($x, $y, $nomeRemetente, $tipoServico, \PhpSigep\Model\AccessData $accessData)
     {
         $this->x             = $x;
         $this->y             = $y;
         $this->nomeRemetente = $nomeRemetente;
         $this->tipoServico   = $tipoServico;
-        $this->contrato    = $contrato;
+        $this->accessData    = $accessData;
     }
 
-    public function draw(\Sigep\Pdf\ImprovedFPDF $pdf)
+    public function draw(\PhpSigep\Pdf\ImprovedFPDF $pdf)
     {
         $pdf->saveState();
 
@@ -98,7 +98,7 @@ class Sedex
 
         // Número contrato e DR
         $pdf->SetFont('', '', 7);
-        $texto = $this->contrato->getNumeroContrato() . '/' . $this->contrato->getAnoContrato() . '-DR/' . $this->contrato->getDiretoria()->getSigla();
+        $texto = $this->accessData->getNumeroContrato() . '/' . $this->accessData->getAnoContrato() . '-DR/' . $this->accessData->getDiretoria()->getSigla();
         $pdf->Cell($wRect, 6 / $k, $texto, 0, 2, 'C');
 
         // Nome do remetente
