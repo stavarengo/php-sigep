@@ -23,7 +23,7 @@ Esta API pode:
 Requisitos
 ---
 
-* PHP >= 5.1.0
+* PHP >= 5.4.0
 * Se você precisar imprimir as etiquetas e relatórios, baixe também o FPDF 1.7 [www.fpdf.org](http://www.fpdf.org/).   
   Não esqueça de configurar o FPDF para ser auto carregado antes de tentar imprimir os relatórios.
 
@@ -49,6 +49,25 @@ Instalação manual
 
 * Faça o download da última versão.
 * Para usar as classe do php-sigep, você só precisa carregar o arquivo "php-sigep/src/PhpSigep/Bootstrap.php". Isso fara com que o loader seja registrado.
+
+# Problemas Comum
+
+## Problemas com o PHP 5.3
+Este problema foi reportado aqui: https://github.com/stavarengo/php-sigep/issues/35
+Alguns usuarios tiveram problemas de conexão e autentificação com WebService do Correios em ambiente de produção devido a versão do PHP.
+Para resolver o problema, você pode ou utilizar uma versão masi rescente do PHP (>=5.4) ou fazer o download do WSDL do Correios e utilizar ele no seu servidor para fazer conexão.
+Caso escolha fazer o download o WSDL, siga os passos abaixo:
+1. Salve este arquivo em seu ambiente local https://apps.correios.com.br/SigepMasterJPA/AtendeClienteService/AtendeCliente?wsdl
+2. Altere as configurações do seu ambiente de produção para apotar para o arquivo que você baixou. Vejo exemplo abaixo.
+
+```php
+$config = new \PhpSigep\Config();
+$config->setEnv(\PhpSigep\Config::ENV_PRODUCTION);
+$config->setWsdlAtendeCliente('CAMINHO-DO-SEU-ARQUIVO-LOCAL');
+\PhpSigep\Bootstrap::start($config);
+```
+OBS: Não irá funcionar em um servidor local, como Wamp, Xammp entre outros.
+
 
 Funções
 ---
@@ -79,21 +98,6 @@ Ex:
         );
     ```
 Dentro do `array` `storageOptions` você pode usar o nome de qualquer atributo da classe `PhpSigep\Cache\Storage\Adapter\AdapterOptions`.
-
-Correção manual
----
-
-`Erro na conexão do webservice de Produção`
-
-Alguns usuarios tem problema com a conexão do webservice de Produção devido a versão do PHP, então para resolver esse problema basta fazer o download do wsdl do webservice e utilizar ele no seu servidor para fazer conexão.
-
-1 - Acesse https://apps.correios.com.br/SigepMasterJPA/AtendeClienteService/AtendeCliente?wsdl <br />
-2 - Clique com o botão direito e selecione salvar como... <br />
-3 - Nomeie o arquivo como desejado <br />
-4 - Salve o arquivo em seu servidor <br />
-5 - Altere o link do arquivo Config de produção pelo destino de onde esta o arquivo que você baixou (ex: const WSDL_ATENDE_CLIENTE_PRODUCTION = 'http://www.seusite.com/AtendeCliente.xml?wsdl';). <br />
-
-OBS: Não irá funcionar em um servidor local, como Wamp, Xammp entre outros. <br />
 
 Contribua
 ---
