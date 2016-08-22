@@ -6,19 +6,19 @@ abstract class AbstractChancela
     /**
      * @var int
      */
-    private $x;
+    protected $x;
     /**
      * @var int
      */
-    private $y;
+    protected $y;
     /**
      * @var string
      */
-    private $nomeRemetente;
+    protected $nomeRemetente;
     /**
      * @var \PhpSigep\Model\AccessData
      */
-    private $accessData;
+    protected $accessData;
     
     /**
      * @param int $x

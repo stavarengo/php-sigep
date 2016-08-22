@@ -1,7 +1,6 @@
 <?php
 namespace PhpSigep\Pdf\Chancela;
 
-use PhpSigep\Pdf\Script\CircularText;
 use PhpSigep\Pdf\Script\Elipse;
 
 /**
@@ -35,7 +34,7 @@ class Sedex2016 extends AbstractChancela
 
     public function setServicoDePostagem($servicoPostagem)
     {
-        $rClass = new ReflectionClass(__CLASS__);
+        $rClass = new \ReflectionClass(__CLASS__);
         $servicos = $rClass->getConstants();
         
         if (in_array($servicoPostagem, $servicos) === false) {
@@ -65,7 +64,7 @@ class Sedex2016 extends AbstractChancela
         $pdf->SetDrawColor(0, 0, 0);
         $elipse->ellipse($pdf, $x, $y, $rx, $ry);
 
-        // Escreve o texto PAC
+        // Escreve o texto Sedex
         $pdf->SetFont('Arial', 'BI');
         $pdf->SetXY($x, $y + 5 / $k);
         $fontSize = 12;
@@ -102,9 +101,9 @@ class Sedex2016 extends AbstractChancela
         // Insere a logo do correios na parte inferior
         $pdf->SetDrawColor(255, 255, 255);
         $pdf->SetLineWidth(10 / $k);
-        $x1 = $x / $k;
+        $x1 = $x - 4 / $k;
         $x2 = $x1 + $pdf->GetStringWidth('CORREIOS') + 40 / $k;
-        $y1 = $y + $h - 3.8 / $k;
+        $y1 = $y + $h - 3 / $k;
         $pdf->Line($x1, $y1, $x2, $y1);
 
         $pdf->Image(realpath(dirname(__FILE__)) . '/../correios-logo.png', $x1 + 9 , $y1 - 3);

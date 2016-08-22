@@ -35,7 +35,7 @@ class Sedex extends AbstractChancela
 
     public function setServicoDePostagem($servicoPostagem)
     {
-        $rClass = new ReflectionClass(__CLASS__);
+        $rClass = new \ReflectionClass(__CLASS__);
         $servicos = $rClass->getConstants();
         
         if (in_array($servicoPostagem, $servicos) === false) {

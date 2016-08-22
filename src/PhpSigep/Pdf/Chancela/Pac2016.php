@@ -37,7 +37,7 @@ class Pac2016 extends AbstractChancela
         $pdf->SetFont('', 'B', 9);
         $pdf->MultiCell($wRect, 8 / $k, $pdf->_($this->nomeRemetente), 0, 'C');
 
-        // Escreve o texto CORREIOS
+        // Insere a logo do correios na parte inferior
         $pdf->SetDrawColor(255, 255, 255);
         $pdf->SetLineWidth(2 / $k);
 
@@ -46,7 +46,6 @@ class Pac2016 extends AbstractChancela
         $y1    = $y + $h + (.45 / $k);
         $y2    = $y1 - (0.9 / $k);
         $space = 3.6 / $k;
-        $pdf->Line($x1, $y1, $x2, $y2);
         $x1 += $space;
         $x2 += $space;
         $x1 += $space;
