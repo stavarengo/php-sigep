@@ -1,0 +1,65 @@
+<?php
+namespace PhpSigep\Pdf\Chancela;
+
+abstract class AbstractChancela
+{
+    /**
+     * @var int
+     */
+    private $x;
+    /**
+     * @var int
+     */
+    private $y;
+    /**
+     * @var string
+     */
+    private $nomeRemetente;
+    /**
+     * @var \PhpSigep\Model\AccessData
+     */
+    private $accessData;
+    
+    /**
+     * @param int $x
+     * @param int $y
+     * @param string $nomeRemetente
+     * @param \PhpSigep\Model\AccessData $accessData
+     */
+    public function __construct($x, $y, $nomeRemetente, \PhpSigep\Model\AccessData $accessData)
+    {
+        $this->x             = $x;
+        $this->y             = $y;
+        $this->nomeRemetente = $nomeRemetente;
+        $this->accessData    = $accessData;
+    }
+    
+    public function setLeftPos($x)
+    {
+        if (is_numeric($x) === false) {
+            throw new \InvalidArgumentException('Parâmetro $x precisa ser do tipo numérico');
+        }
+        $this->x = $x;
+    }
+    
+    public function setTopPos($y)
+    {
+        if (is_numeric($y) === false) {
+            throw new \InvalidArgumentException('Parâmetro $x precisa ser do tipo numérico');
+        }
+        $this->y = $y;
+    }
+    
+    public function setNomeRemetente($nomeRemetente)
+    {
+        if (is_string($nomeRemetente) === false) {
+            throw new \InvalidArgumentException('Parâmetro $nomeRemetente precisa ser do tipo numérico');
+        }
+        $this->nomeRemetente = $nomeRemetente;
+    }
+    
+    public function setAccessData(\PhpSigep\Model\AccessData $accessData)
+    {
+        $this->accessData = $accessData;
+    }
+}
