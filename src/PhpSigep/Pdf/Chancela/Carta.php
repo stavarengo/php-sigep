@@ -7,39 +7,8 @@ use PhpSigep\Pdf\Script\Elipse;
 /**
  * @author: Stavarengo
  */
-class Carta
+class Carta extends AbstractChancela
 {
-
-    /**
-     * @var int
-     */
-    private $x;
-    /**
-     * @var int
-     */
-    private $y;
-    /**
-     * @var string
-     */
-    private $nomeRemetente;
-    /**
-     * @var \PhpSigep\Model\AccessData
-     */
-    private $accessData;
-
-    /**
-     * @param int $x
-     * @param int $y
-     * @param string $nomeRemetente
-     * @param \PhpSigep\Model\AccessData $accessData
-     */
-    public function __construct($x, $y, $nomeRemetente, \PhpSigep\Model\AccessData $accessData)
-    {
-        $this->x             = $x;
-        $this->y             = $y;
-        $this->nomeRemetente = $nomeRemetente;
-        $this->accessData    = $accessData;
-    }
 
     public function draw(\PhpSigep\Pdf\ImprovedFPDF $pdf)
     {
