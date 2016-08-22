@@ -29,10 +29,10 @@ class ImprovedFPDF extends \PhpSigepFPDF
         $this->SetAutoPageBreak(false);
 
         $existed = in_array("var", stream_get_wrappers());
- 	if (!$existed) {
-		stream_wrapper_register("var", '\Sigep\Pdf\VariableStream') or die("Failed to register protocol");
-		//stream_wrapper_unregister("var");
-	}
+        if (!$existed) {
+    	    stream_wrapper_register("var", '\PhpSigep\Pdf\VariableStream') or die("Failed to register protocol");
+    	    //stream_wrapper_unregister("var");
+        }
         
     }
 
