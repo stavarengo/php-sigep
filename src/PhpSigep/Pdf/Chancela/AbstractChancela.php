@@ -28,10 +28,10 @@ abstract class AbstractChancela
      */
     public function __construct($x, $y, $nomeRemetente, \PhpSigep\Model\AccessData $accessData)
     {
-        $this->x             = $x;
-        $this->y             = $y;
-        $this->nomeRemetente = $nomeRemetente;
-        $this->accessData    = $accessData;
+        $this->setLeftPos($x);
+        $this->setTopPos($y);
+        $this->setNomeRemetente($nomeRemetente);
+        $this->setAccessData($accessData);
     }
     
     public function setLeftPos($x)
@@ -62,4 +62,6 @@ abstract class AbstractChancela
     {
         $this->accessData = $accessData;
     }
+    
+    public abstract function draw(\PhpSigep\Pdf\ImprovedFPDF $pdf);
 }
