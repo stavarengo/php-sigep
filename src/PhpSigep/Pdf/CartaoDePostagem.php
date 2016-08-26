@@ -7,6 +7,9 @@ use PhpSigep\Model\ServicoAdicional;
 use PhpSigep\Pdf\Chancela\Carta;
 use PhpSigep\Pdf\Chancela\Pac;
 use PhpSigep\Pdf\Chancela\Sedex;
+use PhpSigep\Pdf\Chancela\Carta2016;
+use PhpSigep\Pdf\Chancela\Pac2016;
+use PhpSigep\Pdf\Chancela\Sedex2016;
 
 /**
  * @author: Stavarengo
@@ -14,6 +17,14 @@ use PhpSigep\Pdf\Chancela\Sedex;
 class CartaoDePostagem
 {
 
+    const TYPE_CHANCELA_CARTA = 'carta';
+    const TYPE_CHANCELA_SEDEX = 'sedex';
+    const TYPE_CHANCELA_PAC   = 'pac';
+    
+    const TYPE_CHANCELA_CARTA_2016 = 'carta-2016';
+    const TYPE_CHANCELA_SEDEX_2016 = 'sedex-2016';
+    const TYPE_CHANCELA_PAC_2016   = 'pac-2016';
+    
     /**
      * @var \PhpSigep\Pdf\ImprovedFPDF
      */
@@ -31,7 +42,21 @@ class CartaoDePostagem
      * @var string
      */
     private $logoFile;
-
+    /**
+     * Layout da chancela do Sedex que deve ser utilizado
+     * @var string
+     */
+    private $layoutSedex = 'sedex';
+    /**
+     * Layout da chancela do PAC que deve ser utilizado
+     * @var string
+     */
+    private $layoutPac = 'pac';
+    /**
+     * Layout da chancela da Carta que deve ser utilizado
+     * @var string
+     */
+    private $layoutCarta = 'carta';
     /**
      * @param \PhpSigep\Model\PreListaDePostagem $plp
      * @param int $idPlpCorreios
@@ -39,9 +64,9 @@ class CartaoDePostagem
      * @throws InvalidArgument
      *      Se o arquivo $logoFile não existir.
      */
-    public function __construct($plp, $idPlpCorreios, $logoFile)
+    public function __construct($plp, $idPlpCorreios, $logoFile, $chancelas = array())
     {
-        if ($logoFile && !getimagesize($logoFile)) {
+        if ($logoFile && !@getimagesize($logoFile)) {
             throw new InvalidArgument('O arquivo "' . $logoFile . '" não existe.');
         }
 
@@ -49,10 +74,30 @@ class CartaoDePostagem
         $this->idPlpCorreios = $idPlpCorreios;
         $this->logoFile = $logoFile;
 
+        $rClass = new \ReflectionClass(__CLASS__);
+        $tiposChancela = $rClass->getConstants();
+        foreach ($chancelas as $chancela) {
+            switch ($chancela) {
+                case CartaoDePostagem::TYPE_CHANCELA_CARTA:
+                case CartaoDePostagem::TYPE_CHANCELA_CARTA_2016:
+                    $this->layoutCarta = $chancela;
+                    break;
+                case CartaoDePostagem::TYPE_CHANCELA_SEDEX:
+                case CartaoDePostagem::TYPE_CHANCELA_SEDEX_2016:
+                    $this->layoutSedex = $chancela;
+                    break;
+                case CartaoDePostagem::TYPE_CHANCELA_PAC:
+                case CartaoDePostagem::TYPE_CHANCELA_PAC_2016:
+                    $this->layoutPac = $chancela;
+                    break;
+                default:
+                    throw new \PhpSigep\Pdf\Exception\InvalidChancelaEntry('O tipo de chancela deve ser uma das constantes da classe');
+            }
+        }
         $this->init();
     }
 
-    public function render()
+    public function render($dest='', $filename = '')
     {
         $cacheKey = md5(serialize($this->plp) . $this->idPlpCorreios . get_class($this));
         if ($pdfContent = Bootstrap::getConfig()->getCacheInstance()->getItem($cacheKey)) {
@@ -62,12 +107,17 @@ class CartaoDePostagem
             header('Pragma: public');
             echo $pdfContent;
         } else {
-            $this->_render();
-            Bootstrap::getConfig()->getCacheInstance()->setItem($cacheKey, $this->pdf->buffer);
+            if($dest == 'S'){
+                return $this->_render($dest, $filename);
+            }
+            else{
+                $this->_render($dest, $filename);
+                Bootstrap::getConfig()->getCacheInstance()->setItem($cacheKey, $this->pdf->buffer);
+            }
         }
     }
 
-    private function _render()
+    private function _render($dest='', $filename='')
     {
         $un = 72 / 25.4;
         $wFourAreas = $this->pdf->w;
@@ -183,11 +233,18 @@ class CartaoDePostagem
                     case ServicoDePostagem::SERVICE_PAC_41068:
                     case ServicoDePostagem::SERVICE_PAC_41106:
                     case ServicoDePostagem::SERVICE_PAC_GRANDES_FORMATOS:
-                        $chancela = new Pac($lPosChancela, $tPosChancela, $nomeRemetente, $accessData);
+                        if ($this->layoutPac === CartaoDePostagem::TYPE_CHANCELA_PAC) {
+                            $chancela = new Pac($lPosChancela, $tPosChancela, $nomeRemetente, $accessData);
+                        } else {
+                            $chancela = new Pac2016($lPosChancela, $tPosChancela, $nomeRemetente, $accessData);
+                        }
                         break;
-
                     case ServicoDePostagem::SERVICE_E_SEDEX_STANDARD:
-                        $chancela = new Sedex($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_E_SEDEX, $accessData);
+                        if ($this->layoutSedex === CartaoDePostagem::TYPE_CHANCELA_SEDEX) {
+                            $chancela = new Sedex($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX, $accessData);
+                        } else {
+                            $chancela = new Sedex2016($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX, $accessData);
+                        }
                         break;
 
                     case ServicoDePostagem::SERVICE_SEDEX_40096:
@@ -197,26 +254,46 @@ class CartaoDePostagem
                     case ServicoDePostagem::SERVICE_SEDEX_VAREJO_A_COBRAR:
                     case ServicoDePostagem::SERVICE_SEDEX_PAGAMENTO_NA_ENTREGA:
                     case ServicoDePostagem::SERVICE_SEDEX_AGRUPADO:
-                        $chancela = new Sedex($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX, $accessData);
+                        if ($this->layoutSedex === CartaoDePostagem::TYPE_CHANCELA_SEDEX) {
+                            $chancela = new Sedex($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX, $accessData);
+                        } else {
+                            $chancela = new Sedex2016($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX, $accessData);
+                        }
                         break;
 
                     case ServicoDePostagem::SERVICE_SEDEX_12:
-                        $chancela = new Sedex($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX_12, $accessData);
+                        if ($this->layoutSedex === CartaoDePostagem::TYPE_CHANCELA_SEDEX) {
+                            $chancela = new Sedex($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX, $accessData);
+                        } else {
+                            $chancela = new Sedex2016($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX, $accessData);
+                        }
                         break;
 
                     case ServicoDePostagem::SERVICE_SEDEX_10:
                     case ServicoDePostagem::SERVICE_SEDEX_10_PACOTE:
-                        $chancela = new Sedex($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX_10, $accessData);
+                        if ($this->layoutSedex === CartaoDePostagem::TYPE_CHANCELA_SEDEX) {
+                            $chancela = new Sedex($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX, $accessData);
+                        } else {
+                            $chancela = new Sedex2016($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX, $accessData);
+                        }
                         break;
 
                     case ServicoDePostagem::SERVICE_SEDEX_HOJE_40290:
                     case ServicoDePostagem::SERVICE_SEDEX_HOJE_40878:
-                        $chancela = new Sedex($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX_HOJE, $accessData);
+                        if ($this->layoutSedex === CartaoDePostagem::TYPE_CHANCELA_SEDEX) {
+                            $chancela = new Sedex($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX, $accessData);
+                        } else {
+                            $chancela = new Sedex2016($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX, $accessData);
+                        }
                         break;
 
                     case ServicoDePostagem::SERVICE_CARTA_COMERCIAL_A_FATURAR:
                     case ServicoDePostagem::SERVICE_CARTA_REGISTRADA:
-                        $chancela = new Carta($lPosChancela, $tPosChancela, $nomeRemetente, $accessData);
+                        if ($this->layoutCarta === CartaoDePostagem::TYPE_CHANCELA_CARTA) {
+                            $chancela = new Carta($lPosChancela, $tPosChancela, $nomeRemetente, $accessData);
+                        } else {
+                            $chancela = new Carta2016($lPosChancela, $tPosChancela, $nomeRemetente, $accessData);
+                        }
                         break;
                     case ServicoDePostagem::SERVICE_SEDEX_REVERSO:
                     default:
@@ -287,13 +364,22 @@ class CartaoDePostagem
                     $hEtiquetaBarCode
                 );
 
+                // Nome legivel, doc e rubrica
+                // 
+                $this->pdf->SetFontSize(7);
+                $this->pdf->SetXY(1, $this->pdf->GetY() + 23);
+                $this->t(0, 'Nome Legível:___________________________________________',1, 'L',  null);
+                $this->pdf->SetXY(1, $this->pdf->GetY() + 1);
+                $this->t(0, 'Documento:_______________________Rubrica:_____________________',1, 'L',  null);
+
                 // Destinatário
                 $wAddressLeftCol = $this->pdf->w - 5;
 
-                $tPosAfterBarCode = $this->pdf->GetY() + 25;
+                $tPosAfterNameBlock = 71 ;
+
                 $t = $this->writeDestinatario(
                     $lPosFourAreas,
-                    $tPosAfterBarCode,
+                    $tPosAfterNameBlock,
                     $wAddressLeftCol,
                     $objetoPostal
                 );
@@ -374,7 +460,12 @@ class CartaoDePostagem
             }
         }
 
-        $this->pdf->Output();
+        if($dest == 'S'){
+            return $this->pdf->Output($filename,$dest);
+        }
+        else{
+            $this->pdf->Output($filename,$dest);
+        }
     }
 
     private function _($str)
