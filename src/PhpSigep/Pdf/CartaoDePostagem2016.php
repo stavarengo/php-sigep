@@ -47,17 +47,17 @@ class CartaoDePostagem2016
      * Layout da chancela do Sedex que deve ser utilizado
      * @var string
      */
-    private $layoutSedex = 'sedex';
+    private $layoutSedex = 'sedex-2016';
     /**
      * Layout da chancela do PAC que deve ser utilizado
      * @var string
      */
-    private $layoutPac = 'pac';
+    private $layoutPac = 'pac-2016';
     /**
      * Layout da chancela da Carta que deve ser utilizado
      * @var string
      */
-    private $layoutCarta = 'carta';
+    private $layoutCarta = 'carta-2016';
     /**
      * @param \PhpSigep\Model\PreListaDePostagem $plp
      * @param int $idPlpCorreios
@@ -75,8 +75,6 @@ class CartaoDePostagem2016
         $this->idPlpCorreios = $idPlpCorreios;
         $this->logoFile = $logoFile;
 
-        $rClass = new \ReflectionClass(__CLASS__);
-        $tiposChancela = $rClass->getConstants();
         foreach ($chancelas as $chancela) {
             switch ($chancela) {
                 case CartaoDePostagem::TYPE_CHANCELA_CARTA:
