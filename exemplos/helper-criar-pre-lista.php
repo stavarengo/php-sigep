@@ -41,7 +41,7 @@
     $encomenda->setDimensao($dimensao);
     $encomenda->setEtiqueta($etiqueta);
     $encomenda->setPeso(0.500);// 500 gramas
-    $encomenda->setServicoDePostagem(new \PhpSigep\Model\ServicoDePostagem(\PhpSigep\Model\ServicoDePostagem::SERVICE_CARTA_REGISTRADA));
+    $encomenda->setServicoDePostagem(new \PhpSigep\Model\ServicoDePostagem(\PhpSigep\Model\ServicoDePostagem::SERVICE_SEDEX_40096));
 // ***  FIM DOS DADOS DA ENCOMENDA QUE SERÁ DESPACHADA *** //
 
 // *** DADOS DO REMETENTE *** //
