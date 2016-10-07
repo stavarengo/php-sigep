@@ -1,6 +1,8 @@
 <?php
 namespace PhpSigep\Model;
 
+use PhpSigep\InvalidArgument;
+
 /**
  * @author: Stavarengo
  */
@@ -161,10 +163,17 @@ class AccessData extends AbstractModel
     }
 
     /**
-     * @param \PhpSigep\Model\Diretoria $diretoria
+     * @param \PhpSigep\Model\Diretoria|int $diretoria
+     * @throws InvalidArgument
      */
     public function setDiretoria($diretoria)
     {
+        if (is_int($diretoria)) {
+            $diretoria = new Diretoria($diretoria);
+        }
+        if (!($diretoria instanceof Diretoria)) {
+            throw new InvalidArgument('A Diretoria deve ser ser uma instância de \PhpSigep\Model\Diretoria.');
+        }
         $this->diretoria = $diretoria;
     }
 
