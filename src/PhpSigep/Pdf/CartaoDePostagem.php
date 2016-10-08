@@ -13,6 +13,7 @@ use PhpSigep\Pdf\Chancela\Sedex2016;
 
 /**
  * @author: Stavarengo
+ * @modify José Domingos Grieco <jdgrieco@gmail.com>
  */
 class CartaoDePostagem
 {
@@ -20,11 +21,11 @@ class CartaoDePostagem
     const TYPE_CHANCELA_CARTA = 'carta';
     const TYPE_CHANCELA_SEDEX = 'sedex';
     const TYPE_CHANCELA_PAC   = 'pac';
-    
+
     const TYPE_CHANCELA_CARTA_2016 = 'carta-2016';
     const TYPE_CHANCELA_SEDEX_2016 = 'sedex-2016';
     const TYPE_CHANCELA_PAC_2016   = 'pac-2016';
-    
+
     /**
      * @var \PhpSigep\Pdf\ImprovedFPDF
      */
@@ -241,9 +242,9 @@ class CartaoDePostagem
                         break;
                     case ServicoDePostagem::SERVICE_E_SEDEX_STANDARD:
                         if ($this->layoutSedex === CartaoDePostagem::TYPE_CHANCELA_SEDEX) {
-                            $chancela = new Sedex($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX, $accessData);
+                            $chancela = new Sedex($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_E_SEDEX, $accessData);
                         } else {
-                            $chancela = new Sedex2016($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX, $accessData);
+                            $chancela = new Sedex2016($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_E_SEDEX, $accessData);
                         }
                         break;
 
@@ -263,27 +264,27 @@ class CartaoDePostagem
 
                     case ServicoDePostagem::SERVICE_SEDEX_12:
                         if ($this->layoutSedex === CartaoDePostagem::TYPE_CHANCELA_SEDEX) {
-                            $chancela = new Sedex($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX, $accessData);
+                            $chancela = new Sedex($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX_12, $accessData);
                         } else {
-                            $chancela = new Sedex2016($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX, $accessData);
+                            $chancela = new Sedex2016($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX_12, $accessData);
                         }
                         break;
 
                     case ServicoDePostagem::SERVICE_SEDEX_10:
                     case ServicoDePostagem::SERVICE_SEDEX_10_PACOTE:
                         if ($this->layoutSedex === CartaoDePostagem::TYPE_CHANCELA_SEDEX) {
-                            $chancela = new Sedex($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX, $accessData);
+                            $chancela = new Sedex($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX_10, $accessData);
                         } else {
-                            $chancela = new Sedex2016($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX, $accessData);
+                            $chancela = new Sedex2016($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX_10, $accessData);
                         }
                         break;
 
                     case ServicoDePostagem::SERVICE_SEDEX_HOJE_40290:
                     case ServicoDePostagem::SERVICE_SEDEX_HOJE_40878:
                         if ($this->layoutSedex === CartaoDePostagem::TYPE_CHANCELA_SEDEX) {
-                            $chancela = new Sedex($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX, $accessData);
+                            $chancela = new Sedex($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX_HOJE, $accessData);
                         } else {
-                            $chancela = new Sedex2016($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX, $accessData);
+                            $chancela = new Sedex2016($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX_HOJE, $accessData);
                         }
                         break;
 
