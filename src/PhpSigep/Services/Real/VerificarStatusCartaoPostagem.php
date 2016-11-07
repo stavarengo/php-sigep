@@ -31,7 +31,9 @@ class VerificarStatusCartaoPostagem
             $errorMsg = SoapClientFactory::convertEncoding($r->getMessage());
             $result->setSoapFault($r);
         } else if ($r instanceof \stdClass && property_exists($r, 'return')) {
-            $result->setResult($r->return);
+            $status = new VerificaStatusCartaoPostagemResposta();
+            $status->setReturn($r->return);
+            $result->setResult($status);
         } else {
             $errorCode = 0;
             $errorMsg = "A resposta do Correios não está no formato esperado.";
