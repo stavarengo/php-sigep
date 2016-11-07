@@ -15,4 +15,10 @@ class VerificaStatusCartaoPostagemResposta extends AbstractModel
 
         return $this;
     }
+
+    
+    public function getReturn()
+    {
+        return $this->return;
+    }
 }
