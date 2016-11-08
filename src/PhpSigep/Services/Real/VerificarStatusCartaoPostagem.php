@@ -5,8 +5,6 @@ namespace PhpSigep\Services\Real;
 use PhpSigep\Services\Result;
 
 /**
- * Class VerificarStatusCartaoPostagem
- * @package PhpSigep\Services\Real
  * @author davidalves1
  */
 class VerificarStatusCartaoPostagem

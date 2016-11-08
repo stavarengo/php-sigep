@@ -113,7 +113,7 @@ class Real implements ServiceInterface
      * @param $numeroCartaoPostagem
      * @param $login
      * @param $senha
-     * @return Result
+     * @return \PhpSigep\Services\Result<\PhpSigep\Model\verificarStatusCartaoPostagemResposta[]>
      */
     public function verificarStatusCartaoPostagem($numeroCartaoPostagem, $usuario, $senha)
     {
