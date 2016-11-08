@@ -5,7 +5,7 @@ namespace PhpSigep\Model;
 /**
  * @author: davidalves1
  */
-class VerificaStatusCartaoPostagemResposta extends AbstractModel
+class VerificarStatusCartaoPostagemResposta extends AbstractModel
 {
     /**
      * @var string
