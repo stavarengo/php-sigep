@@ -69,4 +69,11 @@ interface ServiceInterface
      */
     public function rastrearObjeto(\PhpSigep\Model\RastrearObjeto $params);
 
+    /**
+     * @param $numeroCartaoPostagem
+     * @param $login
+     * @param $senha
+     * @return \PhpSigep\Services\Result<\PhpSigep\Model\verificarStatusCartaoPostagemResposta[]>
+     */
+    public function verificarStatusCartaoPostagem($numeroCartaoPostagem, $usuario, $senha);
 }
