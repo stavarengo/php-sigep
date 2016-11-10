@@ -2,6 +2,7 @@
 
 namespace PhpSigep\Services\Real;
 
+use PhpSigep\Model\VerificarStatusCartaoPostagemResposta;
 use PhpSigep\Services\Result;
 
 /**
@@ -29,7 +30,7 @@ class VerificarStatusCartaoPostagem
             $errorMsg = SoapClientFactory::convertEncoding($r->getMessage());
             $result->setSoapFault($r);
         } else if ($r instanceof \stdClass && property_exists($r, 'return')) {
-            $status = new VerificaStatusCartaoPostagemResposta();
+            $status = new VerificarStatusCartaoPostagemResposta();
             $status->setReturn($r->return);
             $result->setResult($status);
         } else {
