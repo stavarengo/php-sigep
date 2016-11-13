@@ -7,9 +7,9 @@ namespace PhpSigep\Model;
 class Dimensao extends AbstractModel
 {
 
-    const TIPO_ENVELOPE      = 1;
-    const TIPO_PACOTE_CAIXA  = 2;
-    const TIPO_ROLO_CILINDRO = 3;
+    const TIPO_ENVELOPE      = '001';
+    const TIPO_PACOTE_CAIXA  = '002';
+    const TIPO_ROLO_CILINDRO = '003';
     /**
      * Deve ser uma das constantes {@link Dimensao}::TIPO_*.
      * @var int

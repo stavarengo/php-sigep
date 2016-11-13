@@ -108,4 +108,16 @@ class Real implements ServiceInterface
         $service = new ServiceImplementation\RastrearObjeto();
         return $service->execute($params);
     }
+
+    /**
+     * @param $numeroCartaoPostagem
+     * @param $login
+     * @param $senha
+     * @return \PhpSigep\Services\Result<\PhpSigep\Model\verificarStatusCartaoPostagemResposta[]>
+     */
+    public function verificarStatusCartaoPostagem($numeroCartaoPostagem, $usuario, $senha)
+    {
+        $service = new ServiceImplementation\VerificarStatusCartaoPostagem();
+        return $service->execute($numeroCartaoPostagem, $usuario, $senha);
+    }
 }

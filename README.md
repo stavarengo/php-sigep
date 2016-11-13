@@ -23,7 +23,7 @@ Esta API pode:
 Requisitos
 ---
 
-* PHP >= 5.1.0
+* PHP >= 5.4.0
 * Se você precisar imprimir as etiquetas e relatórios, baixe também o FPDF 1.7 [www.fpdf.org](http://www.fpdf.org/).   
   Não esqueça de configurar o FPDF para ser auto carregado antes de tentar imprimir os relatórios.
 
@@ -49,6 +49,25 @@ Instalação manual
 
 * Faça o download da última versão.
 * Para usar as classe do php-sigep, você só precisa carregar o arquivo "php-sigep/src/PhpSigep/Bootstrap.php". Isso fara com que o loader seja registrado.
+
+# Problemas Comum
+
+## Problemas com o PHP 5.3
+Este problema foi reportado aqui: https://github.com/stavarengo/php-sigep/issues/35
+Alguns usuarios tiveram problemas de conexão e autentificação com WebService do Correios em ambiente de produção devido a versão do PHP.
+Para resolver o problema, você pode ou utilizar uma versão masi rescente do PHP (>=5.4) ou fazer o download do WSDL do Correios e utilizar ele no seu servidor para fazer conexão.
+Caso escolha fazer o download o WSDL, siga os passos abaixo:
+1. Salve este arquivo em seu ambiente local https://apps.correios.com.br/SigepMasterJPA/AtendeClienteService/AtendeCliente?wsdl
+2. Altere as configurações do seu ambiente de produção para apotar para o arquivo que você baixou. Vejo exemplo abaixo.
+<a id="example-change-wsdl"></a>
+```php
+$config = new \PhpSigep\Config();
+$config->setEnv(\PhpSigep\Config::ENV_PRODUCTION);
+$config->setWsdlAtendeCliente('CAMINHO-DO-SEU-ARQUIVO-LOCAL');
+\PhpSigep\Bootstrap::start($config);
+```
+OBS: Não irá funcionar em um servidor local, como Wamp, Xammp entre outros.
+
 
 Funções
 ---

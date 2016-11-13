@@ -1,12 +1,8 @@
 <?php
 namespace PhpSigep\Pdf\Chancela;
 
-/**
- * @author: Stavarengo
- */
-class Pac extends AbstractChancela
+class Pac2016 extends AbstractChancela
 {
-
     public function draw(\PhpSigep\Pdf\ImprovedFPDF $pdf)
     {
         $pdf->saveState();
@@ -24,7 +20,7 @@ class Pac extends AbstractChancela
         $pdf->SetLineWidth($lineWidth);
         $x = $this->x;
         $y = $this->y;
-        $pdf->Rect($x, $y, $wRect, $h);
+        $pdf->RoundedRect($x, $y, $wRect, $h, 5);
 
         // Escreve o texto PAC
         $pdf->SetFont('Arial', 'B', 27);
@@ -32,16 +28,16 @@ class Pac extends AbstractChancela
         $pdf->Cell($wRect, 27 / $k, 'PAC', 0, 2, 'C');
 
         // Número contrato e DR
-        $pdf->SetFont('', '', 6);
-        $texto = $this->accessData->getNumeroContrato() . '/' . $this->accessData->getAnoContrato(
-            ) . '-DR/' . $this->accessData->getDiretoria()->getSigla();
+        $pdf->SetFont('', '', 7);
+        $texto = $this->accessData->getNumeroContrato() . '/' . $this->accessData->getAnoContrato() 
+               . '-DR/' . $this->accessData->getDiretoria()->getSigla();
         $pdf->Cell($wRect, 6 / $k, $texto, 0, 2, 'C');
 
         // Nome do remetente
         $pdf->SetFont('', 'B', 9);
-        $pdf->MultiCell($wRect, 9 / $k, $pdf->_($this->nomeRemetente), 0, 'C');
+        $pdf->MultiCell($wRect, 8 / $k, $pdf->_($this->nomeRemetente), 0, 'C');
 
-        // Escreve o texto CORREIOS
+        // Insere a logo do correios na parte inferior
         $pdf->SetDrawColor(255, 255, 255);
         $pdf->SetLineWidth(2 / $k);
 
@@ -50,33 +46,20 @@ class Pac extends AbstractChancela
         $y1    = $y + $h + (.45 / $k);
         $y2    = $y1 - (0.9 / $k);
         $space = 3.6 / $k;
-        $pdf->Line($x1, $y1, $x2, $y2);
         $x1 += $space;
         $x2 += $space;
-        $pdf->Line($x1, $y1, $x2, $y2);
         $x1 += $space;
         $x2 += $space;
-        $pdf->Line($x1, $y1, $x2, $y2);
 
-        $texto = 'CORREIOS';
         $x1 += $space;
         $pdf->SetFontSize(9);
-        $stringWidth = $pdf->GetStringWidth($texto);
+        $stringWidth = $pdf->GetStringWidth('CORREIOS');
         $x2 += $space + $stringWidth;
         $pdf->SetLineWidth(2.5 / $k);
         $pdf->Line($x1, $y + $h, $x2, $y + $h);
-        $pdf->Text($x1, $y1 + .9, $texto);
 
-        $x1 += $space + $pdf->GetStringWidth($texto);
-        $x2 += $space;
-        $pdf->Line($x1, $y1, $x2, $y2);
-        $x1 += $space;
-        $x2 += $space;
-        $pdf->Line($x1, $y1, $x2, $y2);
-        $x1 += $space;
-        $x2 += $space;
-        $pdf->Line($x1, $y1, $x2, $y2);
-
+        $pdf->Image(realpath(dirname(__FILE__)) . '/../correios-logo.png', $x1 , $y1 - 3);
+        
         $pdf->restoreLastState();
     }
 }
