@@ -424,8 +424,8 @@ class CartaoDePostagem2016
                     $this->plp->getAccessData()->getCartaoPostagem(),
                     $objetoPostal->getServicoDePostagem()->getCodigo(),
                     $valorDeclarado,
-                    $objetoPostal->getDestinatario()->getTelefone(),
-                    $objetoPostal->getDestinatario()->getComplemento()
+                    $objetoPostal->getDestinatario()->getTelefone()
+                    // $objetoPostal->getDestinatario()->getComplemento()
                 );
 
                 require_once  'Semacode.php';
@@ -656,7 +656,7 @@ class CartaoDePostagem2016
         return $mul - $sum;
     }
 
-    private function getM2Dstr ($cepD, $numD, $cepO, $numO, $etq, $srvA, $carP, $codS, $valD, $telD, $cplD, $msg='')
+    private function getM2Dstr ($cepD, $numD, $cepO, $numO, $etq, $srvA, $carP, $codS, $valD, $telD, $msg='')
     {
         $str = '';
         $str .= str_replace('-', '', $cepD);
@@ -671,7 +671,7 @@ class CartaoDePostagem2016
         $str .= sprintf('%05d', $codS);
         $str .= '01';
         $str .= sprintf('%05d', $numD);
-        $str .= str_pad($cplD, 20, ' ');
+        // $str .= str_pad($cplD, 20, ' ');
         $str .= sprintf('%05d', (int)$valD);
         $str .= $telD;
         $str .= '-00.000000';
