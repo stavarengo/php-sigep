@@ -74,9 +74,12 @@ class RastrearObjeto
                 }
 
                 try {
-
                     $evento = new RastrearObjetoEvento();
                     $eventos = new RastrearObjetoResultado();
+
+                    if (!is_array($soapReturn->return['objeto'])) {
+                        $soapReturn->return['objeto'] = array($soapReturn->return['objeto']);
+                    }
 
                     foreach ($soapReturn->return['objeto'] as $objeto) {
                         $ev = $objeto->evento;
