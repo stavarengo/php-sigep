@@ -86,7 +86,7 @@ class RastrearObjeto
                         $evento->setData(\DateTime::createFromFormat('d/m/Y', $ev->data));
                         $evento->setHora(\DateTime::createFromFormat('H:i', $ev->hora));
                         $evento->setDescricao(SoapClientFactory::convertEncoding($ev->descricao));
-                        $evento->setDetalhe($ev->detalhe);
+                        $evento->setDetalhe(isset($ev->detalhe) ? $ev->detalhe : '');
                         $evento->setLocal($ev->local);
                         $evento->setCodigo($ev->codigo);
                         $evento->setCidade($ev->cidade);
