@@ -3,6 +3,7 @@ namespace PhpSigep\Model;
 
 /**
  * @author: Stavarengo
+ * @author: davidalves1
  */
 class RastrearObjeto extends AbstractModel
 {
@@ -23,6 +24,16 @@ class RastrearObjeto extends AbstractModel
      * O WebService vai retornar apenas o último evento dos objetos consultados. 
      */
     const TIPO_RESULTADO_APENAS_O_ULTIMO_EVENTO = 2;
+
+    /**
+     * Exibe as informações em Português do Brasil
+     */
+    const IDIOMA_PT_BR = '101';
+
+    /**
+     * Exibe as informações em Inglês
+     */
+    const IDIOMA_EN = '102';
     
     /**
      * @var AccessData
@@ -46,6 +57,12 @@ class RastrearObjeto extends AbstractModel
      * @var int
      */
     protected $tipoResultado = self::TIPO_RESULTADO_TODOS_OS_EVENTOS;
+
+    /**
+     * Define o idioma no qual as informações serão exibidas
+     * @var string
+     */
+    protected $idioma = self::IDIOMA_PT_BR;
 
     /**
      * @param \PhpSigep\Model\AccessData $accessData
@@ -132,6 +149,25 @@ class RastrearObjeto extends AbstractModel
     public function getTipoResultado()
     {
         return $this->tipoResultado;
+    }
+
+    /**
+     * @param string $idioma
+     * @return $this
+     */
+    public function setIdioma(string $idioma)
+    {
+        $this->idioma = $idioma;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIdioma()
+    {
+        return $this->idioma;
     }
     
 }
