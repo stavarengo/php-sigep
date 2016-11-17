@@ -3,6 +3,7 @@ namespace PhpSigep\Model;
 
 /**
  * @author: Stavarengo
+ * @author: davidalves1
  */
 class RastrearObjeto extends AbstractModel
 {
