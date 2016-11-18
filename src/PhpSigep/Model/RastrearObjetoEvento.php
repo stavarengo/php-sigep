@@ -18,15 +18,15 @@ class RastrearObjetoEvento extends AbstractModel
     /**
      * @var \DateTime
      */
-    protected $data;
-    /**
-     * @var \DateTime
-     */
-    protected $hora;
+    protected $data_hora;
     /**
      * @var string
      */
     protected $descricao;
+    /**
+     * @var string
+     */
+    protected $recebedor;
     /**
      * @var string
      */
@@ -87,41 +87,22 @@ class RastrearObjetoEvento extends AbstractModel
     }
 
     /**
-     * @param \DateTime $data
+     * @param string $data_hora
      * @return $this;
      */
-    public function setData(\DateTime $data)
+    public function setDataHora(\DateTime $data_hora)
     {
-        $this->data = $data->format('Y-m-d');
+        $this->data_hora = $data_hora->format('Y-m-d H:i');
 
         return $this;
     }
 
     /**
-     * @return \DateTime
+     * @return string
      */
-    public function getData()
+    public function getDataHora()
     {
-        return $this->data;
-    }
-
-    /**
-     * @param \DateTime $hora
-     * @return $this;
-     */
-    public function setHora(\DateTime $hora)
-    {
-        $this->hora = $hora->format('H:i');
-
-        return $this;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getHora()
-    {
-        return $this->hora;
+        return $this->data_hora;
     }
 
     /**
@@ -141,6 +122,25 @@ class RastrearObjetoEvento extends AbstractModel
     public function getDescricao()
     {
         return $this->descricao;
+    }
+
+    /**
+     * @param string $recebedor
+     * @return $this;
+     */
+    public function setRecebedor($recebedor)
+    {
+        $this->recebedor = $recebedor;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRecebedor()
+    {
+        return $this->recebedor;
     }
 
     /**

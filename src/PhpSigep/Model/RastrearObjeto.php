@@ -133,10 +133,10 @@ class RastrearObjeto extends AbstractModel
     }
 
     /**
-     * @param mixed $tipoResultado
+     * @param int $tipoResultado
      * @return $this;
      */
-    public function setTipoResultado(mixed $tipoResultado)
+    public function setTipoResultado($tipoResultado)
     {
         $this->tipoResultado = $tipoResultado;
 
