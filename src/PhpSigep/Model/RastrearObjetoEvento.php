@@ -16,7 +16,7 @@ class RastrearObjetoEvento extends AbstractModel
      */
     protected $status;
     /**
-     * @var \DateTime
+     * @var string
      */
     protected $data_hora;
     /**
