@@ -69,25 +69,32 @@ class RastrearObjeto
         try {
             $soapReturn = SoapClientFactory::getRastreioObjetos()->buscaEventos($soapArgs);
             if ($soapReturn && is_object($soapReturn) && $soapReturn->return) {
-                if (!is_array($soapReturn->return)) {
-                    $soapReturn->return = (array)$soapReturn->return;
-                }
 
                 try {
-                    $evento = new RastrearObjetoEvento();
-                    $eventos = new RastrearObjetoResultado();
-
-                    if (!is_array($soapReturn->return['objeto'])) {
-                        $soapReturn->return['objeto'] = array($soapReturn->return['objeto']);
+                    if (!is_array($soapReturn->return->objeto)) {
+                        $soapReturn->return->objeto = array($soapReturn->return->objeto);
                     }
 
-                    foreach ($soapReturn->return['objeto'] as $objeto) {
+                    $resultado = array();
+
+                    foreach ($soapReturn->return->objeto as $objeto) {
+
+                        // Verifica se ocorreu algum erro ao consultar a etiqueta
+                        if (isset($objeto->erro)) {
+                            throw new RastrearObjetoException(
+                                SoapClientFactory::convertEncoding('(' . $objeto->numero . ') ' . $objeto->erro)
+                            );
+                        }
+
+                        $eventos = new RastrearObjetoResultado();
+                        $eventos->setEtiqueta(new Etiqueta(array('etiquetaComDv' => $objeto->numero)));
+
                         $ev = $objeto->evento;
 
+                        $evento = new RastrearObjetoEvento();
                         $evento->setTipo($ev->tipo);
                         $evento->setStatus($ev->status);
-                        $evento->setData(\DateTime::createFromFormat('d/m/Y', $ev->data));
-                        $evento->setHora(\DateTime::createFromFormat('H:i', $ev->hora));
+                        $evento->setDataHora(\DateTime::createFromFormat('d/m/Y H:i', $ev->data . ' ' . $ev->hora));
                         $evento->setDescricao(SoapClientFactory::convertEncoding($ev->descricao));
                         $evento->setDetalhe(isset($ev->detalhe) ? $ev->detalhe : '');
                         $evento->setLocal($ev->local);
@@ -95,11 +102,18 @@ class RastrearObjeto
                         $evento->setCidade($ev->cidade);
                         $evento->setUf($ev->uf);
 
+                        // Sempre adiciona o recebedor ao resultado, mesmo ele sendo exibdo apenas quanto 'tipo' = BDE e 'status' = 01
+                        $evento->setRecebedor(
+                            isset($ev->recebedor) && !empty($ev->recebedor) ? trim($ev->recebedor) : ''
+                        );
+
                         // Adiciona o evento ao resultado
                         $eventos->addEvento($evento);
+
+                        $resultado[] = $eventos;
                     }
 
-                    $result->setResult($eventos->getEventos());
+                    $result->setResult($resultado);
 
                 } catch (RastrearObjetoException $e) {
                     $result->setErrorCode(0);
