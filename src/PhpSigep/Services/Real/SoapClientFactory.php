@@ -82,7 +82,7 @@ class SoapClientFactory
                 'stream_context'        => stream_context_create($opts)
             );
 
-            self::$_soapClient = new \SoapClient($wsdl, $params);
+            self::$_soapCalcPrecoPrazo = new \SoapClient($wsdl, $params);
         }
 
         return self::$_soapCalcPrecoPrazo;
