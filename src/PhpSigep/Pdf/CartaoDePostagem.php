@@ -338,7 +338,7 @@ class CartaoDePostagem
                 }
 
                 $this->pdf->SetFontSize(7);
-                $this->t($this->pdf->w, 'Volume: 1/1    '.'Peso(kg): ' . ((float)$objetoPostal->getPeso()) . $nf . $numeroPedido, 1, 'C',  null);
+                $this->t($this->pdf->w, 'Volume: 1/1    '.'Peso(kg): ' . ((float)$objetoPostal->getPeso()) . $nf . $numeroPedido . '    Lote: ' . $objetoPostal->getLote(), 1, 'C',  null);
 
                 // Número da etiqueta
                 $this->setFillColor(100, 100, 200);
@@ -366,7 +366,7 @@ class CartaoDePostagem
                 );
 
                 // Nome legivel, doc e rubrica
-                // 
+                //
                 $this->pdf->SetFontSize(7);
                 $this->pdf->SetXY(1, $this->pdf->GetY() + 23);
                 $this->t(0, 'Nome Legível:___________________________________________',1, 'L',  null);
@@ -638,9 +638,8 @@ class CartaoDePostagem
         if ($utf8) {
             $txt = $this->_($txt);
         }
-//		$border = 1;
-//		$fill   = true;
-        $border = 0;
+
+        $border = 1;
         $fill = false;
 
         if ($h === null) {

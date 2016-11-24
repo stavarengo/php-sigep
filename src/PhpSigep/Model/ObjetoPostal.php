@@ -50,6 +50,11 @@ class ObjetoPostal extends AbstractModel
     protected $dimensao;
 
     /**
+     * @var string
+     */
+    protected $lote;
+
+    /**
      * @param float $cubagem
      */
     public function setCubagem($cubagem)
@@ -179,5 +184,19 @@ class ObjetoPostal extends AbstractModel
         return (array)$this->servicosAdicionais;
     }
 
+    /**
+     * @param string $lote
+     */
+    public function setLote($lote)
+    {
+        $this->lote = $lote;
+    }
 
+    /**
+     * @return string
+     */
+    public function getLote()
+    {
+        return $this->lote;
+    }
 }
