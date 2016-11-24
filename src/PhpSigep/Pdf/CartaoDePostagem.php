@@ -639,7 +639,7 @@ class CartaoDePostagem
             $txt = $this->_($txt);
         }
 
-        $border = 1;
+        $border = 0;
         $fill = false;
 
         if ($h === null) {
