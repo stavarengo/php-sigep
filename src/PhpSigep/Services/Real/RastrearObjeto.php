@@ -6,7 +6,9 @@ use PhpSigep\Model\RastrearObjetoEvento;
 use PhpSigep\Model\RastrearObjetoResultado;
 use PhpSigep\Services\Real\Exception\RastrearObjeto\ExibirErrosException;
 use PhpSigep\Services\Real\Exception\RastrearObjeto\RastrearObjetoException;
+use PhpSigep\Services\Real\Exception\RastrearObjeto\TipoInvalidoException;
 use PhpSigep\Services\Result;
+use Symfony\Polyfill\Php56\Php56;
 
 /**
  * @author: Stavarengo
@@ -48,10 +50,18 @@ class RastrearObjeto
                 break;
         }
 
-        if ($params->getExibirErros())
-            $exibir_erro = true;
-        else
-            $exibir_erro = false;
+        switch ($params->getExibirErros()) {
+            case \PhpSigep\Model\RastrearObjeto::EXIBIR_RESULTADOS_COM_ERRO:
+                $exibir_erro = true;
+                break;
+            case \PhpSigep\Model\RastrearObjeto::ESCONDER_RESULTADOS_COM_ERRO:
+                $exibir_erro = false;
+                break;
+            default:
+                throw new TipoInvalidoException("Tipo '" . $params->getExibirErros(
+                    ) . "' não é válido para esta opção'");
+                break;
+        }
 
         $soapArgs = array(
             'usuario'   => $params->getAccessData()->getUsuario(),

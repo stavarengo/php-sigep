@@ -114,7 +114,7 @@ class RastrearObjeto extends AbstractModel
 
         return $this;
     }
-    
+
     /**
      * @param \PhpSigep\Model\Etiqueta $etiqueta
      * @return $this;
@@ -190,7 +190,7 @@ class RastrearObjeto extends AbstractModel
      * @param bool $exibirErros
      * @return $this
      */
-    public function setExibirErros(bool $exibirErros)
+    public function setExibirErros($exibirErros)
     {
         $this->exibirErros = $exibirErros;
 
