@@ -47,6 +47,10 @@ class RastrearObjetoEvento extends AbstractModel
      * @var string
      */
     protected $uf;
+    /**
+     * @var string
+     */
+    protected $error;
 
     /**
      * @param string $tipo
@@ -92,7 +96,7 @@ class RastrearObjetoEvento extends AbstractModel
      */
     public function setDataHora(\DateTime $data_hora)
     {
-        $this->data_hora = $data_hora->format('Y-m-d H:i');
+        $this->dataHora = $data_hora->format('Y-m-d H:i');
 
         return $this;
     }
@@ -102,7 +106,7 @@ class RastrearObjetoEvento extends AbstractModel
      */
     public function getDataHora()
     {
-        return $this->data_hora;
+        return $this->dataHora;
     }
 
     /**
@@ -237,5 +241,24 @@ class RastrearObjetoEvento extends AbstractModel
     public function getUf()
     {
         return $this->uf;
+    }
+
+    /**
+     * @param $error
+     * @return $this
+     */
+    public function setError($error)
+    {
+        $this->error = $error;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getErrors()
+    {
+        return $this->error;
     }
 }

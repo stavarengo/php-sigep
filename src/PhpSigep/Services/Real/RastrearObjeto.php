@@ -4,6 +4,7 @@ namespace PhpSigep\Services\Real;
 use PhpSigep\Model\Etiqueta;
 use PhpSigep\Model\RastrearObjetoEvento;
 use PhpSigep\Model\RastrearObjetoResultado;
+use PhpSigep\Services\Real\Exception\RastrearObjeto\ExibirErrosException;
 use PhpSigep\Services\Real\Exception\RastrearObjeto\RastrearObjetoException;
 use PhpSigep\Services\Result;
 
@@ -47,6 +48,11 @@ class RastrearObjeto
                 break;
         }
 
+        if ($params->getExibirErros())
+            $exibir_erro = true;
+        else
+            $exibir_erro = false;
+
         $soapArgs = array(
             'usuario'   => $params->getAccessData()->getUsuario(),
             'senha'     => $params->getAccessData()->getSenha(),
@@ -68,6 +74,7 @@ class RastrearObjeto
 
         try {
             $soapReturn = SoapClientFactory::getRastreioObjetos()->buscaEventos($soapArgs);
+
             if ($soapReturn && is_object($soapReturn) && $soapReturn->return) {
 
                 try {
@@ -79,33 +86,42 @@ class RastrearObjeto
 
                     foreach ($soapReturn->return->objeto as $objeto) {
 
-                        // Verifica se ocorreu algum erro ao consultar a etiqueta
-                        if (isset($objeto->erro)) {
-                            throw new RastrearObjetoException(
-                                SoapClientFactory::convertEncoding('(' . $objeto->numero . ') ' . $objeto->erro)
-                            );
-                        }
-
                         $eventos = new RastrearObjetoResultado();
                         $eventos->setEtiqueta(new Etiqueta(array('etiquetaComDv' => $objeto->numero)));
 
-                        $ev = $objeto->evento;
-
                         $evento = new RastrearObjetoEvento();
-                        $evento->setTipo($ev->tipo);
-                        $evento->setStatus($ev->status);
-                        $evento->setDataHora(\DateTime::createFromFormat('d/m/Y H:i', $ev->data . ' ' . $ev->hora));
-                        $evento->setDescricao(SoapClientFactory::convertEncoding($ev->descricao));
-                        $evento->setDetalhe(isset($ev->detalhe) ? $ev->detalhe : '');
-                        $evento->setLocal($ev->local);
-                        $evento->setCodigo($ev->codigo);
-                        $evento->setCidade($ev->cidade);
-                        $evento->setUf($ev->uf);
 
-                        // Sempre adiciona o recebedor ao resultado, mesmo ele sendo exibdo apenas quanto 'tipo' = BDE e 'status' = 01
-                        $evento->setRecebedor(
-                            isset($ev->recebedor) && !empty($ev->recebedor) ? trim($ev->recebedor) : ''
-                        );
+                        // Verifica se ocorreu algum erro ao consultar a etiqueta
+                        if (isset($objeto->erro)) {
+                            // Se estiver configurado para não exibir erros, não insere os resultados com erros
+                            if (!$exibir_erro) {
+                                continue;
+                            }
+
+                            $evento->setError(SoapClientFactory::convertEncoding('(' . $objeto->numero . ') ' . $objeto->erro));
+
+                        } else {
+
+                            if (!is_array($objeto->evento))
+                                $objeto->evento = array($objeto->evento);
+
+                            foreach ($objeto->evento as $ev) {
+                                $evento->setTipo($ev->tipo);
+                                $evento->setStatus($ev->status);
+                                $evento->setDataHora(\DateTime::createFromFormat('d/m/Y H:i', $ev->data . ' ' . $ev->hora));
+                                $evento->setDescricao(SoapClientFactory::convertEncoding($ev->descricao));
+                                $evento->setDetalhe(isset($ev->detalhe) ? $ev->detalhe : '');
+                                $evento->setLocal($ev->local);
+                                $evento->setCodigo($ev->codigo);
+                                $evento->setCidade($ev->cidade);
+                                $evento->setUf($ev->uf);
+
+                                // Sempre adiciona o recebedor ao resultado, mesmo ele sendo exibido apenas quanto 'tipo' = BDE e 'status' = 01
+                                $evento->setRecebedor(
+                                    isset($ev->recebedor) && !empty($ev->recebedor) ? trim($ev->recebedor) : ''
+                                );
+                            }
+                        }
 
                         // Adiciona o evento ao resultado
                         $eventos->addEvento($evento);
@@ -132,7 +148,7 @@ class RastrearObjeto
                 $result->setErrorMsg(SoapClientFactory::convertEncoding($e->getMessage()));
             } else {
                 $result->setErrorCode($e->getCode());
-                $result->setErrorMsg($e->getMessage());
+                $result->setErrorMsg($e->getMessage() . ' - ' . $e->getLine());
             }
         }
 
