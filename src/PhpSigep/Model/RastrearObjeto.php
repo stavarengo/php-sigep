@@ -26,6 +26,16 @@ class RastrearObjeto extends AbstractModel
     const TIPO_RESULTADO_APENAS_O_ULTIMO_EVENTO = 2;
 
     /**
+     * Na resposta traz os resultados com erro
+     */
+    const EXIBIR_RESULTADOS_COM_ERRO = true;
+
+    /**
+     * Na resposta não traz os resultados com erro
+     */
+    const ESCONDER_RESULTADOS_COM_ERRO = false;
+
+    /**
      * Exibe as informações em Português do Brasil
      */
     const IDIOMA_PT_BR = '101';
@@ -34,7 +44,7 @@ class RastrearObjeto extends AbstractModel
      * Exibe as informações em Inglês
      */
     const IDIOMA_EN = '102';
-    
+
     /**
      * @var AccessData
      */
@@ -63,6 +73,12 @@ class RastrearObjeto extends AbstractModel
      * @var string
      */
     protected $idioma = self::IDIOMA_PT_BR;
+
+    /**
+     * Informa se no retorno deve trazer os resultados com erro ou não
+     * @var bool
+     */
+    protected $exibirErros =  self::ESCONDER_RESULTADOS_COM_ERRO;
 
     /**
      * @param \PhpSigep\Model\AccessData $accessData
@@ -98,7 +114,7 @@ class RastrearObjeto extends AbstractModel
 
         return $this;
     }
-    
+
     /**
      * @param \PhpSigep\Model\Etiqueta $etiqueta
      * @return $this;
@@ -168,6 +184,25 @@ class RastrearObjeto extends AbstractModel
     public function getIdioma()
     {
         return $this->idioma;
+    }
+
+    /**
+     * @param bool $exibirErros
+     * @return $this
+     */
+    public function setExibirErros($exibirErros)
+    {
+        $this->exibirErros = $exibirErros;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getExibirErros()
+    {
+        return $this->exibirErros;
     }
     
 }
