@@ -123,8 +123,8 @@ class RastrearObjeto
                                 $evento->setDetalhe(isset($ev->detalhe) ? $ev->detalhe : '');
                                 $evento->setLocal($ev->local);
                                 $evento->setCodigo($ev->codigo);
-                                $evento->setCidade($ev->cidade);
-                                $evento->setUf($ev->uf);
+                                $evento->setCidade(isset($ev->cidade) ? $ev->cidade : '');
+                                $evento->setUf(isset($ev->uf) ? $ev->uf : '');
 
                                 // Sempre adiciona o recebedor ao resultado, mesmo ele sendo exibido apenas quanto 'tipo' = BDE e 'status' = 01
                                 $evento->setRecebedor(
