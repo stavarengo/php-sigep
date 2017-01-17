@@ -5,7 +5,7 @@ class SolicitaEtiquetasTest extends TestCase
 
 	public function testEtiquetas()
 	{
-		$etiquetas = new PhpSigep\Services\SolicitaEtiquetas();
+		$etiquetas = new PhpSigep\Services\Real\SolicitaEtiquetas();
 		$params    = new \PhpSigep\Model\SolicitaEtiquetas(array(
 			'qtdEtiquetas'      => 1,
 			'servicoDePostagem' => new PhpSigep\Model\ServicoDePostagem(PhpSigep\Model\ServicoDePostagem::SERVICE_E_SEDEX_STANDARD),
