@@ -13,7 +13,7 @@ class SolicitaEtiquetas implements RealServiceInterface
 {
 
     private function validAfterRequest($request){
-        if (class_exists('\StaLib_Logger')) {
+        if (class_exists('\StaLib_Logger'),false) {
             \StaLib_Logger::log('Retorno SIGEP solicitar etiquetas: ' . print_r($request, true));
         }
         
