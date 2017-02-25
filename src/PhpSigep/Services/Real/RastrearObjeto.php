@@ -99,8 +99,6 @@ class RastrearObjeto
                         $eventos = new RastrearObjetoResultado();
                         $eventos->setEtiqueta(new Etiqueta(array('etiquetaComDv' => $objeto->numero)));
 
-                        $evento = new RastrearObjetoEvento();
-
                         // Verifica se ocorreu algum erro ao consultar a etiqueta
                         if (isset($objeto->erro)) {
                             // Se estiver configurado para não exibir erros, não insere os resultados com erros
@@ -108,7 +106,12 @@ class RastrearObjeto
                                 continue;
                             }
 
+                            $evento = new RastrearObjetoEvento();
+
                             $evento->setError(SoapClientFactory::convertEncoding('(' . $objeto->numero . ') ' . $objeto->erro));
+
+                            // Adiciona o evento ao resultado
+                            $eventos->addEvento($evento);
 
                         } else {
 
@@ -116,6 +119,9 @@ class RastrearObjeto
                                 $objeto->evento = array($objeto->evento);
 
                             foreach ($objeto->evento as $ev) {
+
+                                $evento = new RastrearObjetoEvento();
+
                                 $evento->setTipo($ev->tipo);
                                 $evento->setStatus($ev->status);
                                 $evento->setDataHora(\DateTime::createFromFormat('d/m/Y H:i', $ev->data . ' ' . $ev->hora));
@@ -130,11 +136,11 @@ class RastrearObjeto
                                 $evento->setRecebedor(
                                     isset($ev->recebedor) && !empty($ev->recebedor) ? trim($ev->recebedor) : ''
                                 );
+
+                                // Adiciona o evento ao resultado
+                                $eventos->addEvento($evento);
                             }
                         }
-
-                        // Adiciona o evento ao resultado
-                        $eventos->addEvento($evento);
 
                         $resultado[] = $eventos;
                     }
