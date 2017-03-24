@@ -45,7 +45,7 @@ class ReedSolomon {
     var $rslen = 0;
 
 
-    function ReedSolomon($blockSize) {
+    function __construct($blockSize) {
         // galois field polynomial for ECC 200
         $this->initializeGaloisField(0x12d);
         // index is 1 for ECC 200
@@ -167,7 +167,7 @@ class Semacode {
     var $codings = "ACTXEB";
     var $debug = false;
 
-    function Semacode() {
+    function __construct() {
         $this->Encodings = array(
             $this->makeEncoding(10, 10, 10, 10, 3, 3, 5),
             $this->makeEncoding(12, 12, 12, 12, 5, 5, 7),
