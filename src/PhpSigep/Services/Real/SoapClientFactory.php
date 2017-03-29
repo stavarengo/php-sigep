@@ -35,7 +35,7 @@ class SoapClientFactory
 
             $opts = array(
                 'ssl' => array(
-                    'ciphers'           =>'RC4-SHA', 
+                    //'ciphers'           =>'RC4-SHA', // comentado o parâmetro ciphers devido ao erro que ocorre quando usado dados de ambiente de produção em um servidor local conforme issue https://github.com/stavarengo/php-sigep/issues/35#issuecomment-290081903
                     'verify_peer'       =>false, 
                     'verify_peer_name'  =>false
                 )
