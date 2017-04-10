@@ -27,6 +27,8 @@ class ServicoDePostagem extends AbstractModel
     const SERVICE_CARTA_COMERCIAL_A_FATURAR  = 10065;
     const SERVICE_CARTA_REGISTRADA           = 10014;
     const SERVICE_CARTA_COMERCIAL_REGISTRADA_CTR_EP_MAQ_FRAN = 10707;
+    const SERVICE_SEDEX_CONTRATO_AGENCIA     = 04162;
+    const SERVICE_PAC_CONTRATO_AGENCIA       = 04669;
 //    const SERVICE_CARTA_REGISTRADA           = 10138;
 
     protected static $services = array(
@@ -51,6 +53,8 @@ class ServicoDePostagem extends AbstractModel
         self::SERVICE_CARTA_COMERCIAL_A_FATURAR  => array('Carta Comercial a Faturar', 109480),
         self::SERVICE_CARTA_REGISTRADA           => array('Carta Registrada', 116985),
         self::SERVICE_CARTA_COMERCIAL_REGISTRADA_CTR_EP_MAQ_FRAN           => array('Carta Comercial Registrada CTR EP MÁQ FRAN', 120072),
+        self::SERVICE_SEDEX_CONTRATO_AGENCIA     => array('SEDEX Contrato Agência', ''),
+        self::SERVICE_PAC_CONTRATO_AGENCIA       => array('PAC Contrato Agência', ''),
     );
 
     /**
