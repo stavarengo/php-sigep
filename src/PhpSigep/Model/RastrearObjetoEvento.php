@@ -3,6 +3,7 @@ namespace PhpSigep\Model;
 
 /**
  * @author: Stavarengo
+ * @author: davidalves1
  */
 class RastrearObjetoEvento extends AbstractModel
 {
@@ -15,7 +16,7 @@ class RastrearObjetoEvento extends AbstractModel
      */
     protected $status;
     /**
-     * @var \DateTime
+     * @var string
      */
     protected $dataHora;
     /**
@@ -25,7 +26,11 @@ class RastrearObjetoEvento extends AbstractModel
     /**
      * @var string
      */
-    protected $detalhes;
+    protected $recebedor;
+    /**
+     * @var string
+     */
+    protected $detalhe;
     /**
      * @var string
      */
@@ -42,14 +47,18 @@ class RastrearObjetoEvento extends AbstractModel
      * @var string
      */
     protected $uf;
+    /**
+     * @var string
+     */
+    protected $error;
 
     /**
-     * @param string $cidade
+     * @param string $tipo
      * @return $this;
      */
-    public function setCidade($cidade)
+    public function setTipo($tipo)
     {
-        $this->cidade = $cidade;
+        $this->tipo = $tipo;
 
         return $this;
     }
@@ -57,43 +66,43 @@ class RastrearObjetoEvento extends AbstractModel
     /**
      * @return string
      */
-    public function getCidade()
+    public function getTipo()
     {
-        return $this->cidade;
+        return $this->tipo;
     }
 
     /**
-     * @param string $codigo
+     * @param int $status
      * @return $this;
      */
-    public function setCodigo($codigo)
+    public function setStatus($status)
     {
-        $this->codigo = $codigo;
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param string $data_hora
+     * @return $this;
+     */
+    public function setDataHora(\DateTime $data_hora)
+    {
+        $this->dataHora = $data_hora->format('Y-m-d H:i');
 
         return $this;
     }
 
     /**
      * @return string
-     */
-    public function getCodigo()
-    {
-        return $this->codigo;
-    }
-
-    /**
-     * @param \DateTime $dataHora
-     * @return $this;
-     */
-    public function setDataHora(\DateTime $dataHora)
-    {
-        $this->dataHora = $dataHora;
-
-        return $this;
-    }
-
-    /**
-     * @return \DateTime
      */
     public function getDataHora()
     {
@@ -120,6 +129,44 @@ class RastrearObjetoEvento extends AbstractModel
     }
 
     /**
+     * @param string $recebedor
+     * @return $this;
+     */
+    public function setRecebedor($recebedor)
+    {
+        $this->recebedor = $recebedor;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRecebedor()
+    {
+        return $this->recebedor;
+    }
+
+    /**
+     * @param string $documento
+     * @return $this;
+     */
+    public function setDetalhe($detalhe)
+    {
+        $this->detalhe = $detalhe;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDetalhe()
+    {
+        return $this->detalhe;
+    }
+
+    /**
      * @param string $local
      * @return $this;
      */
@@ -139,31 +186,12 @@ class RastrearObjetoEvento extends AbstractModel
     }
 
     /**
-     * @param int $status
+     * @param string $codigo
      * @return $this;
      */
-    public function setStatus($status)
+    public function setCodigo($codigo)
     {
-        $this->status = $status;
-
-        return $this;
-    }
-
-    /**
-     * @return int
-     */
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
-    /**
-     * @param string $tipo
-     * @return $this;
-     */
-    public function setTipo($tipo)
-    {
-        $this->tipo = $tipo;
+        $this->codigo = $codigo;
 
         return $this;
     }
@@ -171,10 +199,30 @@ class RastrearObjetoEvento extends AbstractModel
     /**
      * @return string
      */
-    public function getTipo()
+    public function getCodigo()
     {
-        return $this->tipo;
+        return $this->codigo;
     }
+
+    /**
+     * @param string $cidade
+     * @return $this;
+     */
+    public function setCidade($cidade)
+    {
+        $this->cidade = $cidade;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCidade()
+    {
+        return $this->cidade;
+    }
+
 
     /**
      * @param string $uf
@@ -196,12 +244,12 @@ class RastrearObjetoEvento extends AbstractModel
     }
 
     /**
-     * @param string $detalhes
-     * @return $this;
+     * @param $error
+     * @return $this
      */
-    public function setDetalhes($detalhes)
+    public function setError($error)
     {
-        $this->detalhes = $detalhes;
+        $this->error = $error;
 
         return $this;
     }
@@ -209,9 +257,8 @@ class RastrearObjetoEvento extends AbstractModel
     /**
      * @return string
      */
-    public function getDetalhes()
+    public function getErrors()
     {
-        return $this->detalhes;
+        return $this->error;
     }
-    
 }

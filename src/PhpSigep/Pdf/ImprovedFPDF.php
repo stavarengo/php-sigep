@@ -21,7 +21,7 @@ class ImprovedFPDF extends \PhpSigepFPDF
 
     private $widths;
     private $aligns;
-    
+
     function __construct($orientation = 'P', $unit = 'mm', $size = 'A4')
     {
         parent::__construct($orientation, $unit, $size);
@@ -33,7 +33,7 @@ class ImprovedFPDF extends \PhpSigepFPDF
     	    stream_wrapper_register("var", '\PhpSigep\Pdf\VariableStream') or die("Failed to register protocol");
     	    //stream_wrapper_unregister("var");
         }
-        
+
     }
 
     public function _($str)
@@ -210,7 +210,7 @@ class ImprovedFPDF extends \PhpSigepFPDF
             $this->_out('/Names <</JavaScript '.($this->n_js).' 0 R>>');
         }
     }
-    
+
     function SetDash($black=null, $white=null) {
         if($black!==null)
             $s=sprintf('[%.3F %.3F] 0 d',$black*$this->k,$white*$this->k);
@@ -218,19 +218,19 @@ class ImprovedFPDF extends \PhpSigepFPDF
                 $s='[] 0 d';
                 $this->_out($s);
     }
-    
+
     function SetWidths($w)
     {
         //Set the array of column widths
         $this->widths=$w;
     }
-    
+
     function SetAligns($a)
     {
         //Set the array of column alignments
         $this->aligns=$a;
     }
-    
+
     function Row($data)
     {
         //Calculate the height of the row
@@ -259,14 +259,14 @@ class ImprovedFPDF extends \PhpSigepFPDF
         //Go to the next line
         $this->Ln($h);
     }
-    
+
     function CheckPageBreak($h)
     {
         //If the height h would cause an overflow, add a new page immediately
         if($this->GetY()+$h>$this->PageBreakTrigger)
             $this->AddPage($this->CurOrientation);
     }
-    
+
     function NbLines($w,$txt)
     {
         //Computes the number of lines a MultiCell of width w will take
@@ -320,7 +320,7 @@ class ImprovedFPDF extends \PhpSigepFPDF
         }
         return $nl;
     }
-    
+
     function RoundedRect($x, $y, $w, $h, $r, $corners = '1234', $style = '')
     {
         $k = $this->k;
@@ -333,7 +333,7 @@ class ImprovedFPDF extends \PhpSigepFPDF
             $op='S';
             $MyArc = 4/3 * (sqrt(2) - 1);
             $this->_out(sprintf('%.2F %.2F m',($x+$r)*$k,($hp-$y)*$k ));
-    
+
         $xc = $x+$w-$r;
         $yc = $y+$r;
         $this->_out(sprintf('%.2F %.2F l', $xc*$k,($hp-$y)*$k ));
@@ -370,14 +370,14 @@ class ImprovedFPDF extends \PhpSigepFPDF
             $this->_Arc($xc - $r, $yc - $r*$MyArc, $xc - $r*$MyArc, $yc - $r, $xc, $yc - $r);
             $this->_out($op);
     }
-    
+
     function _Arc($x1, $y1, $x2, $y2, $x3, $y3)
     {
         $h = $this->h;
         $this->_out(sprintf('%.2F %.2F %.2F %.2F %.2F %.2F c ', $x1*$this->k, ($h-$y1)*$this->k,
                 $x2*$this->k, ($h-$y2)*$this->k, $x3*$this->k, ($h-$y3)*$this->k));
     }
-    
+
 }
 
 //Stream handler to read from global variables

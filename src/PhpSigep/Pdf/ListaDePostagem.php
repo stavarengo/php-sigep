@@ -35,7 +35,7 @@ class ListaDePostagem
         $this->init();
     }
 
-    public function render($dest='')
+    public function render($dest='', $fileName = '')
     {
         $cacheKey = md5(serialize($this->plp) . $this->idPlpCorreios . get_class($this));
         if ($pdfContent = Bootstrap::getConfig()->getCacheInstance()->getItem($cacheKey)) {
@@ -64,7 +64,7 @@ class ListaDePostagem
                return $pdf->Output('',$dest);
             }
             else{
-                $pdf->Output('',$dest);
+                $pdf->Output($fileName, $dest);
                 Bootstrap::getConfig()->getCacheInstance()->setItem($cacheKey, $pdf->buffer);
             }
         }

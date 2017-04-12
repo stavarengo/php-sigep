@@ -8,6 +8,7 @@ class ServicoDePostagem extends AbstractModel
 {
     const SERVICE_PAC_41068                  = 41068;
     const SERVICE_PAC_41106                  = 41106;
+    const SERVICE_PAC_CONTRATO_41211         = 41211;
     const SERVICE_PAC_GRANDES_FORMATOS       = 41300;
     const SERVICE_PAC_REMESSA_AGRUPADA       = 41610;
     const SERVICE_E_SEDEX_STANDARD           = 81019;
@@ -26,6 +27,8 @@ class ServicoDePostagem extends AbstractModel
     const SERVICE_SEDEX_PAGAMENTO_NA_ENTREGA = 40630;
     const SERVICE_CARTA_COMERCIAL_A_FATURAR  = 10065;
     const SERVICE_CARTA_REGISTRADA           = 10014;
+    const SERVICE_SEDEX_CONTRATO_AGENCIA     = 04162;
+    const SERVICE_PAC_CONTRATO_AGENCIA       = 04669;
     const SERVICE_CARTA_COMERCIAL_REGISTRADA_CTR_EP_MAQ_FRAN = 10707;
     const SERVICE_SEDEX_CONTRATO_AGENCIA     = 04162;
     const SERVICE_PAC_CONTRATO_AGENCIA       = 04669;
@@ -34,6 +37,7 @@ class ServicoDePostagem extends AbstractModel
     protected static $services = array(
         self::SERVICE_PAC_41068                  => array('Pac 41068', 109819),
         self::SERVICE_PAC_41106                  => array('Pac 41106', 110353),
+        self::SERVICE_PAC_CONTRATO_41211         => array('Pac 41211', 113546),
         self::SERVICE_PAC_GRANDES_FORMATOS       => array('Pac Grandes Formatos', 120366),
         self::SERVICE_PAC_REMESSA_AGRUPADA       => array('Pac Remessa Agrupada', 121889),
         self::SERVICE_E_SEDEX_STANDARD           => array('E-Sedex Standard', 104672),

@@ -18,6 +18,13 @@ class SolicitaEtiquetas extends AbstractModel
      */
     protected $qtdEtiquetas;
     /**
+     * Padrão true
+     * Quando true fará para cada etiqueta solicitada uma requisição para os correios com base no valor de $qtdEtiquetas
+     * Quando false incorporará ao XML de solicitação de etiqueta e portanto apenas uma requisição para os correios.
+     * @var boolean
+     */
+    protected $modoMultiplasRequisicoes = true;
+    /**
      * Opcional.
      * Quando não informado será usado o valor retornado pelo método {@link \PhpSigep\Bootstrap::getConfig() }
      * @var AccessData
@@ -64,6 +71,28 @@ class SolicitaEtiquetas extends AbstractModel
     public function getServicoDePostagem()
     {
         return $this->servicoDePostagem;
+    }
+    
+    /**
+     * Atribui para modoMultiplasRequisicoes true
+     */
+    public function setModoMultiplasRequisicoes(){
+        $this->modoMultiplasRequisicoes = true;
+    }
+    
+    /**
+     * Atribui para modoMultiplasRequisicoes false
+     */
+    public function setModoUmaRequisicao(){
+        $this->modoMultiplasRequisicoes = false;
+    }
+    
+    /**
+     * 
+     * @return boolean
+     */
+    public function isModoMultiplasRequisicoes(){
+        return $this->modoMultiplasRequisicoes;
     }
 
     /**

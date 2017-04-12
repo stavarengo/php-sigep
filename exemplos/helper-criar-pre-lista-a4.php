@@ -62,7 +62,7 @@
 
 $plp = new \PhpSigep\Model\PreListaDePostagem();
 $plp->setAccessData(new \PhpSigep\Model\AccessDataHomologacao());
-$plp->setEncomendas(array($encomenda));
+$plp->setEncomendas([$encomenda,$encomenda,$encomenda,$encomenda]);
 $plp->setRemetente($remetente);
 
 return $plp;
