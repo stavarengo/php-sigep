@@ -4,11 +4,15 @@ namespace PhpSigep\Services\Real;
 use PhpSigep\Model\Etiqueta;
 use PhpSigep\Model\RastrearObjetoEvento;
 use PhpSigep\Model\RastrearObjetoResultado;
+use PhpSigep\Services\Real\Exception\RastrearObjeto\ExibirErrosException;
 use PhpSigep\Services\Real\Exception\RastrearObjeto\RastrearObjetoException;
+use PhpSigep\Services\Real\Exception\RastrearObjeto\TipoInvalidoException;
 use PhpSigep\Services\Result;
+use Symfony\Polyfill\Php56\Php56;
 
 /**
  * @author: Stavarengo
+ * @author: davidalves1
  */
 class RastrearObjeto
 {
@@ -46,11 +50,25 @@ class RastrearObjeto
                 break;
         }
 
-        $post = array(
+        switch ($params->getExibirErros()) {
+            case \PhpSigep\Model\RastrearObjeto::EXIBIR_RESULTADOS_COM_ERRO:
+                $exibir_erro = true;
+                break;
+            case \PhpSigep\Model\RastrearObjeto::ESCONDER_RESULTADOS_COM_ERRO:
+                $exibir_erro = false;
+                break;
+            default:
+                throw new TipoInvalidoException("Tipo '" . $params->getExibirErros(
+                    ) . "' não é válido para esta opção'");
+                break;
+        }
+
+        $soapArgs = array(
             'usuario'   => $params->getAccessData()->getUsuario(),
             'senha'     => $params->getAccessData()->getSenha(),
             'tipo'      => $tipo,
-            'Resultado' => $tipoResultado,
+            'resultado' => $tipoResultado,
+            'lingua' => $params->getIdioma(),
             'objetos'    => implode(
                 '',
                 array_map(
@@ -62,111 +80,94 @@ class RastrearObjeto
             ),
         );
 
-        $postContent = http_build_query($post);
-
-        $ch = curl_init();
-
-        curl_setopt_array(
-            $ch,
-            array(
-                CURLOPT_URL            => 'http://websro.correios.com.br/sro_bin/sroii_xml.eventos',
-                CURLOPT_POST           => true,
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_POSTFIELDS     => $postContent,
-                CURLOPT_SSL_VERIFYPEER => false,
-            )
-        );
-
-        // "usuario=ECT  &senha=SRO   &tipo=L&Resultado=T&objetos=SQ458226057BRRA132678652BRSX142052885BR"
-        // "Usuario=sigep&Senha=n5f9t8&Tipo=L&Resultado=T&Objetos=SQ458226057BR"
-        
-        $curlResult = curl_exec($ch);
-        $curlErrno  = curl_errno($ch);
-        $curlErr    = curl_error($ch);
-        curl_close($ch);
-
         $result = new Result();
 
-        if ($curlErrno) {
-            $result->setErrorMsg("Erro de comunicação com o Correios ao tentar buscar os dados de rastreamento. Detalhes: \"$curlErrno - $curlErr\".");
-            $result->setErrorCode($curlErrno);
-        } else if (!$curlResult) {
-            $result->setErrorMsg("Resposta do Correios veio vazia");
-        } else {
-            try {
-                $eventos = $this->_parseResult($curlResult);
-                $result->setResult($eventos);
-            } catch (RastrearObjetoException $e) {
-                $result->setErrorCode(0);
-                $result->setErrorMsg($e->getMessage());
-            }
-        }
+        try {
+            $soapReturn = SoapClientFactory::getRastreioObjetos()->buscaEventos($soapArgs);
 
-        return $result;
-    }
+            if ($soapReturn && is_object($soapReturn) && $soapReturn->return) {
 
-    /**
-     * @param $curlResult
-     * @throws Exception\RastrearObjeto\RastrearObjetoException
-     * @return RastrearObjetoResultado[]
-     */
-    private function _parseResult($curlResult)
-    {
-        $result = null;
-//        $curlResult = SoapClientFactory::convertEncoding($curlResult);
-        $simpleXml = new \SimpleXMLElement($curlResult);
-        if ($simpleXml->error) {
-            throw new RastrearObjetoException('Erro ao rastrear objetos. Resposta do Correios: "' . $simpleXml->error . '"');
-        } else if ($simpleXml->objeto) {
-            $qtdObjetos = $simpleXml->qtd;
-            $objetos    = $simpleXml->objeto;
-            $result    = array();
-            for ($i = 0; $i < $qtdObjetos; $i++) {
-                $objeto      = $objetos[$i];
-                $resultado   = new RastrearObjetoResultado();
-                $resultado->setEtiqueta(new Etiqueta(array('etiquetaComDv' => $objeto->numero)));
-                foreach ($objeto->evento as $evento) {
-                    $dataHoraStr = $evento->data . ' ' . $evento->hora;
-                    $dataHora    = \DateTime::createFromFormat('d/m/Y H:i', $dataHoraStr);
-                    $tipo = strtoupper($evento->tipo);
-                    $status = (int)$evento->status;
-                    $descricao = $evento->descricao;
-                    $detalhes = null;
-                    if ($tipo == 'PO' && $status === 9) {
-                        $detalhes = 'Objeto sujeito a encaminhamento no próximo dia útil.';
-                    } else if ($evento->destino
-                        && (($tipo == 'DO' && in_array($status, array(0, 1, 2)))
-                        || ($tipo == 'PMT' && $status === 1)
-                        || ($tipo == 'TRI' && $status === 1)
-                        || ($tipo == 'RO' && in_array($status, array(0, 1)))
-                    )) {
-                        $detalhes = 'Objeto encaminhado para ' . $evento->destino->cidade . '/' . $evento->destino->uf;
-                        if ($evento->destino->bairro) {
-                            $detalhes .= ' - Bairro: ' . $evento->destino->bairro;
-                        }
-                        if ($evento->destino->local) {
-                            $detalhes .= ' - Local: ' . $evento->destino->local;
-                        }
+                try {
+                    if (!is_array($soapReturn->return->objeto)) {
+                        $soapReturn->return->objeto = array($soapReturn->return->objeto);
                     }
 
-                    $resultado->addEvento(new RastrearObjetoEvento(array(
-                        'tipo'      => $tipo,
-                        'status'    => $status,
-                        'dataHora'  => $dataHora,
-                        'descricao' => $descricao,
-                        'detalhes'  => $detalhes,
-                        'local'     => $evento->local,
-                        'codigo'    => $evento->codigo,
-                        'cidade'    => $evento->cidade,
-                        'uf'        => $evento->uf,
-                    )));
+                    $resultado = array();
+
+                    foreach ($soapReturn->return->objeto as $objeto) {
+
+                        $eventos = new RastrearObjetoResultado();
+                        $eventos->setEtiqueta(new Etiqueta(array('etiquetaComDv' => $objeto->numero)));
+
+                        // Verifica se ocorreu algum erro ao consultar a etiqueta
+                        if (isset($objeto->erro)) {
+                            // Se estiver configurado para não exibir erros, não insere os resultados com erros
+                            if (!$exibir_erro) {
+                                continue;
+                            }
+
+                            $evento = new RastrearObjetoEvento();
+
+                            $evento->setError(SoapClientFactory::convertEncoding('(' . $objeto->numero . ') ' . $objeto->erro));
+
+                            // Adiciona o evento ao resultado
+                            $eventos->addEvento($evento);
+
+                        } else {
+
+                            if (!is_array($objeto->evento))
+                                $objeto->evento = array($objeto->evento);
+
+                            foreach ($objeto->evento as $ev) {
+
+                                $evento = new RastrearObjetoEvento();
+
+                                $evento->setTipo($ev->tipo);
+                                $evento->setStatus($ev->status);
+                                $evento->setDataHora(\DateTime::createFromFormat('d/m/Y H:i', $ev->data . ' ' . $ev->hora));
+                                $evento->setDescricao(SoapClientFactory::convertEncoding($ev->descricao));
+                                $evento->setDetalhe(isset($ev->detalhe) ? $ev->detalhe : '');
+                                $evento->setLocal($ev->local);
+                                $evento->setCodigo($ev->codigo);
+                                $evento->setCidade(isset($ev->cidade) ? $ev->cidade : '');
+                                $evento->setUf(isset($ev->uf) ? $ev->uf : '');
+
+                                // Sempre adiciona o recebedor ao resultado, mesmo ele sendo exibido apenas quanto 'tipo' = BDE e 'status' = 01
+                                $evento->setRecebedor(
+                                    isset($ev->recebedor) && !empty($ev->recebedor) ? trim($ev->recebedor) : ''
+                                );
+
+                                // Adiciona o evento ao resultado
+                                $eventos->addEvento($evento);
+                            }
+                        }
+
+                        $resultado[] = $eventos;
+                    }
+
+                    $result->setResult($resultado);
+
+                } catch (RastrearObjetoException $e) {
+                    $result->setErrorCode(0);
+                    $result->setErrorMsg("Erro de comunicação com o Correios ao tentar buscar os dados de rastreamento. Detalhes: " . $e->getMessage());
                 }
-                
-                $result[] = $resultado;
+
+            } else {
+                $result->setErrorCode(0);
+                $result->setErrorMsg('A resposta do Correios não está no formato esperado. Resposta recebida: "' .
+                    $soapReturn . '"');
+            }
+        } catch (\Exception $e) {
+            if ($e instanceof \SoapFault) {
+                $result->setIsSoapFault(true);
+                $result->setErrorCode($e->getCode());
+                $result->setErrorMsg(SoapClientFactory::convertEncoding($e->getMessage()));
+            } else {
+                $result->setErrorCode($e->getCode());
+                $result->setErrorMsg($e->getMessage() . ' - ' . $e->getLine());
             }
         }
-        
+
         return $result;
     }
-
 }

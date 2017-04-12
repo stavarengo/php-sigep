@@ -3,6 +3,7 @@ namespace PhpSigep\Model;
 
 /**
  * @author: Stavarengo
+ * @author: davidalves1
  */
 class RastrearObjeto extends AbstractModel
 {
@@ -23,7 +24,27 @@ class RastrearObjeto extends AbstractModel
      * O WebService vai retornar apenas o último evento dos objetos consultados. 
      */
     const TIPO_RESULTADO_APENAS_O_ULTIMO_EVENTO = 2;
-    
+
+    /**
+     * Na resposta traz os resultados com erro
+     */
+    const EXIBIR_RESULTADOS_COM_ERRO = true;
+
+    /**
+     * Na resposta não traz os resultados com erro
+     */
+    const ESCONDER_RESULTADOS_COM_ERRO = false;
+
+    /**
+     * Exibe as informações em Português do Brasil
+     */
+    const IDIOMA_PT_BR = '101';
+
+    /**
+     * Exibe as informações em Inglês
+     */
+    const IDIOMA_EN = '102';
+
     /**
      * @var AccessData
      */
@@ -46,6 +67,18 @@ class RastrearObjeto extends AbstractModel
      * @var int
      */
     protected $tipoResultado = self::TIPO_RESULTADO_TODOS_OS_EVENTOS;
+
+    /**
+     * Define o idioma no qual as informações serão exibidas
+     * @var string
+     */
+    protected $idioma = self::IDIOMA_PT_BR;
+
+    /**
+     * Informa se no retorno deve trazer os resultados com erro ou não
+     * @var bool
+     */
+    protected $exibirErros =  self::ESCONDER_RESULTADOS_COM_ERRO;
 
     /**
      * @param \PhpSigep\Model\AccessData $accessData
@@ -81,7 +114,7 @@ class RastrearObjeto extends AbstractModel
 
         return $this;
     }
-    
+
     /**
      * @param \PhpSigep\Model\Etiqueta $etiqueta
      * @return $this;
@@ -116,10 +149,10 @@ class RastrearObjeto extends AbstractModel
     }
 
     /**
-     * @param mixed $tipoResultado
+     * @param int $tipoResultado
      * @return $this;
      */
-    public function setTipoResultado(mixed $tipoResultado)
+    public function setTipoResultado($tipoResultado)
     {
         $this->tipoResultado = $tipoResultado;
 
@@ -132,6 +165,44 @@ class RastrearObjeto extends AbstractModel
     public function getTipoResultado()
     {
         return $this->tipoResultado;
+    }
+
+    /**
+     * @param string $idioma
+     * @return $this
+     */
+    public function setIdioma(string $idioma)
+    {
+        $this->idioma = $idioma;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getIdioma()
+    {
+        return $this->idioma;
+    }
+
+    /**
+     * @param bool $exibirErros
+     * @return $this
+     */
+    public function setExibirErros($exibirErros)
+    {
+        $this->exibirErros = $exibirErros;
+
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getExibirErros()
+    {
+        return $this->exibirErros;
     }
     
 }
