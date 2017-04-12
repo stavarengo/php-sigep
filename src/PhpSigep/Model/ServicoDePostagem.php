@@ -8,7 +8,9 @@ class ServicoDePostagem extends AbstractModel
 {
     const SERVICE_PAC_41068                  = 41068;
     const SERVICE_PAC_41106                  = 41106;
+    const SERVICE_PAC_CONTRATO_41211         = 41211;
     const SERVICE_PAC_GRANDES_FORMATOS       = 41300;
+    const SERVICE_PAC_REMESSA_AGRUPADA       = 41610;
     const SERVICE_E_SEDEX_STANDARD           = 81019;
     const SERVICE_SEDEX_40096                = 40096;
     const SERVICE_SEDEX_40436                = 40436;
@@ -25,13 +27,19 @@ class ServicoDePostagem extends AbstractModel
     const SERVICE_SEDEX_PAGAMENTO_NA_ENTREGA = 40630;
     const SERVICE_CARTA_COMERCIAL_A_FATURAR  = 10065;
     const SERVICE_CARTA_REGISTRADA           = 10014;
+    const SERVICE_SEDEX_CONTRATO_AGENCIA     = 04162;
+    const SERVICE_PAC_CONTRATO_AGENCIA       = 04669;
     const SERVICE_CARTA_COMERCIAL_REGISTRADA_CTR_EP_MAQ_FRAN = 10707;
+    const SERVICE_SEDEX_CONTRATO_AGENCIA     = 04162;
+    const SERVICE_PAC_CONTRATO_AGENCIA       = 04669;
 //    const SERVICE_CARTA_REGISTRADA           = 10138;
 
     protected static $services = array(
         self::SERVICE_PAC_41068                  => array('Pac 41068', 109819),
         self::SERVICE_PAC_41106                  => array('Pac 41106', 110353),
+        self::SERVICE_PAC_CONTRATO_41211         => array('Pac 41211', 113546),
         self::SERVICE_PAC_GRANDES_FORMATOS       => array('Pac Grandes Formatos', 120366),
+        self::SERVICE_PAC_REMESSA_AGRUPADA       => array('Pac Remessa Agrupada', 121889),
         self::SERVICE_E_SEDEX_STANDARD           => array('E-Sedex Standard', 104672),
         self::SERVICE_SEDEX_40096                => array('Sedex 40096', 104625),
         self::SERVICE_SEDEX_40436                => array('Sedex 40436', 109810),
@@ -49,6 +57,8 @@ class ServicoDePostagem extends AbstractModel
         self::SERVICE_CARTA_COMERCIAL_A_FATURAR  => array('Carta Comercial a Faturar', 109480),
         self::SERVICE_CARTA_REGISTRADA           => array('Carta Registrada', 116985),
         self::SERVICE_CARTA_COMERCIAL_REGISTRADA_CTR_EP_MAQ_FRAN           => array('Carta Comercial Registrada CTR EP MÁQ FRAN', 120072),
+        self::SERVICE_SEDEX_CONTRATO_AGENCIA     => array('SEDEX Contrato Agência', 124849),
+        self::SERVICE_PAC_CONTRATO_AGENCIA       => array('PAC Contrato Agência', 124884),
     );
 
     /**
