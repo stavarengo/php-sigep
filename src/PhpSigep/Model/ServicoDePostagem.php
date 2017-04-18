@@ -30,8 +30,6 @@ class ServicoDePostagem extends AbstractModel
     const SERVICE_SEDEX_CONTRATO_AGENCIA     = 04162;
     const SERVICE_PAC_CONTRATO_AGENCIA       = 04669;
     const SERVICE_CARTA_COMERCIAL_REGISTRADA_CTR_EP_MAQ_FRAN = 10707;
-    const SERVICE_SEDEX_CONTRATO_AGENCIA     = 04162;
-    const SERVICE_PAC_CONTRATO_AGENCIA       = 04669;
 //    const SERVICE_CARTA_REGISTRADA           = 10138;
 
     protected static $services = array(
@@ -105,7 +103,7 @@ class ServicoDePostagem extends AbstractModel
         foreach (self::$services as $serviceCode => $serviceDetails) {
             $r[] = new self($serviceCode);
         }
-        
+
         return $r;
     }
 
