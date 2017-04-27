@@ -26,21 +26,3 @@ class AccessDataHomologacao extends AccessData
         try {\PhpSigep\Bootstrap::getConfig()->setEnv(\PhpSigep\Config::ENV_DEVELOPMENT);} catch (\Exception $e) {}
     }
 }
-
-/*
-
-        parent::__construct(
-            array(
-                'usuario'           => '9912330055',
-                'senha'             => 'a2k4e5',
-                'codAdministrativo' => '13296531',
-                'numeroContrato'    => '9912330055',
-                'cartaoPostagem'    => '0067362850',
-                'cnpjEmpresa'       => '79018982000107', // Obtido no método 'buscaCliente'.
-                'anoContrato'       => 2013, // Não consta no manual.
-                'diretoria'         => new Diretoria(Diretoria::DIRETORIA_DR_SANTA_CATARINA), // Obtido no método 'buscaCliente'.
-            )
-        );
-        try {\PhpSigep\Bootstrap::getConfig()->setEnv(\PhpSigep\Config::ENV_PRODUCTION);} catch (\Exception $e) {}
-
-*/
