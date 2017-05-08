@@ -101,7 +101,7 @@ class SolicitaEtiquetas extends AbstractModel
      */
     public function setServicoDePostagem($servicoDePostagem)
     {
-        if (is_int($servicoDePostagem)) {
+        if (is_string($servicoDePostagem)) {
             $servicoDePostagem = new \PhpSigep\Model\ServicoDePostagem($servicoDePostagem);
         }
         
