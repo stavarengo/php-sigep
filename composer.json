@@ -12,8 +12,7 @@
     },
     "require": {
         "php": ">=5.4",
-        "stavarengo/php-sigep-fpdf": "dev-master",
-        "setasign/fpdi": "1.6.1"
+        "stavarengo/php-sigep-fpdf": "dev-master"
     },
     "autoload": {
         "psr-0": {
