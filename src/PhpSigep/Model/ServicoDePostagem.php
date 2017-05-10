@@ -6,29 +6,31 @@ namespace PhpSigep\Model;
  */
 class ServicoDePostagem extends AbstractModel
 {
-    const SERVICE_PAC_41068                  = '41068';
-    const SERVICE_PAC_41106                  = '41106';
-    const SERVICE_PAC_CONTRATO_41211         = '41211';
-    const SERVICE_PAC_GRANDES_FORMATOS       = '41300';
-    const SERVICE_PAC_REMESSA_AGRUPADA       = '41610';
-    const SERVICE_E_SEDEX_STANDARD           = '81019';
-    const SERVICE_SEDEX_40096                = '40096';
-    const SERVICE_SEDEX_40436                = '40436';
-    const SERVICE_SEDEX_40444                = '40444';
-    const SERVICE_SEDEX_12                   = '40169';
-    const SERVICE_SEDEX_10                   = '40215';
-    const SERVICE_SEDEX_10_PACOTE            = '40886';
-    const SERVICE_SEDEX_HOJE_40290           = '40290';
-    const SERVICE_SEDEX_HOJE_40878           = '40878';
-    const SERVICE_SEDEX_A_VISTA              = '40010';
-    const SERVICE_SEDEX_VAREJO_A_COBRAR      = '40045';
-    const SERVICE_SEDEX_AGRUPADO             = '41009';
-    const SERVICE_SEDEX_REVERSO              = '40380';
-    const SERVICE_SEDEX_PAGAMENTO_NA_ENTREGA = '40630';
-    const SERVICE_CARTA_COMERCIAL_A_FATURAR  = '10065';
-    const SERVICE_CARTA_REGISTRADA           = '10014';
-    const SERVICE_SEDEX_CONTRATO_AGENCIA     = '04162';
-    const SERVICE_PAC_CONTRATO_AGENCIA       = '04669';
+    const SERVICE_PAC_41068                      = '41068';
+    const SERVICE_PAC_41106                      = '41106';
+    const SERVICE_PAC_CONTRATO_41211             = '41211';
+    const SERVICE_PAC_GRANDES_FORMATOS           = '41300';
+    const SERVICE_PAC_REMESSA_AGRUPADA           = '41610';
+    const SERVICE_E_SEDEX_STANDARD               = '81019';
+    const SERVICE_SEDEX_40096                    = '40096';
+    const SERVICE_SEDEX_40436                    = '40436';
+    const SERVICE_SEDEX_40444                    = '40444';
+    const SERVICE_SEDEX_12                       = '40169';
+    const SERVICE_SEDEX_10                       = '40215';
+    const SERVICE_SEDEX_10_PACOTE                = '40886';
+    const SERVICE_SEDEX_HOJE_40290               = '40290';
+    const SERVICE_SEDEX_HOJE_40878               = '40878';
+    const SERVICE_SEDEX_A_VISTA                  = '40010';
+    const SERVICE_SEDEX_VAREJO_A_COBRAR          = '40045';
+    const SERVICE_SEDEX_AGRUPADO                 = '41009';
+    const SERVICE_SEDEX_REVERSO                  = '40380';
+    const SERVICE_SEDEX_PAGAMENTO_NA_ENTREGA     = '40630';
+    const SERVICE_CARTA_COMERCIAL_A_FATURAR      = '10065';
+    const SERVICE_CARTA_REGISTRADA               = '10014';
+    const SERVICE_SEDEX_CONTRATO_AGENCIA         = '04162';
+    const SERVICE_PAC_CONTRATO_AGENCIA           = '04669';
+    const SERVICE_SEDEX_REVERSO_CONTRATO_AGENCIA = '0467-7';
+    const SERVICE_PAC_REVERSO_CONTRATO_AGENCIA   = '0417-0';
     const SERVICE_CARTA_COMERCIAL_REGISTRADA_CTR_EP_MAQ_FRAN = '10707';
 //    const SERVICE_CARTA_REGISTRADA           = '10138';
 
@@ -57,6 +59,8 @@ class ServicoDePostagem extends AbstractModel
         self::SERVICE_CARTA_COMERCIAL_REGISTRADA_CTR_EP_MAQ_FRAN           => array('Carta Comercial Registrada CTR EP MÁQ FRAN', 120072),
         self::SERVICE_SEDEX_CONTRATO_AGENCIA     => array('SEDEX Contrato Agência', 124849),
         self::SERVICE_PAC_CONTRATO_AGENCIA       => array('PAC Contrato Agência', 124884),
+        self::SERVICE_SEDEX_REVERSO_CONTRATO_AGENCIA => array('SEDEX Reverso Contrato Agência', 124849),
+        self::SERVICE_PAC_REVERSO_CONTRATO_AGENCIA   => array('PAC Reverso Contrato Agência', 124884),
     );
 
     /**
