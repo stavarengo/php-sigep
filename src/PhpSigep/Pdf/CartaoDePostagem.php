@@ -237,6 +237,7 @@ class CartaoDePostagem
                     case ServicoDePostagem::SERVICE_PAC_CONTRATO_AGENCIA:
                     case ServicoDePostagem::SERVICE_PAC_GRANDES_FORMATOS:
                     case ServicoDePostagem::SERVICE_PAC_REMESSA_AGRUPADA:
+                    case ServicoDePostagem::SERVICE_PAC_REVERSO_CONTRATO_AGENCIA:
                         if ($this->layoutPac === CartaoDePostagem::TYPE_CHANCELA_PAC) {
                             $chancela = new Pac($lPosChancela, $tPosChancela, $nomeRemetente, $accessData);
                         } else {
@@ -250,7 +251,7 @@ class CartaoDePostagem
                             $chancela = new Sedex2016($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_E_SEDEX, $accessData);
                         }
                         break;
-    
+
                     case ServicoDePostagem::SERVICE_SEDEX_40096:
                     case ServicoDePostagem::SERVICE_SEDEX_40436:
                     case ServicoDePostagem::SERVICE_SEDEX_40444:
@@ -259,6 +260,7 @@ class CartaoDePostagem
                     case ServicoDePostagem::SERVICE_SEDEX_PAGAMENTO_NA_ENTREGA:
                     case ServicoDePostagem::SERVICE_SEDEX_AGRUPADO:
                     case ServicoDePostagem::SERVICE_SEDEX_CONTRATO_AGENCIA:
+                    case ServicoDePostagem::SERVICE_SEDEX_REVERSO_CONTRATO_AGENCIA:
                         if ($this->layoutSedex === CartaoDePostagem::TYPE_CHANCELA_SEDEX) {
                             $chancela = new Sedex($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX, $accessData);
                         } else {
@@ -291,7 +293,7 @@ class CartaoDePostagem
                             $chancela = new Sedex2016($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX_HOJE, $accessData);
                         }
                         break;
-    
+
                     case ServicoDePostagem::SERVICE_CARTA_COMERCIAL_A_FATURAR:
                     case ServicoDePostagem::SERVICE_CARTA_REGISTRADA:
                     case ServicoDePostagem::SERVICE_CARTA_COMERCIAL_REGISTRADA_CTR_EP_MAQ_FRAN:
@@ -371,7 +373,7 @@ class CartaoDePostagem
                 );
 
                 // Nome legivel, doc e rubrica
-                // 
+                //
                 $this->pdf->SetFontSize(7);
                 $this->pdf->SetXY(1, $this->pdf->GetY() + 23);
                 $this->t(0, 'Nome Legível:___________________________________________',1, 'L',  null);
