@@ -101,12 +101,12 @@ class SolicitaEtiquetas extends AbstractModel
      */
     public function setServicoDePostagem($servicoDePostagem)
     {
-        if (is_int($servicoDePostagem)) {
+        if (is_string($servicoDePostagem)) {
             $servicoDePostagem = new \PhpSigep\Model\ServicoDePostagem($servicoDePostagem);
         }
         
         if (!($servicoDePostagem instanceof ServicoDePostagem)) {
-            throw new InvalidArgument('Serviço de postagem deve ser um integer ou uma instância de ' .
+            throw new InvalidArgument('Serviço de postagem deve ser uma string ou uma instância de ' .
                 '\PhpSigep\Model\ServicoDePostagem.');
         }
         

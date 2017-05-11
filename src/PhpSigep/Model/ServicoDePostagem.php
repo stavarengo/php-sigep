@@ -6,32 +6,40 @@ namespace PhpSigep\Model;
  */
 class ServicoDePostagem extends AbstractModel
 {
-    const SERVICE_PAC_41068                  = 41068;
-    const SERVICE_PAC_41106                  = 41106;
-    const SERVICE_PAC_GRANDES_FORMATOS       = 41300;
-    const SERVICE_E_SEDEX_STANDARD           = 81019;
-    const SERVICE_SEDEX_40096                = 40096;
-    const SERVICE_SEDEX_40436                = 40436;
-    const SERVICE_SEDEX_40444                = 40444;
-    const SERVICE_SEDEX_12                   = 40169;
-    const SERVICE_SEDEX_10                   = 40215;
-    const SERVICE_SEDEX_10_PACOTE            = 40886;
-    const SERVICE_SEDEX_HOJE_40290           = 40290;
-    const SERVICE_SEDEX_HOJE_40878           = 40878;
-    const SERVICE_SEDEX_A_VISTA              = 40010;
-    const SERVICE_SEDEX_VAREJO_A_COBRAR      = 40045;
-    const SERVICE_SEDEX_AGRUPADO             = 41009;
-    const SERVICE_SEDEX_REVERSO              = 40380;
-    const SERVICE_SEDEX_PAGAMENTO_NA_ENTREGA = 40630;
-    const SERVICE_CARTA_COMERCIAL_A_FATURAR  = 10065;
-    const SERVICE_CARTA_REGISTRADA           = 10014;
-    const SERVICE_CARTA_COMERCIAL_REGISTRADA_CTR_EP_MAQ_FRAN = 10707;
-//    const SERVICE_CARTA_REGISTRADA           = 10138;
+    const SERVICE_PAC_41068                      = '41068';
+    const SERVICE_PAC_04510                      = '04510';
+    const SERVICE_PAC_CONTRATO_41211             = '41211';
+    const SERVICE_PAC_GRANDES_FORMATOS           = '41300';
+    const SERVICE_PAC_REMESSA_AGRUPADA           = '41610';
+    const SERVICE_E_SEDEX_STANDARD               = '81019';
+    const SERVICE_SEDEX_40096                    = '40096';
+    const SERVICE_SEDEX_40436                    = '40436';
+    const SERVICE_SEDEX_40444                    = '40444';
+    const SERVICE_SEDEX_12                       = '40169';
+    const SERVICE_SEDEX_10                       = '40215';
+    const SERVICE_SEDEX_10_PACOTE                = '40886';
+    const SERVICE_SEDEX_HOJE_40290               = '40290';
+    const SERVICE_SEDEX_HOJE_40878               = '40878';
+    const SERVICE_SEDEX_A_VISTA                  = '04014';
+    const SERVICE_SEDEX_VAREJO_A_COBRAR          = '40045';
+    const SERVICE_SEDEX_AGRUPADO                 = '41009';
+    const SERVICE_SEDEX_REVERSO                  = '40380';
+    const SERVICE_SEDEX_PAGAMENTO_NA_ENTREGA     = '40630';
+    const SERVICE_CARTA_COMERCIAL_A_FATURAR      = '10065';
+    const SERVICE_CARTA_REGISTRADA               = '10014';
+    const SERVICE_SEDEX_CONTRATO_AGENCIA         = '04162';
+    const SERVICE_PAC_CONTRATO_AGENCIA           = '04669';
+    const SERVICE_SEDEX_REVERSO_CONTRATO_AGENCIA = '0417-0';
+    const SERVICE_PAC_REVERSO_CONTRATO_AGENCIA   = '0467-7';
+    const SERVICE_CARTA_COMERCIAL_REGISTRADA_CTR_EP_MAQ_FRAN = '10707';
+//    const SERVICE_CARTA_REGISTRADA           = '10138';
 
     protected static $services = array(
         self::SERVICE_PAC_41068                  => array('Pac 41068', 109819),
-        self::SERVICE_PAC_41106                  => array('Pac 41106', 110353),
+        self::SERVICE_PAC_04510                  => array('Pac 04510', 110353),
+        self::SERVICE_PAC_CONTRATO_41211         => array('Pac 41211', 113546),
         self::SERVICE_PAC_GRANDES_FORMATOS       => array('Pac Grandes Formatos', 120366),
+        self::SERVICE_PAC_REMESSA_AGRUPADA       => array('Pac Remessa Agrupada', 121889),
         self::SERVICE_E_SEDEX_STANDARD           => array('E-Sedex Standard', 104672),
         self::SERVICE_SEDEX_40096                => array('Sedex 40096', 104625),
         self::SERVICE_SEDEX_40436                => array('Sedex 40436', 109810),
@@ -49,10 +57,14 @@ class ServicoDePostagem extends AbstractModel
         self::SERVICE_CARTA_COMERCIAL_A_FATURAR  => array('Carta Comercial a Faturar', 109480),
         self::SERVICE_CARTA_REGISTRADA           => array('Carta Registrada', 116985),
         self::SERVICE_CARTA_COMERCIAL_REGISTRADA_CTR_EP_MAQ_FRAN           => array('Carta Comercial Registrada CTR EP MÁQ FRAN', 120072),
+        self::SERVICE_SEDEX_CONTRATO_AGENCIA     => array('SEDEX Contrato Agência', 124849),
+        self::SERVICE_PAC_CONTRATO_AGENCIA       => array('PAC Contrato Agência', 124884),
+        self::SERVICE_SEDEX_REVERSO_CONTRATO_AGENCIA => array('SEDEX Reverso Contrato Agência', 124849),
+        self::SERVICE_PAC_REVERSO_CONTRATO_AGENCIA   => array('PAC Reverso Contrato Agência', 124884),
     );
 
     /**
-     * @var int
+     * @var string
      */
     protected $codigo;
     /**
@@ -72,14 +84,16 @@ class ServicoDePostagem extends AbstractModel
      */
     public function __construct($serviceCode)
     {
-        if (!isset(self::$services[$serviceCode])) {
+        $normalizedServiceCode = sprintf("%'05s",  $serviceCode);
+
+        if (!isset(self::$services[$normalizedServiceCode])) {
             throw new Exception('There is no service with the code "' . $serviceCode . '".');
         }
 
-        $service = self::$services[$serviceCode];
+        $service = self::$services[$normalizedServiceCode];
         parent::__construct(
             array(
-                'codigo'    => $serviceCode,
+                'codigo'    => $normalizedServiceCode,
                 'nome'      => $service[0],
                 'idServico' => $service[1],
             )
@@ -95,7 +109,7 @@ class ServicoDePostagem extends AbstractModel
         foreach (self::$services as $serviceCode => $serviceDetails) {
             $r[] = new self($serviceCode);
         }
-        
+
         return $r;
     }
 
@@ -111,7 +125,7 @@ class ServicoDePostagem extends AbstractModel
     }
 
     /**
-     * @return int
+     * @return string
      */
     public function getCodigo()
     {
