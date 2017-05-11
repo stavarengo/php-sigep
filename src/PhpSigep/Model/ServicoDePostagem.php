@@ -9,7 +9,7 @@ class ServicoDePostagem extends AbstractModel
     const SERVICE_PAC_41068                      = '41068';
     const SERVICE_PAC_04510                      = '04510';
     const SERVICE_PAC_CONTRATO_41211             = '41211';
-    const SERVICE_PAC_GRANDES_FORMATOS           = '41300';
+    const SERVICE_PAC_GRANDES_FORMATOS           = '04693';
     const SERVICE_PAC_REMESSA_AGRUPADA           = '41610';
     const SERVICE_E_SEDEX_STANDARD               = '81019';
     const SERVICE_SEDEX_40096                    = '40096';
@@ -24,13 +24,14 @@ class ServicoDePostagem extends AbstractModel
     const SERVICE_SEDEX_VAREJO_A_COBRAR          = '40045';
     const SERVICE_SEDEX_AGRUPADO                 = '41009';
     const SERVICE_SEDEX_REVERSO                  = '40380';
-    const SERVICE_SEDEX_PAGAMENTO_NA_ENTREGA     = '40630';
+    const SERVICE_SEDEX_PAGAMENTO_NA_ENTREGA     = '04189';
+    const SERVICE_PAC_PAGAMENTO_NA_ENTREGA       = '04685';
     const SERVICE_CARTA_COMERCIAL_A_FATURAR      = '10065';
     const SERVICE_CARTA_REGISTRADA               = '10014';
     const SERVICE_SEDEX_CONTRATO_AGENCIA         = '04162';
     const SERVICE_PAC_CONTRATO_AGENCIA           = '04669';
-    const SERVICE_SEDEX_REVERSO_CONTRATO_AGENCIA = '0417-0';
-    const SERVICE_PAC_REVERSO_CONTRATO_AGENCIA   = '0467-7';
+    const SERVICE_SEDEX_REVERSO_CONTRATO_AGENCIA = '04170';
+    const SERVICE_PAC_REVERSO_CONTRATO_AGENCIA   = '04677';
     const SERVICE_CARTA_COMERCIAL_REGISTRADA_CTR_EP_MAQ_FRAN = '10707';
 //    const SERVICE_CARTA_REGISTRADA           = '10138';
 
@@ -54,6 +55,7 @@ class ServicoDePostagem extends AbstractModel
         self::SERVICE_SEDEX_AGRUPADO             => array('Sedex Agrupado', 119461),
         self::SERVICE_SEDEX_REVERSO              => array('Sedex Reverso', 109806),
         self::SERVICE_SEDEX_PAGAMENTO_NA_ENTREGA => array('Sedex Pagamento na Entrega', 114976),
+        self::SERVICE_PAC_PAGAMENTO_NA_ENTREGA   => array('PAC Pagamento na Entrega', 114976),
         self::SERVICE_CARTA_COMERCIAL_A_FATURAR  => array('Carta Comercial a Faturar', 109480),
         self::SERVICE_CARTA_REGISTRADA           => array('Carta Registrada', 116985),
         self::SERVICE_CARTA_COMERCIAL_REGISTRADA_CTR_EP_MAQ_FRAN           => array('Carta Comercial Registrada CTR EP MÁQ FRAN', 120072),
