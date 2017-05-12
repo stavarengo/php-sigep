@@ -72,6 +72,40 @@ class SolicitaEtiquetasTest extends TestCase
         $this->assertEquals($retornoEsperado, $numerosEtiquetas);
         
     }
+    
+    public function testCreateEtiquetasByRangeWithZero() {
+
+        $service = new \PhpSigep\Services\Real\SolicitaEtiquetas();
+        
+        $primeiraEtiqueta = 'EC01081466 BR';
+        $ultimaEtiqueta = 'EC01081471 BR';
+        $retornoEsperado = array('EC01081466 BR', 'EC01081467 BR', 'EC01081468 BR', 'EC01081469 BR', 'EC01081470 BR', 'EC01081471 BR');
+        $numerosEtiquetas = $service->createNumberEtiquetasByRange($primeiraEtiqueta, $ultimaEtiqueta);
+
+        $this->assertEquals($retornoEsperado, $numerosEtiquetas);
+        
+        $primeiraEtiqueta = 'EC01081466 BR';
+        $ultimaEtiqueta = 'EC01081466 BR';
+        $retornoEsperado = array('EC01081466 BR');
+        $numerosEtiquetas = $service->createNumberEtiquetasByRange($primeiraEtiqueta, $ultimaEtiqueta);
+
+        $this->assertEquals($retornoEsperado, $numerosEtiquetas);
+        
+        $primeiraEtiqueta = 'EC01081466 BR';
+        $ultimaEtiqueta = 'EC01081467 BR';
+        $retornoEsperado = array('EC01081466 BR', 'EC01081467 BR');
+        $numerosEtiquetas = $service->createNumberEtiquetasByRange($primeiraEtiqueta, $ultimaEtiqueta);
+
+        $this->assertEquals($retornoEsperado, $numerosEtiquetas);
+        
+        $primeiraEtiqueta = 'EC01081466 BR';
+        $ultimaEtiqueta = 'EC01081465 BR';
+        $retornoEsperado = array();
+        $numerosEtiquetas = $service->createNumberEtiquetasByRange($primeiraEtiqueta, $ultimaEtiqueta);
+        
+        $this->assertEquals($retornoEsperado, $numerosEtiquetas);
+        
+    }
 
     public function testSolicitarEtiquetaUmRequisicao(){
         
