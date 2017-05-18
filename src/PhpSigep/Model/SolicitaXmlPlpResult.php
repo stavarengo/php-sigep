@@ -36,9 +36,16 @@ class SolicitaXmlPlpResult extends AbstractModel
      * @var array
      */
     protected $objeto_postal;
+
+    /**
+     * @var array armazena o resultado bruto, caso seja necessário para outro fins
+     */
+    protected $resultArray;
     
     public function __construct(array $initialValues = array())
     {
+        $this->resultArray = $initialValues;
+
         $this->_failIfAtributeNotExiste = false;
         parent::__construct($initialValues);
     }
@@ -89,5 +96,13 @@ class SolicitaXmlPlpResult extends AbstractModel
     public function getObjetoPostal()
     {
         return $this->objeto_postal;
+    }
+
+    /**
+     * @return array
+     */
+    public function getResultArray()
+    {
+        return $this->resultArray;
     }
 }
