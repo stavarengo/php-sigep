@@ -5,12 +5,15 @@ use PhpSigep\Model\SolicitaXmlPlpResult;
 use PhpSigep\Services\Exception;
 use PhpSigep\Services\Result;
 use PhpSigep\Bootstrap;
+use PhpSigep\Services\Real\Exception\SolicitaXmlPlp\FailedConvertToArrayException;
+use PhpSigep\Services\Real\Exception\SolicitaXmlPlp\FailedConvertXmlException;
+use PhpSigep\Services\Real\Exception\SolicitaXmlPlp\FailedResultException;
 
 /**
  * @author: Cristiano Soares
  * @link: http://comerciobr.com
  */
-class solicitaXmlPlp
+class SolicitaXmlPlp
 {
     /**
      * @param integer $idPlpMaster
@@ -35,7 +38,7 @@ class solicitaXmlPlp
                     throw $r;
                 }
 
-                throw new \Exception('Erro ao consultar XML da PLP. Retorno: "' . $r . '"');
+                throw new FailedResultException('Erro ao consultar XML da PLP. Retorno: "' . $r . '"');
             }
 
             if (is_string($r->return)) {
@@ -47,13 +50,13 @@ class solicitaXmlPlp
                     if ($objectToarray) {
                         $result->setResult(new SolicitaXmlPlpResult($objectToarray));
                     } else {
-                        throw new \Exception('Erro ao converter Object para Array da PLP. Retorno: "' . print_r(json_last_error_msg(), true) . '"');
+                        throw new FailedConvertToArrayException('Erro ao converter Object para Array da PLP. Retorno: "' . print_r(json_last_error_msg(), true) . '"');
                     }
                 } else {
-                    throw new \Exception('Erro ao converter XML da PLP. Retorno: "' . print_r(libxml_get_errors(), true) . '"');
+                    throw new FailedConvertXmlException('Erro ao converter XML da PLP. Retorno: "' . print_r(libxml_get_errors(), true) . '"');
                 }
             } else {
-                throw new \Exception('Erro no resultado do XML da PLP. Retorno: "' . print_r($r->return, true) . '"');
+                throw new FailedResultException('Erro no resultado do XML da PLP. Retorno: "' . print_r($r->return, true) . '"');
             }
         } catch (\Exception $e) {
             if ($e instanceof \SoapFault) {
