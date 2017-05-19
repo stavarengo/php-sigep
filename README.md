@@ -19,6 +19,7 @@ Esta API pode:
 * Gerar o relatório da PLP no formato PDF.   
 * Gerar as etiquetas de postagem no formato PDF.
 * Gerar em PDF as chancelas para cada tipo de serviço (logo de cada tipo de servico). 
+* Obter dados de PLP após postagem [processamento pelo Sara]
 
 Requisitos
 ---
