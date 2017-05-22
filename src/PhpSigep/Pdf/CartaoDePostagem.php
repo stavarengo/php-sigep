@@ -238,6 +238,7 @@ class CartaoDePostagem
                     case ServicoDePostagem::SERVICE_PAC_GRANDES_FORMATOS:
                     case ServicoDePostagem::SERVICE_PAC_REMESSA_AGRUPADA:
                     case ServicoDePostagem::SERVICE_PAC_REVERSO_CONTRATO_AGENCIA:
+                    case ServicoDePostagem::SERVICE_PAC_PAGAMENTO_NA_ENTREGA:
                         if ($this->layoutPac === CartaoDePostagem::TYPE_CHANCELA_PAC) {
                             $chancela = new Pac($lPosChancela, $tPosChancela, $nomeRemetente, $accessData);
                         } else {
