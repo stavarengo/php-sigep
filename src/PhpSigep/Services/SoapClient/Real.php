@@ -54,7 +54,7 @@ class Real implements ServiceInterface
      */
     public function solicitaXmlPlp($idPlpMaster)
     {
-        $service = new ServiceImplementation\solicitaXmlPlp();
+        $service = new ServiceImplementation\SolicitaXmlPlp();
 
         return $service->execute($idPlpMaster);
     }
