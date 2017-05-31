@@ -9,10 +9,28 @@ error_reporting(E_ALL);
 
 header('Content-Type: text/html; charset=utf-8');
 
-$autoload = __DIR__ . '/../vendor/autoload.php';
-if (file_exists($autoload)) {
-    require_once $autoload;
+// FIX: MOZG
+
+$depth = 3;
+$path = dirname(__FILE__);
+for( $d=1 ; $d <= $depth ; $d++ ){
+    $path = dirname($path);
 }
+$vendorModuleDir = $path;
+
+$autoload_path = $vendorModuleDir . '/autoload.php';
+
+//print_r($autoload_path);
+
+$included = include $autoload_path;
+
+if (!$included) {
+    echo 'Falha no carregamento do autoload';
+    exit(1);
+}
+
+// FIX: MOZG
+
 if (!class_exists('PhpSigepFPDF')) {
     throw new RuntimeException(
         'Não encontrei a classe PhpSigepFPDF. Execute "php composer.phar install" ou baixe o projeto ' .
