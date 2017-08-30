@@ -25,4 +25,4 @@ $pac->draw($pdf);
 $pac = new \PhpSigep\Pdf\Chancela\Pac(50, 100, 'Layout antigo', $accessData);
 $pac->draw($pdf);
 
-$pdf->Output('chancelas.pdf', 'F');
+$pdf->Output();

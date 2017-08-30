@@ -9,6 +9,7 @@ namespace PhpSigep\Services\Real;
 
 use PhpSigep\Bootstrap;
 use PhpSigep\Config;
+use PhpSigep\Services\Real\Exception\SoapExtensionNotInstalled;
 
 class SoapClientFactory
 {
@@ -31,6 +32,10 @@ class SoapClientFactory
     public static function getSoapClient()
     {
         if (!self::$_soapClient) {
+            if (!extension_loaded('soap')) {
+                throw new SoapExtensionNotInstalled('The "soap" module must be enabled in your PHP installation. The "soap" module is required in order to PHPSigep to make requests to the Correios WebService.');
+            }
+
             $wsdl = Bootstrap::getConfig()->getWsdlAtendeCliente();
 
             $opts = array(
