@@ -4,6 +4,11 @@
     "type": "library",
     "description": "Integração com Web Service do Correios. Gera etiquetas, consulta preços e prazos, imprime etiquetas e PLP, etc.",
     "keywords": ["correios", "sigep"],
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "config": {
+        "sort-packages": true
+    },
     "extra": {
         "branch-alias": {
             "dev-master": "1.0-dev",
@@ -12,6 +17,7 @@
     },
     "require": {
         "php": ">=5.4",
+        "ext-soap": "*",
         "stavarengo/php-sigep-fpdf": "dev-master"
     },
     "autoload": {
@@ -25,6 +31,5 @@
             "name": "Rafael Stavarengo",
             "email": "faelsta@gmail.com"
         }
-    ],
-    "minimum-stability": "stable"
+    ]
 }
