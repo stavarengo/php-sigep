@@ -5,3 +5,6 @@ vendor/
 nbproject/
 composer.phar
 composer.lock
+.buildpath
+.project
+.settings/
