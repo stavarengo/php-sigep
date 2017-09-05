@@ -43,7 +43,8 @@ class SolicitaXmlPlp
 
             if (is_string($r->return)) {
                 libxml_use_internal_errors(true);
-                $xml = simplexml_load_string($r->return, \SimpleXMLElement::class, LIBXML_NOCDATA);
+                $xmlString = iconv('utf-8', 'ISO-8859-1', $r->return);
+                $xml = simplexml_load_string($xmlString, \SimpleXMLElement::class, LIBXML_NOCDATA);
                 if ($xml instanceof \SimpleXMLElement) {
                     $objectToarray = json_decode(json_encode($xml), true);
 
