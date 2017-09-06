@@ -6,26 +6,22 @@ use PhpSigep\Bootstrap;
 
 class AvisoRecebimento{
 
+    /** @var \PhpSigep\Model\PreListaDePostagem */
+    private $plp;
+
     /** @var \PhpSigep\Pdf\ImprovedFPDF */
     public $pdf;
+    
+    public function __construct(\PhpSigep\Model\PreListaDePostagem $plp){
 
-    public function __construct(){
-
+        $this->plp = $plp;
+        
         $this->init();
     }
 
     public function render($dest='', $filename = '') {
         
-        $cacheKey = '123';
-        
-        if($dest == 'S'){
-            //TODO implementar
-            exit();
-//            return $this->_render($dest, $filename);
-        }else{
-            $this->_render($dest, $filename);
-            Bootstrap::getConfig()->getCacheInstance()->setItem($cacheKey, $this->pdf->buffer);
-        }
+        $this->_render($dest, $filename);
         
     }
     
@@ -56,41 +52,50 @@ class AvisoRecebimento{
         }
 
         $pdf->x = $pdf->lMargin;
-        $pdf->y = $pdf->tMargin;
+        $pdf->y = 0;
     }
 
     private function _render($dest='', $filename=''){
-
+        
         $this->addPage();
 
-        //configs
-        $widthBorderPaste = 5;
-        $xContent = $this->pdf->rMargin + $widthBorderPaste + 1;
-        $wInner = $this->pdf->w - $this->pdf->lMargin - $xContent;
-        $yBorderPaste = $this->pdf->y + 10 / $this->pdf->k;
-        $wCol1 = ($wInner * 46)/100;
-        $wCol2 = (($wInner * 31)/100);
-        $wCol3 = $wInner-$wCol1-$wCol2;
-        $wColFooter = $wCol1+$wCol2;
-        
-        $this->writeHeader($xContent, $wInner);
-        
-        $yContent = $this->pdf->y;
-        
-        $this->writeContentDescription($xContent, $yContent, $wInner, $wCol1);
-        $this->writeDeclarationOfContent($xContent, $wCol1);
-        
-        $yEndDeclarationOfContent = $this->pdf->y;
-        $this->writeDeliveryAttempts($xContent+$wCol1, $yContent, $wInner, $wCol2, $yEndDeclarationOfContent);
-        
-        $this->writeSignature($xContent, $yEndDeclarationOfContent, $wColFooter);
-        
-        $yEnd = $this->pdf->y;
-        
-        $this->writeStamp($xContent+$wCol1+$wCol2, $yContent, $wCol3, $yEnd);
-        
-        $this->writeBorderPaste($yBorderPaste, $widthBorderPaste, $yEnd);
-        
+        foreach ($this->plp->getEncomendas() as $key => $objetoPostal) {
+            
+            if($key > 0 && ($key) % 3 == 0){
+                $this->addPage();
+            }
+            
+            //configs
+            $widthBorderPaste = 5;
+            $xContent = $this->pdf->rMargin + $widthBorderPaste + 1;
+            $wInner = $this->pdf->w - $this->pdf->lMargin - $xContent;
+            $yBorderPaste = $this->pdf->y + 10 / $this->pdf->k;
+            $wCol1 = ($wInner * 46)/100;
+            $wCol2 = (($wInner * 31)/100);
+            $wCol3 = $wInner-$wCol1-$wCol2;
+            $wColFooter = $wCol1+$wCol2;
+
+            $this->writeHeader($xContent, $wInner);
+
+            $yContent = $this->pdf->y;
+            
+            $this->writeContentDescription($objetoPostal, $xContent, $yContent, $wInner, $wCol1);
+            $this->writeDeclarationOfContent($xContent, $wCol1);
+
+            $yEndDeclarationOfContent = $this->pdf->y;
+            $this->writeDeliveryAttempts($xContent+$wCol1, $yContent, $wInner, $wCol2, $yEndDeclarationOfContent);
+
+            $this->writeSignature($xContent, $yEndDeclarationOfContent, $wColFooter);
+
+            $yEnd = $this->pdf->y;
+
+            $this->writeStamp($xContent+$wCol1+$wCol2, $yContent, $wCol3, $yEnd);
+
+            $this->writeBorderPaste($yBorderPaste, $widthBorderPaste, $yEnd);
+            
+            $this->pdf->SetY($yEnd);
+
+        }
         
         if($dest == 'S'){
             return $this->pdf->Output($filename,$dest);
@@ -140,7 +145,7 @@ class AvisoRecebimento{
         
         //Label cd contrato
         $wLabelCdContrato = $wInner - $wLabelContrato - $wLabelAR - $wLabelSigep - $wLogo;
-        $this->pdf->CellXp($wLabelCdContrato, '9912208555', 'L', 0, null, 0);
+        $this->pdf->CellXp($wLabelCdContrato, $this->plp->getAccessData()->getNumeroContrato(), 'L', 0, null, 0);
         
         $this->pdf->Rect($x, $yHeaderRect, $wInner, $lastYBorder - $yHeaderRect, 'S');
         
@@ -148,7 +153,18 @@ class AvisoRecebimento{
         
     }
     
-    private function writeContentDescription($x, $y, $wInner, $wContentInner){
+    /**
+     * 
+     * @param \PhpSigep\Model\ObjetoPostal $objetoPostal
+     * @param type $x
+     * @param type $y
+     * @param type $wInner
+     * @param type $wContentInner
+     */
+    private function writeContentDescription(\PhpSigep\Model\ObjetoPostal $objetoPostal, $x, $y, $wInner, $wContentInner){
+        
+        $destinatario = $objetoPostal->getDestinatario();
+        $destino = $objetoPostal->getDestino();
         
         //destinatário
         $this->pdf->SetXY($x, $y+2);
@@ -156,11 +172,11 @@ class AvisoRecebimento{
         $this->pdf->CellXp($wContentInner, 'DESTINATÁRIO', 'L', 2, null, 0);
         $this->pdf->SetFont('', '', 7);
         //TODO pode quebrar linha usar MultiCellXp
-        $this->pdf->CellXp($wContentInner, 'Fulando 2', 'L', 2, null, 0);
+        $this->pdf->CellXp($wContentInner, $destinatario->getNome(), 'L', 2, null, 0);
         $this->ln(1);
-        $this->pdf->CellXp($wContentInner, 'Rua João Negão, 1251', 'L', 2, null, 0);
-        $this->pdf->CellXp($wContentInner, 'Casa Branca Bela Vista', 'L', 2, null, 0);
-        $this->pdf->CellXp($wContentInner, '80002900 Curitiba-PR', 'L', 2, null, 0);
+        $this->pdf->CellXp($wContentInner, $destinatario->getLogradouro().(($destinatario->getNumero())?','.$destinatario->getNumero():''), 'L', 2, null, 0);
+        $this->pdf->CellXp($wContentInner, $destinatario->getComplemento().' - '.$destino->getBairro(), 'L', 2, null, 0);
+        $this->pdf->CellXp($wContentInner, $destino->getCep().' '.$destino->getCidade().'-'.$destino->getUf(), 'L', 2, null, 0);
         
         
         //rastreamento
@@ -169,27 +185,29 @@ class AvisoRecebimento{
         $wCode = ($wInner * 24)/100;
         $hCode = 10;
 
-        $this->pdf->CellXp($wContentInner, 'PD739580968BR', 'C', 2, null, 0);
+        $this->pdf->CellXp($wContentInner, $objetoPostal->getEtiqueta()->getEtiquetaComDv(), 'C', 2, null, 0);
 
         $code128 = new \PhpSigep\Pdf\Script\BarCode128();
-        $code128->draw($this->pdf, (($wContentInner-$wCode)/2)+$x, $this->pdf->y, 'PD739580968BR', $wCode, $hCode);
+        $code128->draw($this->pdf, (($wContentInner-$wCode)/2)+$x, $this->pdf->y, $objetoPostal->getEtiqueta()->getEtiquetaComDv(), $wCode, $hCode);
         $this->pdf->SetXY($x, $this->pdf->y+$hCode);
         $this->ln(2);
+        
+        $remetente = $this->plp->getRemetente();
         
         //remetente
         $this->pdf->SetFont('', 'B', 8);
         $this->pdf->CellXp(19, 'REMETENTE: ', 'L', 0, null, 0);
         $this->pdf->SetFont('', '', 7);
-        $this->pdf->CellXp($wContentInner, 'nome da empresa', 'L', 2, null, 0);
+        $this->pdf->CellXp($wContentInner, $remetente->getNome(), 'L', 2, null, 0);
         $this->pdf->SetX($x);
         $this->pdf->SetFont('', 'B', 8);
         $this->ln(1);
         $this->pdf->CellXp($wContentInner, 'ENDEREÇO PARA DEVOLUÇÃO DO OBJETO:', 'L', 2, null, 0);
         $this->ln(1);
         $this->pdf->SetFont('', '', 7);
-        $this->pdf->CellXp($wContentInner, 'SBN Quadra 1 Bloco A, 10', 'L', 2, null, 0);
-        $this->pdf->CellXp($wContentInner, '14º Andar Asa Norte', 'L', 2, null, 0);
-        $this->pdf->CellXp($wContentInner, '14º 70002900 Brasília-DF', 'L', 2, null, 0);
+        $this->pdf->CellXp($wContentInner, $remetente->getLogradouro().(($remetente->getNumero())?', '.$remetente->getNumero():''), 'L', 2, null, 0);
+        $this->pdf->CellXp($wContentInner, $remetente->getComplemento().' - '.$remetente->getBairro(), 'L', 2, null, 0);
+        $this->pdf->CellXp($wContentInner, $remetente->getCep().' '.$remetente->getCidade().'-'.$remetente->getUf(), 'L', 2, null, 0);
         $this->ln(2);
         
         $this->pdf->Rect($x, $y, $wContentInner, $this->pdf->y - $y, 'S');
