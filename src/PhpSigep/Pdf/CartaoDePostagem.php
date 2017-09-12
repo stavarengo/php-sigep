@@ -339,6 +339,8 @@ class CartaoDePostagem
                 $nf = (float)$objetoPostal->getDestino()->getNumeroNotaFiscal();
                 if($nf > 0) {
                     $nf = '    NF: '. $nf;
+                } else {
+                    $nf = '';
                 }
 
                 $numeroPedido = trim($objetoPostal->getDestino()->getNumeroPedido());
