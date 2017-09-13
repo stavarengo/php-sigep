@@ -159,6 +159,7 @@ class CartaoDePostagem
 
         $objetosPostais = $this->plp->getEncomendas();
         $total = count($objetosPostais);
+        $index = 1;
         while (count($objetosPostais)) {
             $this->pdf->AddPage();
 
@@ -338,6 +339,8 @@ class CartaoDePostagem
                 $nf = (float)$objetoPostal->getDestino()->getNumeroNotaFiscal();
                 if($nf > 0) {
                     $nf = '    NF: '. $nf;
+                } else {
+                    $nf = '';
                 }
 
                 $numeroPedido = trim($objetoPostal->getDestino()->getNumeroPedido());
@@ -346,7 +349,7 @@ class CartaoDePostagem
                 }
 
                 $this->pdf->SetFontSize(7);
-                $this->t($this->pdf->w, 'Volume: 1/1    '.'Peso(kg): ' . ((float)$objetoPostal->getPeso()) . $nf . $numeroPedido, 1, 'C',  null);
+                $this->t($this->pdf->w, "Volume: $index/$total    ".'Peso(kg): ' . ((float)$objetoPostal->getPeso()) . $nf . $numeroPedido, 1, 'C',  null);
 
                 // Número da etiqueta
                 $this->setFillColor(100, 100, 200);
@@ -466,6 +469,8 @@ class CartaoDePostagem
                 $this->writeRemetente(0,  $this->pdf->GetY() + $hCepBarCode + 5, $wAddressLeftCol, $this->plp->getRemetente());
 
             }
+            
+            $index++;
         }
 
         if($dest == 'S'){
