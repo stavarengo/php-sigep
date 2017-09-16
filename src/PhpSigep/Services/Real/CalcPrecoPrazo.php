@@ -105,7 +105,7 @@ class CalcPrecoPrazo
         if ($cachedResult = $cache->getItem($cacheKey)) {
             return unserialize($cachedResult);
         }
-        
+
         $result = new Result();
         try {
             $r = SoapClientFactory::getSoapCalcPrecoPrazo()->calcPrecoPrazo($soapArgs);
@@ -130,18 +130,18 @@ class CalcPrecoPrazo
             }
         }
 
-        if (class_exists('\StaLib_Logger')) {
+        if (class_exists('\StaLib_Logger',false)) {
             \StaLib_Logger::log('Retorno SIGEP: ' . print_r($r, true));
         }
 
         $retorno = array();
-        if (is_object($r) && $r->CalcPrecoPrazoResult && is_object($r->CalcPrecoPrazoResult) 
-            && $r->CalcPrecoPrazoResult->Servicos && is_object($r->CalcPrecoPrazoResult->Servicos) 
+        if (is_object($r) && property_exists($r, 'CalcPrecoPrazoResult') && is_object($r->CalcPrecoPrazoResult)
+            && $r->CalcPrecoPrazoResult->Servicos && is_object($r->CalcPrecoPrazoResult->Servicos)
         ) {
             if ($r->CalcPrecoPrazoResult->Servicos->cServico) {
                 $servicos = $r->CalcPrecoPrazoResult->Servicos->cServico;
                 $servicos = (is_array($servicos) ? $servicos : array($servicos));
-    
+
                 foreach ($servicos as $servico) {
                     $valor                 = (float)str_replace(',', '.', str_replace('.', '', $servico->Valor));
                     $valorMaoPropria       = str_replace('.', '', $servico->ValorMaoPropria);
@@ -150,7 +150,7 @@ class CalcPrecoPrazo
                     $valorAvisoRecebimento = (float)str_replace(',', '.', $valorAvisoRecebimento);
                     $valorValorDeclarado   = str_replace('.', '', $servico->ValorValorDeclarado);
                     $valorValorDeclarado   = (float)str_replace(',', '.', $valorValorDeclarado);
-    
+
                     $item = new \PhpSigep\Model\CalcPrecoPrazoResposta(array(
                         'servico'               => new \PhpSigep\Model\ServicoDePostagem($servico->Codigo),
                         'valor'                 => $valor,
@@ -161,7 +161,7 @@ class CalcPrecoPrazo
                         'entregaDomiciliar'     => ($servico->EntregaDomiciliar == 'S'),
                         'entregaSabado'         => ($servico->EntregaSabado == 'S'),
                     ));
-    
+
                     $item->setErroCodigo($servico->Erro);
                     if ($item->getErroCodigo() && ($item->getErroCodigo() != 10 || !$item->getValor())) {
                         // Se entrar aqui significa que tem Erro e que esse Erro é diferente de 10 ou o Erro é 10 mas não
@@ -191,7 +191,7 @@ class CalcPrecoPrazo
 
         $retornoIterator = new \PhpSigep\Model\CalcPrecoPrazoRespostaIterator($retorno);
         $result->setResult($retorno);
-        
+
         if (!$result->hasError()) {
             if ($retornoIterator->todosTemErro()) {
                 $erros = array();
@@ -217,7 +217,7 @@ class CalcPrecoPrazo
                 $cache->setItem($cacheKey, serialize($result));
             }
         }
-        
+
         return $result;
     }
 }

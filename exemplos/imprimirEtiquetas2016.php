@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/bootstrap-exemplos.php';
 
-$params = include __DIR__ . '/helper-criar-pre-lista.php';
+$params = include __DIR__ . '/helper-criar-pre-lista-a4.php';
 
 // Logo da empresa remetente
 $logoFile = __DIR__ . '/logo-etiqueta-2016.png';
@@ -11,4 +11,4 @@ $logoFile = __DIR__ . '/logo-etiqueta-2016.png';
 $layoutChancela = array(); //array(\PhpSigep\Pdf\CartaoDePostagem2016::TYPE_CHANCELA_SEDEX_2016);
 
 $pdf = new \PhpSigep\Pdf\CartaoDePostagem2016($params, time(), $logoFile, $layoutChancela);
-$pdf->render('F', 'etiquetas.pdf');
+$pdf->render();

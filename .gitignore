@@ -1,4 +1,10 @@
+tmp/
 vendor/
 /.idea
 /nbproject/private/
 nbproject/
+composer.phar
+composer.lock
+.buildpath
+.project
+.settings/

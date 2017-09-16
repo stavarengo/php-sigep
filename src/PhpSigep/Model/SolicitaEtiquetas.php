@@ -18,6 +18,13 @@ class SolicitaEtiquetas extends AbstractModel
      */
     protected $qtdEtiquetas;
     /**
+     * Padrão true
+     * Quando true fará para cada etiqueta solicitada uma requisição para os correios com base no valor de $qtdEtiquetas
+     * Quando false incorporará ao XML de solicitação de etiqueta e portanto apenas uma requisição para os correios.
+     * @var boolean
+     */
+    protected $modoMultiplasRequisicoes = true;
+    /**
      * Opcional.
      * Quando não informado será usado o valor retornado pelo método {@link \PhpSigep\Bootstrap::getConfig() }
      * @var AccessData
@@ -65,6 +72,28 @@ class SolicitaEtiquetas extends AbstractModel
     {
         return $this->servicoDePostagem;
     }
+    
+    /**
+     * Atribui para modoMultiplasRequisicoes true
+     */
+    public function setModoMultiplasRequisicoes(){
+        $this->modoMultiplasRequisicoes = true;
+    }
+    
+    /**
+     * Atribui para modoMultiplasRequisicoes false
+     */
+    public function setModoUmaRequisicao(){
+        $this->modoMultiplasRequisicoes = false;
+    }
+    
+    /**
+     * 
+     * @return boolean
+     */
+    public function isModoMultiplasRequisicoes(){
+        return $this->modoMultiplasRequisicoes;
+    }
 
     /**
      * @param int|ServicoDePostagem $servicoDePostagem
@@ -72,12 +101,12 @@ class SolicitaEtiquetas extends AbstractModel
      */
     public function setServicoDePostagem($servicoDePostagem)
     {
-        if (is_int($servicoDePostagem)) {
+        if (is_string($servicoDePostagem)) {
             $servicoDePostagem = new \PhpSigep\Model\ServicoDePostagem($servicoDePostagem);
         }
         
         if (!($servicoDePostagem instanceof ServicoDePostagem)) {
-            throw new InvalidArgument('Serviço de postagem deve ser um integer ou uma instância de ' .
+            throw new InvalidArgument('Serviço de postagem deve ser uma string ou uma instância de ' .
                 '\PhpSigep\Model\ServicoDePostagem.');
         }
         

@@ -45,7 +45,7 @@ class ReedSolomon {
     var $rslen = 0;
 
 
-    function ReedSolomon($blockSize) {
+    function __construct($blockSize) {
         // galois field polynomial for ECC 200
         $this->initializeGaloisField(0x12d);
         // index is 1 for ECC 200
@@ -167,7 +167,7 @@ class Semacode {
     var $codings = "ACTXEB";
     var $debug = false;
 
-    function Semacode() {
+    function __construct() {
         $this->Encodings = array(
             $this->makeEncoding(10, 10, 10, 10, 3, 3, 5),
             $this->makeEncoding(12, 12, 12, 12, 5, 5, 7),
@@ -393,6 +393,8 @@ class Semacode {
         $v = 0;
         $w = 0;
 
+        $oldErrorReporting = error_reporting(0);
+
         //does not work, but is said to be optional, doesn't work in the JS code either because of a typo
         //        if ($e['encodingLength'] < $sl)
         //        {
@@ -604,6 +606,9 @@ class Semacode {
                 $v -= 254;
             $t[$tp++] = $v;
         }
+
+        error_reporting($oldErrorReporting);
+
         if ($tp > $tl || $sp < $sl) // did not fit
             return 0;
         // OK
@@ -628,6 +633,9 @@ class Semacode {
         if ($l > $this->MAXBARCODE)
             // not valid
             return null;
+
+        // Turn off all error reporting
+        $oldErrorReporting = error_reporting(0);
 
         //$this->debug("l: " . $l);
         //$this->debug("s: " . $s);
@@ -950,6 +958,8 @@ class Semacode {
 
         $encoding[$p] = 0;
         $encoder['encoding'] = $encoding;
+
+        error_reporting($oldErrorReporting);
 
         return $encoder;
     }
