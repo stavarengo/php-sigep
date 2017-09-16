@@ -33,7 +33,7 @@ class ServicoDePostagem extends AbstractModel
     const SERVICE_SEDEX_REVERSO_CONTRATO_AGENCIA = '04170';
     const SERVICE_PAC_REVERSO_CONTRATO_AGENCIA   = '04677';
     const SERVICE_CARTA_COMERCIAL_REGISTRADA_CTR_EP_MAQ_FRAN = '10707';
-//    const SERVICE_CARTA_REGISTRADA           = '10138';
+    const SERVICE_CARTA_REGISTRADA           = '10138';
 
     protected static $services = array(
         self::SERVICE_PAC_41068                  => array('Pac 41068', 109819),
