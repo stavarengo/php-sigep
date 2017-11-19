@@ -29,12 +29,13 @@ class ServicoDePostagem extends AbstractModel
     const SERVICE_SEDEX_CONTRATO_UO              = '04316';
     const SERVICE_PAC_PAGAMENTO_NA_ENTREGA       = '04685';
     const SERVICE_CARTA_COMERCIAL_A_FATURAR      = '10065';
-    const SERVICE_CARTA_REGISTRADA               = '10014';
+    // const SERVICE_CARTA_REGISTRADA               = '10014';
     const SERVICE_SEDEX_CONTRATO_AGENCIA         = '04162';
     const SERVICE_PAC_CONTRATO_AGENCIA           = '04669';
     const SERVICE_SEDEX_REVERSO_CONTRATO_AGENCIA = '04170';
     const SERVICE_PAC_REVERSO_CONTRATO_AGENCIA   = '04677';
     const SERVICE_CARTA_COMERCIAL_REGISTRADA_CTR_EP_MAQ_FRAN = '10707';
+    // cliente usa essa
     const SERVICE_CARTA_REGISTRADA           = '10138';
 
     protected static $services = array(
