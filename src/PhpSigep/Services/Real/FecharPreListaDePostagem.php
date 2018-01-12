@@ -279,7 +279,7 @@ class FecharPreListaDePostagem
         $writer->writeElement('tipo_objeto', $dimensao->getTipo());
         $writer->writeElement('dimensao_altura', $dimensao->getAltura());
         $writer->writeElement('dimensao_largura', $dimensao->getLargura());
-        $writer->writeElement('dimensao_comprimento', $dimensao->getComprimento() + 10);
+        $writer->writeElement('dimensao_comprimento', $dimensao->getComprimento());
         if (!$dimensao->getDiametro()) {
             $writer->writeElement('dimensao_diametro', 0);
         } else {

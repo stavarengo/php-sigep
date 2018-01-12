@@ -11,6 +11,7 @@ class ServicoDePostagem extends AbstractModel
     const SERVICE_PAC_CONTRATO_41211             = '41211';
     const SERVICE_PAC_GRANDES_FORMATOS           = '04693';
     const SERVICE_PAC_REMESSA_AGRUPADA           = '41610';
+    const SERVICE_PAC_CONTRATO_UO                = '04812';
     const SERVICE_E_SEDEX_STANDARD               = '81019';
     const SERVICE_SEDEX_40096                    = '40096';
     const SERVICE_SEDEX_40436                    = '40436';
@@ -25,6 +26,7 @@ class ServicoDePostagem extends AbstractModel
     const SERVICE_SEDEX_AGRUPADO                 = '41009';
     const SERVICE_SEDEX_REVERSO                  = '40380';
     const SERVICE_SEDEX_PAGAMENTO_NA_ENTREGA     = '04189';
+    const SERVICE_SEDEX_CONTRATO_UO              = '04316';
     const SERVICE_PAC_PAGAMENTO_NA_ENTREGA       = '04685';
     const SERVICE_CARTA_COMERCIAL_A_FATURAR      = '10065';
     const SERVICE_CARTA_REGISTRADA               = '10014';
@@ -41,6 +43,7 @@ class ServicoDePostagem extends AbstractModel
         self::SERVICE_PAC_CONTRATO_41211         => array('Pac 41211', 113546),
         self::SERVICE_PAC_GRANDES_FORMATOS       => array('Pac Grandes Formatos', 120366),
         self::SERVICE_PAC_REMESSA_AGRUPADA       => array('Pac Remessa Agrupada', 121889),
+        self::SERVICE_PAC_CONTRATO_UO            => array('Pac Contrato - UO', 124899),
         self::SERVICE_E_SEDEX_STANDARD           => array('E-Sedex Standard', 104672),
         self::SERVICE_SEDEX_40096                => array('Sedex 40096', 104625),
         self::SERVICE_SEDEX_40436                => array('Sedex 40436', 109810),
@@ -55,6 +58,7 @@ class ServicoDePostagem extends AbstractModel
         self::SERVICE_SEDEX_AGRUPADO             => array('Sedex Agrupado', 119461),
         self::SERVICE_SEDEX_REVERSO              => array('Sedex Reverso', 109806),
         self::SERVICE_SEDEX_PAGAMENTO_NA_ENTREGA => array('Sedex Pagamento na Entrega', 114976),
+        self::SERVICE_SEDEX_CONTRATO_UO          => array('Sedex Contrato - UO', 124900),
         self::SERVICE_PAC_PAGAMENTO_NA_ENTREGA   => array('PAC Pagamento na Entrega', 114976),
         self::SERVICE_CARTA_COMERCIAL_A_FATURAR  => array('Carta Comercial a Faturar', 109480),
         self::SERVICE_CARTA_REGISTRADA           => array('Carta Registrada', 116985),

@@ -159,6 +159,7 @@ class CartaoDePostagem
 
         $objetosPostais = $this->plp->getEncomendas();
         $total = count($objetosPostais);
+        $index = 1;
         while (count($objetosPostais)) {
             $this->pdf->AddPage();
 
@@ -239,6 +240,7 @@ class CartaoDePostagem
                     case ServicoDePostagem::SERVICE_PAC_REMESSA_AGRUPADA:
                     case ServicoDePostagem::SERVICE_PAC_REVERSO_CONTRATO_AGENCIA:
                     case ServicoDePostagem::SERVICE_PAC_PAGAMENTO_NA_ENTREGA:
+                    case ServicoDePostagem::SERVICE_PAC_CONTRATO_UO:
                         if ($this->layoutPac === CartaoDePostagem::TYPE_CHANCELA_PAC) {
                             $chancela = new Pac($lPosChancela, $tPosChancela, $nomeRemetente, $accessData);
                         } else {
@@ -262,6 +264,7 @@ class CartaoDePostagem
                     case ServicoDePostagem::SERVICE_SEDEX_AGRUPADO:
                     case ServicoDePostagem::SERVICE_SEDEX_CONTRATO_AGENCIA:
                     case ServicoDePostagem::SERVICE_SEDEX_REVERSO_CONTRATO_AGENCIA:
+                    case ServicoDePostagem::SERVICE_SEDEX_CONTRATO_UO:
                         if ($this->layoutSedex === CartaoDePostagem::TYPE_CHANCELA_SEDEX) {
                             $chancela = new Sedex($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX, $accessData);
                         } else {
@@ -338,6 +341,8 @@ class CartaoDePostagem
                 $nf = (float)$objetoPostal->getDestino()->getNumeroNotaFiscal();
                 if($nf > 0) {
                     $nf = '    NF: '. $nf;
+                } else {
+                    $nf = '';
                 }
 
                 $numeroPedido = trim($objetoPostal->getDestino()->getNumeroPedido());
@@ -346,7 +351,7 @@ class CartaoDePostagem
                 }
 
                 $this->pdf->SetFontSize(7);
-                $this->t($this->pdf->w, 'Volume: 1/1    '.'Peso(kg): ' . ((float)$objetoPostal->getPeso()) . $nf . $numeroPedido, 1, 'C',  null);
+                $this->t($this->pdf->w, "Volume: $index/$total    ".'Peso(kg): ' . ((float)$objetoPostal->getPeso()) . $nf . $numeroPedido, 1, 'C',  null);
 
                 // Número da etiqueta
                 $this->setFillColor(100, 100, 200);
@@ -466,6 +471,8 @@ class CartaoDePostagem
                 $this->writeRemetente(0,  $this->pdf->GetY() + $hCepBarCode + 5, $wAddressLeftCol, $this->plp->getRemetente());
 
             }
+            
+            $index++;
         }
 
         if($dest == 'S'){

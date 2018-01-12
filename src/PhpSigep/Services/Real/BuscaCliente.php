@@ -51,15 +51,13 @@ class BuscaCliente implements RealServiceInterface
             }
 
             $result->setResult(new BuscaClienteResult((array)$r->return));
+        } catch (\SoapFault $soapFault) {
+            $result->setIsSoapFault(true);
+            $result->setErrorCode($soapFault->getCode());
+            $result->setErrorMsg(SoapClientFactory::convertEncoding($soapFault->getMessage()));
         } catch (\Exception $e) {
-            if ($e instanceof \SoapFault) {
-                $result->setIsSoapFault(true);
-                $result->setErrorCode($e->getCode());
-                $result->setErrorMsg(SoapClientFactory::convertEncoding($e->getMessage()));
-            } else {
-                $result->setErrorCode($e->getCode());
-                $result->setErrorMsg($e->getMessage());
-            }
+            $result->setErrorCode($e->getCode());
+            $result->setErrorMsg($e->getMessage());
         }
 
         return $result;
