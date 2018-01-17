@@ -110,7 +110,9 @@
     <div class="well">
         <input type="hidden" name="relatorio" id="demo-relatorios-pdf-relatorio"/>
         
-        <button class="btn btn-primary" type="submit" onclick="_pageView(this);$('#demo-relatorios-pdf-relatorio').val('etiquetas')">Imprimir etiquetas</button>
+        <button class="btn btn-primary" type="submit" onclick="_pageView(this);$('#demo-relatorios-pdf-relatorio').val('etiqueta-2016')">Imprimir etiquetas 2016 (modelo atual)</button>
+        <a href="https://github.com/stavarengo/php-sigep/issues/204" target="_blank" class="btn btn-primary" onclick="_pageView(this);">Imprimir etiquetas 2018 (em desenvolvimento)</a>
+        <button class="btn btn-primary" type="submit" onclick="_pageView(this);$('#demo-relatorios-pdf-relatorio').val('etiqueta-antiga')">Imprimir etiquetas <abbr title="Modelo antigo, mas ainda aceito pelo Correios">modelo antigo</abbr></button>
         <button class="btn btn-primary" type="submit" onclick="_pageView(this);$('#demo-relatorios-pdf-relatorio').val('plp')">Imprimir <abbr title="Pre Lista de Postagem">PLP</abbr></button>
     </div>
 </form>

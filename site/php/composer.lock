@@ -1,0 +1,101 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "975a1157ab1509e4ef54e6c9ac172481",
+    "packages": [
+        {
+            "name": "stavarengo/php-sigep",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stavarengo/php-sigep.git",
+                "reference": "2818320c7a14ba42a0bbdb19e45aae32d6506d7f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stavarengo/php-sigep/zipball/2818320c7a14ba42a0bbdb19e45aae32d6506d7f",
+                "reference": "2818320c7a14ba42a0bbdb19e45aae32d6506d7f",
+                "shasum": ""
+            },
+            "require": {
+                "ext-soap": "*",
+                "php": ">=5.4",
+                "stavarengo/php-sigep-fpdf": "dev-master"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev",
+                    "dev-develop": "1.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "PhpSigep": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rafael Stavarengo",
+                    "email": "faelsta@gmail.com"
+                }
+            ],
+            "description": "Integração com Web Service do Correios. Gera etiquetas, consulta preços e prazos, imprime etiquetas e PLP, etc.",
+            "keywords": [
+                "correios",
+                "sigep"
+            ],
+            "time": "2017-12-12T16:30:42+00:00"
+        },
+        {
+            "name": "stavarengo/php-sigep-fpdf",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stavarengo/php-sigep-fpdf.git",
+                "reference": "83bb6890d09c970047732704f782bd8e701de0bf"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stavarengo/php-sigep-fpdf/zipball/83bb6890d09c970047732704f782bd8e701de0bf",
+                "reference": "83bb6890d09c970047732704f782bd8e701de0bf",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "PhpSigepFPDF.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stavarengo",
+                    "email": "faelsta@gmail.com"
+                }
+            ],
+            "description": "Unofficial FPDF library - Cópia do FPDF 1.7 usado pelo projeto stavarengo/php-sigep.",
+            "time": "2017-08-30T14:03:11+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "dev",
+    "stability-flags": {
+        "stavarengo/php-sigep": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}

@@ -1,0 +1,16 @@
+{
+    "name": "stavarengo/php-sigep-gh-page",
+    "description": "Documentation and example page of https://github.com/stavarengo/php-sigep",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Stavarengo",
+            "email": "faelsta@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "stavarengo/php-sigep": "dev-master"
+    }
+}

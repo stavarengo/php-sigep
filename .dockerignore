@@ -1,0 +1,8 @@
+vendor/
+.idea/
+.git/
+composer.phar
+data/
+config/**/development.*.php
+/site/php/composer.phar
+/site/php/vendor

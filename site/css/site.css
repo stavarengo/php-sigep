@@ -2,6 +2,11 @@
 
 /** jumbotron **/
 
+.well
+{
+    line-height: 3;
+}
+
 .jumbotron
 {
     background: #F16C49;

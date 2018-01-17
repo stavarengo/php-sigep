@@ -1,8 +1,10 @@
 <?php
 date_default_timezone_set('America/Sao_Paulo');
 
-require_once __DIR__ . '/fpdf17/fpdf.php';
-require_once __DIR__ . '/php-sigep/src/PhpSigep/Bootstrap.php';
+//require_once __DIR__ . '/fpdf17/fpdf.php';
+//require_once __DIR__ . '/php-sigep/src/PhpSigep/Bootstrap.php';
+
+require __DIR__ . '/vendor/autoload.php';
 
 $accessDataParaAmbienteDeHomologacao = new \PhpSigep\Model\AccessDataHomologacao();
 

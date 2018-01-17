@@ -92,7 +92,10 @@ $params->setAccessData($accessData);
 $params->setEncomendas(array($encomenda));
 $params->setRemetente($remetente);
 
-if ($relatorio == 'etiquetas') {
+if ($relatorio == 'etiqueta-2016') {
+    $logoFile = __DIR__ . '/../../img/logo-etiqueta-2016.png';
+    $servico  = new \PhpSigep\Pdf\CartaoDePostagem2016($params, time(), $logoFile);
+} else if ($relatorio == 'etiqueta-antiga') {
     $logoFile = __DIR__ . '/../../img/logo-etiqueta.png';
     $servico  = new \PhpSigep\Pdf\CartaoDePostagem($params, time(), $logoFile);
 } else {

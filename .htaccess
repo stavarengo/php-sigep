@@ -1,6 +1,3 @@
-AddHandler php53-script .php
-suPHP_ConfigPath /home/phpsigepstavarengo/
-
 DirectoryIndex index.php
 
 RewriteEngine on
