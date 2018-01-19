@@ -34,7 +34,7 @@ class FecharPreListaDePostagem
 
         $xml = utf8_encode($xmlDaPreLista->flush());
 //		$xml = utf8_encode($xml);
-//		$xml = iconv('UTF-8', 'ISO-8859-1', $xml);
+		$xml = iconv('UTF-8', 'ISO-8859-1', $xml);
 
         $soapArgs = array(
             'xml'            => $xml,
