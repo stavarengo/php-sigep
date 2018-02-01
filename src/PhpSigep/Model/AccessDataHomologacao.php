@@ -23,6 +23,6 @@ class AccessDataHomologacao extends AccessData
                 'diretoria'         => new Diretoria(Diretoria::DIRETORIA_DR_BRASILIA), // Obtido no método 'buscaCliente'.
             )
         );
-        try {\PhpSigep\Bootstrap::getConfig()->setEnv(\PhpSigep\Config::ENV_DEVELOPMENT);} catch (\Exception $e) {}
+        try {\PhpSigep\Bootstrap::getConfig()->setEnv(\PhpSigep\Config::ENV_PRODUCTION);} catch (\Exception $e) {}
     }
 }
