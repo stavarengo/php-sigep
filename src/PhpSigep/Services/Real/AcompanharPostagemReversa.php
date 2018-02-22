@@ -47,7 +47,7 @@ class AcompanharPostagemReversa
 
                 $result->setResult(new AcompanhaPostagemReversaRetorno(
                         array(
-                            'objetoPostal' => $r->acompanharPedido
+                            'coleta' => $r->acompanharPedido
                         )
                     )
                 );

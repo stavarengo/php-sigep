@@ -12,24 +12,24 @@ class AcompanhaPostagemReversaRetorno extends AbstractModel
     /**
      * @var object
      */
-    protected $objetoPostal;
+    protected $coleta;
 
     /**
-     * @param int $objetoPostal
+     * @param int $coleta
      * @return $this;
      */
-    public function setObjetoPostal($objetoPostal)
+    public function setColeta($coleta)
     {
-        $this->objetoPostal = $objetoPostal;
+        $this->coleta = $coleta;
         return $this;
     }
 
     /**
      * @return int
      */
-    public function getObjetoPostal()
+    public function getColeta()
     {
-        return $this->objetoPostal;
+        return $this->coleta;
     }
 
 }
