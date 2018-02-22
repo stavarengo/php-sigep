@@ -6,7 +6,7 @@ namespace PhpSigep\Model;
  * @author William Novak <williamnvk@gmail.com>
  */
 
-class CancelaSolicitacaoDePostagemReversa extends AbstractModel
+class SolicitaPostagemReversa extends AbstractModel
 {
 
     /**
@@ -17,14 +17,14 @@ class CancelaSolicitacaoDePostagemReversa extends AbstractModel
     protected $accessData;
     /**
      * Dados da pessoa que está remetendo esta encomenda.
-     * @var tipo
+     * @var destinatario
      */
-    protected $tipo;
+    protected $destinatario;
     /**
      * Os objetos que estão sendo postados.
-     * @var NumeroPedido
+     * @var ColetasSolicitadas
      */
-    protected $numeroPedido;
+    protected $coletasSolicitadas;
 
     /**
      * @param \PhpSigep\Model\AccessData $accessData
@@ -45,35 +45,35 @@ class CancelaSolicitacaoDePostagemReversa extends AbstractModel
     }
 
     /**
-     * @param string $numeroPedido
+     * @param \PhpSigep\Model\ColetasSolicitadas $coletasSolicitadas
      */
-    public function setNumeroPedido($numeroPedido)
+    public function setColetasSolicitadas(\PhpSigep\Model\ColetasSolicitadas $coletasSolicitadas)
     {
-        $this->numeroPedido = $numeroPedido;
+        $this->coletasSolicitadas = $coletasSolicitadas;
     }
 
     /**
-     * @return string
+     * @return \PhpSigep\Model\ColetasSolicitadas
      */
-    public function getNumeroPedido()
+    public function getColetasSolicitadas()
     {
-        return $this->numeroPedido;
+        return $this->coletasSolicitadas;
     }
 
     /**
-     * @param string $tipo
+     * @param \PhpSigep\Model\Destinatario $destinatario
      */
-    public function setTipo($tipo)
+    public function setDestinatario(\PhpSigep\Model\Destinatario $destinatario)
     {
-        $this->tipo = $tipo;
+        $this->destinatario = $destinatario;
     }
 
     /**
-     * @return string
+     * @return \PhpSigep\Model\Destinatario
      */
-    public function getTipo()
+    public function getDestinatario()
     {
-        return $this->tipo;
+        return $this->destinatario;
     }
 
 }

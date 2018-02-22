@@ -5,8 +5,8 @@ namespace PhpSigep\Model;
  *
  * @author William Novak <williamnvk@gmail.com>
  */
- 
-class PreSolicitacaoDePostagemReversa extends AbstractModel
+
+class AcompanhaPostagemReversa extends AbstractModel
 {
 
     /**
@@ -17,14 +17,19 @@ class PreSolicitacaoDePostagemReversa extends AbstractModel
     protected $accessData;
     /**
      * Dados da pessoa que está remetendo esta encomenda.
-     * @var destinatario
+     * @var string
      */
-    protected $destinatario;
+    protected $tipoBusca;
     /**
      * Os objetos que estão sendo postados.
-     * @var ColetasSolicitadas
+     * @var string
      */
-    protected $coletasSolicitadas;
+    protected $numeroPedido;
+    /**
+     * Os objetos que estão sendo postados.
+     * @var string
+     */
+    protected $tipoSolicitacao;
 
     /**
      * @param \PhpSigep\Model\AccessData $accessData
@@ -45,35 +50,51 @@ class PreSolicitacaoDePostagemReversa extends AbstractModel
     }
 
     /**
-     * @param \PhpSigep\Model\ColetasSolicitadas $coletasSolicitadas
+     * @param string $numeroPedido
      */
-    public function setColetasSolicitadas(\PhpSigep\Model\ColetasSolicitadas $coletasSolicitadas)
+    public function setNumeroPedido($numeroPedido)
     {
-        $this->coletasSolicitadas = $coletasSolicitadas;
+        $this->numeroPedido = $numeroPedido;
     }
 
     /**
-     * @return \PhpSigep\Model\ColetasSolicitadas
+     * @return string
      */
-    public function getColetasSolicitadas()
+    public function getNumeroPedido()
     {
-        return $this->coletasSolicitadas;
+        return $this->numeroPedido;
     }
 
     /**
-     * @param \PhpSigep\Model\Destinatario $destinatario
+     * @param string $tipoBusca
      */
-    public function setDestinatario(\PhpSigep\Model\Destinatario $destinatario)
+    public function setTipoBusca($tipoBusca)
     {
-        $this->destinatario = $destinatario;
+        $this->tipoBusca = $tipoBusca;
     }
 
     /**
-     * @return \PhpSigep\Model\Destinatario
+     * @return string
      */
-    public function getDestinatario()
+    public function getTipoBusca()
     {
-        return $this->destinatario;
+        return $this->tipoBusca;
+    }
+
+    /**
+     * @param string $tipoSolicitacao
+     */
+    public function setTipoSolicitacao($tipoSolicitacao)
+    {
+        $this->tipoSolicitacao = $tipoSolicitacao;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTipoSolicitacao()
+    {
+        return $this->tipoSolicitacao;
     }
 
 }

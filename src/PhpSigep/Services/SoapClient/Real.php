@@ -134,22 +134,33 @@ class Real implements ServiceInterface
     }
 
     /**
-     * @param \PhpSigep\Model\PreSolicitacaoDePostagemReversa $params
-     * @return \PhpSigep\Services\Result<\PhpSigep\Model\SolicitacaoDePostagemReversaRetorno>
+     * @param \PhpSigep\Model\SolicitaPostagemReversa $params
+     * @return \PhpSigep\Services\Result<\PhpSigep\Model\SolicitaPostagemReversaRetorno>
      */
-    public function solicitaPostagemReversa(\PhpSigep\Model\PreSolicitacaoDePostagemReversa $params)
+    public function solicitarPostagemReversa(\PhpSigep\Model\SolicitaPostagemReversa $params)
     {
-        $service = new ServiceImplementation\SolicitacaoPostagemReversa();
+        $service = new ServiceImplementation\SolicitarPostagemReversa();
         return $service->execute($params);
     }
 
     /**
-     * @param \PhpSigep\Model\CancelaSolicitacaoDePostagemReversa $params
-     * @return \PhpSigep\Services\Result<\PhpSigep\Model\CancelaSolicitacaoDePostagemReversaRetorno>
+     * @param \PhpSigep\Model\CancelaPostagemReversa $params
+     * @return \PhpSigep\Services\Result<\PhpSigep\Model\CancelaPostagemReversaRetorno>
      */
-    public function cancelaPostagemReversa(\PhpSigep\Model\CancelaSolicitacaoDePostagemReversa $params)
+    public function cancelarPostagemReversa(\PhpSigep\Model\CancelaPostagemReversa $params)
     {
-        $service = new ServiceImplementation\CancelaPostagemReversa();
+        $service = new ServiceImplementation\CancelarPostagemReversa();
         return $service->execute($params);
     }
+
+    /**
+     * @param \PhpSigep\Model\AcompanhaPostagemReversa $params
+     * @return \PhpSigep\Services\Result<\PhpSigep\Model\AcompanhaPostagemReversaRetorno>
+     */
+    public function acompanharPostagemReversa(\PhpSigep\Model\AcompanhaPostagemReversa $params)
+    {
+        $service = new ServiceImplementation\AcompanharPostagemReversa();
+        return $service->execute($params);
+    }
+
 }

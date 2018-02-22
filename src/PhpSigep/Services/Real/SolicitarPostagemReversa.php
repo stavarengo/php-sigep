@@ -2,8 +2,8 @@
 namespace PhpSigep\Services\Real;
 
 use PhpSigep\Model\Destinatario;
-use PhpSigep\Model\SolicitacaoDePostagemReversaRetorno;
-use PhpSigep\Model\PreSolicitacaoDePostagemReversa;
+use PhpSigep\Model\SolicitaPostagemReversaRetorno;
+use PhpSigep\Model\SolicitaPostagemReversa;
 use PhpSigep\Services\Result;
 
 /**
@@ -11,15 +11,15 @@ use PhpSigep\Services\Result;
  * @author William Novak <williamnvk@gmail.com>
  */
 
-class SolicitacaoPostagemReversa
+class SolicitarPostagemReversa
 {
 
     /**
-     * @param PreListaDePostagem $params
+     * @param SolicitaPostagemReversa $params
      *
-     * @return \PhpSigep\Services\Result<\PhpSigep\Model\SolicitacaoPostagemReversa>
+     * @return \PhpSigep\Services\Result<\PhpSigep\Model\SolicitaPostagemReversa>
      */
-    public function execute(\PhpSigep\Model\PreSolicitacaoDePostagemReversa $params)
+    public function execute(\PhpSigep\Model\SolicitaPostagemReversa $params)
     {
 
         /**
@@ -60,7 +60,7 @@ class SolicitacaoPostagemReversa
             $r = SoapClientFactory::getSoapClient()->solicitarPostagemReversa($soapArgs);
 
             if (class_exists('\StaLib_Logger',false)) {
-                \StaLib_Logger::log('Retorno SIGEP fecha solicitacao de postagem: ' . print_r($r, true));
+                \StaLib_Logger::log('Retorno SIGEP solicitarPostagemReversa: ' . print_r($r, true));
             }
 
             if ($r instanceof \SoapFault) {
@@ -69,7 +69,7 @@ class SolicitacaoPostagemReversa
 
             if ($r && $r->solicitarPostagemReversa) {
 
-                $result->setResult(new SolicitacaoDePostagemReversaRetorno(
+                $result->setResult(new SolicitaPostagemReversaRetorno(
                         array(
                             'numeroColeta' => $r->solicitarPostagemReversa->resultado_solicitacao
                         )

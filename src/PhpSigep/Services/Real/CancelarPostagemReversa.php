@@ -1,8 +1,8 @@
 <?php
 namespace PhpSigep\Services\Real;
 
-use PhpSigep\Model\CancelaSolicitacaoDePostagemReversaRetorno;
-use PhpSigep\Model\CancelaSolicitacaoDePostagemReversa;
+use PhpSigep\Model\CancelaPostagemReversaRetorno;
+use PhpSigep\Model\CancelaPostagemReversa;
 use PhpSigep\Services\Result;
 
 /**
@@ -10,15 +10,15 @@ use PhpSigep\Services\Result;
  * @author William Novak <williamnvk@gmail.com>
  */
 
-class CancelaPostagemReversa
+class CancelarPostagemReversa
 {
 
     /**
-     * @param CancelaSolicitacaoDePostagemReversa $params
+     * @param CancelaPostagemReversa $params
      *
-     * @return \PhpSigep\Services\Result<\PhpSigep\Model\CancelaSolicitacaoDePostagemReversa>
+     * @return \PhpSigep\Services\Result<\PhpSigep\Model\CancelaPostagemReversa>
      */
-    public function execute(CancelaSolicitacaoDePostagemReversa $params)
+    public function execute(CancelaPostagemReversa $params)
     {
 
         /**
@@ -35,7 +35,7 @@ class CancelaPostagemReversa
             $r = SoapClientFactory::getSoapClient()->cancelarPedido($soapArgs);
 
             if (class_exists('\StaLib_Logger',false)) {
-                \StaLib_Logger::log('Retorno SIGEP fecha solicitacao de postagem: ' . print_r($r, true));
+                \StaLib_Logger::log('Retorno SIGEP cancelarPedido: ' . print_r($r, true));
             }
 
             if ($r instanceof \SoapFault) {
@@ -44,7 +44,7 @@ class CancelaPostagemReversa
 
             if ($r && $r->cancelarPedido) {
 
-                $result->setResult(new CancelaSolicitacaoDePostagemReversaRetorno(
+                $result->setResult(new CancelaPostagemReversaRetorno(
                         array(
                             'objetoPostal' => $r->cancelarPedido
                         )

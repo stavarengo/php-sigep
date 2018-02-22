@@ -7,7 +7,7 @@ namespace PhpSigep\Model;
  * @author William Novak <williamnvk@gmail.com>
  */
 
-class CancelaSolicitacaoDePostagemReversaRetorno extends AbstractModel
+class CancelaPostagemReversaRetorno extends AbstractModel
 {
     /**
      * @var object
