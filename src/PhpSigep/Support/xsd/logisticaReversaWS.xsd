@@ -1,0 +1,773 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://service.logisticareversa.correios.com.br/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="logisticaReversaService" targetNamespace="http://service.logisticareversa.correios.com.br/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://service.logisticareversa.correios.com.br/" elementFormDefault="unqualified" targetNamespace="http://service.logisticareversa.correios.com.br/" version="1.0">
+
+  <xs:element name="WebServiceFaultInfo" type="tns:WebServiceFaultInfo"/>
+
+  <xs:element name="acompanharPedido" type="tns:acompanharPedido"/>
+
+  <xs:element name="acompanharPedidoPorData" type="tns:acompanharPedidoPorData"/>
+
+  <xs:element name="acompanharPedidoPorDataResponse" type="tns:acompanharPedidoPorDataResponse"/>
+
+  <xs:element name="acompanharPedidoResponse" type="tns:acompanharPedidoResponse"/>
+
+  <xs:element name="calcularDigitoVerificador" type="tns:calcularDigitoVerificador"/>
+
+  <xs:element name="calcularDigitoVerificadorResponse" type="tns:calcularDigitoVerificadorResponse"/>
+
+  <xs:element name="cancelarPedido" type="tns:cancelarPedido"/>
+
+  <xs:element name="cancelarPedidoResponse" type="tns:cancelarPedidoResponse"/>
+
+  <xs:element name="revalidarPrazoAutorizacaoPostagem" type="tns:revalidarPrazoAutorizacaoPostagem"/>
+
+  <xs:element name="revalidarPrazoAutorizacaoPostagemResponse" type="tns:revalidarPrazoAutorizacaoPostagemResponse"/>
+
+  <xs:element name="sobreWebService" type="tns:sobreWebService"/>
+
+  <xs:element name="sobreWebServiceResponse" type="tns:sobreWebServiceResponse"/>
+
+  <xs:element name="solicitarPostagemReversa" type="tns:solicitarPostagemReversa"/>
+
+  <xs:element name="solicitarPostagemReversaResponse" type="tns:solicitarPostagemReversaResponse"/>
+
+  <xs:element name="solicitarPostagemSimultanea" type="tns:solicitarPostagemSimultanea"/>
+
+  <xs:element name="solicitarPostagemSimultaneaResponse" type="tns:solicitarPostagemSimultaneaResponse"/>
+
+  <xs:element name="solicitarRange" type="tns:solicitarRange"/>
+
+  <xs:element name="solicitarRangeResponse" type="tns:solicitarRangeResponse"/>
+
+  <xs:element name="validarPostagemReversa" type="tns:validarPostagemReversa"/>
+
+  <xs:element name="validarPostagemReversaResponse" type="tns:validarPostagemReversaResponse"/>
+
+  <xs:element name="validarPostagemSimultanea" type="tns:validarPostagemSimultanea"/>
+
+  <xs:element name="validarPostagemSimultaneaResponse" type="tns:validarPostagemSimultaneaResponse"/>
+
+  <xs:complexType name="acompanharPedidoPorData">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codAdministrativo" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoSolicitacao" type="xs:string"/>
+      <xs:element minOccurs="0" name="data" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="acompanharPedidoPorDataResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="acompanharPedidoPorData" type="tns:retornoAcompanhamento"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="retornoAcompanhamento">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codigo_administrativo" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipo_solicitacao" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="coleta" nillable="true" type="tns:coletasSolicitadas"/>
+      <xs:element minOccurs="0" name="data" type="xs:string"/>
+      <xs:element minOccurs="0" name="hora" type="xs:string"/>
+      <xs:element minOccurs="0" name="cod_erro" type="xs:string"/>
+      <xs:element minOccurs="0" name="msg_erro" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="coletasSolicitadas">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="numero_pedido" type="xs:long"/>
+      <xs:element minOccurs="0" name="controle_cliente" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="historico" nillable="true" type="tns:historicoColeta"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="objeto" nillable="true" type="tns:objetoPostal"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="historicoColeta">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="status" type="xs:int"/>
+      <xs:element minOccurs="0" name="descricao_status" type="xs:string"/>
+      <xs:element minOccurs="0" name="data_atualizacao" type="xs:string"/>
+      <xs:element minOccurs="0" name="hora_atualizacao" type="xs:string"/>
+      <xs:element minOccurs="0" name="observacao" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="objetoPostal">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="numero_etiqueta" type="xs:string"/>
+      <xs:element minOccurs="0" name="controle_objeto_cliente" type="xs:string"/>
+      <xs:element minOccurs="0" name="ultimo_status" type="xs:string"/>
+      <xs:element minOccurs="0" name="descricao_status" type="xs:string"/>
+      <xs:element minOccurs="0" name="data_ultima_atualizacao" type="xs:string"/>
+      <xs:element minOccurs="0" name="hora_ultima_atualizacao" type="xs:string"/>
+      <xs:element minOccurs="0" name="peso_cubico" type="xs:string"/>
+      <xs:element minOccurs="0" name="peso_real" type="xs:string"/>
+      <xs:element minOccurs="0" name="valor_postagem" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="WebServiceFaultInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="mensagem" type="xs:string"/>
+      <xs:element minOccurs="0" name="excecao" type="xs:string"/>
+      <xs:element minOccurs="0" name="classificacao" type="xs:string"/>
+      <xs:element minOccurs="0" name="causa" type="xs:string"/>
+      <xs:element minOccurs="0" name="stackTrace" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="solicitarPostagemReversa">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codAdministrativo" type="xs:string"/>
+      <xs:element minOccurs="0" name="codigo_servico" type="xs:string"/>
+      <xs:element minOccurs="0" name="cartao" type="xs:string"/>
+      <xs:element minOccurs="0" name="destinatario" type="tns:pessoa"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="coletas_solicitadas" type="tns:coletaReversa"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="pessoa">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="nome" type="xs:string"/>
+      <xs:element minOccurs="0" name="logradouro" type="xs:string"/>
+      <xs:element minOccurs="0" name="numero" type="xs:string"/>
+      <xs:element minOccurs="0" name="complemento" type="xs:string"/>
+      <xs:element minOccurs="0" name="bairro" type="xs:string"/>
+      <xs:element minOccurs="0" name="referencia" type="xs:string"/>
+      <xs:element minOccurs="0" name="cidade" type="xs:string"/>
+      <xs:element minOccurs="0" name="uf" type="xs:string"/>
+      <xs:element minOccurs="0" name="cep" type="xs:string"/>
+      <xs:element minOccurs="0" name="ddd" type="xs:string"/>
+      <xs:element minOccurs="0" name="telefone" type="xs:string"/>
+      <xs:element minOccurs="0" name="email" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="coletaReversa">
+    <xs:complexContent>
+      <xs:extension base="tns:coleta">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="numero" type="xs:int"/>
+          <xs:element minOccurs="0" name="ag" type="xs:string"/>
+          <xs:element minOccurs="0" name="cartao" type="xs:string"/>
+          <xs:element minOccurs="0" name="servico_adicional" type="xs:string"/>
+          <xs:element minOccurs="0" name="ar" type="xs:int"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="obj_col" nillable="true" type="tns:objeto"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="coleta">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="tipo" type="xs:string"/>
+      <xs:element minOccurs="0" name="id_cliente" type="xs:string"/>
+      <xs:element minOccurs="0" name="valor_declarado" type="xs:string"/>
+      <xs:element minOccurs="0" name="descricao" type="xs:string"/>
+      <xs:element minOccurs="0" name="cklist" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="documento" nillable="true" type="xs:string"/>
+      <xs:element minOccurs="0" name="remetente" type="tns:remetente"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="produto" nillable="true" type="tns:produto"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="objeto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="item" type="xs:string"/>
+      <xs:element minOccurs="0" name="desc" type="xs:string"/>
+      <xs:element minOccurs="0" name="entrega" type="xs:string"/>
+      <xs:element minOccurs="0" name="num" type="xs:string"/>
+      <xs:element minOccurs="0" name="id" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="remetente">
+    <xs:complexContent>
+      <xs:extension base="tns:pessoa">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="identificacao" type="xs:string"/>
+          <xs:element minOccurs="0" name="ddd_celular" type="xs:string"/>
+          <xs:element minOccurs="0" name="celular" type="xs:string"/>
+          <xs:element minOccurs="0" name="sms" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="produto">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codigo" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipo" type="xs:string"/>
+      <xs:element minOccurs="0" name="qtd" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="solicitarPostagemReversaResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="solicitarPostagemReversa" type="tns:retornoPostagem"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="retornoPostagem">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="status_processamento" type="xs:string"/>
+      <xs:element minOccurs="0" name="data_processamento" type="xs:string"/>
+      <xs:element minOccurs="0" name="hora_processamento" type="xs:string"/>
+      <xs:element minOccurs="0" name="cod_erro" type="xs:string"/>
+      <xs:element minOccurs="0" name="msg_erro" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="resultado_solicitacao" nillable="true" type="tns:resultadoSolicitacao"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="resultadoSolicitacao">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="tipo" type="xs:string"/>
+      <xs:element minOccurs="0" name="id_cliente" type="xs:string"/>
+      <xs:element minOccurs="0" name="numero_coleta" type="xs:string"/>
+      <xs:element minOccurs="0" name="numero_etiqueta" type="xs:string"/>
+      <xs:element minOccurs="0" name="id_obj" type="xs:string"/>
+      <xs:element minOccurs="0" name="status_objeto" type="xs:string"/>
+      <xs:element minOccurs="0" name="prazo" type="xs:string"/>
+      <xs:element minOccurs="0" name="data_solicitacao" type="xs:string"/>
+      <xs:element minOccurs="0" name="hora_solicitacao" type="xs:string"/>
+      <xs:element name="codigo_erro" type="xs:long"/>
+      <xs:element minOccurs="0" name="descricao_erro" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="validarPostagemSimultanea">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codAdministrativo" type="xs:string"/>
+      <xs:element minOccurs="0" name="codigo_servico" type="xs:string"/>
+      <xs:element minOccurs="0" name="cartao" type="xs:string"/>
+      <xs:element minOccurs="0" name="cep_destinatario" type="xs:string"/>
+      <xs:element minOccurs="0" name="coleta" type="tns:coletaSimultanea"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="coletaSimultanea">
+    <xs:complexContent>
+      <xs:extension base="tns:coleta">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="obs" type="xs:string"/>
+          <xs:element minOccurs="0" name="obj" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="validarPostagemSimultaneaResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="validarPostagemSimultanea" type="tns:retornoValidacao"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="retornoValidacao">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cod_erro" type="xs:long"/>
+      <xs:element minOccurs="0" name="msg_erro" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="acompanharPedido">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codAdministrativo" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoBusca" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoSolicitacao" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="numeroPedido" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="acompanharPedidoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="acompanharPedido" type="tns:retornoAcompanhamento"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="revalidarPrazoAutorizacaoPostagem">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codAdministrativo" type="xs:string"/>
+      <xs:element minOccurs="0" name="numeroPedido" type="xs:string"/>
+      <xs:element minOccurs="0" name="qtdeDias" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="revalidarPrazoAutorizacaoPostagemResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="revalidarPrazoAutorizacaoPostagem" type="tns:retornoRevalidarPrazo"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="retornoRevalidarPrazo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="numero_pedido" type="xs:string"/>
+      <xs:element minOccurs="0" name="prazo" type="xs:string"/>
+      <xs:element minOccurs="0" name="cod_erro" type="xs:string"/>
+      <xs:element minOccurs="0" name="msg_erro" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="sobreWebService">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="sobreWebServiceResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="sobreWebService" type="tns:retornoSobreWebService"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="retornoSobreWebService">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="data" type="xs:string"/>
+      <xs:element minOccurs="0" name="hora" type="xs:string"/>
+      <xs:element minOccurs="0" name="cod_erro" type="xs:string"/>
+      <xs:element minOccurs="0" name="msg_erro" type="xs:string"/>
+      <xs:element minOccurs="0" name="versao" type="xs:string"/>
+      <xs:element minOccurs="0" name="dataHomologacao" type="xs:string"/>
+      <xs:element minOccurs="0" name="dataProducao" type="xs:string"/>
+      <xs:element minOccurs="0" name="fase" type="xs:string"/>
+      <xs:element minOccurs="0" name="resumo" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="cancelarPedido">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codAdministrativo" type="xs:string"/>
+      <xs:element minOccurs="0" name="numeroPedido" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipo" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="cancelarPedidoResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cancelarPedido" type="tns:retornoCancelamento"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="retornoCancelamento">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codigo_administrativo" type="xs:string"/>
+      <xs:element minOccurs="0" name="objeto_postal" type="tns:objetoSimplificado"/>
+      <xs:element minOccurs="0" name="data" type="xs:string"/>
+      <xs:element minOccurs="0" name="hora" type="xs:string"/>
+      <xs:element minOccurs="0" name="cod_erro" type="xs:string"/>
+      <xs:element minOccurs="0" name="msg_erro" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="objetoSimplificado">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="numero_pedido" type="xs:int"/>
+      <xs:element minOccurs="0" name="status_pedido" type="xs:string"/>
+      <xs:element minOccurs="0" name="datahora_cancelamento" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="solicitarPostagemSimultanea">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codAdministrativo" type="xs:string"/>
+      <xs:element minOccurs="0" name="codigo_servico" type="xs:string"/>
+      <xs:element minOccurs="0" name="cartao" type="xs:string"/>
+      <xs:element minOccurs="0" name="destinatario" type="tns:pessoa"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="coletas_solicitadas" type="tns:coletaSimultanea"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="solicitarPostagemSimultaneaResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="solicitarPostagemSimultanea" type="tns:retornoPostagem"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="validarPostagemReversa">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codAdministrativo" type="xs:string"/>
+      <xs:element minOccurs="0" name="codigo_servico" type="xs:string"/>
+      <xs:element minOccurs="0" name="cartao" type="xs:string"/>
+      <xs:element minOccurs="0" name="cep_destinatario" type="xs:string"/>
+      <xs:element minOccurs="0" name="coleta" type="tns:coletaReversa"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="validarPostagemReversaResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="validarPostagemReversa" type="tns:retornoValidacao"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="calcularDigitoVerificador">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="numero" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="calcularDigitoVerificadorResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="calcularDigitoVerificador" type="tns:retornoDigitoVerificador"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="retornoDigitoVerificador">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="data" type="xs:string"/>
+      <xs:element minOccurs="0" name="hora" type="xs:string"/>
+      <xs:element minOccurs="0" name="cod_erro" type="xs:string"/>
+      <xs:element minOccurs="0" name="msg_erro" type="xs:string"/>
+      <xs:element minOccurs="0" name="digito" type="xs:int"/>
+      <xs:element minOccurs="0" name="numero" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="solicitarRange">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codAdministrativo" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipo" type="xs:string"/>
+      <xs:element minOccurs="0" name="servico" type="xs:string"/>
+      <xs:element minOccurs="0" name="quantidade" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="solicitarRangeResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="solicitarRange" type="tns:retornoFaixaNumerica"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="retornoFaixaNumerica">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="data" type="xs:string"/>
+      <xs:element minOccurs="0" name="hora" type="xs:string"/>
+      <xs:element minOccurs="0" name="cod_erro" type="xs:string"/>
+      <xs:element minOccurs="0" name="msg_erro" type="xs:string"/>
+      <xs:element minOccurs="0" name="faixa_inicial" type="xs:int"/>
+      <xs:element minOccurs="0" name="faixa_final" type="xs:int"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="acompanharPedidoPorDataResponse">
+    <wsdl:part element="tns:acompanharPedidoPorDataResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cancelarPedidoResponse">
+    <wsdl:part element="tns:cancelarPedidoResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="calcularDigitoVerificadorResponse">
+    <wsdl:part element="tns:calcularDigitoVerificadorResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="solicitarPostagemReversa">
+    <wsdl:part element="tns:solicitarPostagemReversa" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="validarPostagemSimultanea">
+    <wsdl:part element="tns:validarPostagemSimultanea" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ComponenteException">
+    <wsdl:part element="tns:WebServiceFaultInfo" name="ComponenteException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="revalidarPrazoAutorizacaoPostagemResponse">
+    <wsdl:part element="tns:revalidarPrazoAutorizacaoPostagemResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="solicitarRangeResponse">
+    <wsdl:part element="tns:solicitarRangeResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="validarPostagemSimultaneaResponse">
+    <wsdl:part element="tns:validarPostagemSimultaneaResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="sobreWebServiceResponse">
+    <wsdl:part element="tns:sobreWebServiceResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="validarPostagemReversaResponse">
+    <wsdl:part element="tns:validarPostagemReversaResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cancelarPedido">
+    <wsdl:part element="tns:cancelarPedido" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="solicitarPostagemSimultanea">
+    <wsdl:part element="tns:solicitarPostagemSimultanea" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="solicitarRange">
+    <wsdl:part element="tns:solicitarRange" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="acompanharPedidoPorData">
+    <wsdl:part element="tns:acompanharPedidoPorData" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="solicitarPostagemReversaResponse">
+    <wsdl:part element="tns:solicitarPostagemReversaResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="acompanharPedido">
+    <wsdl:part element="tns:acompanharPedido" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="acompanharPedidoResponse">
+    <wsdl:part element="tns:acompanharPedidoResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="revalidarPrazoAutorizacaoPostagem">
+    <wsdl:part element="tns:revalidarPrazoAutorizacaoPostagem" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="sobreWebService">
+    <wsdl:part element="tns:sobreWebService" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="solicitarPostagemSimultaneaResponse">
+    <wsdl:part element="tns:solicitarPostagemSimultaneaResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="validarPostagemReversa">
+    <wsdl:part element="tns:validarPostagemReversa" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="calcularDigitoVerificador">
+    <wsdl:part element="tns:calcularDigitoVerificador" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="logisticaReversaWS">
+    <wsdl:operation name="acompanharPedidoPorData">
+      <wsdl:input message="tns:acompanharPedidoPorData" name="acompanharPedidoPorData">
+    </wsdl:input>
+      <wsdl:output message="tns:acompanharPedidoPorDataResponse" name="acompanharPedidoPorDataResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:ComponenteException" name="ComponenteException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="solicitarPostagemReversa">
+      <wsdl:input message="tns:solicitarPostagemReversa" name="solicitarPostagemReversa">
+    </wsdl:input>
+      <wsdl:output message="tns:solicitarPostagemReversaResponse" name="solicitarPostagemReversaResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:ComponenteException" name="ComponenteException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="validarPostagemSimultanea">
+      <wsdl:input message="tns:validarPostagemSimultanea" name="validarPostagemSimultanea">
+    </wsdl:input>
+      <wsdl:output message="tns:validarPostagemSimultaneaResponse" name="validarPostagemSimultaneaResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:ComponenteException" name="ComponenteException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="acompanharPedido">
+      <wsdl:input message="tns:acompanharPedido" name="acompanharPedido">
+    </wsdl:input>
+      <wsdl:output message="tns:acompanharPedidoResponse" name="acompanharPedidoResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:ComponenteException" name="ComponenteException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="revalidarPrazoAutorizacaoPostagem">
+      <wsdl:input message="tns:revalidarPrazoAutorizacaoPostagem" name="revalidarPrazoAutorizacaoPostagem">
+    </wsdl:input>
+      <wsdl:output message="tns:revalidarPrazoAutorizacaoPostagemResponse" name="revalidarPrazoAutorizacaoPostagemResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:ComponenteException" name="ComponenteException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="sobreWebService">
+      <wsdl:input message="tns:sobreWebService" name="sobreWebService">
+    </wsdl:input>
+      <wsdl:output message="tns:sobreWebServiceResponse" name="sobreWebServiceResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:ComponenteException" name="ComponenteException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="cancelarPedido">
+      <wsdl:input message="tns:cancelarPedido" name="cancelarPedido">
+    </wsdl:input>
+      <wsdl:output message="tns:cancelarPedidoResponse" name="cancelarPedidoResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:ComponenteException" name="ComponenteException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="solicitarPostagemSimultanea">
+      <wsdl:input message="tns:solicitarPostagemSimultanea" name="solicitarPostagemSimultanea">
+    </wsdl:input>
+      <wsdl:output message="tns:solicitarPostagemSimultaneaResponse" name="solicitarPostagemSimultaneaResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:ComponenteException" name="ComponenteException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="validarPostagemReversa">
+      <wsdl:input message="tns:validarPostagemReversa" name="validarPostagemReversa">
+    </wsdl:input>
+      <wsdl:output message="tns:validarPostagemReversaResponse" name="validarPostagemReversaResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:ComponenteException" name="ComponenteException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="calcularDigitoVerificador">
+      <wsdl:input message="tns:calcularDigitoVerificador" name="calcularDigitoVerificador">
+    </wsdl:input>
+      <wsdl:output message="tns:calcularDigitoVerificadorResponse" name="calcularDigitoVerificadorResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:ComponenteException" name="ComponenteException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="solicitarRange">
+      <wsdl:input message="tns:solicitarRange" name="solicitarRange">
+    </wsdl:input>
+      <wsdl:output message="tns:solicitarRangeResponse" name="solicitarRangeResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:ComponenteException" name="ComponenteException">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="logisticaReversaServiceSoapBinding" type="tns:logisticaReversaWS">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="acompanharPedidoPorData">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="acompanharPedidoPorData">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="acompanharPedidoPorDataResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ComponenteException">
+        <soap:fault name="ComponenteException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="solicitarPostagemReversa">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="solicitarPostagemReversa">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="solicitarPostagemReversaResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ComponenteException">
+        <soap:fault name="ComponenteException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="validarPostagemSimultanea">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="validarPostagemSimultanea">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="validarPostagemSimultaneaResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ComponenteException">
+        <soap:fault name="ComponenteException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="acompanharPedido">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="acompanharPedido">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="acompanharPedidoResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ComponenteException">
+        <soap:fault name="ComponenteException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="revalidarPrazoAutorizacaoPostagem">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="revalidarPrazoAutorizacaoPostagem">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="revalidarPrazoAutorizacaoPostagemResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ComponenteException">
+        <soap:fault name="ComponenteException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="sobreWebService">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="sobreWebService">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="sobreWebServiceResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ComponenteException">
+        <soap:fault name="ComponenteException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="cancelarPedido">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="cancelarPedido">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="cancelarPedidoResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ComponenteException">
+        <soap:fault name="ComponenteException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="solicitarPostagemSimultanea">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="solicitarPostagemSimultanea">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="solicitarPostagemSimultaneaResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ComponenteException">
+        <soap:fault name="ComponenteException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="validarPostagemReversa">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="validarPostagemReversa">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="validarPostagemReversaResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ComponenteException">
+        <soap:fault name="ComponenteException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="calcularDigitoVerificador">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="calcularDigitoVerificador">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="calcularDigitoVerificadorResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ComponenteException">
+        <soap:fault name="ComponenteException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="solicitarRange">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="solicitarRange">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="solicitarRangeResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ComponenteException">
+        <soap:fault name="ComponenteException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="logisticaReversaService">
+    <wsdl:port binding="tns:logisticaReversaServiceSoapBinding" name="logisticaReversaWSPort">
+      <soap:address location="https://apphom.correios.com.br/logisticaReversaWS/logisticaReversaService/logisticaReversaWS"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

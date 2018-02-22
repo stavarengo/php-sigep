@@ -26,6 +26,17 @@ class Config extends DefaultStdClass
 
     const WSDL_ATENDE_CLIENTE_DEVELOPMENT = 'https://apphom.correios.com.br/SigepMasterJPA/AtendeClienteService/AtendeCliente?wsdl';
 
+    /**
+     * Url do ambiente de produção (real) da logistica reversa.
+     * @var
+     */
+    const WSDL_LOGISTICA_REVERSA_PRODUCTION = 'https://cws.correios.com.br/logisticaReversaWS/logisticaReversaService/logisticaReversaWS?wsdl';
+    /**
+     * Url do ambiente de homologação da logistica reversa.
+     * @var
+     */
+    const WSDL_LOGISTICA_REVERSA_DEVELOPMENT = 'https://apphom.correios.com.br/logisticaReversaWS/logisticaReversaService/logisticaReversaWS?wsdl';
+
     const WSDL_CAL_PRECO_PRAZO = 'http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx?WSDL';
 
     const WSDL_RASTREAR_OBJETOS = 'https://webservice.correios.com.br/service/rastro/Rastro.wsdl';
@@ -128,15 +139,28 @@ class Config extends DefaultStdClass
      * @param bool $updateWsdlUrl
      * @return $this
      */
-    public function setEnv($env, $updateWsdlUrl = true)
+    public function setEnv($env, $updateWsdlUrl = true, $reverso = false)
     {
         $this->env = $env;
         if ($updateWsdlUrl) {
-            if ($env == self::ENV_DEVELOPMENT) {
-                $this->setWsdlAtendeCliente(self::WSDL_ATENDE_CLIENTE_DEVELOPMENT);
-            } else {
-                $this->setWsdlAtendeCliente(self::WSDL_ATENDE_CLIENTE_PRODUCTION);
+
+            /**
+             * Logística reversa.
+             */
+            if ($reverso) {
+                if ($env == self::ENV_DEVELOPMENT) {
+                    $this->setWsdlAtendeCliente(self::WSDL_LOGISTICA_REVERSA_DEVELOPMENT);
+                } else {
+                    $this->setWsdlAtendeCliente(self::WSDL_LOGISTICA_REVERSA_PRODUCTION);
+                }
+            }  else {
+                if ($env == self::ENV_DEVELOPMENT) {
+                    $this->setWsdlAtendeCliente(self::WSDL_ATENDE_CLIENTE_DEVELOPMENT);
+                } else {
+                    $this->setWsdlAtendeCliente(self::WSDL_ATENDE_CLIENTE_PRODUCTION);
+                }
             }
+
         }
 
         return $this;
@@ -278,5 +302,31 @@ class Config extends DefaultStdClass
         }
 
         return $this->cacheInstance;
+    }
+
+    /**
+     * @var bool
+     */
+    private $logisticaReversa = false;
+
+    /**
+     * Define se a requisição é para logistica reversa.
+     * @access public
+     * @param bool $logisticaReversa
+     * @return Config
+     */
+    public function setLogisticaReversa($logisticaReversa)
+    {
+        $this->logisticaReversa = $logisticaReversa;
+        return $this;
+    }
+
+    /**
+     *
+     * @return bool
+     */
+    public function getLogisticaReversa()
+    {
+        return $this->logisticaReversa;
     }
 }

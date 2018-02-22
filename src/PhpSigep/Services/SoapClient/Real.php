@@ -61,11 +61,11 @@ class Real implements ServiceInterface
 
     /**
      * Pede para o WebService do Correios calcular o dígito verificador de uma etiqueta.
-     * 
-     * Se preferir você pode usar o método {@linnk \PhpSigep\Model\Etiqueta::getDv() } para calcular o dígito 
+     *
+     * Se preferir você pode usar o método {@linnk \PhpSigep\Model\Etiqueta::getDv() } para calcular o dígito
      * verificador, visto que esse método é mais rápido pois faz o cálculo local sem precisar se comunicar com o
      * WebService.
-     * 
+     *
      * @param \PhpSigep\Model\GeraDigitoVerificadorEtiquetas $params
      *
      * @throws \SoapFault
@@ -132,4 +132,35 @@ class Real implements ServiceInterface
         $service = new ServiceImplementation\VerificarStatusCartaoPostagem();
         return $service->execute($numeroCartaoPostagem, $usuario, $senha);
     }
+
+    /**
+     * @param \PhpSigep\Model\SolicitaPostagemReversa $params
+     * @return \PhpSigep\Services\Result<\PhpSigep\Model\SolicitaPostagemReversaRetorno>
+     */
+    public function solicitarPostagemReversa(\PhpSigep\Model\SolicitaPostagemReversa $params)
+    {
+        $service = new ServiceImplementation\SolicitarPostagemReversa();
+        return $service->execute($params);
+    }
+
+    /**
+     * @param \PhpSigep\Model\CancelaPostagemReversa $params
+     * @return \PhpSigep\Services\Result<\PhpSigep\Model\CancelaPostagemReversaRetorno>
+     */
+    public function cancelarPostagemReversa(\PhpSigep\Model\CancelaPostagemReversa $params)
+    {
+        $service = new ServiceImplementation\CancelarPostagemReversa();
+        return $service->execute($params);
+    }
+
+    /**
+     * @param \PhpSigep\Model\AcompanhaPostagemReversa $params
+     * @return \PhpSigep\Services\Result<\PhpSigep\Model\AcompanhaPostagemReversaRetorno>
+     */
+    public function acompanharPostagemReversa(\PhpSigep\Model\AcompanhaPostagemReversa $params)
+    {
+        $service = new ServiceImplementation\AcompanharPostagemReversa();
+        return $service->execute($params);
+    }
+
 }

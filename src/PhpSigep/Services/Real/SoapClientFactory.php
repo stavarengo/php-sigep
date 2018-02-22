@@ -32,32 +32,46 @@ class SoapClientFactory
     public static function getSoapClient()
     {
         if (!self::$_soapClient) {
+
             if (!extension_loaded('soap')) {
                 throw new SoapExtensionNotInstalled('The "soap" module must be enabled in your PHP installation. The "soap" module is required in order to PHPSigep to make requests to the Correios WebService.');
             }
 
             $wsdl = Bootstrap::getConfig()->getWsdlAtendeCliente();
 
+            /**
+             * NOTE Se a requisição pela URL não for bem sucedida, isto é, retornar null ou erro de execução do SOAP, então:
+             * insira o arquivo .xsd (obtido ao acessar a URL) e salve na raiz do projeto, acesso da seguinte forma:
+             * http://localhost/logisticaReversaWS.xsd
+             */
+
             $opts = array(
                 'ssl' => array(
                     //'ciphers'           =>'RC4-SHA', // comentado o parâmetro ciphers devido ao erro que ocorre quando usado dados de ambiente de produção em um servidor local conforme issue https://github.com/stavarengo/php-sigep/issues/35#issuecomment-290081903
-                    'verify_peer'       =>false, 
-                    'verify_peer_name'  =>false
+                    'verify_peer'       => false,
+                    'verify_peer_name'  => false
                 )
             );
+
             // SOAP 1.1 client
             $params = array (
-                'encoding'              => self::WEB_SERVICE_CHARSET, 
-                'verifypeer'            => false, 
-                'verifyhost'            => false, 
-                'soap_version'          => SOAP_1_1, 
-                'trace'                 => Bootstrap::getConfig()->getEnv() != Config::ENV_PRODUCTION,
-                'exceptions'            => Bootstrap::getConfig()->getEnv() != Config::ENV_PRODUCTION, 
-                "connection_timeout"    => 180, 
-                'stream_context'        => stream_context_create($opts) 
+                'encoding'              => self::WEB_SERVICE_CHARSET,
+                'verifypeer'            => false,
+                'verifyhost'            => false,
+                'soap_version'          => SOAP_1_1,
+                'trace'                 => (int) Bootstrap::getConfig()->getEnv() != Config::ENV_PRODUCTION,
+                'exceptions'            => (bool) Bootstrap::getConfig()->getEnv() != Config::ENV_PRODUCTION,
+                'connection_timeout'    => 180,
+                'stream_context'        => stream_context_create($opts)
             );
 
+            if (Bootstrap::getConfig()->getLogisticaReversa()) {
+                $params['login'] = Bootstrap::getConfig()->getAccessData()->getUsuario();
+                $params['password'] = Bootstrap::getConfig()->getAccessData()->getSenha();
+            }
+
             self::$_soapClient = new \SoapClient($wsdl, $params);
+
         }
 
         return self::$_soapClient;
@@ -133,7 +147,7 @@ class SoapClientFactory
         $to     = 'UTF-8';
         $from   = self::WEB_SERVICE_CHARSET;
         $str = false;
-        
+
         if (function_exists('iconv')) {
             $str = iconv($from, $to . '//TRANSLIT', $string);
         } elseif (function_exists('mb_convert_encoding')) {
@@ -146,4 +160,4 @@ class SoapClientFactory
 
         return $str;
     }
-} 
+}

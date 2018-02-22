@@ -16,7 +16,7 @@ interface ServiceInterface
 
     /**
      * @param $cep
-     * 
+     *
      * @return Result<\PhpSigep\Model\ConsultaCepResposta>
      */
     public function consultaCep($cep);
@@ -34,16 +34,15 @@ interface ServiceInterface
      * Se preferir você pode usar o método {@linnk \PhpSigep\Model\Etiqueta::getDv() } para calcular o dígito
      * verificador, visto que esse método é mais rádido pois faz o cálculo local sem precisar se comunicar com o
      * WebService.
-     * 
+     *
      * @param \PhpSigep\Model\GeraDigitoVerificadorEtiquetas $params
-     * 
+     *
      * @return string[]
      */
     public function geraDigitoVerificadorEtiquetas(\PhpSigep\Model\GeraDigitoVerificadorEtiquetas $params);
 
     /**
      * @param \PhpSigep\Model\PreListaDePostagem $params
-     * @param \XMLWriter $xmlDaPreLista
      * @return mixed
      */
     public function fechaPlpVariosServicos(\PhpSigep\Model\PreListaDePostagem $params);
@@ -56,7 +55,7 @@ interface ServiceInterface
 
     /**
      * @todo documentar o retorno
-     * 
+     *
      * @param \PhpSigep\Model\AccessData $params
      * @return mixed
      */
@@ -76,4 +75,22 @@ interface ServiceInterface
      * @return \PhpSigep\Services\Result<\PhpSigep\Model\verificarStatusCartaoPostagemResposta[]>
      */
     public function verificarStatusCartaoPostagem($numeroCartaoPostagem, $usuario, $senha);
+
+    /**
+     * @param \PhpSigep\Model\SolicitaPostagemReversa $params
+     * @return mixed
+     */
+    public function solicitarPostagemReversa(\PhpSigep\Model\SolicitaPostagemReversa $params);
+
+    /**
+     * @param \PhpSigep\Model\CancelaPostagemReversa $params
+     * @return mixed
+     */
+    public function cancelarPostagemReversa(\PhpSigep\Model\CancelaPostagemReversa $params);
+
+    /**
+     * @param \PhpSigep\Model\AcompanhaPostagemReversa $params
+     * @return mixed
+     */
+    public function acompanharPostagemReversa(\PhpSigep\Model\AcompanhaPostagemReversa $params);
 }

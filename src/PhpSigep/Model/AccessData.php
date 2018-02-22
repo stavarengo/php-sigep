@@ -38,6 +38,10 @@ class AccessData extends AbstractModel
      */
     protected $anoContrato;
     /**
+     * @var string
+     */
+    protected $codigoServico;
+    /**
      * @var Diretoria
      */
     protected $diretoria;
@@ -175,6 +179,22 @@ class AccessData extends AbstractModel
             throw new InvalidArgument('A Diretoria deve ser ser uma instância de \PhpSigep\Model\Diretoria.');
         }
         $this->diretoria = $diretoria;
+    }
+
+    /**
+     * @param string $codigoServico
+     */
+    public function setCodigoServico($codigoServico)
+    {
+        $this->codigoServico = $codigoServico;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCodigoServico()
+    {
+        return $this->codigoServico;
     }
 
 }
