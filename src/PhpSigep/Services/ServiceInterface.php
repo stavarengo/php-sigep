@@ -48,12 +48,6 @@ interface ServiceInterface
     public function fechaPlpVariosServicos(\PhpSigep\Model\PreListaDePostagem $params);
 
     /**
-     * @param \PhpSigep\Model\PreSolicitacaoDePostagemReversa $params
-     * @return mixed
-     */
-    public function solicitaPostagemReversa(\PhpSigep\Model\PreSolicitacaoDePostagemReversa $params);
-
-    /**
      * @param \PhpSigep\Model\CalcPrecoPrazo $params
      * @return \PhpSigep\Model\CalcPrecoPrazoRespostaIterator
      */
@@ -81,4 +75,16 @@ interface ServiceInterface
      * @return \PhpSigep\Services\Result<\PhpSigep\Model\verificarStatusCartaoPostagemResposta[]>
      */
     public function verificarStatusCartaoPostagem($numeroCartaoPostagem, $usuario, $senha);
+
+    /**
+     * @param \PhpSigep\Model\PreSolicitacaoDePostagemReversa $params
+     * @return mixed
+     */
+    public function solicitaPostagemReversa(\PhpSigep\Model\PreSolicitacaoDePostagemReversa $params);
+
+    /**
+     * @param \PhpSigep\Model\CancelaSolicitacaoDePostagemReversa $params
+     * @return mixed
+     */
+    public function cancelaPostagemReversa(\PhpSigep\Model\CancelaSolicitacaoDePostagemReversa $params);
 }

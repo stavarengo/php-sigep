@@ -29,7 +29,7 @@ class SolicitacaoDePostagemReversaRetorno extends AbstractModel
      */
     public function getNumeroColeta()
     {
-        return (int) $this->numeroColeta;
+        return $this->numeroColeta;
     }
 
 }

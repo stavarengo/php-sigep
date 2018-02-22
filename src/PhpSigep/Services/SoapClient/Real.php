@@ -89,16 +89,6 @@ class Real implements ServiceInterface
     }
 
     /**
-     * @param \PhpSigep\Model\PreSolicitacaoDePostagemReversa $params
-     * @return \PhpSigep\Services\Result<\PhpSigep\Model\SolicitacaoDePostagemReversaRetorno>
-     */
-    public function solicitaPostagemReversa(\PhpSigep\Model\PreSolicitacaoDePostagemReversa $params)
-    {
-        $service = new ServiceImplementation\SolicitacaoPostagemReversa();
-        return $service->execute($params);
-    }
-
-    /**
      * @param \PhpSigep\Model\CalcPrecoPrazo $params
      * @return Result<\PhpSigep\Model\CalcPrecoPrazoResposta[]>
      */
@@ -141,5 +131,25 @@ class Real implements ServiceInterface
     {
         $service = new ServiceImplementation\VerificarStatusCartaoPostagem();
         return $service->execute($numeroCartaoPostagem, $usuario, $senha);
+    }
+
+    /**
+     * @param \PhpSigep\Model\PreSolicitacaoDePostagemReversa $params
+     * @return \PhpSigep\Services\Result<\PhpSigep\Model\SolicitacaoDePostagemReversaRetorno>
+     */
+    public function solicitaPostagemReversa(\PhpSigep\Model\PreSolicitacaoDePostagemReversa $params)
+    {
+        $service = new ServiceImplementation\SolicitacaoPostagemReversa();
+        return $service->execute($params);
+    }
+
+    /**
+     * @param \PhpSigep\Model\CancelaSolicitacaoDePostagemReversa $params
+     * @return \PhpSigep\Services\Result<\PhpSigep\Model\CancelaSolicitacaoDePostagemReversaRetorno>
+     */
+    public function cancelaPostagemReversa(\PhpSigep\Model\CancelaSolicitacaoDePostagemReversa $params)
+    {
+        $service = new ServiceImplementation\CancelaPostagemReversa();
+        return $service->execute($params);
     }
 }
