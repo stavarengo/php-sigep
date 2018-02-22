@@ -37,9 +37,13 @@ class SoapClientFactory
                 throw new SoapExtensionNotInstalled('The "soap" module must be enabled in your PHP installation. The "soap" module is required in order to PHPSigep to make requests to the Correios WebService.');
             }
 
-            // TODO fix
-            $wsdl = 'http://send4.william/logisticaReversaWS.xsd';
-            //$wsdl = Bootstrap::getConfig()->getWsdlAtendeCliente();
+            $wsdl = Bootstrap::getConfig()->getWsdlAtendeCliente();
+
+            /**
+             * NOTE Se a requisição pela URL não for bem sucedida, isto é, retornar null ou erro de execução do SOAP, então:
+             * insira o arquivo .xsd (obtido ao acessar a URL) e salve na raiz do projeto, acesso da seguinte forma:
+             * http://localhost/logisticaReversaWS.xsd
+             */
 
             $opts = array(
                 'ssl' => array(
@@ -48,20 +52,23 @@ class SoapClientFactory
                     'verify_peer_name'  => false
                 )
             );
+
             // SOAP 1.1 client
             $params = array (
-                'login'                 => 'empresacws',
-                'password'              => '123456',
                 'encoding'              => self::WEB_SERVICE_CHARSET,
                 'verifypeer'            => false,
                 'verifyhost'            => false,
                 'soap_version'          => SOAP_1_1,
                 'trace'                 => (int) Bootstrap::getConfig()->getEnv() != Config::ENV_PRODUCTION,
                 'exceptions'            => (bool) Bootstrap::getConfig()->getEnv() != Config::ENV_PRODUCTION,
-                "connection_timeout"    => 180,
+                'connection_timeout'    => 180,
                 'stream_context'        => stream_context_create($opts)
             );
 
+            if (Bootstrap::getConfig()->getLogisticaReversa()) {
+                $params['login'] = Bootstrap::getConfig()->getAccessData()->getUsuario();
+                $params['password'] = Bootstrap::getConfig()->getAccessData()->getSenha();
+            }
 
             self::$_soapClient = new \SoapClient($wsdl, $params);
 

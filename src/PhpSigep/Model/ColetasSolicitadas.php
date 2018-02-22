@@ -5,8 +5,10 @@ use PhpSigep\Model\Produto;
 use PhpSigep\Model\Remetente;
 
 /**
- * @author WilliamNovak
+ *
+ * @author William Novak <williamnvk@gmail.com>
  */
+ 
 class ColetasSolicitadas extends AbstractModel
 {
 

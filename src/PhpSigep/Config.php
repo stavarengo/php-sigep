@@ -303,4 +303,30 @@ class Config extends DefaultStdClass
 
         return $this->cacheInstance;
     }
+
+    /**
+     * @var bool
+     */
+    private $logisticaReversa = false;
+
+    /**
+     * Define se a requisição é para logistica reversa.
+     * @access public
+     * @param bool $logisticaReversa
+     * @return Config
+     */
+    public function setLogisticaReversa($logisticaReversa)
+    {
+        $this->logisticaReversa = $logisticaReversa;
+        return $this;
+    }
+
+    /**
+     *
+     * @return bool
+     */
+    public function getLogisticaReversa()
+    {
+        return $this->logisticaReversa;
+    }
 }

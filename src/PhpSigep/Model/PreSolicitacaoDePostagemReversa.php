@@ -2,8 +2,10 @@
 namespace PhpSigep\Model;
 
 /**
- * @author WilliamNovak
+ *
+ * @author William Novak <williamnvk@gmail.com>
  */
+ 
 class PreSolicitacaoDePostagemReversa extends AbstractModel
 {
 
@@ -29,7 +31,7 @@ class PreSolicitacaoDePostagemReversa extends AbstractModel
      *      Opcional.
      *      Quando null será usado o valor retornado pelo método {@link \PhpSigep\Bootstrap::getConfig() }
      */
-    public function setAccessData($accessData)
+    public function setAccessData(\PhpSigep\Model\AccessData $accessData)
     {
         $this->accessData = $accessData;
     }
@@ -45,7 +47,7 @@ class PreSolicitacaoDePostagemReversa extends AbstractModel
     /**
      * @param \PhpSigep\Model\ColetasSolicitadas $coletasSolicitadas
      */
-    public function setColetasSolicitadas($coletasSolicitadas)
+    public function setColetasSolicitadas(\PhpSigep\Model\ColetasSolicitadas $coletasSolicitadas)
     {
         $this->coletasSolicitadas = $coletasSolicitadas;
     }
@@ -59,15 +61,15 @@ class PreSolicitacaoDePostagemReversa extends AbstractModel
     }
 
     /**
-     * @param \PhpSigep\Model\destinatario $destinatario
+     * @param \PhpSigep\Model\Destinatario $destinatario
      */
-    public function setDestinatario($destinatario)
+    public function setDestinatario(\PhpSigep\Model\Destinatario $destinatario)
     {
         $this->destinatario = $destinatario;
     }
 
     /**
-     * @return \PhpSigep\Model\destinatario
+     * @return \PhpSigep\Model\Destinatario
      */
     public function getDestinatario()
     {

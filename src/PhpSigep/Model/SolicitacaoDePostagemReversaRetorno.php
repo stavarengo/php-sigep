@@ -4,13 +4,13 @@ namespace PhpSigep\Model;
 
 /**
  *
- * @author Williamnovak
+ * @author William Novak <williamnvk@gmail.com>
  */
 
-class FechaSolicitacaoReversaRetorno extends AbstractModel
+class SolicitacaoDePostagemReversaRetorno extends AbstractModel
 {
     /**
-     * @var int
+     * @var object
      */
     protected $numeroColeta;
 
@@ -31,4 +31,5 @@ class FechaSolicitacaoReversaRetorno extends AbstractModel
     {
         return (int) $this->numeroColeta;
     }
+
 }

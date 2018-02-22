@@ -2,8 +2,10 @@
 namespace PhpSigep\Model;
 
 /**
- * @author WilliamNovak
+ *
+ * @author William Novak <williamnvk@gmail.com>
  */
+ 
 class ObjCol extends AbstractModel
 {
 

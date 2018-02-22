@@ -90,11 +90,11 @@ class Real implements ServiceInterface
 
     /**
      * @param \PhpSigep\Model\PreSolicitacaoDePostagemReversa $params
-     * @return \PhpSigep\Services\Result<\PhpSigep\Model\FechaSolicitacaoReversaRetorno>
+     * @return \PhpSigep\Services\Result<\PhpSigep\Model\SolicitacaoDePostagemReversaRetorno>
      */
     public function solicitaPostagemReversa(\PhpSigep\Model\PreSolicitacaoDePostagemReversa $params)
     {
-        $service = new ServiceImplementation\FechaPreSolicitacaoPostagemReversa();
+        $service = new ServiceImplementation\SolicitacaoPostagemReversa();
         return $service->execute($params);
     }
 
