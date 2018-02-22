@@ -61,11 +61,11 @@ class Real implements ServiceInterface
 
     /**
      * Pede para o WebService do Correios calcular o dígito verificador de uma etiqueta.
-     * 
-     * Se preferir você pode usar o método {@linnk \PhpSigep\Model\Etiqueta::getDv() } para calcular o dígito 
+     *
+     * Se preferir você pode usar o método {@linnk \PhpSigep\Model\Etiqueta::getDv() } para calcular o dígito
      * verificador, visto que esse método é mais rápido pois faz o cálculo local sem precisar se comunicar com o
      * WebService.
-     * 
+     *
      * @param \PhpSigep\Model\GeraDigitoVerificadorEtiquetas $params
      *
      * @throws \SoapFault
@@ -85,6 +85,16 @@ class Real implements ServiceInterface
     public function fechaPlpVariosServicos(\PhpSigep\Model\PreListaDePostagem $params)
     {
         $service = new ServiceImplementation\FecharPreListaDePostagem();
+        return $service->execute($params);
+    }
+
+    /**
+     * @param \PhpSigep\Model\PreSolicitacaoDePostagemReversa $params
+     * @return \PhpSigep\Services\Result<\PhpSigep\Model\FechaSolicitacaoReversaRetorno>
+     */
+    public function solicitaPostagemReversa(\PhpSigep\Model\PreSolicitacaoDePostagemReversa $params)
+    {
+        $service = new ServiceImplementation\FechaPreSolicitacaoPostagemReversa();
         return $service->execute($params);
     }
 
