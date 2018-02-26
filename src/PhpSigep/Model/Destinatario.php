@@ -121,6 +121,30 @@ class Destinatario extends AbstractModel
     protected $bairro;
 
     /**
+     * Destinatario class constructor.
+     * @access public
+     * @param array $data
+     * @return null
+     */
+    public function __construct($data = array())
+    {
+        $this->nome = ( isset($data['nome']) ? $data['nome'] : null );
+        $this->logradouro = ( isset($data['nome']) ? $data['nome'] : null );
+        $this->numero = ( isset($data['numero']) ? $data['numero'] : null );
+        $this->complemento = ( isset($data['complemento']) ? $data['complemento'] : null );
+        $this->referencia = ( isset($data['referencia']) ? $data['referencia'] : null );
+        $this->cidade = ( isset($data['cidade']) ? $data['cidade'] : null );
+        $this->uf = ( isset($data['uf']) ? $data['uf'] : null );
+        $this->cep = ( isset($data['cep']) ? $data['cep'] : null );
+        $this->bairro = ( isset($data['bairro']) ? $data['bairro'] : null );
+        $this->ddd = ( isset($data['ddd']) ? $data['ddd'] : null );
+        $this->telefone = ( isset($data['telefone']) ? $data['telefone'] : null );
+        $this->ddd_celular = ( isset($data['ddd_celular']) ? $data['ddd_celular'] : null );
+        $this->celular = ( isset($data['celular']) ? $data['celular'] : null );
+        $this->email = ( isset($data['email']) ? $data['email'] : null );
+    }
+
+    /**
     * Get instance.
     * @access public
     * @return Produto

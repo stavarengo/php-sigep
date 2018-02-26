@@ -8,7 +8,7 @@ use PhpSigep\Model\Remetente;
  *
  * @author William Novak <williamnvk@gmail.com>
  */
- 
+
 class ColetasSolicitadas extends AbstractModel
 {
 
@@ -60,6 +60,28 @@ class ColetasSolicitadas extends AbstractModel
      * @var object
      */
     protected $produto;
+
+    /**
+     * ColetasSolicitadas class constructor.
+     * @access public
+     * @param array $data
+     * @return null
+     */
+    public function __construct($data = array())
+    {
+        $this->tipo = ( isset($data['tipo']) ? $data['tipo'] : null );
+        $this->numero = ( isset($data['numero']) ? $data['numero'] : null );
+        $this->id_cliente = ( isset($data['id_cliente']) ? $data['id_cliente'] : null );
+        $this->ag = ( isset($data['ag']) ? $data['ag'] : null );
+        $this->valor_declarado = ( isset($data['valor_declarado']) ? $data['valor_declarado'] : null );
+        $this->servico_adicional = ( isset($data['servico_adicional']) ? $data['servico_adicional'] : null );
+        $this->descricao = ( isset($data['descricao']) ? $data['descricao'] : null );
+        $this->ar = ( isset($data['ar']) ? $data['ar'] : null );
+        $this->cklist = ( isset($data['cklist']) ? $data['cklist'] : null );
+        $this->documento = ( isset($data['documento']) ? $data['documento'] : null );
+        $this->remetente = ( isset($data['remetente']) ? $data['remetente'] : null );
+        $this->produto = ( isset($data['produto']) ? $data['produto'] : null );
+    }
 
     /**
     * Get instance.

@@ -27,6 +27,19 @@ class SolicitaPostagemReversa extends AbstractModel
     protected $coletasSolicitadas;
 
     /**
+     * SolicitaPostagemReversa class constructor.
+     * @access public
+     * @param array $data
+     * @return null
+     */
+    public function __construct($data = array())
+    {
+        $this->accessData = ( isset($data['accessData']) ? $data['accessData'] : \PhpSigep\Model\AccessData::class );
+        $this->destinatario = ( isset($data['destinatario']) ? $data['destinatario'] : \PhpSigep\Model\Destinatario::class );
+        $this->accessData = ( isset($data['coletasSolicitadas']) ? $data['coletasSolicitadas'] : \PhpSigep\Model\ColetasSolicitadas::class );
+    }
+
+    /**
      * @param \PhpSigep\Model\AccessData $accessData
      *      Opcional.
      *      Quando null será usado o valor retornado pelo método {@link \PhpSigep\Bootstrap::getConfig() }

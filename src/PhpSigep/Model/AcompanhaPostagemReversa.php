@@ -32,6 +32,20 @@ class AcompanhaPostagemReversa extends AbstractModel
     protected $tipoSolicitacao;
 
     /**
+     * AcompanhaPostagemReversa class constructor.
+     * @access public
+     * @param array $data
+     * @return null
+     */
+    public function __construct($data = array())
+    {
+        $this->accessData = ( isset($data['accessData']) ? $data['accessData'] : \PhpSigep\Model\AccessData::class );
+        $this->tipoBusca = ( isset($data['tipoBusca']) ? $data['tipoBusca'] : null );
+        $this->numeroPedido = ( isset($data['numeroPedido']) ? $data['numeroPedido'] : null );
+        $this->tipoSolicitacao = ( isset($data['tipoSolicitacao']) ? $data['tipoSolicitacao'] : null );
+    }
+
+    /**
      * @param \PhpSigep\Model\AccessData $accessData
      *      Opcional.
      *      Quando null será usado o valor retornado pelo método {@link \PhpSigep\Bootstrap::getConfig() }

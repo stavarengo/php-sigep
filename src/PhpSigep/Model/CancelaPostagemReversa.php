@@ -27,6 +27,19 @@ class CancelaPostagemReversa extends AbstractModel
     protected $numeroPedido;
 
     /**
+     * CancelaPostagemReversa class constructor.
+     * @access public
+     * @param array $data
+     * @return null
+     */
+    public function __construct($data = array())
+    {
+        $this->accessData = ( isset($data['accessData']) ? $data['accessData'] : \PhpSigep\Model\AccessData::class );
+        $this->tipo = ( isset($data['tipo']) ? $data['tipo'] : null );
+        $this->numeroPedido = ( isset($data['numeroPedido']) ? $data['numeroPedido'] : null );
+    }
+
+    /**
      * @param \PhpSigep\Model\AccessData $accessData
      *      Opcional.
      *      Quando null será usado o valor retornado pelo método {@link \PhpSigep\Bootstrap::getConfig() }

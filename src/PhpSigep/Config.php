@@ -139,7 +139,7 @@ class Config extends DefaultStdClass
      * @param bool $updateWsdlUrl
      * @return $this
      */
-    public function setEnv($env, $updateWsdlUrl = true, $reverso = false)
+    public function setEnv($env, $updateWsdlUrl = true)
     {
         $this->env = $env;
         if ($updateWsdlUrl) {
@@ -147,7 +147,7 @@ class Config extends DefaultStdClass
             /**
              * Logística reversa.
              */
-            if ($reverso) {
+            if ($this->getLogisticaReversa() == true) {
                 if ($env == self::ENV_DEVELOPMENT) {
                     $this->setWsdlAtendeCliente(self::WSDL_LOGISTICA_REVERSA_DEVELOPMENT);
                 } else {

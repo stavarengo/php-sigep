@@ -5,7 +5,7 @@ namespace PhpSigep\Model;
  *
  * @author William Novak <williamnvk@gmail.com>
  */
- 
+
 class ObjCol extends AbstractModel
 {
 
@@ -29,6 +29,21 @@ class ObjCol extends AbstractModel
      * @var string
      */
     protected $num;
+
+    /**
+     * ObjCol class constructor.
+     * @access public
+     * @param array $data
+     * @return null
+     */
+    public function __construct($data = array())
+    {
+        $this->item = ( isset($data['item']) ? $data['item'] : null );
+        $this->desc = ( isset($data['desc']) ? $data['desc'] : null );
+        $this->id = ( isset($data['id']) ? $data['id'] : null );
+        $this->entrega = ( isset($data['entrega']) ? $data['entrega'] : null );
+        $this->num = ( isset($data['num']) ? $data['num'] : null );
+    }
 
     /**
     * Get instance.

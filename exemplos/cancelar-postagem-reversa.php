@@ -15,7 +15,7 @@
     $config = new \PhpSigep\Config();
     $config->setLogisticaReversa(true);
     $config->setAccessData($accessDataParaAmbienteDeHomologacao);
-    $config->setEnv(\PhpSigep\Config::ENV_DEVELOPMENT, true, true);
+    $config->setEnv(\PhpSigep\Config::ENV_DEVELOPMENT, true);
     \PhpSigep\Bootstrap::start($config);
 
 

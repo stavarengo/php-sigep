@@ -5,7 +5,7 @@ namespace PhpSigep\Model;
  *
  * @author William Novak <williamnvk@gmail.com>
  */
- 
+
 class Produto extends AbstractModel
 {
 
@@ -18,9 +18,22 @@ class Produto extends AbstractModel
      */
     protected $codigo;
     /**
-     * @var string
+     * @var int
      */
     protected $qtd;
+
+    /**
+     * Produto class constructor.
+     * @access public
+     * @param array $data
+     * @return null
+     */
+    public function __construct($data = array())
+    {
+        $this->tipo = ( isset($data['tipo']) ? $data['tipo'] : null );
+        $this->codigo = ( isset($data['codigo']) ? $data['codigo'] : null );
+        $this->qtd = ( isset($data['qtd']) ? $data['qtd'] : null );
+    }
 
     /**
     * Get instance.
