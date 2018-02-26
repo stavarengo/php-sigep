@@ -1,6 +1,6 @@
 {
     "name": "send4/php-sigep",
-    "version": "1.0.0",
+    "version": "v1.0.2",
     "type": "library",
     "description": "Integração com Web Service do Correios + Logística Reversa. Fork do pacote stavarengo/php-sigep.",
     "keywords": ["correios", "logistica reversa", "sigep"],
