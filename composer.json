@@ -19,7 +19,7 @@
             "PhpSigep": "src/"
         },
         "psr-4": {
-            "Send4\\PhpSigep\\": "src/"
+            "Send4\\PhpSigep\\": "src/PhpSigep/"
         }
     },
     "license": "MIT",
