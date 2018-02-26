@@ -17,6 +17,9 @@
     "autoload": {
         "psr-0": {
             "PhpSigep": "src/"
+        },
+        "psr-4": {
+            "Send4\\PhpSigep\\": "src/"
         }
     },
     "license": "MIT",
