@@ -2,9 +2,9 @@
 namespace Send4\PhpSigep;
 
 use Illuminate\Support\ServiceProvider;
-use Send4\PhpSigep\PhpSigep;
+use Send4\PhpSigep\LogisticaReversa;
 
-class ServiceProvider extends ServiceProvider {
+class PhpSigepServiceProvider extends ServiceProvider {
 
     /**
      * Indicates if loading of the provider is deferred.
@@ -26,8 +26,8 @@ class ServiceProvider extends ServiceProvider {
      */
     public function register()
     {
-        $this->app->alias('php_sigep', PhpSigep::class);
-        $this->app->bind('phps_sigep', function ($app) {
+        $this->app->alias('PhpSigep', PhpSigep::class);
+        $this->app->bind('PhpSigep', function ($app) {
             return new PhpSigep($app['request']->server->all());
         });
     }
@@ -39,7 +39,7 @@ class ServiceProvider extends ServiceProvider {
      */
     public function provides()
     {
-        return array('php_sigep');
+        return array('PhpSigep', 'LogisticaReversa');
     }
 
 }

@@ -129,7 +129,7 @@ class Destinatario extends AbstractModel
     public function __construct($data = array())
     {
         $this->nome = ( isset($data['nome']) ? $data['nome'] : null );
-        $this->logradouro = ( isset($data['nome']) ? $data['nome'] : null );
+        $this->logradouro = ( isset($data['logradouro']) ? $data['logradouro'] : null );
         $this->numero = ( isset($data['numero']) ? $data['numero'] : null );
         $this->complemento = ( isset($data['complemento']) ? $data['complemento'] : null );
         $this->referencia = ( isset($data['referencia']) ? $data['referencia'] : null );

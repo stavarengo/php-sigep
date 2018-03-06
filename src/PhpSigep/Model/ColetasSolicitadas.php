@@ -60,6 +60,10 @@ class ColetasSolicitadas extends AbstractModel
      * @var object
      */
     protected $produto;
+    /**
+     * @var array
+     */
+    protected $obj_col;
 
     /**
      * ColetasSolicitadas class constructor.
@@ -81,6 +85,7 @@ class ColetasSolicitadas extends AbstractModel
         $this->documento = ( isset($data['documento']) ? $data['documento'] : null );
         $this->remetente = ( isset($data['remetente']) ? $data['remetente'] : null );
         $this->produto = ( isset($data['produto']) ? $data['produto'] : null );
+        $this->obj_col = ( isset($data['obj_col']) ? $data['obj_col'] : null );
     }
 
     /**

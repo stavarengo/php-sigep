@@ -144,7 +144,7 @@ class Remetente extends AbstractModel
     public function __construct($data = array())
     {
         $this->nome = ( isset($data['nome']) ? $data['nome'] : null );
-        $this->logradouro = ( isset($data['nome']) ? $data['nome'] : null );
+        $this->logradouro = ( isset($data['logradouro']) ? $data['logradouro'] : null );
         $this->numero = ( isset($data['numero']) ? $data['numero'] : null );
         $this->complemento = ( isset($data['complemento']) ? $data['complemento'] : null );
         $this->referencia = ( isset($data['referencia']) ? $data['referencia'] : null );
@@ -157,7 +157,7 @@ class Remetente extends AbstractModel
         $this->ddd_celular = ( isset($data['ddd_celular']) ? $data['ddd_celular'] : null );
         $this->celular = ( isset($data['celular']) ? $data['celular'] : null );
         $this->email = ( isset($data['email']) ? $data['email'] : null );
-        $this->sms = ( isset($data['sms']) ? $data['sms'] : null );
+        $this->sms = ( isset($data['sms']) ? ( $data['sms'] == 1 || $data['sms'] == true ? 'S' : 'N' ) : 'N' );
         $this->identificacao = ( isset($data['identificacao']) ? $data['identificacao'] : null );
         $this->fax = ( isset($data['fax']) ? $data['fax'] : null );
         $this->codigoAdministrativo = ( isset($data['codigoAdministrativo']) ? $data['codigoAdministrativo'] : null );
@@ -486,7 +486,7 @@ class Remetente extends AbstractModel
      */
     public function setSms($sms)
     {
-        $this->sms = $sms;
+        $this->sms = ( $sms == 1 || $sms == true ? 'S' : 'N' );
     }
 
     /**

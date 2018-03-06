@@ -22,6 +22,8 @@ class SolicitarPostagemReversa
     public function execute(\PhpSigep\Model\SolicitaPostagemReversa $params)
     {
 
+        // return $params;
+
         /**
          * TODO criar mapa para validação dos dados.
          */
@@ -50,7 +52,7 @@ class SolicitarPostagemReversa
          *
          */
         if ( $params->getColetasSolicitadas()->getObjCol() != null ) {
-            $soapArgs['coletas_solicitadas']['obj_col'] =  $params->getColetasSolicitadas()->getObjCol()->getObjects();
+            $soapArgs['coletas_solicitadas']['obj_col'] =  $params->getColetasSolicitadas()->getObjCol();
         } else {
             unset($soapArgs['coletas_solicitadas']['obj_col']);
         }
@@ -68,13 +70,7 @@ class SolicitarPostagemReversa
             }
 
             if ($r && $r->solicitarPostagemReversa) {
-
-                $result->setResult(new SolicitaPostagemReversaRetorno(
-                        array(
-                            'numeroColeta' => $r->solicitarPostagemReversa->resultado_solicitacao
-                        )
-                    )
-                );
+                return $r->solicitarPostagemReversa->resultado_solicitacao;
 
             } else {
                 $result->setErrorCode(0);

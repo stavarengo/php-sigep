@@ -36,7 +36,7 @@ class SolicitaPostagemReversa extends AbstractModel
     {
         $this->accessData = ( isset($data['accessData']) ? $data['accessData'] : \PhpSigep\Model\AccessData::class );
         $this->destinatario = ( isset($data['destinatario']) ? $data['destinatario'] : \PhpSigep\Model\Destinatario::class );
-        $this->accessData = ( isset($data['coletasSolicitadas']) ? $data['coletasSolicitadas'] : \PhpSigep\Model\ColetasSolicitadas::class );
+        $this->coletasSolicitadas = ( isset($data['coletasSolicitadas']) ? $data['coletasSolicitadas'] : \PhpSigep\Model\ColetasSolicitadas::class );
     }
 
     /**

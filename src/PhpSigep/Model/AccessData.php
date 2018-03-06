@@ -46,6 +46,46 @@ class AccessData extends AbstractModel
      */
     protected $diretoria;
 
+
+    /**
+     * Destinatario class constructor.
+     * @access public
+     * @param array $data
+     * @return null
+     */
+    public function __construct($data = array())
+    {
+        $this->codAdministrativo = ( isset($data['codAdministrativo']) ? $data['codAdministrativo'] : null );
+        $this->usuario = ( isset($data['usuario']) ? $data['usuario'] : null );
+        $this->senha = ( isset($data['senha']) ? $data['senha'] : null );
+        $this->cartaoPostagem = ( isset($data['cartaoPostagem']) ? $data['cartaoPostagem'] : null );
+        $this->cnpjEmpresa = ( isset($data['cnpjEmpresa']) ? $data['cnpjEmpresa'] : null );
+        $this->numeroContrato = ( isset($data['numeroContrato']) ? $data['numeroContrato'] : null );
+        $this->anoContrato = ( isset($data['anoContrato']) ? $data['anoContrato'] : null );
+        $this->codigoServico = ( isset($data['codigoServico']) ? $data['codigoServico'] : null );
+        $this->diretoria = ( isset($data['diretoria']) ? $data['diretoria'] : null );
+    }
+
+    /**
+    * Get instance.
+    * @access public
+    * @return Produto
+    */
+    public function getInstance()
+    {
+        return $this;
+    }
+
+    /**
+    * Get object vars of this class.
+    * @access public
+    * @return array
+    */
+    public function getObjects()
+    {
+        return get_object_vars($this);
+    }
+
     /**
      * @return string
      */

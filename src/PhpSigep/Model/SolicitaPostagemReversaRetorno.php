@@ -12,7 +12,7 @@ class SolicitaPostagemReversaRetorno extends AbstractModel
     /**
      * @var object
      */
-    protected $numeroColeta;
+    public $numeroColeta;
 
     /**
      * @param int $numeroColeta
