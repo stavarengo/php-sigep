@@ -5,6 +5,13 @@ use BadMethodCallException;
 
 class PhpSigep {
 
+    private $requests;
+
+    public function __construct($requests = null)
+    {
+        $this->requests = $requests;
+    }
+
     public function test()
     {
         return __CLASS__ . __FUNCTION__;
@@ -18,8 +25,7 @@ class PhpSigep {
     public function __call($name, $arguments)
     {
         // Make sure the name starts with 'is', otherwise
-        if (substr($name, 0, 2) != 'is')
-        {
+        if (substr($name, 0, 2) != 'is') {
             throw new BadMethodCallException("No such method exists: $name");
         }
 

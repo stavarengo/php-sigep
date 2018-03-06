@@ -2,8 +2,9 @@
 namespace Send4\PhpSigep;
 
 use Illuminate\Support\ServiceProvider;
+use Send4\PhpSigep\PhpSigep;
 
-class PhpSigepServiceProvider extends ServiceProvider {
+class ServiceProvider extends ServiceProvider {
 
     /**
      * Indicates if loading of the provider is deferred.
@@ -25,10 +26,20 @@ class PhpSigepServiceProvider extends ServiceProvider {
      */
     public function register()
     {
-        $this->app['php_sigep'] = $this->app->share(function ($app)
-        {
+        $this->app->alias('php_sigep', PhpSigep::class);
+        $this->app->bind('phps_sigep', function ($app) {
             return new PhpSigep($app['request']->server->all());
         });
+    }
+
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
+    public function provides()
+    {
+        return array('php_sigep');
     }
 
 }

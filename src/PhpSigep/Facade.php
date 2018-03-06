@@ -1,9 +1,9 @@
 <?php
-namespace Send4\PhpSigep\Facades;
+namespace Send4\PhpSigep;
 
 use Illuminate\Support\Facades\Facade;
 
-class PhpSigep extends Facade {
+class Facade extends Facade {
 
     /**
      * Get the registered name of the component.
