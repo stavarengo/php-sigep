@@ -137,8 +137,6 @@ class Real implements ServiceInterface
      * Pede para o WebService do Correios suspender a entrega de uma encomenda ao destinatário
      * @param $numeroEtiqueta
      * @param $idPlp
-     * @param $tipoBloqueio
-     * @param $acao
      * @param $usuario
      * @param $senha
      * @return \PhpSigep\Services\Result<\PhpSigep\Model\BloquearObjetoResposta[]>
