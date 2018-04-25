@@ -61,11 +61,11 @@ class Real implements ServiceInterface
 
     /**
      * Pede para o WebService do Correios calcular o dígito verificador de uma etiqueta.
-     * 
-     * Se preferir você pode usar o método {@linnk \PhpSigep\Model\Etiqueta::getDv() } para calcular o dígito 
+     *
+     * Se preferir você pode usar o método {@linnk \PhpSigep\Model\Etiqueta::getDv() } para calcular o dígito
      * verificador, visto que esse método é mais rápido pois faz o cálculo local sem precisar se comunicar com o
      * WebService.
-     * 
+     *
      * @param \PhpSigep\Model\GeraDigitoVerificadorEtiquetas $params
      *
      * @throws \SoapFault
@@ -132,4 +132,22 @@ class Real implements ServiceInterface
         $service = new ServiceImplementation\VerificarStatusCartaoPostagem();
         return $service->execute($numeroCartaoPostagem, $usuario, $senha);
     }
+
+    /**
+     * Pede para o WebService do Correios suspender a entrega de uma encomenda ao destinatário
+     * @param $numeroEtiqueta
+     * @param $idPlp
+     * @param $tipoBloqueio
+     * @param $acao
+     * @param $usuario
+     * @param $senha
+     * @return \PhpSigep\Services\Result<\PhpSigep\Model\BloquearObjetoResposta[]>
+     */
+
+    public function bloquearObjeto($numeroEtiqueta, $idPlp, $tipoBloqueio, $acao, $usuario, $senha)
+    {
+        $service = new ServiceImplementation\BloquearObjeto();
+        return $service->execute($numeroEtiqueta, $idPlp, $usuario, $senha);
+    }
+
 }
