@@ -81,8 +81,6 @@ interface ServiceInterface
     /**
      * @param $numeroEtiqueta
      * @param $idPlp
-     * @param $tipoBloqueio
-     * @param $acao
      * @param $usuario
      * @param $senha
      * @return \PhpSigep\Services\Result<\PhpSigep\Model\BloquearObjetoResposta[]>
