@@ -144,7 +144,7 @@ class Real implements ServiceInterface
      * @return \PhpSigep\Services\Result<\PhpSigep\Model\BloquearObjetoResposta[]>
      */
 
-    public function bloquearObjeto($numeroEtiqueta, $idPlp, $tipoBloqueio, $acao, $usuario, $senha)
+    public function bloquearObjeto($numeroEtiqueta, $idPlp, $usuario, $senha)
     {
         $service = new ServiceImplementation\BloquearObjeto();
         return $service->execute($numeroEtiqueta, $idPlp, $usuario, $senha);
