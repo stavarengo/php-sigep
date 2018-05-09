@@ -3,6 +3,7 @@ namespace PhpSigep\Model;
 
 /**
  * @author: Stavarengo
+ * @modify Jonathan Célio da Silva <jonathan.clio@hotmail.com>
  */
 class ServicoDePostagem extends AbstractModel
 {
