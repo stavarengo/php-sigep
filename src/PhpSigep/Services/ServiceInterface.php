@@ -16,7 +16,7 @@ interface ServiceInterface
 
     /**
      * @param $cep
-     * 
+     *
      * @return Result<\PhpSigep\Model\ConsultaCepResposta>
      */
     public function consultaCep($cep);
@@ -34,9 +34,9 @@ interface ServiceInterface
      * Se preferir você pode usar o método {@linnk \PhpSigep\Model\Etiqueta::getDv() } para calcular o dígito
      * verificador, visto que esse método é mais rádido pois faz o cálculo local sem precisar se comunicar com o
      * WebService.
-     * 
+     *
      * @param \PhpSigep\Model\GeraDigitoVerificadorEtiquetas $params
-     * 
+     *
      * @return string[]
      */
     public function geraDigitoVerificadorEtiquetas(\PhpSigep\Model\GeraDigitoVerificadorEtiquetas $params);
@@ -56,7 +56,7 @@ interface ServiceInterface
 
     /**
      * @todo documentar o retorno
-     * 
+     *
      * @param \PhpSigep\Model\AccessData $params
      * @return mixed
      */
@@ -76,4 +76,15 @@ interface ServiceInterface
      * @return \PhpSigep\Services\Result<\PhpSigep\Model\verificarStatusCartaoPostagemResposta[]>
      */
     public function verificarStatusCartaoPostagem($numeroCartaoPostagem, $usuario, $senha);
+
+
+    /**
+     * @param $numeroEtiqueta
+     * @param $idPlp
+     * @param $usuario
+     * @param $senha
+     * @return \PhpSigep\Services\Result<\PhpSigep\Model\BloquearObjetoResposta[]>
+     */
+    public function bloquearObjeto($numeroEtiqueta, $idPlp, $usuario, $senha);
+
 }
