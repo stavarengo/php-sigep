@@ -3,6 +3,7 @@ namespace PhpSigep\Model;
 
 /**
  * @author: Stavarengo
+ * @modify Jonathan Célio da Silva <jonathan.clio@hotmail.com>
  */
 class ServicoDePostagem extends AbstractModel
 {
@@ -84,12 +85,12 @@ class ServicoDePostagem extends AbstractModel
         self::SERVICE_PAC_REVERSO_CONTRATO_AGENCIA   => array('PAC Reverso Contrato Agência', 124884),
 
         self::SERVICE_SEDEX_CONTRATO_GRANDES_FORMATOS_LM   => array('SEDEX Contrato Grandes Formatos (Liminar ABCOMM)', null),
-        self::SERVICE_SEDEX_CONTRATO_AGENCIA_LM   => array('SEDEX Contrato Agência (Liminar ABCOMM)', null),
+        self::SERVICE_SEDEX_CONTRATO_AGENCIA_LM   => array('SEDEX Contrato Agência (Liminar ABCOMM)', 160126),
         self::SERVICE_SEDEX_REVERSO_LM   => array('SEDEX Reverso (Liminar ABCOMM)', null),
         self::SERVICE_SEDEX_CONTRATO_UO_LM   => array('SEDEX Contrato UO (Liminar ABCOMM)', null),
 
-        self::SERVICE_SEDEX_CONTRATO_GRANDES_FORMATOS_LM   => array('PAC Contrato Grandes Formatos (Liminar ABCOMM)', null),
-        self::SERVICE_PAC_CONTRATO_AGENCIA_LM   => array('PAC Contrato Agência (Liminar ABCOMM)', null),
+        self::SERVICE_PAC_CONTRATO_GRANDES_FORMATOS_LM   => array('PAC Contrato Grandes Formatos (Liminar ABCOMM)', null),
+        self::SERVICE_PAC_CONTRATO_AGENCIA_LM   => array('PAC Contrato Agência (Liminar ABCOMM)', 160123),
         self::SERVICE_PAC_REVERSO_LM   => array('PAC Reverso (Liminar ABCOMM)', null),
         self::SERVICE_PAC_CONTRATO_UO_LM   => array('PAC Contrato UO (Liminar ABCOMM)', null),
 
