@@ -98,6 +98,9 @@ class RastrearObjeto
 
                         $eventos = new RastrearObjetoResultado();
                         $eventos->setEtiqueta(new Etiqueta(array('etiquetaComDv' => $objeto->numero)));
+                        $eventos->setSigla(new Sigla(array('etiquetaComDv' => $objeto->sigla)));
+                        $eventos->setNome(new Nome(array('etiquetaComDv' => $objeto->nome)));
+                        $eventos->setCategoria(new Categoria(array('etiquetaComDv' => $objeto->categoria)));
 
                         // Verifica se ocorreu algum erro ao consultar a etiqueta
                         if (isset($objeto->erro)) {
@@ -117,6 +120,8 @@ class RastrearObjeto
 
                             if (!is_array($objeto->evento))
                                 $objeto->evento = array($objeto->evento);
+
+                            print_r($objeto);die;
 
                             foreach ($objeto->evento as $ev) {
 

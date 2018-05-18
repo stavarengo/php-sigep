@@ -1,6 +1,5 @@
 {
-    "name": "stavarengo/php-sigep",
-    "version": "0.0.1",
+    "name": "bellezoni/php-sigep",
     "type": "library",
     "description": "Integração com Web Service do Correios. Gera etiquetas, consulta preços e prazos, imprime etiquetas e PLP, etc.",
     "keywords": ["correios", "sigep"],
@@ -8,12 +7,6 @@
     "prefer-stable": true,
     "config": {
         "sort-packages": true
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.0-dev",
-            "dev-develop": "1.1-dev"
-        }
     },
     "require": {
         "php": ">=5.4",
@@ -30,6 +23,10 @@
         {
             "name": "Rafael Stavarengo",
             "email": "faelsta@gmail.com"
+        },
+        {
+            "name": "Filipe Bellezone",
+            "email": "bellezone@gmail.com"
         }
     ]
 }
