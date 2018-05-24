@@ -79,6 +79,12 @@ class Remetente extends AbstractModel
      */
     protected $telefone;
     /**
+     * DDD do telefone do remetente.
+     * Max length: 12
+     * @var string
+     */
+    protected $ddd;
+    /**
      * Fax do remetente.
      * Max length: 12
      * @var string
@@ -90,6 +96,94 @@ class Remetente extends AbstractModel
      * @var string
      */
     protected $email;
+    /**
+     * Uma referência do local de entrega do remetente.
+     * Max length: 60
+     * @var string
+     */
+    protected $referencia;
+    /**
+     * DDD do celular do remetente.
+     * Não Obrigatório.
+     * Max length: 3
+     * Tag: ddd_celular
+     * @var string
+     */
+    protected $ddd_celular;
+    /**
+     * Celular do remetente.
+     * Não Obrigatório.
+     * Max length: 12
+     * Tag: celular_remetente
+     * @var string
+     */
+    protected $celular;
+    /**
+     * Se o remetente recebe SMS.
+     * Não Obrigatório.
+     * Max length: 1
+     * Tag: sms
+     * @var string
+     */
+    protected $sms;
+    /**
+     * CPF ou CNPJ do remetente.
+     * Não Obrigatório.
+     * Max length: 14
+     * Tag: identificacao
+     * @var string
+     */
+    protected $identificacao;
+
+    /**
+     * Remetente class constructor.
+     * @access public
+     * @param array $data
+     * @return null
+     */
+    public function __construct($data = array())
+    {
+        $this->nome = ( isset($data['nome']) ? $data['nome'] : null );
+        $this->logradouro = ( isset($data['logradouro']) ? $data['logradouro'] : null );
+        $this->numero = ( isset($data['numero']) ? $data['numero'] : null );
+        $this->complemento = ( isset($data['complemento']) ? $data['complemento'] : null );
+        $this->referencia = ( isset($data['referencia']) ? $data['referencia'] : null );
+        $this->cidade = ( isset($data['cidade']) ? $data['cidade'] : null );
+        $this->uf = ( isset($data['uf']) ? $data['uf'] : null );
+        $this->cep = ( isset($data['cep']) ? $data['cep'] : null );
+        $this->bairro = ( isset($data['bairro']) ? $data['bairro'] : null );
+        $this->ddd = ( isset($data['ddd']) ? $data['ddd'] : null );
+        $this->telefone = ( isset($data['telefone']) ? $data['telefone'] : null );
+        $this->ddd_celular = ( isset($data['ddd_celular']) ? $data['ddd_celular'] : null );
+        $this->celular = ( isset($data['celular']) ? $data['celular'] : null );
+        $this->email = ( isset($data['email']) ? $data['email'] : null );
+        $this->sms = ( isset($data['sms']) ? ( $data['sms'] == 1 || $data['sms'] == true ? 'S' : 'N' ) : 'N' );
+        $this->identificacao = ( isset($data['identificacao']) ? $data['identificacao'] : null );
+        $this->fax = ( isset($data['fax']) ? $data['fax'] : null );
+        $this->codigoAdministrativo = ( isset($data['codigoAdministrativo']) ? $data['codigoAdministrativo'] : null );
+        $this->diretoria = ( isset($data['diretoria']) ? $data['diretoria'] : null );
+        $this->numeroContrato = ( isset($data['numeroContrato']) ? $data['numeroContrato'] : null );
+    }
+
+    /**
+    * Get object vars of this class.
+    * @access public
+    * @return array
+    */
+    public function getObjects()
+    {
+        return get_object_vars($this);
+    }
+
+    /**
+    * Get instance.
+    * @access public
+    * @return AccessData
+    */
+    public function getInstance()
+    {
+        return $this;
+    }
 
     /**
      * @return string
@@ -315,5 +409,100 @@ class Remetente extends AbstractModel
         $this->uf = $uf;
     }
 
+    /**
+     * @return string
+     */
+    public function getDdd()
+    {
+        return $this->ddd;
+    }
+
+    /**
+     * @param string $ddd
+     */
+    public function setDdd($ddd)
+    {
+        $this->ddd = $ddd;
+    }
+
+    /**
+     * @return string
+     */
+    public function getReferencia()
+    {
+        return $this->referencia;
+    }
+
+    /**
+     * @param string $referencia
+     */
+    public function setReferencia($referencia)
+    {
+        $this->referencia = $referencia;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDddCelular()
+    {
+        return $this->ddd_celular;
+    }
+
+    /**
+     * @param string $ddd_celular
+     */
+    public function setDddCelular($ddd_celular)
+    {
+        $this->ddd_celular = $ddd_celular;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCelular()
+    {
+        return $this->celular;
+    }
+
+    /**
+     * @param string $celular
+     */
+    public function setCelular($celular)
+    {
+        $this->celular = $celular;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSms()
+    {
+        return $this->sms;
+    }
+
+    /**
+     * @param string $sms
+     */
+    public function setSms($sms)
+    {
+        $this->sms = ( $sms == 1 || $sms == true ? 'S' : 'N' );
+    }
+
+    /**
+     * @return string
+     */
+    public function getIdentificacao()
+    {
+        return $this->identificacao;
+    }
+
+    /**
+     * @param string $identificacao
+     */
+    public function setIdentificacao($identificacao)
+    {
+        $this->identificacao = $identificacao;
+    }
 
 }

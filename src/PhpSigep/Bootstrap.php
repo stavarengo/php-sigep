@@ -15,6 +15,14 @@ class Bootstrap
      */
     protected static $config;
 
+    public function __construct(Config $config)
+    {
+        if (!$config) {
+            throw new BootstrapException('Construct Antes de usar o php-sigep você deve setar as configurações invocando o método \PhpSigep\Bootstrap::start().');
+        }
+        self::start($config);
+    }
+
     /**
      * Armazena os a configuração do php-sigep em um local compartilhado pelo projeto.
      * @param Config $config

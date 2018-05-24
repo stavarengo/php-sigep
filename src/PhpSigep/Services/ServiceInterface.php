@@ -43,7 +43,6 @@ interface ServiceInterface
 
     /**
      * @param \PhpSigep\Model\PreListaDePostagem $params
-     * @param \XMLWriter $xmlDaPreLista
      * @return mixed
      */
     public function fechaPlpVariosServicos(\PhpSigep\Model\PreListaDePostagem $params);
@@ -77,6 +76,23 @@ interface ServiceInterface
      */
     public function verificarStatusCartaoPostagem($numeroCartaoPostagem, $usuario, $senha);
 
+    /**
+     * @param \PhpSigep\Model\SolicitaPostagemReversa $params
+     * @return mixed
+     */
+    public function solicitarPostagemReversa(\PhpSigep\Model\SolicitaPostagemReversa $params);
+
+    /**
+     * @param \PhpSigep\Model\CancelaPostagemReversa $params
+     * @return mixed
+     */
+    public function cancelarPostagemReversa(\PhpSigep\Model\CancelaPostagemReversa $params);
+
+    /**
+     * @param \PhpSigep\Model\AcompanhaPostagemReversa $params
+     * @return mixed
+     */
+    public function acompanharPostagemReversa(\PhpSigep\Model\AcompanhaPostagemReversa $params);
 
     /**
      * @param $numeroEtiqueta

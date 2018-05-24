@@ -1,19 +1,13 @@
 {
-    "name": "stavarengo/php-sigep",
-    "version": "0.0.1",
+    "name": "send4/php-sigep",
+    "version": "v1.0.3",
     "type": "library",
-    "description": "Integração com Web Service do Correios. Gera etiquetas, consulta preços e prazos, imprime etiquetas e PLP, etc.",
-    "keywords": ["correios", "sigep"],
+    "description": "Integração com Web Service do Correios + Logística Reversa. Fork do pacote stavarengo/php-sigep.",
+    "keywords": ["correios", "logistica reversa", "sigep"],
     "minimum-stability": "stable",
     "prefer-stable": true,
     "config": {
         "sort-packages": true
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.0-dev",
-            "dev-develop": "1.1-dev"
-        }
     },
     "require": {
         "php": ">=5.4",
@@ -23,6 +17,9 @@
     "autoload": {
         "psr-0": {
             "PhpSigep": "src/"
+        },
+        "psr-4": {
+            "Send4\\PhpSigep\\": "src/PhpSigep/"
         }
     },
     "license": "MIT",

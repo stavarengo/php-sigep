@@ -12,7 +12,6 @@ use PhpSigep\Services\ServiceInterface;
  */
 class Real implements ServiceInterface
 {
-    private static $calcPrecosPrazosServiceUnavailable = false;
 
     /**
      * @param \PhpSigep\Model\VerificaDisponibilidadeServico $params
@@ -134,18 +133,34 @@ class Real implements ServiceInterface
     }
 
     /**
-     * Pede para o WebService do Correios suspender a entrega de uma encomenda ao destinatário
-     * @param $numeroEtiqueta
-     * @param $idPlp
-     * @param $usuario
-     * @param $senha
-     * @return \PhpSigep\Services\Result<\PhpSigep\Model\BloquearObjetoResposta[]>
-     */
 
-    public function bloquearObjeto($numeroEtiqueta, $idPlp, $usuario, $senha)
+     * @param \PhpSigep\Model\SolicitaPostagemReversa $params
+     * @return \PhpSigep\Services\Result<\PhpSigep\Model\SolicitaPostagemReversaRetorno>
+     */
+    public function solicitarPostagemReversa(\PhpSigep\Model\SolicitaPostagemReversa $params)
     {
-        $service = new ServiceImplementation\BloquearObjeto();
-        return $service->execute($numeroEtiqueta, $idPlp, $usuario, $senha);
+        $service = new ServiceImplementation\SolicitarPostagemReversa();
+        return $service->execute($params);
+    }
+
+    /**
+     * @param \PhpSigep\Model\CancelaPostagemReversa $params
+     * @return \PhpSigep\Services\Result<\PhpSigep\Model\CancelaPostagemReversaRetorno>
+     */
+    public function cancelarPostagemReversa(\PhpSigep\Model\CancelaPostagemReversa $params)
+    {
+        $service = new ServiceImplementation\CancelarPostagemReversa();
+        return $service->execute($params);
+    }
+
+    /**
+     * @param \PhpSigep\Model\AcompanhaPostagemReversa $params
+     * @return \PhpSigep\Services\Result<\PhpSigep\Model\AcompanhaPostagemReversaRetorno>
+     */
+    public function acompanharPostagemReversa(\PhpSigep\Model\AcompanhaPostagemReversa $params)
+    {
+        $service = new ServiceImplementation\AcompanharPostagemReversa();
+        return $service->execute($params);
     }
 
 }
