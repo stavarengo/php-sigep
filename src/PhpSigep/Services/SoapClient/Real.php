@@ -12,7 +12,6 @@ use PhpSigep\Services\ServiceInterface;
  */
 class Real implements ServiceInterface
 {
-    private static $calcPrecosPrazosServiceUnavailable = false;
 
     /**
      * @param \PhpSigep\Model\VerificaDisponibilidadeServico $params

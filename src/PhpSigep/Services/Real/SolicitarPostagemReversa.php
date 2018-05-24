@@ -59,7 +59,7 @@ class SolicitarPostagemReversa
 
         $result = new Result();
         try {
-            $r = SoapClientFactory::getSoapClient()->solicitarPostagemReversa($soapArgs);
+            $r = SoapClientFactory::getSoapClient(true)->solicitarPostagemReversa($soapArgs);
 
             if (class_exists('\StaLib_Logger',false)) {
                 \StaLib_Logger::log('Retorno SIGEP solicitarPostagemReversa: ' . print_r($r, true));

@@ -6,6 +6,7 @@ use PhpSigep\Bootstrap;
 use PhpSigep\Config;
 use PhpSigep\Model\AccessData;
 use PhpSigep\Model\AccessDataHomologacao;
+use PhpSigep\Services\Real\SoapClientFactory;
 use PhpSigep\Services\SoapClient\Real;
 
 use PhpSigep\Model\SolicitaPostagemReversa;
@@ -37,7 +38,7 @@ class LogisticaReversa extends Bootstrap {
     {
         $config = new Config();
         $config->setLogisticaReversa(true);
-        $config->setEnv($config::ENV_DEVELOPMENT, true); // TODO fix
+        $config->setEnv($config::ENV_PRODUCTION, false); // TODO fix
         $this->instance = new \StdClass;
         $this->instance->config = $config;
     }
@@ -65,7 +66,7 @@ class LogisticaReversa extends Bootstrap {
     public function criarPostagem($solicitacaoDePostagem = array())
     {
 
-        /*
+        /**
          * Verifica se a chave existe na solicitação
          */
         if (!array_key_exists('destinatario', $solicitacaoDePostagem)) {
@@ -92,22 +93,22 @@ class LogisticaReversa extends Bootstrap {
         //
         $object = (object) $solicitacaoDePostagem;
 
-        /*
+        /**
          * Define os dados de autenticação.
          */
         $this->init($object->accessData);
 
-        /*
+        /**
          * Dados do Destinatário (quem vai receber).
          */
         $destinatario = new Destinatario($object->destinatario);
 
-        /*
+        /**
          * Dados do Remetente (quem está enviando).
          */
         $remetente = new Remetente($object->remetente);
 
-        /*
+        /**
          * Listagem de produtos (obj_col).
          */
         $produtos = [];
@@ -118,16 +119,16 @@ class LogisticaReversa extends Bootstrap {
             }
         }
 
-        /*
-         * Coletas Solicitadas, agrupoa remetente, pacote para embalagem (produto) e produtos (objcol)
+        /**
+         * Coletas Solicitadas, agrupa remetente, pacote para embalagem (produto) e produtos (objcol)
          */
         $object->coletas_solicitadas['remetente'] = $remetente;
-        $object->coletas_solicitadas['produto'] = new Produto();
+        $object->coletas_solicitadas['produto'] = new Produto(['tipo' => '0', 'codigo' => '765000636', 'qtd' => '1']);
         $object->coletas_solicitadas['obj_col'] = $produtos;
         $coletasSolicitadas = new ColetasSolicitadas($object->coletas_solicitadas);
 
-        /*
-         * Monta todo o objeto de envio.
+        /**
+         * Monta o objeto para envio.
          */
         $solicitacaoPostagemReversa = new SolicitaPostagemReversa(
             [
@@ -137,18 +138,69 @@ class LogisticaReversa extends Bootstrap {
             ]
         );
 
-        //
         $phpSigep = new Real();
-        $result = $phpSigep->solicitarPostagemReversa($solicitacaoPostagemReversa);
 
-        /*
-         * Retorno da execução do serviço.
-         */
-        return (object) [
-            'success' => (bool) is_array($result),
-            'numeroColeta' => (string) ( is_array($result) ? $result[0]->numero_coleta : null ),
-            'error' => (string) ( is_array($result) ? null : trim($result->descricao_erro) )
+        return $phpSigep->solicitarPostagemReversa($solicitacaoPostagemReversa);
+
+    }
+
+    public function tracking ($data)
+    {
+
+        $accessData = [
+            'usuario'           => $data['usuario'],
+            'senha'             => $data['senha'],
+            'codAdministrativo' => $data['codAdministrativo'],
+            'cartaoPostagem'    => $data['cartaoPostagem']
         ];
+        $accessObject = new \PhpSigep\Model\AccessData($accessData);
+
+        /**
+         * Define os dados de autenticação.
+         */
+        $this->init($accessData);
+
+        $this->instance->config->setAccessData($accessObject);
+
+        $phpSigep = new Real();
+        $acompanhaPostagem = new \PhpSigep\Model\AcompanhaPostagemReversa();
+        $acompanhaPostagem->setAccessData($accessObject);
+        $acompanhaPostagem->setTipoBusca('H');
+        $acompanhaPostagem->setTipoSolicitacao('A');
+        $acompanhaPostagem->setNumeroPedido($data['tracking_code']);
+
+        return $phpSigep->acompanharPostagemReversa($acompanhaPostagem)->getResult();
+    }
+
+    public function trackingObjectNumber ($data)
+    {
+
+        $accessData = [
+            'usuario'           => $data['correio_sro_username'],
+            'senha'             => $data['correio_sro_password'],
+            'codAdministrativo' => $data['codAdministrativo'],
+            'cartaoPostagem'    => $data['cartaoPostagem']
+        ];
+        $accessObject = new \PhpSigep\Model\AccessData($accessData);
+
+        /**
+         * Define os dados de autenticação.
+         */
+        $this->init($accessData);
+
+        $this->instance->config->setAccessData($accessObject);
+
+        $params = new \PhpSigep\Model\RastrearObjeto();
+        $params->setAccessData($accessObject);
+
+        $etiqueta = new \PhpSigep\Model\Etiqueta();
+        $etiqueta->setEtiquetaComDv(trim($data['object_number']));
+        $etiquetas[] = $etiqueta;
+
+        $params->setEtiquetas($etiquetas);
+
+        $phpSigep = new Real();
+        return $phpSigep->rastrearObjeto($params)->getResult();
 
     }
 

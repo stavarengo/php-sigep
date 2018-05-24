@@ -33,7 +33,7 @@ class AcompanharPostagemReversa
 
         $result = new Result();
         try {
-            $r = SoapClientFactory::getSoapClient()->acompanharPedido($soapArgs);
+            $r = SoapClientFactory::getSoapClient(true)->acompanharPedido($soapArgs);
 
             if (class_exists('\StaLib_Logger',false)) {
                 \StaLib_Logger::log('Retorno SIGEP acompanharPedido: ' . print_r($r, true));

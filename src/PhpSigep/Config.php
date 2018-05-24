@@ -31,6 +31,9 @@ class Config extends DefaultStdClass
      * @var
      */
     const WSDL_LOGISTICA_REVERSA_PRODUCTION = 'https://cws.correios.com.br/logisticaReversaWS/logisticaReversaService/logisticaReversaWS?wsdl';
+                                                 //https://cws.correios.com.br/logisticaReversaWS/logisticaReversaService/logisticaReversaWS?wsdl
+//    const WSDL_LOGISTICA_REVERSA_PRODUCTION = 'https://s3.amazonaws.com/send4public/AtendeCliente.xml?wsdl';
+//    const WSDL_LOGISTICA_REVERSA_PRODUCTION = 'https://s3.amazonaws.com/send4public/correio-reverso.wsdl';
     /**
      * Url do ambiente de homologação da logistica reversa.
      * @var
@@ -142,6 +145,11 @@ class Config extends DefaultStdClass
     public function setEnv($env, $updateWsdlUrl = true)
     {
         $this->env = $env;
+
+//        if ($env == self::WSDL_RASTREAR_OBJETOS){
+//            $this->setWsdlRastrearObjetos(self::WSDL_RASTREAR_OBJETOS);
+//        }
+
         if ($updateWsdlUrl) {
 
             /**
@@ -149,7 +157,7 @@ class Config extends DefaultStdClass
              */
             if ($this->getLogisticaReversa() == true) {
                 if ($env == self::ENV_DEVELOPMENT) {
-                    $this->setWsdlAtendeCliente(self::WSDL_LOGISTICA_REVERSA_DEVELOPMENT);
+                    $this->setWsdlAtendeCliente(self::WSDL_LOGISTICA_REVERSA_PRODUCTION);
                 } else {
                     $this->setWsdlAtendeCliente(self::WSDL_LOGISTICA_REVERSA_PRODUCTION);
                 }
@@ -164,6 +172,11 @@ class Config extends DefaultStdClass
         }
 
         return $this;
+    }
+
+    public function getWsdlLogisticaReversa ()
+    {
+        return self::WSDL_LOGISTICA_REVERSA_PRODUCTION;
     }
 
     /**

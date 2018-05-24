@@ -29,7 +29,7 @@ class SoapClientFactory
      */
     protected static $_soapRastrearObjetos;
 
-    public static function getSoapClient()
+    public static function getSoapClient($tracking = false)
     {
         if (!self::$_soapClient) {
 
@@ -38,6 +38,10 @@ class SoapClientFactory
             }
 
             $wsdl = Bootstrap::getConfig()->getWsdlAtendeCliente();
+
+            if ($tracking){
+                $wsdl = Bootstrap::getConfig()->getWsdlLogisticaReversa();
+            }
 
             /**
              * NOTE Se a requisição pela URL não for bem sucedida, isto é, retornar null ou erro de execução do SOAP, então:
@@ -49,7 +53,8 @@ class SoapClientFactory
                 'ssl' => array(
                     //'ciphers'           =>'RC4-SHA', // comentado o parâmetro ciphers devido ao erro que ocorre quando usado dados de ambiente de produção em um servidor local conforme issue https://github.com/stavarengo/php-sigep/issues/35#issuecomment-290081903
                     'verify_peer'       => false,
-                    'verify_peer_name'  => false
+                    'verify_peer_name'  => false,
+                    'allow_self_signed' => true,
                 )
             );
 
