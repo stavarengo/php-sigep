@@ -3,6 +3,7 @@ namespace PhpSigep\Model;
 
 /**
  * @author: Stavarengo
+ * @modify Jonathan Célio da Silva <jonathan.clio@hotmail.com>
  */
 class ServicoDePostagem extends AbstractModel
 {
@@ -35,6 +36,21 @@ class ServicoDePostagem extends AbstractModel
     const SERVICE_SEDEX_REVERSO_CONTRATO_AGENCIA = '04170';
     const SERVICE_PAC_REVERSO_CONTRATO_AGENCIA   = '04677';
     const SERVICE_CARTA_COMERCIAL_REGISTRADA_CTR_EP_MAQ_FRAN = '10707';
+
+    // CODIGOS REFERENTES A LIMINAR ABCOMM
+    const SERVICE_SEDEX_CONTRATO_GRANDES_FORMATOS_LM    = '04146';
+    const SERVICE_SEDEX_CONTRATO_AGENCIA_LM             = '04154';
+    const SERVICE_SEDEX_REVERSO_LM                      = '04243';
+    const SERVICE_SEDEX_CONTRATO_UO_LM                  = '04278';
+
+    const SERVICE_PAC_CONTRATO_GRANDES_FORMATOS_LM      = '04883';
+    const SERVICE_PAC_CONTRATO_AGENCIA_LM               = '04367';
+    const SERVICE_PAC_REVERSO_LM                        = '04375';
+    const SERVICE_PAC_CONTRATO_UO_LM                    = '04332';
+
+    const SERVICE_SEDEX_CONTRATO_AGENCIA_PAGAMENTO_NA_ENTREGA_LM    = '04151';
+    const SERVICE_PAC_CONTRATO_AGENCIA_PAGAMENTO_NA_ENTREGA_LM      = '04308';
+
 //    const SERVICE_CARTA_REGISTRADA           = '10138';
 
     protected static $services = array(
@@ -67,6 +83,19 @@ class ServicoDePostagem extends AbstractModel
         self::SERVICE_PAC_CONTRATO_AGENCIA       => array('PAC Contrato Agência', 124884),
         self::SERVICE_SEDEX_REVERSO_CONTRATO_AGENCIA => array('SEDEX Reverso Contrato Agência', 124849),
         self::SERVICE_PAC_REVERSO_CONTRATO_AGENCIA   => array('PAC Reverso Contrato Agência', 124884),
+
+        self::SERVICE_SEDEX_CONTRATO_GRANDES_FORMATOS_LM   => array('SEDEX Contrato Grandes Formatos (Liminar ABCOMM)', null),
+        self::SERVICE_SEDEX_CONTRATO_AGENCIA_LM   => array('SEDEX Contrato Agência (Liminar ABCOMM)', 160126),
+        self::SERVICE_SEDEX_REVERSO_LM   => array('SEDEX Reverso (Liminar ABCOMM)', null),
+        self::SERVICE_SEDEX_CONTRATO_UO_LM   => array('SEDEX Contrato UO (Liminar ABCOMM)', null),
+
+        self::SERVICE_PAC_CONTRATO_GRANDES_FORMATOS_LM   => array('PAC Contrato Grandes Formatos (Liminar ABCOMM)', null),
+        self::SERVICE_PAC_CONTRATO_AGENCIA_LM   => array('PAC Contrato Agência (Liminar ABCOMM)', 160123),
+        self::SERVICE_PAC_REVERSO_LM   => array('PAC Reverso (Liminar ABCOMM)', null),
+        self::SERVICE_PAC_CONTRATO_UO_LM   => array('PAC Contrato UO (Liminar ABCOMM)', null),
+
+        self::SERVICE_SEDEX_CONTRATO_AGENCIA_PAGAMENTO_NA_ENTREGA_LM   => array('SEDEX Contrato Agencia Pagamento na Entrega (Liminar ABCOMM)', null),
+        self::SERVICE_PAC_CONTRATO_AGENCIA_PAGAMENTO_NA_ENTREGA_LM   => array('PAC Contrato Agencia Pagamento na Entrega (Liminar ABCOMM)', null),
     );
 
     /**

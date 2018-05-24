@@ -21,6 +21,8 @@ Esta API pode:
 * Gerar em PDF as chancelas para cada tipo de serviço (logo de cada tipo de servico).
 * Obter dados de PLP após postagem [processamento pelo Sara]
 * Solicitar, Acompanhar e Cancelar autorização de postagem (logística Reversa).
+* [Novo] Suspender a entrega de postagem (Também chamado de Entrega Interativa)
+
 
 Requisitos
 ---

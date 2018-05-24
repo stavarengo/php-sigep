@@ -93,4 +93,14 @@ interface ServiceInterface
      * @return mixed
      */
     public function acompanharPostagemReversa(\PhpSigep\Model\AcompanhaPostagemReversa $params);
+
+    /**
+     * @param $numeroEtiqueta
+     * @param $idPlp
+     * @param $usuario
+     * @param $senha
+     * @return \PhpSigep\Services\Result<\PhpSigep\Model\BloquearObjetoResposta[]>
+     */
+    public function bloquearObjeto($numeroEtiqueta, $idPlp, $usuario, $senha);
+
 }
