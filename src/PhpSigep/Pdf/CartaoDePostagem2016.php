@@ -381,8 +381,10 @@ class CartaoDePostagem2016
 
                 // Observações
                 $observacoes = $objetoPostal->getObservacao();
-                $this->pdf->SetXY(55, $this->pdf->GetY() + 1);
-                $this->multiLines(40, 'Obs: ' . $observacoes, 'L', null);
+                if (!empty($observacoes)) {
+                    $this->pdf->SetXY(55, $this->pdf->GetY() + 1);
+                    $this->multiLines(40, 'Obs: ' . $observacoes, 'L', null);
+                }
 
                 // Número do CEP
                 $cep = $destino->getCep();
