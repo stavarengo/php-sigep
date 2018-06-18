@@ -26,6 +26,8 @@
     $destino->setCep('30170-010');
     $destino->setCidade('Belo Horizonte');
     $destino->setUf('MG');
+    $destino->setNumeroNotaFiscal(1234567890);
+    $destino->setNumeroPedido(1234567890);
 
     // Estamos criando uma etique falsa, mas em um ambiente real voçê deve usar o método
     // {@link \PhpSigep\Services\SoapClient\Real::solicitaEtiquetas() } para gerar o número das etiquetas
@@ -44,6 +46,7 @@
     $encomenda->setDimensao($dimensao);
     $encomenda->setEtiqueta($etiqueta);
     $encomenda->setPeso(0.500);// 500 gramas
+    $encomenda->setObservacao('test');
     $encomenda->setServicoDePostagem(new \PhpSigep\Model\ServicoDePostagem(\PhpSigep\Model\ServicoDePostagem::SERVICE_SEDEX_40096));
 // ***  FIM DOS DADOS DA ENCOMENDA QUE SERÁ DESPACHADA *** //
 
