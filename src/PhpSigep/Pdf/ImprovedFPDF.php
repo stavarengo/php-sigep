@@ -21,6 +21,7 @@ class ImprovedFPDF extends \PhpSigepFPDF
 
     private $widths;
     private $aligns;
+    private $angle = 0;
 
     function __construct($orientation = 'P', $unit = 'mm', $size = 'A4')
     {
@@ -70,6 +71,16 @@ class ImprovedFPDF extends \PhpSigepFPDF
         return $lineHeigth / $this->k;
     }
 
+    /**
+     * @param type $w
+     * @param type $txt
+     * @param type $align
+     * @param type $ln
+     * @param type $h
+     * @param type $border
+     * @param type $fill
+     * @param type $link
+     */
     public function CellXp($w, $txt, $align = '', $ln = 0, $h = null, $border = 0, $fill = false, $link = '')
     {
         if ($h === null) {
@@ -377,6 +388,30 @@ class ImprovedFPDF extends \PhpSigepFPDF
         $this->_out(sprintf('%.2F %.2F %.2F %.2F %.2F %.2F c ', $x1*$this->k, ($h-$y1)*$this->k,
                 $x2*$this->k, ($h-$y2)*$this->k, $x3*$this->k, ($h-$y3)*$this->k));
     }
+    
+    function Rotate($angle,$x=-1,$y=-1){
+    if($x==-1){
+        $x=$this->x;
+    }
+    if($y==-1){
+        $y=$this->y;
+    }
+    
+    if($this->angle!=0){
+        $this->_out('Q');
+    }
+    
+    $this->angle=$angle;
+    
+    if($angle!=0){
+        $angle*=M_PI/180;
+        $c=cos($angle);
+        $s=sin($angle);
+        $cx=$x*$this->k;
+        $cy=($this->h-$y)*$this->k;
+        $this->_out(sprintf('q %.5F %.5F %.5F %.5F %.2F %.2F cm 1 0 0 1 %.2F %.2F cm',$c,$s,-$s,$c,$cx,$cy,-$cx,-$cy));
+    }
+}
 
 }
 

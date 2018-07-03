@@ -1,10 +1,10 @@
-###Ajude o projeto a crescer. Envie pull request de suas alterações no código fonte ou na documentação do projeto.
+### Ajude o projeto a crescer. Envie pull request de suas alterações no código fonte ou na documentação do projeto.
 
 PHP SIGEP - Correios
 ====================
 
-* Baixe a última versão estável aqui: [https://github.com/stavarengo/php-sigep/tags](https://github.com/stavarengo/php-sigep/tags) 
- 
+* Baixe a última versão estável aqui: [https://github.com/stavarengo/php-sigep/tags](https://github.com/stavarengo/php-sigep/tags)
+
 Implementação do Web Service dos correios SIGEP Web.
 ### [Veja a demo online, exemplos e documentação em nossa página](http://stavarengo.github.io/php-sigep).
 
@@ -18,8 +18,9 @@ Esta API pode:
 * Criar e/ou verificar validade do dígito verificador das etiquetas (através do web service ou não).   
 * Gerar o relatório da PLP no formato PDF.   
 * Gerar as etiquetas de postagem no formato PDF.
-* Gerar em PDF as chancelas para cada tipo de serviço (logo de cada tipo de servico). 
+* Gerar em PDF as chancelas para cada tipo de serviço (logo de cada tipo de servico).
 * Obter dados de PLP após postagem [processamento pelo Sara]
+* [Novo] Suspender a entrega de postagem (Também chamado de Entrega Interativa)
 
 Requisitos
 ---
@@ -58,9 +59,9 @@ Este problema foi reportado aqui: https://github.com/stavarengo/php-sigep/issues
 Alguns usuarios tiveram problemas de conexão e autentificação com WebService do Correios em ambiente de produção devido a versão do PHP.
 Para resolver o problema, você pode ou utilizar uma versão masi rescente do PHP (>=5.4) ou fazer o download do WSDL do Correios e utilizar ele no seu servidor para fazer conexão.
 Caso escolha fazer o download o WSDL, siga os passos abaixo:
+<a id="example-change-wsdl"></a>
 1. Salve este arquivo em seu ambiente local https://apps.correios.com.br/SigepMasterJPA/AtendeClienteService/AtendeCliente?wsdl
 2. Altere as configurações do seu ambiente de produção para apotar para o arquivo que você baixou. Vejo exemplo abaixo.
-<a id="example-change-wsdl"></a>
 ```php
 $config = new \PhpSigep\Config();
 $config->setEnv(\PhpSigep\Config::ENV_PRODUCTION);
