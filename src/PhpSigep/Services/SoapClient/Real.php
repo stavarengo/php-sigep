@@ -6,6 +6,7 @@ use PhpSigep\Model\Etiqueta;
 use PhpSigep\Services\Real as ServiceImplementation;
 use PhpSigep\Services\Result;
 use PhpSigep\Services\ServiceInterface;
+use VRia\Utils\NoDiacritic;
 
 /**
  * @author: Stavarengo
@@ -57,6 +58,57 @@ class Real implements ServiceInterface
         $service = new ServiceImplementation\SolicitaXmlPlp();
 
         return $service->execute($idPlpMaster);
+    }
+
+    /**
+     * @param string $zone estado
+     * @param string $city cidade
+     * @param string $address_2 bairro
+     *
+     * @return Result<\PhpSigep\Model\ListarAgenciasCliqueRetireResult[]>
+     */
+    public function listarAgenciasCliqueRetire($zone, $city, $address_2)
+    {
+        $service = new ServiceImplementation\ListarAgenciasCliqueRetire();
+
+        return $service->execute($zone, $city, $address_2);
+    }
+
+    /**
+     * @param string $address_2 bairro
+     *
+     * @return Result<\PhpSigep\Model\ListarAgenciasCliqueRetireResult[]>
+     */
+    public function listarAgenciasCliqueRetireByCep($cep)
+    {
+        $zone = '';
+        $city = '';
+        $address_2 = '';
+
+        $result = $this->consultaCep($cep);
+        if (!$result->hasError()) {
+            $zone = $result->getResult()->getUf();
+            $city = NoDiacritic::filter($result->getResult()->getCidade());
+            $address_2 = NoDiacritic::filter($result->getResult()->getBairro());
+        } else {
+            return $result;
+        }
+
+        $service = new ServiceImplementation\ListarAgenciasCliqueRetire();
+
+        return $service->execute($zone, $city, $address_2);
+    }
+
+    /**
+     * @param string $codigo
+     *
+     * @return Result<\PhpSigep\Model\ConsultarAgenciaResult[]>
+     */
+    public function consultarAgencia($codigo)
+    {
+        $service = new ServiceImplementation\ConsultarAgencia();
+
+        return $service->execute($codigo);
     }
 
     /**
