@@ -92,6 +92,13 @@ class DestinoNacional extends AbstractModel implements Destino
     protected $valorACobrar;
 
     /**
+     * Agencia destinatária.
+     * Max length: 30
+     * @var string
+     */
+    protected $agencia;
+
+    /**
      * @return string
      */
     public function getBairro()
@@ -267,5 +274,19 @@ class DestinoNacional extends AbstractModel implements Destino
         return $this->valorACobrar;
     }
 
+    /**
+     * @param string $agencia
+     */
+    public function setAgencia($agencia)
+    {
+        $this->agencia = $agencia;
+    }
 
+    /**
+     * @return string
+     */
+    public function getAgencia()
+    {
+        return $this->agencia;
+    }
 }

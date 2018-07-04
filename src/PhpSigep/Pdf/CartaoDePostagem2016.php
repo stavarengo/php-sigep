@@ -503,13 +503,24 @@ class CartaoDePostagem2016
         $destino = $objetoPostal->getDestino();
 
         if ($destino instanceof \PhpSigep\Model\DestinoNacional) {
-            $bairro = $destino->getBairro();
+            if (!$objetoPostal->getDestinatario()->getIsCliqueRetire()) {
+                $bairro = $destino->getBairro();
+            } else {
+                $bairro = $destino->getAgencia();
+            }
+
             $cidade = $destino->getCidade();
             $uf = $destino->getUf();
             $cep = $destino->getCep();
         }
 
         $cep = preg_replace('/(\d{5})-{0,1}(\d{3})/', '$1-$2', $cep);
+
+        if ($objetoPostal->getDestinatario()->getIsCliqueRetire()) {
+            $logradouro = 'Clique e Retire';
+            $numero = false;
+            $complemento = '';
+        }
 
         $t = $this->writeEndereco(
             $t1,
@@ -602,11 +613,12 @@ class CartaoDePostagem2016
         //Primeria parte do endereco
         $address1 = $logradouro;
         $numero = $numero1;
-        if (!$numero || strtolower($numero) == 'sn') {
+        if ($numero === 0 || strtolower($numero) == 'sn') {
             $address1 .= ', s/ nº';
-        } else {
+        } elseif (!empty($numero)) {
             $address1 .= ', ' . $numero;
         }
+
         if ($complemento) {
             $address1 .= ' - ' . $complemento;
         }
