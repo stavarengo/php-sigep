@@ -59,6 +59,12 @@ class CartaoDePostagem
      */
     private $layoutCarta = 'carta';
     /**
+     * Gerar etiquetas para o mesmo destinatário
+     * Irá gerar na etiqueta a escrita: Volume 1 de 2, volume 2 de 2.
+     * @var boolean $envioMesmoDestinatario
+     */
+    private $envioMesmoDestinatario = true;
+    /**
      * @param \PhpSigep\Model\PreListaDePostagem $plp
      * @param int $idPlpCorreios
      * @param string $logoFile
@@ -355,7 +361,11 @@ class CartaoDePostagem
                 }
 
                 $this->pdf->SetFontSize(7);
-                $this->t($this->pdf->w, "Volume: $index/$total    ".'Peso(kg): ' . ((float)$objetoPostal->getPeso()) . $nf . $numeroPedido, 1, 'C',  null);
+                if ($this->getEnvioMesmoDestinatario()){
+                    $this->t($this->pdf->w, "Volume: $index/$total    ".'Peso(kg): ' . ((float)$objetoPostal->getPeso()) . $nf . $numeroPedido, 1, 'C',  null);
+                }else{
+                    $this->t($this->pdf->w, 'Peso(kg): ' . ((float)$objetoPostal->getPeso()) . $nf . $numeroPedido, 1, 'C',  null);
+                }
 
                 // Número da etiqueta
                 $this->setFillColor(100, 100, 200);
@@ -712,4 +722,13 @@ class CartaoDePostagem
         $str .= $msg;
         return $str;
     }
+    
+    public function getEnvioMesmoDestinatario() {
+        return $this->envioMesmoDestinatario;
+    }
+    public function setEnvioMesmoDestinatario($envioMesmoDestinatario) {
+        $this->envioMesmoDestinatario = $envioMesmoDestinatario;
+        return $this;
+    }
+    
 }
