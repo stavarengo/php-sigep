@@ -14,6 +14,7 @@ use PhpSigep\Pdf\Chancela\Sedex2016;
 /**
  * @author: Stavarengo
  * @modify José Domingos Grieco <jdgrieco@gmail.com>
+ * @modify Jonathan Célio da Silva <jonathan.clio@hotmail.com>
  */
 class CartaoDePostagem
 {
@@ -311,6 +312,7 @@ class CartaoDePostagem
                     case ServicoDePostagem::SERVICE_CARTA_COMERCIAL_A_FATURAR:
                     case ServicoDePostagem::SERVICE_CARTA_REGISTRADA:
                     case ServicoDePostagem::SERVICE_CARTA_COMERCIAL_REGISTRADA_CTR_EP_MAQ_FRAN:
+                    case ServicoDePostagem::SERVICE_CARTA_COM_A_FATURAR_SELO_E_SE:
                         if ($this->layoutCarta === CartaoDePostagem::TYPE_CHANCELA_CARTA) {
                             $chancela = new Carta($lPosChancela, $tPosChancela, $nomeRemetente, $accessData);
                         } else {
@@ -485,7 +487,7 @@ class CartaoDePostagem
                 $this->writeRemetente(0,  $this->pdf->GetY() + $hCepBarCode + 5, $wAddressLeftCol, $this->plp->getRemetente());
 
             }
-            
+
             $index++;
         }
 

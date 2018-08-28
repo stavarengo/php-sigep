@@ -21,6 +21,8 @@ Esta API pode:
 * Gerar em PDF as chancelas para cada tipo de serviço (logo de cada tipo de servico).
 * Obter dados de PLP após postagem [processamento pelo Sara]
 * [Novo] Suspender a entrega de postagem (Também chamado de Entrega Interativa)
+* [Novo] Listagem de Agências (Necessário para o Clique e Retire)
+* [Novo] Gerar as etiquetas de postagem no formato PDF para o Clique e Retire.
 
 Requisitos
 ---
