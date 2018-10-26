@@ -48,6 +48,10 @@ class ObjetoPostal extends AbstractModel
      * @var Dimensao
      */
     protected $dimensao;
+    /**
+     * @var string
+     */
+    protected $observacao;
 
     /**
      * @param float $cubagem
@@ -179,5 +183,19 @@ class ObjetoPostal extends AbstractModel
         return (array)$this->servicosAdicionais;
     }
 
+    /**
+     * @return string
+     */
+    public function getObservacao()
+    {
+        return $this->observacao;
+    }
 
+    /**
+     * @param string $observacao
+     */
+    public function setObservacao($observacao)
+    {
+        $this->observacao = $observacao;
+    }
 }

@@ -143,13 +143,15 @@ class SolicitaEtiquetas implements RealServiceInterface
         $prefix = \substr($startingEtiqueta, 0, 2);
         $sufix  = \substr($startingEtiqueta, 11);
                 
-        $startingNumber = $this->getNumbersEtiqueta($startingEtiqueta);
-        $finalNumber = $this->getNumbersEtiqueta($finalEtiqueta);
+        $startingNumber = (int)$this->getNumbersEtiqueta($startingEtiqueta);
+        $finalNumber    = (int)$this->getNumbersEtiqueta($finalEtiqueta);
         
         $numbersEtiquetas = array();
         
         for ($i = $startingNumber; $i <= $finalNumber; $i++){
-            $numbersEtiquetas[] = $prefix.$i.' '.$sufix;
+            //Colocando 0 a esquerda para completar os 8 digitos 
+            $inc = \str_pad($i, 8, '0', \STR_PAD_LEFT);
+            $numbersEtiquetas[] = $prefix.$inc.' '.$sufix;
         }
         
         return $numbersEtiquetas;

@@ -11,7 +11,7 @@ $layoutChancela = array(); //array(\PhpSigep\Pdf\CartaoDePostagem2016::TYPE_CHAN
 
 $pdf = new \PhpSigep\Pdf\CartaoDePostagem2016($params, time(), $logoFile, $layoutChancela);
 
-$fileName = 'etiquetas.pdf';
+$fileName = tempnam(sys_get_temp_dir(), 'phpsigep') . '.pdf';
 $pdf->render('F',$fileName);
 
 unset($pdf);

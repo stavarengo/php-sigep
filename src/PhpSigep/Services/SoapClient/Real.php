@@ -6,6 +6,7 @@ use PhpSigep\Model\Etiqueta;
 use PhpSigep\Services\Real as ServiceImplementation;
 use PhpSigep\Services\Result;
 use PhpSigep\Services\ServiceInterface;
+use VRia\Utils\NoDiacritic;
 
 /**
  * @author: Stavarengo
@@ -48,12 +49,75 @@ class Real implements ServiceInterface
     }
 
     /**
+     * @param integer $idPlpMaster número da PLP
+     *
+     * @return Result<\PhpSigep\Model\solicitaXmlPlp[]>
+     */
+    public function solicitaXmlPlp($idPlpMaster)
+    {
+        $service = new ServiceImplementation\SolicitaXmlPlp();
+
+        return $service->execute($idPlpMaster);
+    }
+
+    /**
+     * @param string $zone estado
+     * @param string $city cidade
+     * @param string $address_2 bairro
+     *
+     * @return Result<\PhpSigep\Model\ListarAgenciasCliqueRetireResult[]>
+     */
+    public function listarAgenciasCliqueRetire($zone, $city, $address_2)
+    {
+        $service = new ServiceImplementation\ListarAgenciasCliqueRetire();
+
+        return $service->execute($zone, $city, $address_2);
+    }
+
+    /**
+     * @param string $address_2 bairro
+     *
+     * @return Result<\PhpSigep\Model\ListarAgenciasCliqueRetireResult[]>
+     */
+    public function listarAgenciasCliqueRetireByCep($cep)
+    {
+        $zone = '';
+        $city = '';
+        $address_2 = '';
+
+        $result = $this->consultaCep($cep);
+        if (!$result->hasError()) {
+            $zone = $result->getResult()->getUf();
+            $city = NoDiacritic::filter($result->getResult()->getCidade());
+            $address_2 = NoDiacritic::filter($result->getResult()->getBairro());
+        } else {
+            return $result;
+        }
+
+        $service = new ServiceImplementation\ListarAgenciasCliqueRetire();
+
+        return $service->execute($zone, $city, $address_2);
+    }
+
+    /**
+     * @param string $codigo
+     *
+     * @return Result<\PhpSigep\Model\ConsultarAgenciaResult[]>
+     */
+    public function consultarAgencia($codigo)
+    {
+        $service = new ServiceImplementation\ConsultarAgencia();
+
+        return $service->execute($codigo);
+    }
+
+    /**
      * Pede para o WebService do Correios calcular o dígito verificador de uma etiqueta.
-     * 
-     * Se preferir você pode usar o método {@linnk \PhpSigep\Model\Etiqueta::getDv() } para calcular o dígito 
+     *
+     * Se preferir você pode usar o método {@linnk \PhpSigep\Model\Etiqueta::getDv() } para calcular o dígito
      * verificador, visto que esse método é mais rápido pois faz o cálculo local sem precisar se comunicar com o
      * WebService.
-     * 
+     *
      * @param \PhpSigep\Model\GeraDigitoVerificadorEtiquetas $params
      *
      * @throws \SoapFault
@@ -120,4 +184,20 @@ class Real implements ServiceInterface
         $service = new ServiceImplementation\VerificarStatusCartaoPostagem();
         return $service->execute($numeroCartaoPostagem, $usuario, $senha);
     }
+
+    /**
+     * Pede para o WebService do Correios suspender a entrega de uma encomenda ao destinatário
+     * @param $numeroEtiqueta
+     * @param $idPlp
+     * @param $usuario
+     * @param $senha
+     * @return \PhpSigep\Services\Result<\PhpSigep\Model\BloquearObjetoResposta[]>
+     */
+
+    public function bloquearObjeto($numeroEtiqueta, $idPlp, $usuario, $senha)
+    {
+        $service = new ServiceImplementation\BloquearObjeto();
+        return $service->execute($numeroEtiqueta, $idPlp, $usuario, $senha);
+    }
+
 }

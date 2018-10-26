@@ -11,4 +11,4 @@ $logoFile = __DIR__ . '/logo-etiqueta.png';
 $layoutChancela = array(\PhpSigep\Pdf\CartaoDePostagem::TYPE_CHANCELA_CARTA);
 
 $pdf = new \PhpSigep\Pdf\CartaoDePostagem($params, time(), $logoFile, $layoutChancela);
-$pdf->render('F', 'etiquetas.pdf');
+$pdf->render();
