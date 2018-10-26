@@ -249,17 +249,17 @@ class CartaoDePostagem2018
             $ncontrato = (int) $AccessData->getNumeroContrato() > 0 ? $AccessData->getNumeroContrato() : '';
 
             $this->pdf->SetXY(35, 27);
-            $this->t(15, 'Contrato:', 1, 'L',  null);
+            $this->t(15, 'Contrato:', 1, 'L', null);
 
             $this->pdf->SetFont('', 'B');
             $this->pdf->SetXY(50, 27);
-            $this->t(15, $ncontrato, 1, 'L',  null);
+            $this->t(15, $ncontrato, 1, 'L', null);
             $this->pdf->SetFont('');
 
             // Volume
             $this->pdf->SetXY(81, 27);
             $str = $this->_volume != "" ?  'Volume: '. $this->_volume : ' ';
-            $this->t(15, $str, 1, 'L',  null);
+            $this->t(15, $str, 1, 'L', null);
 
             // Pedido
             $this->pdf->SetXY(5, 31);
@@ -267,19 +267,19 @@ class CartaoDePostagem2018
             $pedido = $objetoPostal->getDestino()->getNumeroPedido();
             $str = $pedido != "" ?  'Pedido: '. $pedido : ' ';
             $this->pdf->SetFontSize(9);
-            $this->t(15, $str, 1, 'L',  null);
+            $this->t(15, $str, 1, 'L', null);
 
             $this->pdf->SetFont('', 'B');
             $this->pdf->SetXY(35, 31);
-            $this->t(40, $_texto, 1, 'C',  null);
+            $this->t(40, $_texto, 1, 'C', null);
             $this->pdf->SetFont('');
 
             // Peso
             $this->pdf->SetXY(81, 31);
-            $this->t(15, 'Peso (g):', 1, 'L',  null);
+            $this->t(15, 'Peso (g):', 1, 'L', null);
             $this->pdf->SetFont('', 'B');
             $this->pdf->SetXY(95, 31);
-            $this->t(15, round($objetoPostal->getPeso()*1000), 1, 'L',  null);
+            $this->t(15, round($objetoPostal->getPeso()*1000), 1, 'L', null);
             $this->pdf->SetFont('');
 
             // Número da etiqueta
@@ -289,8 +289,13 @@ class CartaoDePostagem2018
             $this->pdf->SetFontSize(11);
             $this->pdf->SetFont('', 'B');
             $etiquetaComDv = $objetoPostal->getEtiqueta()->getEtiquetaComDv();
-            $Formatetiqueta = substr($etiquetaComDv, 0, 2) . ' ' . substr($etiquetaComDv, 2, 3) . ' ' . substr($etiquetaComDv, 5, 3) . ' ' . substr($etiquetaComDv, 8, 3) . ' ' . substr($etiquetaComDv, 11, 2);
-            $this->t(85, $Formatetiqueta, 2, 'C');
+            $etiquetaFormatada = substr($etiquetaComDv, 0, 2) . ' '
+                . substr($etiquetaComDv, 2, 3) . ' '
+                . substr($etiquetaComDv, 5, 3) . ' '
+                . substr($etiquetaComDv, 8, 3) . ' '
+                . substr($etiquetaComDv, 11, 2);
+
+            $this->t(85, $etiquetaFormatada, 2, 'C');
 
             // Código de barras da etiqueta
             $this->setFillColor(0, 0, 0);
@@ -333,20 +338,20 @@ class CartaoDePostagem2018
             $_hinit = $this->pdf->GetY() - 1;
             $_hupdate = $_hinit;
 
-            foreach($_siglaAdicinal as $_key => $_sigla) {
-                if($_ctadc > 1 && $_ctadc <= 4) {
+            foreach ($_siglaAdicinal as $_key => $_sigla) {
+                if ($_ctadc > 1 && $_ctadc <= 4) {
                     $_hupdate += 5;
-                } else if($_ctadc == 5) {
+                } else if ($_ctadc == 5) {
                     $_hupdate = $_hinit;
                     $_winit = 98;
-                } else if($_ctadc >= 6) {
+                } else if ($_ctadc >= 6) {
                     $_hupdate += 5;
                 }
 
                 // Siglas Serviços Adicionais
                 $this->pdf->SetXY($_winit, $_hupdate);
                 $this->pdf->SetFont('Arial', 'B', 11);
-                $this->t(10, $_sigla, 0, 'L',  null);
+                $this->t(10, $_sigla, 0, 'L', null);
 
                 $_ctadc++;
             }
@@ -355,10 +360,10 @@ class CartaoDePostagem2018
             // Nome legivel, doc e rubrica
             $this->pdf->SetFontSize(9);
             $this->pdf->SetXY(5, $_hinit + 20);
-            $this->t(0, 'Recebedor: _____________________________________________', 1, 'L',  null);
+            $this->t(0, 'Recebedor: _____________________________________________', 1, 'L', null);
             $this->pdf->SetXY(5, $this->pdf->GetY() + 2);
-            $this->t(0, 'Assinatura: ______________________ Documento: ____________', 1, 'L',  null);
-            $this->t(0, '', 1, 'L',  null);
+            $this->t(0, 'Assinatura: ______________________ Documento: ____________', 1, 'L', null);
+            $this->t(0, '', 1, 'L', null);
 
             // Destinatário
             $wAddressLeftCol = $this->pdf->w - 5;
@@ -430,12 +435,12 @@ class CartaoDePostagem2018
             $this->pdf->gdImage($semaCodeGD, 40, 2, 25, 25);
             imagedestroy($semaCodeGD);
 			
-			$this->writeRemetente(0,  $currentY + $hCepBarCode + 4, $wAddressLeftCol, $this->plp->getRemetente());
+			$this->writeRemetente(0, $currentY + $hCepBarCode + 4, $wAddressLeftCol, $this->plp->getRemetente());
+
+            $this->pdf->SetXY(0, 0);
+            $this->pdf->SetDrawColor(0,0,0);
+            $this->pdf->Rect(0, 0, 106.36, 140);
 		}
-		
-		$this->pdf->SetXY(0, 0);
-		$this->pdf->SetDrawColor(0,0,0);
-		$this->pdf->Rect(0, 0, 106.36, 140);
 		
 		return $this->pdf->Output($fileName, $dest);
 	}
@@ -571,7 +576,9 @@ class CartaoDePostagem2018
 		$cidade, $uf, $cep = null, $destinatario = false
 	) {
 		//$this->pdf->SetTextColor(51,51,51);
-		if($destinatario) {
+		if ($destinatario === true) {
+            $addressPadding = 5;
+
 			$t = $t-2;
 			$this->pdf->SetDrawColor(0,0,0);
 			$this->pdf->Line(0, $t, 106.36, $t);
@@ -590,47 +597,15 @@ class CartaoDePostagem2018
 			$this->pdf->SetTextColor(0,0,0);
 			
 			$this->pdf->Image(realpath(dirname(__FILE__)) . '/logo-correios.png', 84, $t+1, 20, 4);
-			
-			$addressPadding = 5;
-			$w = $w - $addressPadding;
-			$l = $l + $addressPadding;
 
 			// Nome da pessoa
 			$this->pdf->SetFont('', '', 11);
 			$this->setFillColor(190, 190, 190);
-			$this->pdf->SetX($l);
+			$this->pdf->SetX($l + $addressPadding);
 			$this->multiLines($w, $nomeDestinatario, 'L');
 
-			//Primeria parte do endereco
-			$address1 = $logradouro;
-			$numero = $numero1;
-			if (!$numero || strtolower($numero) == 'sn') {
-				$address1 .= ', s/ nº';
-			} else {
-				$address1 .= ', ' . $numero;
-			}
-			if ($complemento) {
-				$complemento = $complemento . ' ';
-			}
-			$this->setFillColor(100, 190, 190);
-			$this->pdf->SetX($l);
-			$this->multiLines($w, $address1, 'L');
-
-			//Segunda parte do endereco
-			$this->pdf->SetX($l);
-			
-			$this->setFillColor(100, 130, 190);
-			$this->multiLines($w, $complemento . $bairro, 'L');
-			
-			$this->setFillColor(100, 30, 210);
-			$this->pdf->SetX($l);
-			$this->pdf->SetFont('', 'B');
-			$this->t($l, ($cep ? $cep . '  ' : ''), 0, 'L');
-			
-			$this->pdf->SetFont('');
-			$this->pdf->SetX($l + 20);
-			$this->t(15, ucfirst(trim($cidade)) . '/' . strtoupper(trim($uf)), 2, 'L');
 		} else {
+            $addressPadding = 2;
 			$t = $t -1;
 			$this->pdf->SetDrawColor(0,0,0);
 			$this->pdf->Line(0, $t, 106.36, $t);
@@ -643,45 +618,46 @@ class CartaoDePostagem2018
 			$this->pdf->SetFontSize(10);
 			$this->pdf->SetXY(2, $t);
 			$this->t($w, $titulo, 2, '');
-			
-			$addressPadding = 5;
-			$w = $w - $addressPadding;
-			$l = $l + $addressPadding;
 
 			// Nome da pessoa
 			$this->pdf->SetFont('', '', 10);
 			$this->setFillColor(190, 190, 190);
 			$this->pdf->SetXY(22, $t);
 			$this->multiLines($w, trim($nomeDestinatario), 'L');
-
-			//Primeria parte do endereco
-			$address1 = $logradouro;
-			$numero = $numero1;
-			if (!$numero || strtolower($numero) == 'sn') {
-				$address1 .= ', s/ nº';
-			} else {
-				$address1 .= ', ' . $numero;
-			}
-			if ($complemento) {
-				$complemento = $complemento . ' ';
-			}
-			$this->setFillColor(100, 190, 190);
-			$this->pdf->SetX(2);
-			$this->multiLines($w, $address1, 'L');
-
-			//Segunda parte do endereco
-			$this->pdf->SetX(2);
-			$this->setFillColor(100, 130, 190);
-			$this->multiLines($w, $complemento . $bairro, 'L');
-			$this->setFillColor(100, 30, 210);
-			$this->pdf->SetX(2);
-			$this->pdf->SetFont('', 'B');
-			$this->t($l, ($cep ? $cep . '  ' : ''), 0, 'L');
-			
-			$this->pdf->SetFont('');
-			$this->pdf->SetX(21);
-			$this->t(15, ucfirst(trim($cidade)) . '-' . strtoupper(trim($uf)), 2, 'L');
 		}
+
+        $w = $w - $addressPadding;
+        $l = $l + $addressPadding;
+
+        //Primeria parte do endereco
+        $address1 = $logradouro;
+        $numero = $numero1;
+        if (!$numero || strtolower($numero) == 'sn') {
+            $address1 .= ', s/ nº';
+        } else {
+            $address1 .= ', ' . $numero;
+        }
+        if ($complemento) {
+            $complemento = $complemento . ' ';
+        }
+        $this->setFillColor(100, 190, 190);
+        $this->pdf->SetX($l);
+        $this->multiLines($w, $address1, 'L');
+
+        //Segunda parte do endereco
+        $this->pdf->SetX($l);
+
+        $this->setFillColor(100, 130, 190);
+        $this->multiLines($w, $complemento . $bairro, 'L');
+
+        $this->setFillColor(100, 30, 210);
+        $this->pdf->SetX($l);
+        $this->pdf->SetFont('', 'B');
+        $this->t($l, ($cep ? $cep . '  ' : ''), 0, 'L');
+
+        $this->pdf->SetFont('');
+        $this->pdf->SetX($l + 20);
+        $this->t(15, ucfirst(trim($cidade)) . '/' . strtoupper(trim($uf)), 2, 'L');
 
 		return $this->pdf->GetY();
 	}
