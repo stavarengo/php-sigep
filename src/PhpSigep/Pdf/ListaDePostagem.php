@@ -451,7 +451,7 @@ class ListaDePostagem
     private function writeTitle($k, $pdf, $wInner)
     {
 // Adiciona a logo
-        $logoCorreios = realpath(dirname(__FILE__) . '/logo-correios.jpg');
+        $logoCorreios = realpath(dirname(__FILE__) . '/logo-correios.png');
         $wLogo        = 110 / $k;
         $lPosLogo     = $pdf->x;
         $pdf->Image($logoCorreios, $lPosLogo, null, $wLogo);
