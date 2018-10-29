@@ -361,9 +361,9 @@ class CartaoDePostagem2016
 
                 // Nome legivel, doc e rubrica
                 $this->pdf->SetFontSize(7);
-                $this->pdf->SetXY(1, $this->pdf->GetY() + 24);
+                $this->pdf->SetXY(3, $this->pdf->GetY() + 24);
                 $this->t(0, 'Nome Legível:___________________________________________', 1, 'L',  null);
-                $this->pdf->SetXY(1, $this->pdf->GetY() + 1);
+                $this->pdf->SetXY(3, $this->pdf->GetY() + 1);
                 $this->t(0, 'Documento:______________________________________________', 1, 'L',  null);
 
                 // Destinatário
@@ -490,7 +490,7 @@ class CartaoDePostagem2016
     {
         $l = $this->pdf->GetX();
         $t1 = $this->pdf->GetY();
-        $l = 0;
+        $l = 2;
 
         $titulo = 'Destinatário';
         $nomeDestinatario = $objetoPostal->getDestinatario()->getNome();
