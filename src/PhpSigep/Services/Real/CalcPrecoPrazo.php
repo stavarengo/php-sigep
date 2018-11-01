@@ -56,7 +56,7 @@ class CalcPrecoPrazo
         foreach ($servicosAdicionais as $servicoAdicional) {
             if ($servicoAdicional->is(ServicoAdicional::SERVICE_MAO_PROPRIA)) {
                 $maoPropria = true;
-            } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_VALOR_DECLARADO)) {
+            } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_VALOR_DECLARADO_SEDEX) || $servicoAdicional->is(ServicoAdicional::SERVICE_VALOR_DECLARADO_PAC)) {
                 if (!$servicoAdicional->getValorDeclarado()) {
                     throw new Exception('Para usar o serviço "valor declarado" é necessário declarar o valor da mercadoria.');
                 }

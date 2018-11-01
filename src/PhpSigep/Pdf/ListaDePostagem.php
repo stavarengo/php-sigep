@@ -397,7 +397,7 @@ class ListaDePostagem
                     $temAr = true;
                 } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_MAO_PROPRIA)) {
                     $temMp = true;
-                } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_VALOR_DECLARADO)) {
+                } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_VALOR_DECLARADO_PAC) || $servicoAdicional->is(ServicoAdicional::SERVICE_VALOR_DECLARADO_SEDEX)) {
                     $temVd          = true;
                     $valorDeclarado = $servicoAdicional->getValorDeclarado();
                 }

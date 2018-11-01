@@ -41,7 +41,7 @@
 
     $servicoAdicional2 = new \PhpSigep\Model\ServicoAdicional();
     $servicoAdicional2->setCodigoServicoAdicional(\PhpSigep\Model\ServicoAdicional::SERVICE_REGISTRO);
-    $servicoAdicional2->setCodigoServicoAdicional(\PhpSigep\Model\ServicoAdicional::SERVICE_VALOR_DECLARADO);
+    $servicoAdicional2->setCodigoServicoAdicional(\PhpSigep\Model\ServicoAdicional::SERVICE_VALOR_DECLARADO_PAC);
     $servicoAdicional2->setValorDeclarado(100);
 
     $encomenda = new \PhpSigep\Model\ObjetoPostal();
