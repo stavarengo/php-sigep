@@ -415,8 +415,11 @@ class CartaoDePostagem2016
                         $sSer = $sSer . "01";
                     } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_MAO_PROPRIA)) {
                         $sSer = $sSer . "02";
-                    } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_VALOR_DECLARADO)) {
+                    } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_VALOR_DECLARADO_SEDEX)) {
                         $sSer = $sSer . "19";
+                        $valorDeclarado = $servicoAdicional->getValorDeclarado();
+                    } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_VALOR_DECLARADO_PAC)) {
+                        $sSer = $sSer . "64";
                         $valorDeclarado = $servicoAdicional->getValorDeclarado();
                     } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_REGISTRO)) {
                         $sSer = $sSer . "25";
