@@ -1,6 +1,5 @@
 {
-    "name": "stavarengo/php-sigep",
-    "version": "0.0.2",
+    "name": "idealizetecnologia/php-sigep",
     "type": "library",
     "description": "Integração com Web Service do Correios. Gera etiquetas, consulta preços e prazos, imprime etiquetas e PLP, etc.",
     "keywords": ["correios", "sigep"],
@@ -18,8 +17,7 @@
     "require": {
         "php": ">=5.4",
         "ext-soap": "*",
-        "stavarengo/php-sigep-fpdf": "dev-master",
-		"vria/nodiacritic": "^0.1.2"
+        "stavarengo/php-sigep-fpdf": "dev-master"
     },
     "autoload": {
         "psr-0": {
