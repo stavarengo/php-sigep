@@ -324,8 +324,12 @@ class CartaoDePostagem2018
                 } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_MAO_PROPRIA)) {
                     $sSer = $sSer . "02";
                     $_siglaAdicinal[] = "MP";
-                } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_VALOR_DECLARADO)) {
+                } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_VALOR_DECLARADO_SEDEX)) {
                     $sSer = $sSer . "19";
+                    $_siglaAdicinal[] = "VD";
+                    $valorDeclarado = $servicoAdicional->getValorDeclarado();
+                } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_VALOR_DECLARADO_PAC)) {
+                    $sSer = $sSer . "64";
                     $_siglaAdicinal[] = "VD";
                     $valorDeclarado = $servicoAdicional->getValorDeclarado();
                 } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_REGISTRO)) {
