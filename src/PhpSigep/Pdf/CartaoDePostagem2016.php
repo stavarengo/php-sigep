@@ -232,6 +232,7 @@ class CartaoDePostagem2016
                     case ServicoDePostagem::SERVICE_PAC_REMESSA_AGRUPADA:
                     case ServicoDePostagem::SERVICE_PAC_CONTRATO_UO:
                     case ServicoDePostagem::SERVICE_PAC_CONTRATO_AGENCIA_LM:
+                    case ServicoDePostagem::SERVICE_PAC_CONTRATO_AGENCIA_TA:
                     case ServicoDePostagem::SERVICE_PAC_CONTRATO_GRANDES_FORMATOS_LM:
                         if ($this->layoutPac === CartaoDePostagem::TYPE_CHANCELA_PAC) {
                             $chancela = new Pac($lPosChancela, $tPosChancela, $nomeRemetente, $accessData);
@@ -260,6 +261,7 @@ class CartaoDePostagem2016
                     case ServicoDePostagem::SERVICE_SEDEX_CONTRATO_UO:
                     case ServicoDePostagem::SERVICE_SEDEX_CONTRATO_AGENCIA_LM:
                     case ServicoDePostagem::SERVICE_SEDEX_CONTRATO_GRANDES_FORMATOS_LM:
+                    case ServicoDePostagem::SERVICE_SEDEX_CONTRATO_AGENCIA_TA:
                         $tPosChancela = 3;
                         if ($this->layoutSedex === CartaoDePostagem::TYPE_CHANCELA_SEDEX) {
                             $chancela = new Sedex($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX, $accessData);
