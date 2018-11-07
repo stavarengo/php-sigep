@@ -51,6 +51,9 @@ class ServicoDePostagem extends AbstractModel
 
     const SERVICE_SEDEX_CONTRATO_AGENCIA_PAGAMENTO_NA_ENTREGA_LM    = '04151';
     const SERVICE_PAC_CONTRATO_AGENCIA_PAGAMENTO_NA_ENTREGA_LM      = '04308';
+    
+    const SERVICE_SEDEX_CONTRATO_AGENCIA_TA         = '04553';
+    const SERVICE_PAC_CONTRATO_AGENCIA_TA           = '04596';
 
 //    const SERVICE_CARTA_REGISTRADA           = '10138';
 
@@ -98,6 +101,9 @@ class ServicoDePostagem extends AbstractModel
 
         self::SERVICE_SEDEX_CONTRATO_AGENCIA_PAGAMENTO_NA_ENTREGA_LM   => array('SEDEX Contrato Agencia Pagamento na Entrega (Liminar ABCOMM)', null),
         self::SERVICE_PAC_CONTRATO_AGENCIA_PAGAMENTO_NA_ENTREGA_LM   => array('PAC Contrato Agencia Pagamento na Entrega (Liminar ABCOMM)', null),
+        
+        self::SERVICE_SEDEX_CONTRATO_AGENCIA_TA   => array('SEDEX Contrato Agencia TA', null),
+        self::SERVICE_PAC_CONTRATO_AGENCIA_TA   => array('PAC Contrato Agencia TA', null),
     );
 
     /**

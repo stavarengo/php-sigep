@@ -181,6 +181,14 @@ class CartaoDePostagem2018
                 case ServicoDePostagem::SERVICE_PAC_GRANDES_FORMATOS:
                 case ServicoDePostagem::SERVICE_PAC_REMESSA_AGRUPADA:
                 case ServicoDePostagem::SERVICE_PAC_CONTRATO_UO:
+                case ServicoDePostagem::SERVICE_PAC_CONTRATO_GRANDES_FORMATOS_LM:
+                case ServicoDePostagem::SERVICE_PAC_CONTRATO_AGENCIA_LM:
+                case ServicoDePostagem::SERVICE_PAC_REVERSO_LM:
+                case ServicoDePostagem::SERVICE_PAC_CONTRATO_UO_LM:
+                case ServicoDePostagem::SERVICE_PAC_CONTRATO_AGENCIA_PAGAMENTO_NA_ENTREGA_LM:
+                case ServicoDePostagem::SERVICE_PAC_PAGAMENTO_NA_ENTREGA:
+                case ServicoDePostagem::SERVICE_PAC_REVERSO_CONTRATO_AGENCIA:
+                case ServicoDePostagem::SERVICE_PAC_CONTRATO_AGENCIA_TA:
                     $chancela = new Pac2018(86, $this->pdf->GetY() + 13, $nomeRemetente, $accessData);
                     $_texto = 'PAC';
                     break;
@@ -197,6 +205,13 @@ class CartaoDePostagem2018
                 case ServicoDePostagem::SERVICE_SEDEX_AGRUPADO:
                 case ServicoDePostagem::SERVICE_SEDEX_CONTRATO_AGENCIA:
                 case ServicoDePostagem::SERVICE_SEDEX_CONTRATO_UO:
+                case ServicoDePostagem::SERVICE_SEDEX_CONTRATO_GRANDES_FORMATOS_LM:
+                case ServicoDePostagem::SERVICE_SEDEX_CONTRATO_AGENCIA_LM:
+                case ServicoDePostagem::SERVICE_SEDEX_REVERSO_LM:
+                case ServicoDePostagem::SERVICE_SEDEX_CONTRATO_UO_LM:
+                case ServicoDePostagem::SERVICE_SEDEX_REVERSO_CONTRATO_AGENCIA:
+                case ServicoDePostagem::SERVICE_SEDEX_CONTRATO_AGENCIA_PAGAMENTO_NA_ENTREGA_LM:
+                case ServicoDePostagem::SERVICE_SEDEX_CONTRATO_AGENCIA_TA:
                     $simbolo_de_encaminhamento = realpath(dirname(__FILE__)) . '/simbolo-sedex-standard.png';
                     $_texto = 'SEDEX';
                     break;
@@ -217,6 +232,7 @@ class CartaoDePostagem2018
                 case ServicoDePostagem::SERVICE_CARTA_COMERCIAL_A_FATURAR:
                 case ServicoDePostagem::SERVICE_CARTA_REGISTRADA:
                 case ServicoDePostagem::SERVICE_CARTA_COMERCIAL_REGISTRADA_CTR_EP_MAQ_FRAN:
+                case ServicoDePostagem::SERVICE_CARTA_COM_A_FATURAR_SELO_E_SE:
                     $simbolo_de_encaminhamento = realpath(dirname(__FILE__)) . '/simbolo-sem-especificacao.png';
                     $_texto = 'Carta';
                     break;
