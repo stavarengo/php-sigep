@@ -317,7 +317,7 @@ class CartaoDePostagem2018
             $this->setFillColor(0, 0, 0);
             $tPosEtiquetaBarCode = $this->pdf->GetY();
 
-            $hEtiquetaBarCode = 18;
+            $hEtiquetaBarCode = 16;
             $wEtiquetaBarCode = 80;
 
             $code128 = new \PhpSigep\Pdf\Script\BarCode128();
@@ -415,7 +415,7 @@ class CartaoDePostagem2018
             $tPosCepBarCode = $t + 1;
 
             // Etiqueta do CEP
-            $hCepBarCode = 18;
+            $hCepBarCode = 16;
             $wCepBarCode = 40;
             $this->setFillColor(0, 0, 0);
             $code128 = new \PhpSigep\Pdf\Script\BarCode128();
@@ -635,12 +635,12 @@ class CartaoDePostagem2018
 			// Titulo do bloco: destinatario ou remetente
 			$this->pdf->SetFont('', 'B');
 			$this->setFillColor(60, 60, 60);
-			$this->pdf->SetFontSize(10);
+			$this->pdf->SetFontSize(9);
 			$this->pdf->SetXY(2, $t);
 			$this->t($w, $titulo, 2, '');
 
 			// Nome da pessoa
-			$this->pdf->SetFont('', '', 10);
+			$this->pdf->SetFont('', '', 9);
 			$this->setFillColor(190, 190, 190);
 			$this->pdf->SetXY(22, $t);
 			$this->multiLines($w, trim($nomeDestinatario), 'L');
