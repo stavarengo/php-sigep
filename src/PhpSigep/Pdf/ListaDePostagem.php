@@ -397,7 +397,7 @@ class ListaDePostagem
                     $temAr = true;
                 } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_MAO_PROPRIA)) {
                     $temMp = true;
-                } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_VALOR_DECLARADO)) {
+                } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_VALOR_DECLARADO_PAC) || $servicoAdicional->is(ServicoAdicional::SERVICE_VALOR_DECLARADO_SEDEX)) {
                     $temVd          = true;
                     $valorDeclarado = $servicoAdicional->getValorDeclarado();
                 }
@@ -451,7 +451,7 @@ class ListaDePostagem
     private function writeTitle($k, $pdf, $wInner)
     {
 // Adiciona a logo
-        $logoCorreios = realpath(dirname(__FILE__) . '/logo-correios.jpg');
+        $logoCorreios = realpath(dirname(__FILE__) . '/logo-correios.png');
         $wLogo        = 110 / $k;
         $lPosLogo     = $pdf->x;
         $pdf->Image($logoCorreios, $lPosLogo, null, $wLogo);

@@ -29,6 +29,11 @@ class SoapClientFactory
      */
     protected static $_soapRastrearObjetos;
 
+    /**
+     * @var \SoapClient
+     */
+    protected static $_soapAgenciaWS;
+
     public static function getSoapClient()
     {
         if (!self::$_soapClient) {
@@ -121,6 +126,42 @@ class SoapClientFactory
         }
 
         return self::$_soapRastrearObjetos;
+    }
+
+    public static function getSoapAgenciaWS()
+    {
+        if (!self::$_soapAgenciaWS) {
+            if (!extension_loaded('soap')) {
+                throw new SoapExtensionNotInstalled('The "soap" module must be enabled in your PHP installation. The "soap" module is required in order to PHPSigep to make requests to the Correios WebService.');
+            }
+
+            $wsdl = Bootstrap::getConfig()->getWsdlAgenciaWS();
+
+            $opts = array(
+                'ssl' => array(
+                    //'ciphers'           =>'RC4-SHA',
+                    'verify_peer'       =>false,
+                    'verify_peer_name'  =>false
+                )
+            );
+            // SOAP 1.1 client
+            $params = array (
+                'encoding'              => 'UTF-8',
+                'verifypeer'            => false,
+                'verifyhost'            => false,
+                'soap_version'          => SOAP_1_1,
+                'trace'                 => Bootstrap::getConfig()->getEnv() != Config::ENV_PRODUCTION,
+                'exceptions'            => Bootstrap::getConfig()->getEnv() != Config::ENV_PRODUCTION,
+                "connection_timeout"    => 180,
+                'stream_context'        => stream_context_create($opts),
+                'login'                 => Bootstrap::getConfig()->getAccessData()->getIdCorreiosUsuario(),
+                'password'              => Bootstrap::getConfig()->getAccessData()->getIdCorreiosSenha()
+            );
+
+            self::$_soapAgenciaWS = new \SoapClient($wsdl, $params);
+        }
+
+        return self::$_soapAgenciaWS;
     }
 
     /**
