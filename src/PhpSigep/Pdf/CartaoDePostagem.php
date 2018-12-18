@@ -355,7 +355,7 @@ class CartaoDePostagem
 
                 $this->pdf->SetFontSize(7);
                 if ($this->getEnvioMesmoDestinatario()){
-                    $this->t($this->pdf->w, "Volume: $index/$total    ".'Peso(kg): ' . ((float)$objetoPostal->getPeso()) . $nf . $numeroPedido, 1, 'C',  null);
+                	$this->t($this->pdf->w, "Volume: $index/$total    ".'Peso(kg): ' . ((float)$objetoPostal->getPeso()) . $nf . $numeroPedido, 1, 'C',  null);
                 }else{
                     $this->t($this->pdf->w, 'Peso(kg): ' . ((float)$objetoPostal->getPeso()) . $nf . $numeroPedido, 1, 'C',  null);
                 }
@@ -664,8 +664,8 @@ class CartaoDePostagem
         if ($utf8) {
             $txt = $this->_($txt);
         }
-//      $border = 1;
-//      $fill   = true;
+//		$border = 1;
+//		$fill   = true;
         $border = 0;
         $fill = false;
 

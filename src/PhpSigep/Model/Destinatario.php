@@ -65,6 +65,14 @@ class Destinatario extends AbstractModel
     protected $numero;
 
     /**
+     * Indica se o destinatário é clique e retire
+     * Não Obrigatório.
+     * Tag: is_clique_retire
+     * @var boolean
+     */
+    protected $isCliqueRetire = false;
+
+    /**
      * @return string
      */
     public function getCelular()
@@ -176,5 +184,19 @@ class Destinatario extends AbstractModel
         $this->telefone = $telefone;
     }
 
+    /**
+     * @return boolean
+     */
+    public function getIsCliqueRetire()
+    {
+        return $this->isCliqueRetire;
+    }
 
+    /**
+     * @param boolean $isCliqueRetire
+     */
+    public function setIsCliqueRetire($isCliqueRetire = false)
+    {
+        $this->isCliqueRetire = $isCliqueRetire;
+    }
 }

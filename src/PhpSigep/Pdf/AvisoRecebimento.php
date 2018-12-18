@@ -118,7 +118,7 @@ class AvisoRecebimento{
         $y = $this->pdf->y;
         
         //logo correios
-        $logoCorreios = realpath(dirname(__FILE__) . '/logo-correios.jpg');
+        $logoCorreios = realpath(dirname(__FILE__) . '/logo-correios.png');
         $wLogo = ($wInner * 30) / 100;
         $wImage = ($wInner * 15) / 100;
         $this->pdf->Image($logoCorreios, $x, $y+1, $wImage);

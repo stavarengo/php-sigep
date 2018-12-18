@@ -14,6 +14,7 @@ class ServicoDePostagem extends AbstractModel
     const SERVICE_PAC_GRANDES_FORMATOS = '41300';
     const SERVICE_PAC_CONTRATO_GRANDES_FORMATOS = '04693';
     const SERVICE_PAC_CONTRATO_UO = '04812';
+
     const SERVICE_SEDEX_41556 = '41556';
     const SERVICE_SEDEX_12 = '40169';
     const SERVICE_SEDEX_10 = '40215';
@@ -232,6 +233,5 @@ class ServicoDePostagem extends AbstractModel
     {
         $this->nome = $nome;
     }
-
 
 }

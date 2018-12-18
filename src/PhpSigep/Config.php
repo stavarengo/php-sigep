@@ -30,6 +30,8 @@ class Config extends DefaultStdClass
 
     const WSDL_RASTREAR_OBJETOS = 'https://webservice.correios.com.br/service/rastro/Rastro.wsdl';
 
+    const WSDL_AGENCIAS_WS = 'https://cws.correios.com.br/cws/agenciaService/agenciaWS';
+
     /**
      * Endereço para o WSDL AtendeCliente.
      * Esse WSDL possui duas versões, uma para o ambiente de produção e outra para o ambiente de desenvolvimento.
@@ -46,6 +48,11 @@ class Config extends DefaultStdClass
      * @var string
      */
     protected $wsdlRastrearObjetos = self::WSDL_RASTREAR_OBJETOS;
+
+    /**
+     * @var string
+     */
+    protected $wsdlAgenciaWS = self::WSDL_AGENCIAS_WS;
 
     /**
      * @var int
@@ -197,6 +204,26 @@ class Config extends DefaultStdClass
     public function getWsdlRastrearObjetos()
     {
         return $this->wsdlRastrearObjetos;
+    }
+
+    /**
+     * @param string $wsdlAgenciaWS
+     * 
+     * @return $this;
+     */
+    public function setWsdlAgenciaWS($wsdlAgenciaWS)
+    {
+        $this->wsdlAgenciaWS = $wsdlAgenciaWS;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getWsdlAgenciaWS()
+    {
+        return $this->wsdlAgenciaWS;
     }
 
     /**

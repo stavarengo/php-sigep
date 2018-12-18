@@ -26,4 +26,3 @@ class AccessDataHomologacao extends AccessData
         try {\PhpSigep\Bootstrap::getConfig()->setEnv(\PhpSigep\Config::ENV_DEVELOPMENT);} catch (\Exception $e) {}
     }
 }
-
