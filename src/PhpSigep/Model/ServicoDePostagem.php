@@ -66,6 +66,7 @@ class ServicoDePostagem extends AbstractModel
             self::SERVICE_PAC_CONTRATO_UO                            => array('Pac Contrato - UO', 124899),
             self::SERVICE_SEDEX_41556                                => array('Sedex 41556', 121877),
             self::SERVICE_SEDEX_12                                   => array('Sedex 12', 115218),
+            self::SERVICE_SEDEX_10                                   => array('Sedex 10', 104707),
             self::SERVICE_SEDEX_10_PACOTE                            => array('Sedex 10 Pacote', null),
             self::SERVICE_SEDEX_HOJE_40290                           => array('Sedex Hoje 40290', 108934),
             self::SERVICE_SEDEX_HOJE_40878                           => array('Sedex Hoje 40878', null),
