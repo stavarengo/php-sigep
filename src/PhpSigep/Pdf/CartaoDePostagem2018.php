@@ -176,19 +176,18 @@ class CartaoDePostagem2018
             switch ($servicoDePostagem->getCodigo()) {
                 case ServicoDePostagem::SERVICE_PAC_41068:
                 case ServicoDePostagem::SERVICE_PAC_04510:
-                case ServicoDePostagem::SERVICE_PAC_CONTRATO_41211:
-                case ServicoDePostagem::SERVICE_PAC_CONTRATO_AGENCIA:
+                case ServicoDePostagem::SERVICE_PAC_CONTRATO_10065:
                 case ServicoDePostagem::SERVICE_PAC_GRANDES_FORMATOS:
-                case ServicoDePostagem::SERVICE_PAC_REMESSA_AGRUPADA:
+                case ServicoDePostagem::SERVICE_PAC_CONTRATO_GRANDES_FORMATOS;
                 case ServicoDePostagem::SERVICE_PAC_CONTRATO_UO:
+                case ServicoDePostagem::SERVICE_PAC_PAGAMENTO_NA_ENTREGA:
+                case ServicoDePostagem::SERVICE_PAC_CONTRATO_AGENCIA:
+                case ServicoDePostagem::SERVICE_PAC_REVERSO_CONTRATO_AGENCIA:
                 case ServicoDePostagem::SERVICE_PAC_CONTRATO_GRANDES_FORMATOS_LM:
                 case ServicoDePostagem::SERVICE_PAC_CONTRATO_AGENCIA_LM:
                 case ServicoDePostagem::SERVICE_PAC_REVERSO_LM:
                 case ServicoDePostagem::SERVICE_PAC_CONTRATO_UO_LM:
                 case ServicoDePostagem::SERVICE_PAC_CONTRATO_AGENCIA_PAGAMENTO_NA_ENTREGA_LM:
-                case ServicoDePostagem::SERVICE_PAC_PAGAMENTO_NA_ENTREGA:
-                case ServicoDePostagem::SERVICE_PAC_REVERSO_CONTRATO_AGENCIA:
-                case ServicoDePostagem::SERVICE_PAC_CONTRATO_AGENCIA_TA:
                     $chancela = new Pac2018(86, $this->pdf->GetY() + 13, $nomeRemetente, $accessData);
                     $_texto = 'PAC';
                     break;
@@ -300,10 +299,10 @@ class CartaoDePostagem2018
             $this->pdf->SetFont('', 'B');
             $etiquetaComDv = $objetoPostal->getEtiqueta()->getEtiquetaComDv();
             $etiquetaFormatada = substr($etiquetaComDv, 0, 2) . ' '
-                                 . substr($etiquetaComDv, 2, 3) . ' '
-                                 . substr($etiquetaComDv, 5, 3) . ' '
-                                 . substr($etiquetaComDv, 8, 3) . ' '
-                                 . substr($etiquetaComDv, 11, 2);
+                . substr($etiquetaComDv, 2, 3) . ' '
+                . substr($etiquetaComDv, 5, 3) . ' '
+                . substr($etiquetaComDv, 8, 3) . ' '
+                . substr($etiquetaComDv, 11, 2);
 
             $this->t(85, $etiquetaFormatada, 2, 'C');
 
