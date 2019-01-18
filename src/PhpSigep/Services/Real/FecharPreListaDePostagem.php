@@ -184,7 +184,7 @@ class FecharPreListaDePostagem
             $str = trim($str);
         }
         if ($maxLength) {
-            $str = substr($str, 0, $maxLength);
+            $str = mb_substr($str, 0, $maxLength, 'UTF-8');
         }
 
         return $str;

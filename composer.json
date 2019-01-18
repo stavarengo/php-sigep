@@ -18,6 +18,7 @@
     "require": {
         "php": ">=5.4",
         "ext-soap": "*",
+        "ext-mbstring": "*",
         "stavarengo/php-sigep-fpdf": "dev-master",
         "vria/nodiacritic": "^0.1.2"
     },
