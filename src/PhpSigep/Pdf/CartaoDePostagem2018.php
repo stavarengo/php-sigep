@@ -36,13 +36,19 @@ class CartaoDePostagem2018
     public $_volume;
 
     /**
+    * Etiqueta que será filtrada para gerar o pdf único
+    * @var string
+    */
+    public $etiquetaFiltro;
+
+    /**
      * @param \PhpSigep\Model\PreListaDePostagem $plp
      * @param int $idPlpCorreios
      * @param string $logoFile
      * @throws InvalidArgument
      *      Se o arquivo $logoFile não existir.
      */
-    public function __construct($plp, $idPlpCorreios, $logoFile, $chancelas = array())
+    public function __construct($plp, $idPlpCorreios, $logoFile, $chancelas = array(), $etiquetaFiltro = false)
     {
         if ($logoFile && !@getimagesize($logoFile)) {
             throw new InvalidArgument('O arquivo "' . $logoFile . '" não existe.');
@@ -51,13 +57,14 @@ class CartaoDePostagem2018
         $this->plp = $plp;
         $this->idPlpCorreios = $idPlpCorreios;
         $this->logoFile = $logoFile;
+        $this->etiquetaFiltro = $etiquetaFiltro;
 
         $this->init();
     }
 
     public function render($dest='', $filename = '')
     {
-        $cacheKey = md5(serialize($this->plp) . $this->idPlpCorreios . get_class($this));
+        // $cacheKey = md5(serialize($this->plp) . $this->idPlpCorreios . get_class($this));
         if ($pdfContent = Bootstrap::getConfig()->getCacheInstance()->getItem($cacheKey)) {
             header('Content-Type: application/pdf');
             header('Content-Disposition: inline; filename="doc.pdf"');
@@ -120,7 +127,31 @@ class CartaoDePostagem2018
         );
 
         $objetosPostais = $this->plp->getEncomendas();
+        $status_break = false;
+        $status_continue = false;
         while (count($objetosPostais)) {
+
+            /** @var $objetoPostal ObjetoPostal */
+            $objetoPostal = array_shift($objetosPostais);
+
+            $etiqueta = $objetoPostal->getEtiqueta()->getEtiquetaComDv();
+            if (!$this->etiquetaFiltro){
+                $status_break = false;
+                $status_continue = false;
+            }else{
+                if($etiqueta == $this->etiquetaFiltro){
+                    $status_continue = false;
+                    $status_break = true;
+                }else{
+                    $status_continue = true;
+                    $status_break = false;
+                }
+            }
+                            
+            if($status_continue == true){
+                continue;
+            }
+
             $this->pdf->AddPage();
 
             if (Bootstrap::getConfig()->getSimular()) {
@@ -149,8 +180,6 @@ class CartaoDePostagem2018
             }
 
             $this->pdf->SetDrawColor(0, 0, 0);
-            /** @var $objetoPostal ObjetoPostal */
-            $objetoPostal = array_shift($objetosPostais);
 
             $lPosFourAreas = $margins[0]['l'];
             $rPosFourAreas = $margins[0]['r'];
@@ -453,8 +482,12 @@ class CartaoDePostagem2018
             $this->pdf->SetXY(0, 0);
             $this->pdf->SetDrawColor(0,0,0);
             $this->pdf->Rect(0, 0, 106.36, 140);
-        }
 
+            if ($status_break == true){
+                break;
+            }
+
+        }
         return $this->pdf->Output($fileName, $dest);
     }
 
