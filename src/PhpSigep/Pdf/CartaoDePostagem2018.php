@@ -64,7 +64,7 @@ class CartaoDePostagem2018
 
     public function render($dest='', $filename = '')
     {
-        // $cacheKey = md5(serialize($this->plp) . $this->idPlpCorreios . get_class($this));
+        $cacheKey = md5(serialize($this->plp) . $this->idPlpCorreios . get_class($this));
         if ($pdfContent = Bootstrap::getConfig()->getCacheInstance()->getItem($cacheKey)) {
             header('Content-Type: application/pdf');
             header('Content-Disposition: inline; filename="doc.pdf"');
@@ -147,7 +147,7 @@ class CartaoDePostagem2018
                     $status_break = false;
                 }
             }
-                            
+
             if($status_continue == true){
                 continue;
             }
