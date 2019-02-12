@@ -35,10 +35,8 @@ class ConsultaCep
                 $consultaCepResposta->setBairro(SoapClientFactory::convertEncoding($r->return->bairro));
                 $consultaCepResposta->setCep($r->return->cep);
                 $consultaCepResposta->setCidade(SoapClientFactory::convertEncoding($r->return->cidade));
-                $consultaCepResposta->setComplemento1(SoapClientFactory::convertEncoding($r->return->complemento));
                 $consultaCepResposta->setComplemento2(SoapClientFactory::convertEncoding($r->return->complemento2));
                 $consultaCepResposta->setEndereco(SoapClientFactory::convertEncoding($r->return->end));
-                $consultaCepResposta->setId($r->return->id);
                 $consultaCepResposta->setUf($r->return->uf);
                 $result->setResult($consultaCepResposta);
              } else {

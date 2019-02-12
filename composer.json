@@ -1,6 +1,6 @@
 {
-    "name": "stavarengo/php-sigep",
-    "version": "0.0.1",
+    "name": "tiagobani/php-sigep",
+    "version": "1.0.0",
     "type": "library",
     "description": "Integração com Web Service do Correios. Gera etiquetas, consulta preços e prazos, imprime etiquetas e PLP, etc.",
     "keywords": ["correios", "sigep"],
