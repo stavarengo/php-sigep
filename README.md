@@ -56,6 +56,9 @@ Instalação manual
 
 # Problemas Comum
 
+## Autorização de acesso negada para o sistema
+Antes de utilizar este projeto em modo produção, é necessário solicitar ao representante comercial dos correios habilitação e senha para o webservice dos correios.
+
 ## Problemas com o PHP 5.3
 Este problema foi reportado aqui: https://github.com/stavarengo/php-sigep/issues/35
 Alguns usuarios tiveram problemas de conexão e autentificação com WebService do Correios em ambiente de produção devido a versão do PHP.
@@ -71,7 +74,6 @@ $config->setWsdlAtendeCliente('CAMINHO-DO-SEU-ARQUIVO-LOCAL');
 \PhpSigep\Bootstrap::start($config);
 ```
 OBS: Não irá funcionar em um servidor local, como Wamp, Xammp entre outros.
-
 
 Funções
 ---
