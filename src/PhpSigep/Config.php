@@ -63,6 +63,12 @@ class Config extends DefaultStdClass
      */
     protected $env = self::ENV_DEVELOPMENT;
 
+     /**
+     * @var string
+     */
+    protected $xml_encode = self::XML_ENCODE_UTF;
+
+    
     /**
      * @var bool
      */
@@ -152,6 +158,20 @@ class Config extends DefaultStdClass
 
         return $this;
     }
+
+    /**
+     * @param int $env
+     * @return $this
+     */
+    public function setXmlEncode($xml_encode)
+    {
+        if ($xml_encode == self::XML_ENCODE_UTF) {
+            $this->xml_encode = self::XML_ENCODE_UTF;
+        } else {
+            $this->xml_encode = self::XML_ENCODE_ISO;
+        }
+        return $this;
+    }    
 
     /**
      * @return string
