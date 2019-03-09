@@ -21,6 +21,10 @@ class Config extends DefaultStdClass
      * Indica que estamos no ambiente de desenvolvimento.
      */
     const ENV_DEVELOPMENT = 2;
+    
+    const XML_ENCODE_ISO = "iso-8859-1";
+    
+    const XML_ENCODE_UTF = "utf-8";
 
     const WSDL_ATENDE_CLIENTE_PRODUCTION = 'https://apps.correios.com.br/SigepMasterJPA/AtendeClienteService/AtendeCliente?wsdl';
 
