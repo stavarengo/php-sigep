@@ -176,6 +176,14 @@ class Config extends DefaultStdClass
     /**
      * @return string
      */
+    public function getXmlEncode()
+    {
+        return $this->xml_encode;
+    }    
+    
+    /**
+     * @return string
+     */
     public function getWsdlAtendeCliente()
     {
         return $this->wsdlAtendeCliente;
