@@ -165,10 +165,10 @@ class Config extends DefaultStdClass
      */
     public function setXmlEncode($xml_encode)
     {
-        if ($xml_encode == self::XML_ENCODE_UTF) {
-            $this->xml_encode = self::XML_ENCODE_UTF;
-        } else {
+        if ($xml_encode == self::XML_ENCODE_ISO) {
             $this->xml_encode = self::XML_ENCODE_ISO;
+        } else {
+            $this->xml_encode = self::XML_ENCODE_UTF;
         }
         return $this;
     }    
