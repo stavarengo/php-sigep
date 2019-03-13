@@ -10,7 +10,6 @@ class ServicoDePostagem extends AbstractModel
 {
     const SERVICE_PAC_41068 = '41068';
     const SERVICE_PAC_04510 = '04510';
-    const SERVICE_PAC_CONTRATO_10065 = '10065';
     const SERVICE_PAC_GRANDES_FORMATOS = '41300';
     const SERVICE_PAC_CONTRATO_GRANDES_FORMATOS = '04693';
     const SERVICE_PAC_CONTRATO_UO = '04812';
@@ -60,7 +59,6 @@ class ServicoDePostagem extends AbstractModel
         = array(
             self::SERVICE_PAC_41068                                  => array('Pac 41068', 109819),
             self::SERVICE_PAC_04510                                  => array('Pac 04510', 124887),
-            self::SERVICE_PAC_CONTRATO_10065                         => array('Pac 10065', 109480),
             self::SERVICE_PAC_GRANDES_FORMATOS                       => array('Pac Grandes Formatos', 120366),
             self::SERVICE_PAC_CONTRATO_GRANDES_FORMATOS              => array('Pac Contrato Grandes Formatos', 125248),
             self::SERVICE_PAC_CONTRATO_UO                            => array('Pac Contrato - UO', 124899),
