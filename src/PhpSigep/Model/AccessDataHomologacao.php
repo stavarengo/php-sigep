@@ -13,12 +13,13 @@ class AccessDataHomologacao extends AccessData
     {
         parent::__construct(
             array(
+                //Dados obtidos no Manual dos Correios publicado em 24/10/2018
                 'usuario'           => 'sigep',
                 'senha'             => 'n5f9t8',
                 'codAdministrativo' => '17000190',
                 'numeroContrato'    => '9992157880',
                 'cartaoPostagem'    => '0067599079',
-                'cnpjEmpresa'       => '34028316000103', // Obtido no método 'buscaCliente'.
+                'cnpjEmpresa'       => '34028316000103', // Obtido no  método 'buscaCliente'.
                 'anoContrato'       => null, // Não consta no manual.
                 'diretoria'         => new Diretoria(Diretoria::DIRETORIA_DR_BRASILIA), // Obtido no método 'buscaCliente'.
             )
