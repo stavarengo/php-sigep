@@ -35,12 +35,11 @@ class ConsultaCep
                 $consultaCepResposta->setBairro(SoapClientFactory::convertEncoding($r->return->bairro));
                 $consultaCepResposta->setCep($r->return->cep);
                 $consultaCepResposta->setCidade(SoapClientFactory::convertEncoding($r->return->cidade));
-                $consultaCepResposta->setComplemento1(SoapClientFactory::convertEncoding($r->return->complemento));
+                $consultaCepResposta->setComplemento1(SoapClientFactory::convertEncoding(isset($r->return->complemento) ? $r->return->complemento  : null));
                 $consultaCepResposta->setComplemento2(SoapClientFactory::convertEncoding($r->return->complemento2));
                 $consultaCepResposta->setEndereco(SoapClientFactory::convertEncoding($r->return->end));
-                $consultaCepResposta->setId($r->return->id);
+                $consultaCepResposta->setId(isset($r->return->id) ? $r->return->id  : null);
                 $consultaCepResposta->setUf($r->return->uf);
-                $result->setResult($consultaCepResposta);
              } else {
                  $errorCode = 0;
                  $errorMsg = "Resposta em branco. Confirme se o CEP '$cep' realmente existe.";
