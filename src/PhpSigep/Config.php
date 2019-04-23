@@ -21,6 +21,10 @@ class Config extends DefaultStdClass
      * Indica que estamos no ambiente de desenvolvimento.
      */
     const ENV_DEVELOPMENT = 2;
+    
+    const XML_ENCODE_ISO = "iso-8859-1";
+    
+    const XML_ENCODE_UTF = "utf-8";
 
     const WSDL_ATENDE_CLIENTE_PRODUCTION = 'https://apps.correios.com.br/SigepMasterJPA/AtendeClienteService/AtendeCliente?wsdl';
 
@@ -59,6 +63,12 @@ class Config extends DefaultStdClass
      */
     protected $env = self::ENV_DEVELOPMENT;
 
+     /**
+     * @var string
+     */
+    protected $xml_encode = self::XML_ENCODE_UTF;
+
+    
     /**
      * @var bool
      */
@@ -149,6 +159,28 @@ class Config extends DefaultStdClass
         return $this;
     }
 
+    /**
+     * @param int $env
+     * @return $this
+     */
+    public function setXmlEncode($xml_encode)
+    {
+        if ($xml_encode == self::XML_ENCODE_ISO) {
+            $this->xml_encode = self::XML_ENCODE_ISO;
+        } else {
+            $this->xml_encode = self::XML_ENCODE_UTF;
+        }
+        return $this;
+    }    
+
+    /**
+     * @return string
+     */
+    public function getXmlEncode()
+    {
+        return $this->xml_encode;
+    }    
+    
     /**
      * @return string
      */

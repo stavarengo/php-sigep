@@ -241,7 +241,6 @@ class CartaoDePostagem
                 switch ($servicoDePostagem->getCodigo()) {
                     case ServicoDePostagem::SERVICE_PAC_41068:
                     case ServicoDePostagem::SERVICE_PAC_04510:
-                    case ServicoDePostagem::SERVICE_PAC_CONTRATO_10065:
                     case ServicoDePostagem::SERVICE_PAC_CONTRATO_AGENCIA:
                     case ServicoDePostagem::SERVICE_PAC_GRANDES_FORMATOS:
                     case ServicoDePostagem::SERVICE_PAC_REVERSO_CONTRATO_AGENCIA:

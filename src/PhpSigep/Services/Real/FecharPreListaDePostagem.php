@@ -1,6 +1,7 @@
 <?php
 namespace PhpSigep\Services\Real;
 
+use PhpSigep\Bootstrap;
 use PhpSigep\Model\Destinatario;
 use PhpSigep\Model\Destino;
 use PhpSigep\Model\DestinoInternacional;
@@ -81,7 +82,7 @@ class FecharPreListaDePostagem
         $writer->openMemory();
         $writer->setIndentString("");
         $writer->setIndent(false);
-        $writer->startDocument('1.0', 'UTF-8');
+        $writer->startDocument('1.0', Bootstrap::getConfig()->getXmlEncode());
 
         $writer->startElement('correioslog');
         $writer->writeElement('tipo_arquivo', 'Postagem');
@@ -184,7 +185,7 @@ class FecharPreListaDePostagem
             $str = trim($str);
         }
         if ($maxLength) {
-            $str = substr($str, 0, $maxLength);
+            $str = mb_substr($str, 0, $maxLength, 'UTF-8');
         }
 
         return $str;
