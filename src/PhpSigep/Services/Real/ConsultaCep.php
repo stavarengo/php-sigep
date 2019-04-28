@@ -39,7 +39,7 @@ class ConsultaCep
                 $consultaCepResposta->setComplemento2(SoapClientFactory::convertEncoding($r->return->complemento2));
                 $consultaCepResposta->setEndereco(SoapClientFactory::convertEncoding($r->return->end));
                 $consultaCepResposta->setId(isset($r->return->id) ? $r->return->id  : null);
-                $consultaCepResposta->setUf($r->return->uf);//
+                $consultaCepResposta->setUf($r->return->uf);
              } else {
                  $errorCode = 0;
                  $errorMsg = "Resposta em branco. Confirme se o CEP '$cep' realmente existe.";
