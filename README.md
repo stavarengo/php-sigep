@@ -60,9 +60,9 @@ Instalação manual
 Antes de utilizar este projeto em modo produção, é necessário solicitar ao representante comercial dos correios habilitação e senha para o webservice dos correios.
 
 ## Estou tendo problema ao utilizar o ambiente de homologação
-Se você está recebendo a mensagem abaixo ao tentar utilizar o ambiente de homologação, significa que o webservice do correio está temporariamente indisponível. Não adianta criar issue, o melhor a fazer é aguardar ou tentar entrar em contato com o suporte técnico do correio.
+Se você está recebendo a mensagem abaixo ao tentar utilizar o ambiente de homologação, significa que o webservice do correio está temporariamente indisponível. Não adianta criar _issue_, o melhor a fazer é aguardar ou tentar entrar em contato com o suporte técnico do correio.
 
-Mensagem de erro: Parsing WSDL: Couldn't load from 'https://apphom.correios.com.br/SigepMasterJPA/AtendeClienteService/AtendeCliente?wsdl' : failed to load external entity "https://apphom.correios.com.br/SigepMasterJPA/AtendeClienteService/AtendeCliente?wsd
+**Mensagem de erro**: Parsing WSDL: Couldn't load from 'https://apphom.correios.com.br/SigepMasterJPA/AtendeClienteService/AtendeCliente?wsdl' : failed to load external entity "https://apphom.correios.com.br/SigepMasterJPA/AtendeClienteService/AtendeCliente?wsd
 
 ## Problemas com o PHP 5.3
 Este problema foi reportado aqui: https://github.com/stavarengo/php-sigep/issues/35
