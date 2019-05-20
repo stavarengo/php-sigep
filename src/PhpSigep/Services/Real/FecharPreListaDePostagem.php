@@ -1,6 +1,7 @@
 <?php
 namespace PhpSigep\Services\Real;
 
+use PhpSigep\Bootstrap;
 use PhpSigep\Model\Destinatario;
 use PhpSigep\Model\Destino;
 use PhpSigep\Model\DestinoInternacional;
@@ -81,7 +82,7 @@ class FecharPreListaDePostagem
         $writer->openMemory();
         $writer->setIndentString("");
         $writer->setIndent(false);
-        $writer->startDocument('1.0', 'UTF-8');
+        $writer->startDocument('1.0', Bootstrap::getConfig()->getXmlEncode());
 
         $writer->startElement('correioslog');
         $writer->writeElement('tipo_arquivo', 'Postagem');
@@ -264,8 +265,8 @@ class FecharPreListaDePostagem
         foreach ($servicosAdicionais as $servicoAdicional) {
             if ($servicoAdicional->getCodigoServicoAdicional() != ServicoAdicional::SERVICE_REGISTRO) {
                 $writer->writeElement('codigo_servico_adicional', $servicoAdicional->getCodigoServicoAdicional());
-                if ($servicoAdicional->getCodigoServicoAdicional() == ServicoAdicional::SERVICE_VALOR_DECLARADO_SEDEX ||
-                    $servicoAdicional->getCodigoServicoAdicional() == ServicoAdicional::SERVICE_VALOR_DECLARADO_PAC) {
+                $valorDeclarado = (float)$servicoAdicional->getValorDeclarado();
+                if ($valorDeclarado>0) {
                     $writer->writeElement('valor_declarado', (float)$servicoAdicional->getValorDeclarado());
                 }
             }

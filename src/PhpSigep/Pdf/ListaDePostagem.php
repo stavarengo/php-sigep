@@ -393,16 +393,15 @@ class ListaDePostagem
             $temVd          = false;
             $valorDeclarado = null;
             foreach ($objetoPostal->getServicosAdicionais() as $servicoAdicional) {
+                $valorDeclarado = $servicoAdicional->getValorDeclarado();
                 if ($servicoAdicional->is(ServicoAdicional::SERVICE_AVISO_DE_RECEBIMENTO)) {
                     $temAr = true;
                 } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_MAO_PROPRIA)) {
                     $temMp = true;
-                } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_VALOR_DECLARADO_PAC) || $servicoAdicional->is(ServicoAdicional::SERVICE_VALOR_DECLARADO_SEDEX)) {
-                    $temVd          = true;
-                    $valorDeclarado = $servicoAdicional->getValorDeclarado();
+                } else if ($valorDeclarado>0) {
+                    $temVd = true;
                 }
             }
-
 
             if ($i++ % 2 != 0) {
                 $fc = 225;
