@@ -2,7 +2,7 @@
 namespace PhpSigep\Model;
 
 /**
- * @author: Renan Zanelato <renan.zanelato96@gmail.com
+ * @author: Renan Zanelato <email:renan.zanelato96@gmail.com>
  */
 class ObjCol extends AbstractModel
 {

@@ -30,9 +30,9 @@ class Config extends DefaultStdClass
     const WSDL_CAL_PRECO_PRAZO = 'http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx?WSDL';
     const WSDL_RASTREAR_OBJETOS = 'https://webservice.correios.com.br/service/rastro/Rastro.wsdl';
     const WSDL_AGENCIAS_WS = 'https://cws.correios.com.br/cws/agenciaService/agenciaWS';
-    
     const WSDL_REVERSA_PRODUCTION = 'https://cws.correios.com.br/logisticaReversaWS/logisticaReversaService/logisticaReversaWS?wsdl';
     const WSDL_REVERSA_DEVELOPMENT = 'https://apphom.correios.com.br/logisticaReversaWS/logisticaReversaService/logisticaReversaWS?wsdl';
+
 //    const WSDL_REVERSA_PRODUCTION = 'http://webservicescol.correios.com.br/ScolWeb/WebServiceScol?wsdl';
 //    const WSDL_REVERSA_DEVELOPMENT = 'http://webservicescolhomologacao.correios.com.br/ScolWeb/WebServiceScol?wsdl';
 
@@ -158,26 +158,6 @@ class Config extends DefaultStdClass
         return $this;
     }
 
-    public function isReversa($is_reversa = false)
-    {
-        if ($is_reversa == false) {
-            $this->setEnv($this->env, true);
-            return $this;
-        }
-        switch ($this->env) {
-            case self::ENV_PRODUCTION:
-                $this->setWsdlAtendeCliente(self::WSDL_REVERSA_PRODUCTION);
-                break;
-            case self::ENV_DEVELOPMENT:
-            default:
-                $this->setWsdlAtendeCliente(self::WSDL_REVERSA_DEVELOPMENT);
-                break;
-        }
-
-
-        return $this;
-    }
-
     /**
      * @param int $env
      * @return $this
@@ -206,6 +186,19 @@ class Config extends DefaultStdClass
     public function getWsdlAtendeCliente()
     {
         return $this->wsdlAtendeCliente;
+    }
+
+    public function getWsdlReversa()
+    {
+        switch ($this->env) {
+            case self::ENV_PRODUCTION:
+                return self::WSDL_REVERSA_PRODUCTION;
+                break;
+            case self::ENV_DEVELOPMENT:
+            default:
+                return self::WSDL_REVERSA_DEVELOPMENT;
+                break;
+        }
     }
 
     /**

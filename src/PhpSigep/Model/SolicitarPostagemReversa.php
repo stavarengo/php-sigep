@@ -3,7 +3,7 @@ namespace PhpSigep\Model;
 
 /**
 
- * @author renan.zanelato
+ * @author: Renan Zanelato <email:renan.zanelato96@gmail.com>
  */
 class SolicitarPostagemReversa extends AbstractModel
 {
@@ -50,7 +50,7 @@ class SolicitarPostagemReversa extends AbstractModel
      *
      * @return \PhpSigep\Model\coletas_solicitadas
      */
-    public function getColetasSolicitadas()
+    public function getColetas_solicitadas()
     {
         return $this->coletas_solicitadas;
     }
@@ -88,7 +88,7 @@ class SolicitarPostagemReversa extends AbstractModel
      *
      * @return SolicitarPostagemRervsa
      */
-    public function setColetasSolicitadas(\PhpSigep\Model\ColetasSolicitadas $coletas_solicitadas)
+    public function setColetas_solicitadas(\PhpSigep\Model\ColetasSolicitadas $coletas_solicitadas)
     {
         $this->coletas_solicitadas = $coletas_solicitadas;
         return $this;
@@ -105,12 +105,12 @@ class SolicitarPostagemReversa extends AbstractModel
         return $this;
     }
 
-    public function getCodigoServico()
+    public function getCodigo_servico()
     {
         return $this->codigo_servico;
     }
 
-    public function setCodigoServico($codigo_servico)
+    public function setCodigo_servico($codigo_servico)
     {
         $this->codigo_servico = $codigo_servico;
         return $this;

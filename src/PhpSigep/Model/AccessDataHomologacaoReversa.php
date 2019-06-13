@@ -2,7 +2,8 @@
 namespace PhpSigep\Model;
 
 /**
- * @author: Stavarengo
+ * @author: Renan Zanelato <email:renan.zanelato96@gmail.com>
+ * @co_author: https://github.com/send4store
  */
 class AccessDataHomologacaoReversa extends AccessData
 {

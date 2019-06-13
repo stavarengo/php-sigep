@@ -26,7 +26,6 @@ $accessDataParaAmbienteDeHomologacao = new \PhpSigep\Model\AccessDataHomologacao
 $config = new \PhpSigep\Config();
 $config->setAccessData($accessDataParaAmbienteDeHomologacao);
 $config->setEnv(\PhpSigep\Config::ENV_DEVELOPMENT);
-$config->isReversa(true);
 $config->setCacheOptions(
     array(
         'storageOptions' => array(
@@ -54,6 +53,7 @@ $destinatario->setCep('05606200');
 $destinatario->setBairro('Morumbi');
 
 $destinatario->setEmail('teste@teste.com');
+
 $remetente = new \PhpSigep\Model\Remetente();
 $remetente->setNome('Usuário Remetente');
 $remetente->setLogradouro('Avenida Vicente Machado');
@@ -66,14 +66,15 @@ $remetente->setUf('PR');
 $remetente->setCep('80420010');
 
 $remetente->setEmail('teste@teste.com');
-$remetente->setIdentificacao('26355508830');
-$remetente->setSms('S');
+$remetente->setIdentificacao('09941751919');
+$remetente->setSms('N');
 //$produto = new \PhpSigep\Model\Produto();
 //$produto->setCodigo(116600403);
 //$produto->setTipo(0);
 //$produto->setQtd(1);
 $objCol = new \PhpSigep\Model\ObjCol;
-$objCol->setId(123456);
+
+$objCol->setId(date('hms'));
 $objCol->setNum('');
 $objCol->setEntrega('');
 $objCol->setItem(1);
@@ -82,19 +83,20 @@ $objCol->setDesc('');
 $coletasSolicitadas = new \PhpSigep\Model\ColetasSolicitadas();
 $coletasSolicitadas->setTipo('A');
 $coletasSolicitadas->setNumero('');
-$coletasSolicitadas->setValorDeclarado(null);
-$coletasSolicitadas->setServicoAdicional('');
+$coletasSolicitadas->setValor_declarado(null);
+$coletasSolicitadas->setServico_adicional('');
 $coletasSolicitadas->setAr(1);
 $coletasSolicitadas->setAg(10);
 $coletasSolicitadas->setRemetente($remetente);
-$coletasSolicitadas->setObjCol($objCol);
+$coletasSolicitadas->setObj_col($objCol);
 
 $postagem = new \PhpSigep\Model\SolicitarPostagemReversa();
 $postagem->setAccessData($accessDataParaAmbienteDeHomologacao);
 $postagem->setDestinatario($destinatario);
-$postagem->setColetasSolicitadas($coletasSolicitadas);
-$postagem->setContrato('9912208555');
-$postagem->setCodigoServico('41076');
+$postagem->setColetas_solicitadas($coletasSolicitadas);
+$postagem->setContrato('9992157880');
+$postagem->setCodigo_servico('04677');
+
 $phpSigep = new \PhpSigep\Services\SoapClient\Real();
 $result = $phpSigep->solicitarPostagemReversa($postagem);
 echo "<pre>";

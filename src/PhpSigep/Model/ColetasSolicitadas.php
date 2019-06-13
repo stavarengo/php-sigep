@@ -49,12 +49,12 @@ class ColetasSolicitadas extends AbstractModel
         return $this->ag;
     }
 
-    public function getValorDeclarado()
+    public function getValor_declarado()
     {
         return $this->valor_declarado;
     }
 
-    public function getServicoAdicional()
+    public function getServico_adicional()
     {
         return $this->servico_adicional;
     }
@@ -95,7 +95,7 @@ class ColetasSolicitadas extends AbstractModel
     /**
      * @return \PhpSigep\Model\ObjCol
      */
-    public function getObjCol()
+    public function getObj_col()
     {
         return $this->obj_col;
     }
@@ -124,13 +124,13 @@ class ColetasSolicitadas extends AbstractModel
         return $this;
     }
 
-    public function setValorDeclarado($valor_declarado)
+    public function setValor_declarado($valor_declarado)
     {
         $this->valor_declarado = $valor_declarado;
         return $this;
     }
 
-    public function setServicoAdicional($servico_adicional)
+    public function setServico_adicional($servico_adicional)
     {
         $this->servico_adicional = $servico_adicional;
         return $this;
@@ -186,7 +186,7 @@ class ColetasSolicitadas extends AbstractModel
      *
      * @return ColetasSolicitadas
      */
-    public function setObjCol($obj_col)
+    public function setObj_col(\PhpSigep\Model\ObjCol $obj_col)
     {
         $this->obj_col = $obj_col;
         return $this;

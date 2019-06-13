@@ -103,6 +103,7 @@ class AccessData extends AbstractModel
      */
     public function getCartaoPostagem()
     {
+        
         return $this->cartaoPostagem;
     }
 

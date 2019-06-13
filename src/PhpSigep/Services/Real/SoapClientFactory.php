@@ -87,8 +87,9 @@ class SoapClientFactory
             if (!extension_loaded('soap')) {
                 throw new SoapExtensionNotInstalled('The "soap" module must be enabled in your PHP installation. The "soap" module is required in order to PHPSigep to make requests to the Correios WebService.');
             }
+            
 
-            $wsdl = Bootstrap::getConfig()->getWsdlAtendeCliente();
+            $wsdl = Bootstrap::getConfig()->getWsdlReversa();
 
             $opts = array(
                 'ssl' => array(
@@ -100,12 +101,8 @@ class SoapClientFactory
             
             // SOAP 1.1 client
             $params = array (
-                 'encoding'           => self::WEB_SERVICE_CHARSET,
                 'verifypeer'         => false,
                 'verifyhost'         => false,
-                'soap_version'       => SOAP_1_1,
-                'trace'              => (int)Bootstrap::getConfig()->getEnv() != Config::ENV_PRODUCTION,
-                'exceptions'         => (bool)Bootstrap::getConfig()->getEnv() != Config::ENV_PRODUCTION,
                 'connection_timeout' => 180,
                 'stream_context'     => stream_context_create($opts),
                 'wsdl_cache'         => WSDL_CACHE_BOTH,
