@@ -13,28 +13,28 @@ use PhpSigep\Model\AccessDataHomologacao;
  */
 class Config extends DefaultStdClass
 {
+
     /**
      * Indica que estamos no ambiente real (ambiente de producao).
      */
     const ENV_PRODUCTION = 1;
+
     /**
      * Indica que estamos no ambiente de desenvolvimento.
      */
     const ENV_DEVELOPMENT = 2;
-    
     const XML_ENCODE_ISO = "iso-8859-1";
-    
     const XML_ENCODE_UTF = "utf-8";
-
     const WSDL_ATENDE_CLIENTE_PRODUCTION = 'https://apps.correios.com.br/SigepMasterJPA/AtendeClienteService/AtendeCliente?wsdl';
-
     const WSDL_ATENDE_CLIENTE_DEVELOPMENT = 'https://apphom.correios.com.br/SigepMasterJPA/AtendeClienteService/AtendeCliente?wsdl';
-
     const WSDL_CAL_PRECO_PRAZO = 'http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx?WSDL';
-
     const WSDL_RASTREAR_OBJETOS = 'https://webservice.correios.com.br/service/rastro/Rastro.wsdl';
-
     const WSDL_AGENCIAS_WS = 'https://cws.correios.com.br/cws/agenciaService/agenciaWS';
+    
+    const WSDL_REVERSA_PRODUCTION = 'https://cws.correios.com.br/logisticaReversaWS/logisticaReversaService/logisticaReversaWS?wsdl';
+    const WSDL_REVERSA_DEVELOPMENT = 'https://apphom.correios.com.br/logisticaReversaWS/logisticaReversaService/logisticaReversaWS?wsdl';
+//    const WSDL_REVERSA_PRODUCTION = 'http://webservicescol.correios.com.br/ScolWeb/WebServiceScol?wsdl';
+//    const WSDL_REVERSA_DEVELOPMENT = 'http://webservicescolhomologacao.correios.com.br/ScolWeb/WebServiceScol?wsdl';
 
     /**
      * Endereço para o WSDL AtendeCliente.
@@ -63,12 +63,11 @@ class Config extends DefaultStdClass
      */
     protected $env = self::ENV_DEVELOPMENT;
 
-     /**
+    /**
      * @var string
      */
     protected $xml_encode = self::XML_ENCODE_UTF;
 
-    
     /**
      * @var bool
      */
@@ -118,7 +117,7 @@ class Config extends DefaultStdClass
      */
     public function getEnv()
     {
-        return (int)$this->env;
+        return (int) $this->env;
     }
 
     /**
@@ -159,6 +158,26 @@ class Config extends DefaultStdClass
         return $this;
     }
 
+    public function isReversa($is_reversa = false)
+    {
+        if ($is_reversa == false) {
+            $this->setEnv($this->env, true);
+            return $this;
+        }
+        switch ($this->env) {
+            case self::ENV_PRODUCTION:
+                $this->setWsdlAtendeCliente(self::WSDL_REVERSA_PRODUCTION);
+                break;
+            case self::ENV_DEVELOPMENT:
+            default:
+                $this->setWsdlAtendeCliente(self::WSDL_REVERSA_DEVELOPMENT);
+                break;
+        }
+
+
+        return $this;
+    }
+
     /**
      * @param int $env
      * @return $this
@@ -171,7 +190,7 @@ class Config extends DefaultStdClass
             $this->xml_encode = self::XML_ENCODE_UTF;
         }
         return $this;
-    }    
+    }
 
     /**
      * @return string
@@ -179,8 +198,8 @@ class Config extends DefaultStdClass
     public function getXmlEncode()
     {
         return $this->xml_encode;
-    }    
-    
+    }
+
     /**
      * @return string
      */
@@ -332,7 +351,7 @@ class Config extends DefaultStdClass
     public function getCacheInstance()
     {
         if (!$this->cacheInstance) {
-            $factory             = $this->getCacheFactory();
+            $factory = $this->getCacheFactory();
             $this->cacheInstance = $factory->createService($this);
         }
 

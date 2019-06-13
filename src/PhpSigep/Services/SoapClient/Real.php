@@ -25,6 +25,19 @@ class Real implements ServiceInterface
         $service = new ServiceImplementation\VerificaDisponibilidadeServico();
         return $service->execute($params);
     }
+    
+    /**
+     * @param \PhpSigep\Model\VerificaDisponibilidadeServico $params
+     *
+     * @return Result<\PhpSigep\Model\VerificaDisponibilidadeServicoResposta>
+     */
+    public function solicitarPostagemReversa(\PhpSigep\Model\SolicitarPostagemReversa $params)
+    {
+        $service = new ServiceImplementation\SolicitarPostagemReversa();
+        return $service->execute($params);
+    }
+    
+    
 
     /**
      * @param $cep
