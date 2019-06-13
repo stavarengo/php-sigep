@@ -8,7 +8,7 @@ class SolicitarPostagemReversaRetorno extends AbstractModel
 {
 
     protected $tipo;
-    protected $numero_coleto;
+    protected $numero_coleta;
     protected $numero_etiqueta;
     protected $id_obj;
     protected $status_objeto;
@@ -24,9 +24,9 @@ class SolicitarPostagemReversaRetorno extends AbstractModel
         return $this;
     }
 
-    public function setNumero_coleto($numero_coleto)
+    public function setNumero_coleta($numero_coleta)
     {
-        $this->numero_coleto = $numero_coleto;
+        $this->numero_coleta = $numero_coleta;
         return $this;
     }
 
@@ -53,7 +53,7 @@ class SolicitarPostagemReversaRetorno extends AbstractModel
         $this->data_solicitacao = $data_solicitacao;
         return $this;
     }
-    
+
     public function getNumero_etiqueta()
     {
         return $this->numero_etiqueta;
@@ -98,5 +98,33 @@ class SolicitarPostagemReversaRetorno extends AbstractModel
         return $this;
     }
 
+    public function getTipo()
+    {
+        return $this->tipo;
+    }
 
+    public function getNumero_coleta()
+    {
+        return $this->numero_coleta;
+    }
+
+    public function getId_obj()
+    {
+        return $this->id_obj;
+    }
+
+    public function getStatus_objeto()
+    {
+        return $this->status_objeto;
+    }
+
+    public function getPrazo()
+    {
+        return $this->prazo;
+    }
+
+    public function getData_solicitacao()
+    {
+        return $this->data_solicitacao;
+    }
 }

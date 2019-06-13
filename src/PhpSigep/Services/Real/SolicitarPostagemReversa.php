@@ -72,7 +72,7 @@ class SolicitarPostagemReversa implements RealServiceInterface
 
                     $SolicitarPostagemReversaRetorno = new SolicitarPostagemReversaRetorno();
                     $SolicitarPostagemReversaRetorno->setId_obj($ret->id_obj)
-                        ->setNumero_coleto($ret->numero_coleta)
+                        ->setNumero_coleta($ret->numero_coleta)
                         ->setNumero_etiqueta($ret->numero_etiqueta)
                         ->setPrazo($ret->prazo)
                         ->setStatus_objeto($ret->status_objeto);
