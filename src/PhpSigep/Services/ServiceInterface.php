@@ -86,5 +86,15 @@ interface ServiceInterface
      * @return \PhpSigep\Services\Result<\PhpSigep\Model\BloquearObjetoResposta[]>
      */
     public function bloquearObjeto($numeroEtiqueta, $idPlp, $usuario, $senha);
+    
+
+    /**
+     * @param $numeroEtiqueta
+     * @param $idPlp
+     * @param $usuario
+     * @param $senha
+     * @return \PhpSigep\Services\Result<\PhpSigep\Model\CancelarObjetoResposta[]>
+     */
+    public function cancelarObjeto($numeroEtiqueta, $idPlp, $usuario, $senha);    
 
 }
