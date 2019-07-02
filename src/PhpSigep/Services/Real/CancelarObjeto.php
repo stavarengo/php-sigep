@@ -10,7 +10,7 @@ use PhpSigep\Services\Result;
  */
 class CancelarObjeto
 {
-    public function execute($nr_etiqueta, $id_plp, $usuario, $senha)
+    public function execute($numeroEtiqueta, $idPlp, $usuario, $senha)
     {
         $soapArgs = array(
             'numeroEtiqueta'    => $numeroEtiqueta,
