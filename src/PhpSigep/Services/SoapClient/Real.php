@@ -213,4 +213,19 @@ class Real implements ServiceInterface
         return $service->execute($numeroEtiqueta, $idPlp, $usuario, $senha);
     }
 
+    /**
+     * Pede para o WebService do Correios cancelar a entrega de uma encomenda ao destinatário
+     * @param $numeroEtiqueta
+     * @param $idPlp
+     * @param $usuario
+     * @param $senha
+     * @return \PhpSigep\Services\Result<\PhpSigep\Model\CancelarObjetoResposta[]>
+     */
+
+    public function cancelarObjeto($numeroEtiqueta, $idPlp, $usuario, $senha)
+    {
+        $service = new ServiceImplementation\CancelarObjeto();
+        return $service->execute($numeroEtiqueta, $idPlp, $usuario, $senha);
+    }
+
 }
