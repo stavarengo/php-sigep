@@ -37,6 +37,7 @@ class ConsultaCep
                 $consultaCepResposta->setCidade(SoapClientFactory::convertEncoding($r->return->cidade));
                 if (isset($r->return->complemento1)) {
                     $consultaCepResposta->setComplemento1(SoapClientFactory::convertEncoding($r->return->complemento));
+                }
                 if (isset($r->return->complemento2)) {
                     $consultaCepResposta->setComplemento2(SoapClientFactory::convertEncoding($r->return->complemento2));
                 }
