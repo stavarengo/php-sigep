@@ -93,7 +93,7 @@ class ColetasSolicitadas extends AbstractModel
     }
 
     /**
-     * @return \PhpSigep\Model\ObjCol
+     * @return <array>\PhpSigep\Model\ObjCol
      */
     public function getObj_col()
     {
@@ -188,7 +188,20 @@ class ColetasSolicitadas extends AbstractModel
      */
     public function setObj_col(\PhpSigep\Model\ObjCol $obj_col)
     {
-        $this->obj_col = $obj_col;
+        return $this->AddObj_col($obj_col);
+    }
+
+    /**
+     * Add obj_col.
+     *
+     * @param \PhpSigep\Model\ObjCol $obj_col
+     *
+     * @return ColetasSolicitadas
+     */
+    public function AddObj_col(\PhpSigep\Model\ObjCol $obj_col)
+    {
+
+        $this->obj_col[] = $obj_col;
         return $this;
     }
 }

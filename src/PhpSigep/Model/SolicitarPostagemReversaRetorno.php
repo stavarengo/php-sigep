@@ -16,6 +16,7 @@ class SolicitarPostagemReversaRetorno extends AbstractModel
     protected $data_solicitacao;
     protected $hora_solicitacao;
     protected $codigo_erro;
+    protected $qtd_objeto;
     protected $descricao_erro;
 
     public function setTipo($tipo)
@@ -126,5 +127,16 @@ class SolicitarPostagemReversaRetorno extends AbstractModel
     public function getData_solicitacao()
     {
         return $this->data_solicitacao;
+    }
+
+    public function getQtd_objeto()
+    {
+        return $this->qtd_objeto;
+    }
+
+    public function setQtd_objeto($qtd_objeto)
+    {
+        $this->qtd_objeto = $qtd_objeto;
+        return $this;
     }
 }
