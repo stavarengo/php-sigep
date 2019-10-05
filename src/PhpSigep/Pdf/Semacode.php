@@ -974,7 +974,7 @@ class Semacode {
         $grid = "";
         $binary = array_fill(0, 4096, 0);
         $matrix = $this->makeEncoding();
-        $encoding = $this->encodingList(strlen($barcode), $barcode, false);
+        $encoding = $this->encodingList(strlen($barcode), (int) $barcode, false);
 
         $encoded['valid'] = false;
 
