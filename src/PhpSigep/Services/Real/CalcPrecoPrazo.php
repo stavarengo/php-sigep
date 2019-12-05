@@ -135,7 +135,7 @@ class CalcPrecoPrazo
         }
 
         $retorno = array();
-        if (is_object($r) && property_exists($r, 'CalcPrecoPrazoResult') && is_object($r->CalcPrecoPrazoResult)
+        if (isset($r) && is_object($r) && property_exists($r, 'CalcPrecoPrazoResult') && is_object($r->CalcPrecoPrazoResult)
             && $r->CalcPrecoPrazoResult->Servicos && is_object($r->CalcPrecoPrazoResult->Servicos)
         ) {
             if ($r->CalcPrecoPrazoResult->Servicos->cServico) {
