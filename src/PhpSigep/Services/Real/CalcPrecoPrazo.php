@@ -181,7 +181,7 @@ class CalcPrecoPrazo
             }
         } else {
             $result->setErrorCode(0);
-            if (is_object($r)) {
+            if (isset($r) && is_object($r)) {
                 $result->setErrorMsg('A resposta do Correios não está no formato esperado. Detalhes do problema: "A resposta recebida é um objeto, mas este objeto não possui todos as entradas necessárias."');
             } else {
                 $result->setErrorMsg('A resposta do Correios não está no formato esperado. Resposta recebida: "' .
