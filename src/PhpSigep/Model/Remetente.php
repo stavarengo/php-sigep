@@ -13,83 +13,111 @@ class Remetente extends AbstractModel
      * @var string
      */
     protected $numeroContrato;
+
     /**
      * Diretoria Regional do contrato do cliente.
      * @var Diretoria
      */
     protected $diretoria;
+
     /**
      * Código administrativo do cliente
      * Max length: 9
      * @var string
      */
     protected $codigoAdministrativo;
+
     /**
      * Nome do remetente
      * Max length: 50
      * @var string
      */
     protected $nome;
+
     /**
      * Logradouro do remetente.
      * Max length: 40
      * @var string
      */
     protected $logradouro;
+
     /**
      * Número da casa, prédio, etc. Parte do endereço do remetente.
      * Max length: 6
      * @var string
      */
     protected $numero;
+
     /**
      * Complemento do endereço.
      * Max length: 20
      * @var string
      */
     protected $complemento;
+
     /**
      * Bairro do endereço.
      * Max length: 20
      * @var string
      */
     protected $bairro;
+
     /**
      * CEP do remetente.
      * Max length: 8
      * @var string
      */
     protected $cep;
+
     /**
      * Cidade do remetente.
      * Max length: 30
      * @var string
      */
     protected $cidade;
+
     /**
      * Unidade de federação.
      * Max length: 2
      * @var string
      */
     protected $uf;
+
     /**
      * Telefone do remetente.
      * Max length: 12
      * @var string
      */
     protected $telefone;
+
     /**
      * Fax do remetente.
      * Max length: 12
      * @var string
      */
     protected $fax;
+
     /**
      * Email do remetente.
      * Max length: 50
      * @var string
      */
     protected $email;
+
+    /**
+     * Identificacao do remetente (CPF/CNPJ).
+     * Max length: 14
+     * @var string
+     */
+    protected $identificacao;
+
+    /**
+     * 
+     * Max length: 1
+     * @var string
+     */
+    protected $sms;
+    protected $referencia;
 
     /**
      * @return string
@@ -315,5 +343,36 @@ class Remetente extends AbstractModel
         $this->uf = $uf;
     }
 
+    public function getIdentificacao()
+    {
+        return $this->identificacao;
+    }
 
+    public function getSms()
+    {
+        return $this->sms;
+    }
+
+    public function setIdentificacao($identificacao)
+    {
+        $this->identificacao = $identificacao;
+        return $this;
+    }
+
+    public function setSms($sms)
+    {
+        $this->sms = $sms;
+        return $this;
+    }
+
+    public function getReferencia()
+    {
+        return $this->referencia;
+    }
+
+    public function setReferencia($referencia)
+    {
+        $this->referencia = $referencia;
+        return $this;
+    }
 }

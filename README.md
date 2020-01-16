@@ -1,10 +1,10 @@
-###Ajude o projeto a crescer. Envie pull request de suas alterações no código fonte ou na documentação do projeto.
+### Ajude o projeto a crescer. Envie pull request de suas alterações no código fonte ou na documentação do projeto.
 
 PHP SIGEP - Correios
 ====================
 
-* Baixe a última versão estável aqui: [https://github.com/stavarengo/php-sigep/tags](https://github.com/stavarengo/php-sigep/tags) 
- 
+* Baixe a última versão estável aqui: [https://github.com/stavarengo/php-sigep/tags](https://github.com/stavarengo/php-sigep/tags)
+
 Implementação do Web Service dos correios SIGEP Web.
 ### [Veja a demo online, exemplos e documentação em nossa página](http://stavarengo.github.io/php-sigep).
 
@@ -18,8 +18,11 @@ Esta API pode:
 * Criar e/ou verificar validade do dígito verificador das etiquetas (através do web service ou não).   
 * Gerar o relatório da PLP no formato PDF.   
 * Gerar as etiquetas de postagem no formato PDF.
-* Gerar em PDF as chancelas para cada tipo de serviço (logo de cada tipo de servico). 
+* Gerar em PDF as chancelas para cada tipo de serviço (logo de cada tipo de servico).
 * Obter dados de PLP após postagem [processamento pelo Sara]
+* [Novo] Suspender a entrega de postagem (Também chamado de Entrega Interativa)
+* [Novo] Listagem de Agências (Necessário para o Clique e Retire)
+* [Novo] Gerar as etiquetas de postagem no formato PDF para o Clique e Retire.
 
 Requisitos
 ---
@@ -51,16 +54,24 @@ Instalação manual
 * Faça o download da última versão.
 * Para usar as classe do php-sigep, você só precisa carregar o arquivo "php-sigep/src/PhpSigep/Bootstrap.php". Isso fara com que o loader seja registrado.
 
-# Problemas Comum
+# Problemas Comuns
+
+## Autorização de acesso negada para o sistema
+Antes de utilizar este projeto em modo produção, é necessário solicitar ao representante comercial dos correios habilitação e senha para o webservice dos correios.
+
+## Estou tendo problema ao utilizar o ambiente de homologação
+Se você está recebendo a mensagem abaixo ao tentar utilizar o ambiente de homologação, significa que o webservice do correio está temporariamente indisponível. Não adianta criar _issue_, o melhor a fazer é aguardar ou tentar entrar em contato com o suporte técnico do correio.
+
+**Mensagem de erro**: Parsing WSDL: Couldn't load from 'https://apphom.correios.com.br/SigepMasterJPA/AtendeClienteService/AtendeCliente?wsdl' : failed to load external entity "https://apphom.correios.com.br/SigepMasterJPA/AtendeClienteService/AtendeCliente?wsd
 
 ## Problemas com o PHP 5.3
 Este problema foi reportado aqui: https://github.com/stavarengo/php-sigep/issues/35
 Alguns usuarios tiveram problemas de conexão e autentificação com WebService do Correios em ambiente de produção devido a versão do PHP.
 Para resolver o problema, você pode ou utilizar uma versão masi rescente do PHP (>=5.4) ou fazer o download do WSDL do Correios e utilizar ele no seu servidor para fazer conexão.
 Caso escolha fazer o download o WSDL, siga os passos abaixo:
+<a id="example-change-wsdl"></a>
 1. Salve este arquivo em seu ambiente local https://apps.correios.com.br/SigepMasterJPA/AtendeClienteService/AtendeCliente?wsdl
 2. Altere as configurações do seu ambiente de produção para apotar para o arquivo que você baixou. Vejo exemplo abaixo.
-<a id="example-change-wsdl"></a>
 ```php
 $config = new \PhpSigep\Config();
 $config->setEnv(\PhpSigep\Config::ENV_PRODUCTION);
@@ -68,7 +79,6 @@ $config->setWsdlAtendeCliente('CAMINHO-DO-SEU-ARQUIVO-LOCAL');
 \PhpSigep\Bootstrap::start($config);
 ```
 OBS: Não irá funcionar em um servidor local, como Wamp, Xammp entre outros.
-
 
 Funções
 ---

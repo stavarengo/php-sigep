@@ -56,7 +56,7 @@ class CalcPrecoPrazo
         foreach ($servicosAdicionais as $servicoAdicional) {
             if ($servicoAdicional->is(ServicoAdicional::SERVICE_MAO_PROPRIA)) {
                 $maoPropria = true;
-            } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_VALOR_DECLARADO)) {
+            } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_VALOR_DECLARADO_SEDEX) || $servicoAdicional->is(ServicoAdicional::SERVICE_VALOR_DECLARADO_PAC)) {
                 if (!$servicoAdicional->getValorDeclarado()) {
                     throw new Exception('Para usar o serviço "valor declarado" é necessário declarar o valor da mercadoria.');
                 }
@@ -135,7 +135,7 @@ class CalcPrecoPrazo
         }
 
         $retorno = array();
-        if (is_object($r) && property_exists($r, 'CalcPrecoPrazoResult') && is_object($r->CalcPrecoPrazoResult)
+        if (isset($r) && is_object($r) && property_exists($r, 'CalcPrecoPrazoResult') && is_object($r->CalcPrecoPrazoResult)
             && $r->CalcPrecoPrazoResult->Servicos && is_object($r->CalcPrecoPrazoResult->Servicos)
         ) {
             if ($r->CalcPrecoPrazoResult->Servicos->cServico) {
@@ -181,11 +181,15 @@ class CalcPrecoPrazo
             }
         } else {
             $result->setErrorCode(0);
-            if (is_object($r)) {
-                $result->setErrorMsg('A resposta do Correios não está no formato esperado. Detalhes do problema: "A resposta recebida é um objeto, mas este objeto não possui todos as entradas necessárias."');
+            if (isset($r)) {
+                if (is_object($r)) {
+                    $result->setErrorMsg('A resposta do Correios não está no formato esperado. Detalhes do problema: "A resposta recebida é um objeto, mas este objeto não possui todos as entradas necessárias."');
+                } else {
+                    $result->setErrorMsg('A resposta do Correios não está no formato esperado. Resposta recebida: "' .
+                        $r . '"');
+                }
             } else {
-                $result->setErrorMsg('A resposta do Correios não está no formato esperado. Resposta recebida: "' .
-                    $r . '"');
+                $result->setErrorMsg('Nenhuma resposta foi recebida dos correios.');
             }
         }
 

@@ -26,6 +26,8 @@
     $destino->setCep('30170-010');
     $destino->setCidade('Belo Horizonte');
     $destino->setUf('MG');
+    $destino->setNumeroNotaFiscal(1234567890);
+    $destino->setNumeroPedido(1234567890);
 
     // Estamos criando uma etique falsa, mas em um ambiente real voçê deve usar o método
     // {@link \PhpSigep\Services\SoapClient\Real::solicitaEtiquetas() } para gerar o número das etiquetas
@@ -35,16 +37,22 @@
     $servicoAdicional = new \PhpSigep\Model\ServicoAdicional();
     $servicoAdicional->setCodigoServicoAdicional(\PhpSigep\Model\ServicoAdicional::SERVICE_REGISTRO);
     // Se não tiver valor declarado informar 0 (zero)
-    $servicoAdicional->setValorDeclarado(0);
+    $servicoAdicional->setCodigoServicoAdicional(\PhpSigep\Model\ServicoAdicional::SERVICE_AVISO_DE_RECEBIMENTO);
+
+    $servicoAdicional2 = new \PhpSigep\Model\ServicoAdicional();
+    $servicoAdicional2->setCodigoServicoAdicional(\PhpSigep\Model\ServicoAdicional::SERVICE_REGISTRO);
+    $servicoAdicional2->setCodigoServicoAdicional(\PhpSigep\Model\ServicoAdicional::SERVICE_VALOR_DECLARADO_PAC);
+    $servicoAdicional2->setValorDeclarado(100);
 
     $encomenda = new \PhpSigep\Model\ObjetoPostal();
-    $encomenda->setServicosAdicionais(array($servicoAdicional));
+    $encomenda->setServicosAdicionais(array($servicoAdicional, $servicoAdicional2));
     $encomenda->setDestinatario($destinatario);
     $encomenda->setDestino($destino);
     $encomenda->setDimensao($dimensao);
     $encomenda->setEtiqueta($etiqueta);
     $encomenda->setPeso(0.500);// 500 gramas
-    $encomenda->setServicoDePostagem(new \PhpSigep\Model\ServicoDePostagem(\PhpSigep\Model\ServicoDePostagem::SERVICE_SEDEX_40096));
+    $encomenda->setObservacao('Lorem ipsum dolor sit amet.');
+    $encomenda->setServicoDePostagem(new \PhpSigep\Model\ServicoDePostagem(\PhpSigep\Model\ServicoDePostagem::SERVICE_PAC_41068));
 // ***  FIM DOS DADOS DA ENCOMENDA QUE SERÁ DESPACHADA *** //
 
 // *** DADOS DO REMETENTE *** //

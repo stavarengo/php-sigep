@@ -1,6 +1,7 @@
 <?php
 namespace PhpSigep\Services\Real;
 
+use PhpSigep\Bootstrap;
 use PhpSigep\Model\Destinatario;
 use PhpSigep\Model\Destino;
 use PhpSigep\Model\DestinoInternacional;
@@ -81,7 +82,7 @@ class FecharPreListaDePostagem
         $writer->openMemory();
         $writer->setIndentString("");
         $writer->setIndent(false);
-        $writer->startDocument('1.0', 'UTF-8');
+        $writer->startDocument('1.0', Bootstrap::getConfig()->getXmlEncode());
 
         $writer->startElement('correioslog');
         $writer->writeElement('tipo_arquivo', 'Postagem');
@@ -184,7 +185,7 @@ class FecharPreListaDePostagem
             $str = trim($str);
         }
         if ($maxLength) {
-            $str = substr($str, 0, $maxLength);
+            $str = mb_substr($str, 0, $maxLength, 'UTF-8');
         }
 
         return $str;
@@ -264,7 +265,8 @@ class FecharPreListaDePostagem
         foreach ($servicosAdicionais as $servicoAdicional) {
             if ($servicoAdicional->getCodigoServicoAdicional() != ServicoAdicional::SERVICE_REGISTRO) {
                 $writer->writeElement('codigo_servico_adicional', $servicoAdicional->getCodigoServicoAdicional());
-                if ($servicoAdicional->getCodigoServicoAdicional() == ServicoAdicional::SERVICE_VALOR_DECLARADO) {
+                $valorDeclarado = (float)$servicoAdicional->getValorDeclarado();
+                if ($valorDeclarado>0) {
                     $writer->writeElement('valor_declarado', (float)$servicoAdicional->getValorDeclarado());
                 }
             }
@@ -279,7 +281,7 @@ class FecharPreListaDePostagem
         $writer->writeElement('tipo_objeto', $dimensao->getTipo());
         $writer->writeElement('dimensao_altura', $dimensao->getAltura());
         $writer->writeElement('dimensao_largura', $dimensao->getLargura());
-        $writer->writeElement('dimensao_comprimento', $dimensao->getComprimento() + 10);
+        $writer->writeElement('dimensao_comprimento', $dimensao->getComprimento());
         if (!$dimensao->getDiametro()) {
             $writer->writeElement('dimensao_diametro', 0);
         } else {
