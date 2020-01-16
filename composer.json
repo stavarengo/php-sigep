@@ -17,7 +17,7 @@
     "require": {
         "php": ">=5.4",
         "ext-soap": "*",
-        "TiendaNube/php-sigep-fpdf": "dev-update",
+        "TiendaNube/php-sigep-fpdf": "dev-master",
         "ext-mbstring": "*",
         "vria/nodiacritic": "^0.1.2"
     },
