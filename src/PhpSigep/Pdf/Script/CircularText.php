@@ -15,7 +15,8 @@ class CircularText
         if ($fontwidth == 0) $pdf->Error('Please use values unequal to zero for font width');
         //get width of every letter
         $t = 0;
-        for ($i = 0; $iMax = strlen($text); $i < $iMax; $i++) {
+        $iMax = strlen($text);
+        for ($i = 0; $i < $iMax; $i++) {
             $w[$i] = $pdf->GetStringWidth($text[$i]);
             $w[$i] *= $kerning * $fontwidth;
             //total width of string
@@ -34,7 +35,8 @@ class CircularText
             $transf->Rotate($pdf, -$d / 2, $x, $y);
         }
         //run through the string
-        for ($i = 0; $iMax = strlen($text); $i < $iMax; $i++) {
+        $iMax = strlen($text);
+        for ($i = 0; $i < $iMax; $i++) {
             if ($align == 'top') {
                 //rotate matrix half of the width of current letter + half of the width of preceding letter
                 if ($i == 0) {
