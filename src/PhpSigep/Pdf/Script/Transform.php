@@ -4,8 +4,11 @@ namespace PhpSigep\Pdf\Script;
 class Transform
 {
 
-    public function __construct(\PhpSigep\Pdf\ImprovedFPDF $pdf, $tm)
+    public function __construct(\PhpSigep\Pdf\ImprovedFPDF $pdf = null, $tm = [])
     {
+        if( ! isset($tm) ||  count($tm) < 1) $tm = [0, 0, 0, 0, 0, 0];
+        if(! isset($pdf)) $pdf = new \PhpSigep\Pdf\ImprovedFPDF();
+        
         $pdf->_out(sprintf('%.3F %.3F %.3F %.3F %.3F %.3F cm', $tm[0], $tm[1], $tm[2], $tm[3], $tm[4], $tm[5]));
     }
 
@@ -51,7 +54,7 @@ class Transform
         $tm[4] = $x * (1 - $s_x);
         $tm[5] = $y * (1 - $s_y);
         //scale the coordinate system
-        $this->Transform($pdf, $tm);
+        new self($pdf, $tm);
     }
 
     public function MirrorH(\PhpSigep\Pdf\ImprovedFPDF $pdf, $x = '')
@@ -95,7 +98,7 @@ class Transform
         $tm[4] = $t_x * $pdf->k;
         $tm[5] = -$t_y * $pdf->k;
         //translate the coordinate system
-        $this->Transform($pdf, $tm);
+        new self($pdf, $tm);
     }
 
     public function Rotate(\PhpSigep\Pdf\ImprovedFPDF $pdf, $angle, $x = '', $y = '')
@@ -114,7 +117,7 @@ class Transform
         $tm[4] = $x + $tm[1] * $y - $tm[0] * $x;
         $tm[5] = $y - $tm[0] * $y - $tm[1] * $x;
         //rotate the coordinate system around ($x,$y)
-        $this->Transform($pdf, $tm);
+        new self($pdf, $tm);
     }
 
     public function SkewX(\PhpSigep\Pdf\ImprovedFPDF $pdf, $angle_x, $x = '', $y = '')
@@ -145,7 +148,7 @@ class Transform
         $tm[4] = -$tm[2] * $y;
         $tm[5] = -$tm[1] * $x;
         //skew the coordinate system
-        $this->Transform($pdf, $tm);
+        new self($pdf, $tm);
     }
 
     public function StopTransform(\PhpSigep\Pdf\ImprovedFPDF $pdf)
