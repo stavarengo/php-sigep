@@ -158,8 +158,7 @@ class Sedex extends AbstractChancela
         $y1 = $y + $h - 3.8 / $k;
         $pdf->Line($x1, $y1, $x2, $y1);
         $pdf->SetFontSize(8);
-        $circularText = new CircularText();
-        $circularText->CircularText($pdf, $x + $wRect / 2, -144 / $k, 75, $text, 'bottom');
+        $circularText = new CircularText($pdf, $x + $wRect / 2, -144 / $k, 75, $text, 'bottom');
 
         $pdf->restoreLastState();
     }
