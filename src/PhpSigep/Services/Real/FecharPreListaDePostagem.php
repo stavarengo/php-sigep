@@ -213,7 +213,7 @@ class FecharPreListaDePostagem
         $writer->writeCdata($this->_($destinatario->getComplemento(), 30));
         $writer->endElement();
         $writer->startElement('numero_end_destinatario');
-        $writer->writeCdata($this->_($destinatario->getNumero(), 6));
+        $writer->writeCdata($this->_($destinatario->getNumero(), 5));
         $writer->endElement();
         $writer->endElement();
     }
