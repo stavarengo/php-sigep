@@ -46,8 +46,9 @@ class GeraDigitoVerificadorEtiquetas
                 $result->setResult($etiquetas);
             } else {
                 $result->setErrorCode(0);
-                $result->setErrorMsg('A resposta do Correios não está no formato esperado. Resposta recebida: "' .
-                    $soapReturn . '"');
+                $result->setErrorMsg('A resposta do Correios não está no formato esperado. Etiqueta: '
+                    . json_encode($soapArgs['etiquetas'])
+                    . ' Resposta recebida: "' . json_encode($soapReturn) . '"');
             }
         } catch (\Exception $e) {
             if ($e instanceof \SoapFault) {
