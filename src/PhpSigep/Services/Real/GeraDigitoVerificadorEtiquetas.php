@@ -35,7 +35,7 @@ class GeraDigitoVerificadorEtiquetas
         $result = new Result();
         try {
             $soapReturn = SoapClientFactory::getSoapClient()->geraDigitoVerificadorEtiquetas($soapArgs);
-            if ($soapReturn && is_object($soapReturn) && $soapReturn->return) {
+            if ($soapReturn && is_object($soapReturn) && isset($soapReturn->return)) {
                 if (!is_array($soapReturn->return)) {
                     $soapReturn->return = (array)$soapReturn->return;
                 }
@@ -46,8 +46,9 @@ class GeraDigitoVerificadorEtiquetas
                 $result->setResult($etiquetas);
             } else {
                 $result->setErrorCode(0);
-                $result->setErrorMsg('A resposta do Correios não está no formato esperado. Resposta recebida: "' .
-                    $soapReturn . '"');
+                $result->setErrorMsg('A resposta do Correios não está no formato esperado. Etiqueta: '
+                    . json_encode($soapArgs['etiquetas'])
+                    . ' Resposta recebida: "' . json_encode($soapReturn) . '"');
             }
         } catch (\Exception $e) {
             if ($e instanceof \SoapFault) {
