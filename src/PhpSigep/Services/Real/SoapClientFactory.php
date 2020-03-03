@@ -68,7 +68,11 @@ class SoapClientFactory
                 'trace'                 => Bootstrap::getConfig()->getEnv() != Config::ENV_PRODUCTION,
                 'exceptions'            => Bootstrap::getConfig()->getEnv() != Config::ENV_PRODUCTION, 
                 "connection_timeout"    => 180, 
-                'stream_context'        => stream_context_create($opts) 
+                'stream_context'        => stream_context_create($opts),
+                'proxy_host'            => Bootstrap::getConfig()->getProxy() ? Bootstrap::getConfig()->getProxy()->getHost() : null,
+                'proxy_port'            => Bootstrap::getConfig()->getProxy() ? Bootstrap::getConfig()->getProxy()->getPort() : null,
+                'proxy_login'           => Bootstrap::getConfig()->getProxy() ? Bootstrap::getConfig()->getProxy()->getLogin() : null,
+                'proxy_password'        => Bootstrap::getConfig()->getProxy() ? Bootstrap::getConfig()->getProxy()->getPassword() : null
             );
 
             self::$_soapClient = new \SoapClient($wsdl, $params);
@@ -101,13 +105,17 @@ class SoapClientFactory
             
             // SOAP 1.1 client
             $params = array (
-                'verifypeer'         => false,
-                'verifyhost'         => false,
-                'connection_timeout' => 180,
-                'stream_context'     => stream_context_create($opts),
-                'wsdl_cache'         => WSDL_CACHE_BOTH,
-                'login' =>Bootstrap::getConfig()->getAccessData()->getUsuario(),
-                'password' =>Bootstrap::getConfig()->getAccessData()->getSenha(),
+                'verifypeer'            => false,
+                'verifyhost'            => false,
+                'connection_timeout'    => 180,
+                'stream_context'        => stream_context_create($opts),
+                'wsdl_cache'            => WSDL_CACHE_BOTH,
+                'login'                 =>Bootstrap::getConfig()->getAccessData()->getUsuario(),
+                'password'              =>Bootstrap::getConfig()->getAccessData()->getSenha(),
+                'proxy_host'            => Bootstrap::getConfig()->getProxy() ? Bootstrap::getConfig()->getProxy()->getHost() : null,
+                'proxy_port'            => Bootstrap::getConfig()->getProxy() ? Bootstrap::getConfig()->getProxy()->getPort() : null,
+                'proxy_login'           => Bootstrap::getConfig()->getProxy() ? Bootstrap::getConfig()->getProxy()->getLogin() : null,
+                'proxy_password'        => Bootstrap::getConfig()->getProxy() ? Bootstrap::getConfig()->getProxy()->getPassword() : null
             );
 
             self::$_soapClient = new \SoapClient($wsdl, $params);
@@ -137,7 +145,11 @@ class SoapClientFactory
                 'trace'                 => Bootstrap::getConfig()->getEnv() != Config::ENV_PRODUCTION,
                 'exceptions'            => Bootstrap::getConfig()->getEnv() != Config::ENV_PRODUCTION,
                 "connection_timeout"    => 180,
-                'stream_context'        => stream_context_create($opts)
+                'stream_context'        => stream_context_create($opts),
+                'proxy_host'            => Bootstrap::getConfig()->getProxy() ? Bootstrap::getConfig()->getProxy()->getHost() : null,
+                'proxy_port'            => Bootstrap::getConfig()->getProxy() ? Bootstrap::getConfig()->getProxy()->getPort() : null,
+                'proxy_login'           => Bootstrap::getConfig()->getProxy() ? Bootstrap::getConfig()->getProxy()->getLogin() : null,
+                'proxy_password'        => Bootstrap::getConfig()->getProxy() ? Bootstrap::getConfig()->getProxy()->getPassword() : null
             );
 
             self::$_soapCalcPrecoPrazo = new \SoapClient($wsdl, $params);
@@ -167,7 +179,11 @@ class SoapClientFactory
                 'trace'                 => Bootstrap::getConfig()->getEnv() != Config::ENV_PRODUCTION,
                 'exceptions'            => Bootstrap::getConfig()->getEnv() != Config::ENV_PRODUCTION,
                 "connection_timeout"    => 180,
-                'stream_context'        => stream_context_create($opts)
+                'stream_context'        => stream_context_create($opts),
+                'proxy_host'            => Bootstrap::getConfig()->getProxy() ? Bootstrap::getConfig()->getProxy()->getHost() : null,
+                'proxy_port'            => Bootstrap::getConfig()->getProxy() ? Bootstrap::getConfig()->getProxy()->getPort() : null,
+                'proxy_login'           => Bootstrap::getConfig()->getProxy() ? Bootstrap::getConfig()->getProxy()->getLogin() : null,
+                'proxy_password'        => Bootstrap::getConfig()->getProxy() ? Bootstrap::getConfig()->getProxy()->getPassword() : null
             );
 
             self::$_soapRastrearObjetos = new \SoapClient($wsdl, $params);
@@ -203,7 +219,11 @@ class SoapClientFactory
                 "connection_timeout"    => 180,
                 'stream_context'        => stream_context_create($opts),
                 'login'                 => Bootstrap::getConfig()->getAccessData()->getIdCorreiosUsuario(),
-                'password'              => Bootstrap::getConfig()->getAccessData()->getIdCorreiosSenha()
+                'password'              => Bootstrap::getConfig()->getAccessData()->getIdCorreiosSenha(),
+                'proxy_host'            => Bootstrap::getConfig()->getProxy() ? Bootstrap::getConfig()->getProxy()->getHost() : null,
+                'proxy_port'            => Bootstrap::getConfig()->getProxy() ? Bootstrap::getConfig()->getProxy()->getPort() : null,
+                'proxy_login'           => Bootstrap::getConfig()->getProxy() ? Bootstrap::getConfig()->getProxy()->getLogin() : null,
+                'proxy_password'        => Bootstrap::getConfig()->getProxy() ? Bootstrap::getConfig()->getProxy()->getPassword() : null
             );
 
             self::$_soapAgenciaWS = new \SoapClient($wsdl, $params);

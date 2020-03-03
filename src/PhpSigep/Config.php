@@ -5,6 +5,7 @@ use PhpSigep\Cache\Options;
 use PhpSigep\Cache\Storage\Adapter\AdapterOptions;
 use PhpSigep\Cache\StorageInterface;
 use PhpSigep\Model\AccessData;
+use PhpSigep\Model\Proxy;
 use PhpSigep\Model\AccessDataHomologacao;
 
 /**
@@ -100,6 +101,13 @@ class Config extends DefaultStdClass
     protected $accessData;
 
     /**
+     * Configurações de proxy para o SoapClient.
+     *
+     * @var proxy
+     */
+    protected $proxy;
+
+    /**
      * @param array $configData
      *      Qualquer atributo desta classe pode ser usado como uma chave deste array.
      *      Ex: array('cacheOptions' => ...)
@@ -137,6 +145,25 @@ class Config extends DefaultStdClass
     public function getAccessData()
     {
         return $this->accessData;
+    }
+
+    /**
+     * @param \PhpSigep\Model\Proxy $proxy
+     * @return $this;
+     */
+    public function setProxy(\PhpSigep\Model\Proxy $proxy)
+    {
+        $this->proxy = $proxy;
+
+        return $this;
+    }
+
+    /**
+     * @return \PhpSigep\Model\Proxy
+     */
+    public function getProxy()
+    {
+        return $this->proxy;
     }
 
     /**
