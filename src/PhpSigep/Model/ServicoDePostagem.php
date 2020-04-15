@@ -55,8 +55,16 @@ class ServicoDePostagem extends AbstractModel
 
 //    const SERVICE_CARTA_REGISTRADA           = '10138';
 
+    // NOVOS CODIGOS DE SERVICO DOS CORREIOS
+    const SERVICE_PAC_CONTRATO_AGENCIA_03298 = '03298';
+    const SERVICE_SEDEX_CONTRATO_AGENCIA_03220 = '03220';
+
     protected static $services
         = array(
+            // NOVOS CODIGOS DE SERVICO DOS CORREIOS
+            self::SERVICE_PAC_CONTRATO_AGENCIA_03298 => array('Pac 03298', 162026),
+            self::SERVICE_SEDEX_CONTRATO_AGENCIA_03220 => array('Sedex 03220', 162022),
+            // DEMAIS SERVICOS
             self::SERVICE_PAC_41068                                  => array('Pac 41068', 109819),
             self::SERVICE_PAC_04510                                  => array('Pac 04510', 124887),
             self::SERVICE_PAC_GRANDES_FORMATOS                       => array('Pac Grandes Formatos', 120366),
