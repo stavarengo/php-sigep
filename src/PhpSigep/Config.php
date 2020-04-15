@@ -19,6 +19,20 @@ class Config extends DefaultStdClass
      * Indica que estamos no ambiente real (ambiente de producao).
      */
     const ENV_PRODUCTION = 1;
+    
+    /**
+     * Permite gerenciar o tempo de timeout das conexões (em caso de problemas de timeout verifique seu ambiente, acima de 30 deve funcionar somente em linha de comando)
+     */
+    const CONNECTION_TIMEOUT = 30;
+    
+    /**
+     * Defina o método para cache no WSDL do PHP (melhor WSDL_CACHE_BOTH)
+     * WSDL_CACHE_MEMORY = memória
+     * WSDL_CACHE_DISK = disco
+     * WSDL_CACHE_BOTH = memória e disco
+     * WSDL_CACHE_NONE = nenhum
+     */
+    const WSDL_CACHE = WSDL_CACHE_BOTH;
 
     /**
      * Indica que estamos no ambiente de desenvolvimento.
@@ -75,6 +89,16 @@ class Config extends DefaultStdClass
     protected $simular = false;
 
     /**
+     * @var int
+     */
+    protected $wsdlCache = self::WSDL_CACHE;
+
+    /**
+     * @var int
+     */
+    protected $connectionTimeout = self::CONNECTION_TIMEOUT;
+
+    /**
      * @var AdapterOptions
      */
     protected $cacheOptions = null;
@@ -126,6 +150,22 @@ class Config extends DefaultStdClass
     public function getEnv()
     {
         return (int) $this->env;
+    }
+
+    /**
+     * @return int
+     */
+    public function getWsdlCache()
+    {
+        return (int) $this->wsdlCache;
+    }
+
+    /**
+     * @return int
+     */
+    public function getConnectionTimeout()
+    {
+        return (int) $this->connectionTimeout;
     }
 
     /**
