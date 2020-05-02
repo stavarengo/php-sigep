@@ -574,7 +574,7 @@ class Semacode {
                     }
                     while ($l-- && $tp < $tl) {
                         // see annex H
-                        $t[$tp] = ord($s{$sp++}) + ((($tp + 1) * 149) % 255) + 1;
+                        $t[$tp] = ord($s[$sp++]) + ((($tp + 1) * 149) % 255) + 1;
                         $tp++;
                     }
                     // reverse to ASCII at end
