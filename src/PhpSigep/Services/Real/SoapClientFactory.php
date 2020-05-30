@@ -15,6 +15,8 @@ class SoapClientFactory
 {
     const WEB_SERVICE_CHARSET = 'ISO-8859-1';
 
+    const SOAP_VERSION = 'SOAP_1_1';
+
     /**
      * @var \SoapClient
      */
@@ -64,7 +66,7 @@ class SoapClientFactory
                 'encoding'              => self::WEB_SERVICE_CHARSET, 
                 'verifypeer'            => false, 
                 'verifyhost'            => false, 
-                'soap_version'          => SOAP_1_1,
+                'soap_version'          => self::SOAP_VERSION,
                 'cache_wsdl'            => Bootstrap::getConfig()->getWsdlCache(),
                 'trace'                 => Bootstrap::getConfig()->getEnv() != Config::ENV_PRODUCTION,
                 'exceptions'            => Bootstrap::getConfig()->getEnv() != Config::ENV_PRODUCTION, 
