@@ -47,6 +47,8 @@ class Config extends DefaultStdClass
     const WSDL_AGENCIAS_WS = 'https://cws.correios.com.br/cws/agenciaService/agenciaWS';
     const WSDL_REVERSA_PRODUCTION = 'https://cws.correios.com.br/logisticaReversaWS/logisticaReversaService/logisticaReversaWS?wsdl';
     const WSDL_REVERSA_DEVELOPMENT = 'https://apphom.correios.com.br/logisticaReversaWS/logisticaReversaService/logisticaReversaWS?wsdl';
+    const WSDL_PI_PRODUCTION = 'https://cws.correios.com.br/pedidoInformacaoWS/pedidoInformacaoService/pedidoInformacaoWS?wsdl';
+    const WSDL_PI_DEVELOPMENT = 'https://apphom.correios.com.br/pedidoInformacaoWS/pedidoInformacaoService/pedidoInformacaoWS?wsdl';
 
 //    const WSDL_REVERSA_PRODUCTION = 'http://webservicescol.correios.com.br/ScolWeb/WebServiceScol?wsdl';
 //    const WSDL_REVERSA_DEVELOPMENT = 'http://webservicescolhomologacao.correios.com.br/ScolWeb/WebServiceScol?wsdl';
@@ -335,6 +337,19 @@ class Config extends DefaultStdClass
     public function getWsdlAgenciaWS()
     {
         return $this->wsdlAgenciaWS;
+    }
+    
+    
+    public function getWsdlPI()
+    {
+        switch ($this->env) {
+            case self::ENV_PRODUCTION:
+                return self::WSDL_PI_PRODUCTION;
+
+            case self::ENV_DEVELOPMENT:
+            default:
+                return self::WSDL_PI_DEVELOPMENT;
+        }
     }
 
     /**
