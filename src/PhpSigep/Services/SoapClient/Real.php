@@ -213,4 +213,15 @@ class Real implements ServiceInterface
         $service = new ServiceImplementation\CancelarObjeto();
         return $service->execute($numeroEtiqueta, $idPlp, $usuario, $senha);
     }
+
+    /**
+     * @param \PhpSigep\Model\PedidoInformacao $params
+     *
+     * @return $pedido
+     */
+    public function cadastrarPi(\PhpSigep\Model\PedidoInformacao $params)
+    {
+        $service = new ServiceImplementation\CadastrarPI();
+        return $service->execute($params);
+    }
 }
