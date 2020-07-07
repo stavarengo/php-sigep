@@ -2,7 +2,6 @@
 namespace PhpSigep\Services\SoapClient;
 
 use PhpSigep\Model\BuscaClienteResult;
-use PhpSigep\Model\Etiqueta;
 use PhpSigep\Services\Real as ServiceImplementation;
 use PhpSigep\Services\Result;
 use PhpSigep\Services\ServiceInterface;
@@ -13,8 +12,6 @@ use VRia\Utils\NoDiacritic;
  */
 class Real implements ServiceInterface
 {
-    private static $calcPrecosPrazosServiceUnavailable = false;
-
     /**
      * @param \PhpSigep\Model\VerificaDisponibilidadeServico $params
      *
@@ -23,6 +20,17 @@ class Real implements ServiceInterface
     public function verificaDisponibilidadeServico(\PhpSigep\Model\VerificaDisponibilidadeServico $params)
     {
         $service = new ServiceImplementation\VerificaDisponibilidadeServico();
+        return $service->execute($params);
+    }
+
+    /**
+     * @param \PhpSigep\Model\SolicitarPostagemReversa $params
+     *
+     * @return Result<\PhpSigep\Model\SolicitarPostagemReversaRetorno>
+     */
+    public function solicitarPostagemReversa(\PhpSigep\Model\SolicitarPostagemReversa $params)
+    {
+        $service = new ServiceImplementation\SolicitarPostagemReversa();
         return $service->execute($params);
     }
 
@@ -75,24 +83,18 @@ class Real implements ServiceInterface
     }
 
     /**
-     * @param string $address_2 bairro
-     *
-     * @return Result<\PhpSigep\Model\ListarAgenciasCliqueRetireResult[]>
+     * @param string $cep
+     * @return Result<\PhpSigep\Model\ListarAgenciasCliqueRetireResult[]>|Result<\PhpSigep\Model\ConsultaCepResposta>
      */
     public function listarAgenciasCliqueRetireByCep($cep)
     {
-        $zone = '';
-        $city = '';
-        $address_2 = '';
-
         $result = $this->consultaCep($cep);
-        if (!$result->hasError()) {
-            $zone = $result->getResult()->getUf();
-            $city = NoDiacritic::filter($result->getResult()->getCidade());
-            $address_2 = NoDiacritic::filter($result->getResult()->getBairro());
-        } else {
+        if ($result->hasError()) {
             return $result;
         }
+        $zone = $result->getResult()->getUf();
+        $city = NoDiacritic::filter($result->getResult()->getCidade());
+        $address_2 = NoDiacritic::filter($result->getResult()->getBairro());
 
         $service = new ServiceImplementation\ListarAgenciasCliqueRetire();
 
@@ -120,7 +122,6 @@ class Real implements ServiceInterface
      *
      * @param \PhpSigep\Model\GeraDigitoVerificadorEtiquetas $params
      *
-     * @throws \SoapFault
      * @throws \Exception
      * @return Result
      */
@@ -132,7 +133,7 @@ class Real implements ServiceInterface
 
     /**
      * @param \PhpSigep\Model\PreListaDePostagem $params
-     * @return \PhpSigep\Services\Result<\PhpSigep\Model\FechaPlpVariosServicosRetorno>
+     * @return Result<\PhpSigep\Model\FechaPlpVariosServicosRetorno>
      */
     public function fechaPlpVariosServicos(\PhpSigep\Model\PreListaDePostagem $params)
     {
@@ -154,7 +155,7 @@ class Real implements ServiceInterface
      * @todo tratar o retorno
      *
      * @param \PhpSigep\Model\AccessData $params
-     * @return Result
+     * @return Result<BuscaClienteResult>
      */
     public function buscaCliente(\PhpSigep\Model\AccessData $params)
     {
@@ -165,7 +166,7 @@ class Real implements ServiceInterface
     /**
      *
      * @param \PhpSigep\Model\RastrearObjeto $params
-     * @return \PhpSigep\Services\Result<\PhpSigep\Model\RastrearObjetoResultado[]>
+     * @return Result<\PhpSigep\Model\RastrearObjetoResultado[]>
      */
     public function rastrearObjeto(\PhpSigep\Model\RastrearObjeto $params)
     {
@@ -175,9 +176,9 @@ class Real implements ServiceInterface
 
     /**
      * @param $numeroCartaoPostagem
-     * @param $login
+     * @param $usuario
      * @param $senha
-     * @return \PhpSigep\Services\Result<\PhpSigep\Model\verificarStatusCartaoPostagemResposta[]>
+     * @return Result<\PhpSigep\Model\verificarStatusCartaoPostagemResposta[]>
      */
     public function verificarStatusCartaoPostagem($numeroCartaoPostagem, $usuario, $senha)
     {
@@ -191,13 +192,36 @@ class Real implements ServiceInterface
      * @param $idPlp
      * @param $usuario
      * @param $senha
-     * @return \PhpSigep\Services\Result<\PhpSigep\Model\BloquearObjetoResposta[]>
+     * @return Result<\PhpSigep\Model\BloquearObjetoResposta[]>
      */
-
     public function bloquearObjeto($numeroEtiqueta, $idPlp, $usuario, $senha)
     {
         $service = new ServiceImplementation\BloquearObjeto();
         return $service->execute($numeroEtiqueta, $idPlp, $usuario, $senha);
     }
 
+    /**
+     * Pede para o WebService do Correios cancelar a entrega de uma encomenda ao destinatário
+     * @param $numeroEtiqueta
+     * @param $idPlp
+     * @param $usuario
+     * @param $senha
+     * @return Result<\PhpSigep\Model\CancelarObjetoResposta[]>
+     */
+    public function cancelarObjeto($numeroEtiqueta, $idPlp, $usuario, $senha)
+    {
+        $service = new ServiceImplementation\CancelarObjeto();
+        return $service->execute($numeroEtiqueta, $idPlp, $usuario, $senha);
+    }
+
+    /**
+     * @param \PhpSigep\Model\PedidoInformacao $params
+     *
+     * @return $pedido
+     */
+    public function cadastrarPi(\PhpSigep\Model\PedidoInformacao $params)
+    {
+        $service = new ServiceImplementation\CadastrarPI();
+        return $service->execute($params);
+    }
 }

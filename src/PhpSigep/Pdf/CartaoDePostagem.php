@@ -241,10 +241,8 @@ class CartaoDePostagem
                 switch ($servicoDePostagem->getCodigo()) {
                     case ServicoDePostagem::SERVICE_PAC_41068:
                     case ServicoDePostagem::SERVICE_PAC_04510:
-                    case ServicoDePostagem::SERVICE_PAC_CONTRATO_41211:
                     case ServicoDePostagem::SERVICE_PAC_CONTRATO_AGENCIA:
                     case ServicoDePostagem::SERVICE_PAC_GRANDES_FORMATOS:
-                    case ServicoDePostagem::SERVICE_PAC_REMESSA_AGRUPADA:
                     case ServicoDePostagem::SERVICE_PAC_REVERSO_CONTRATO_AGENCIA:
                     case ServicoDePostagem::SERVICE_PAC_PAGAMENTO_NA_ENTREGA:
                     case ServicoDePostagem::SERVICE_PAC_CONTRATO_UO:
@@ -257,17 +255,7 @@ class CartaoDePostagem
                             $chancela = new Pac2016($lPosChancela, $tPosChancela, $nomeRemetente, $accessData);
                         }
                         break;
-                    case ServicoDePostagem::SERVICE_E_SEDEX_STANDARD:
-                        if ($this->layoutSedex === CartaoDePostagem::TYPE_CHANCELA_SEDEX) {
-                            $chancela = new Sedex($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_E_SEDEX, $accessData);
-                        } else {
-                            $chancela = new Sedex2016($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_E_SEDEX, $accessData);
-                        }
-                        break;
-
-                    case ServicoDePostagem::SERVICE_SEDEX_40096:
-                    case ServicoDePostagem::SERVICE_SEDEX_40436:
-                    case ServicoDePostagem::SERVICE_SEDEX_40444:
+                    case ServicoDePostagem::SERVICE_SEDEX_41556:
                     case ServicoDePostagem::SERVICE_SEDEX_A_VISTA:
                     case ServicoDePostagem::SERVICE_SEDEX_VAREJO_A_COBRAR:
                     case ServicoDePostagem::SERVICE_SEDEX_PAGAMENTO_NA_ENTREGA:

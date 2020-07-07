@@ -435,7 +435,7 @@ class Semacode {
                     if ($newenc == 'x')
                         $en = " 0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ\r*>";
                     do {
-                        $c = $s{$sp++};
+                        $c = $s[$sp++];
                         if ($c & 0x80) {
                             if ($newenc == 'x') {
                                 die("Cannot encode char in X12: " . $c);
@@ -515,24 +515,24 @@ class Semacode {
                         $enc = 'a';
                     }
                     while ($sp < $sl && strtolower($e['encoding'][$sp]) == 'e' && $p < 4)
-                        $out[$p++] = ord($s{$sp++});
+                        $out[$p++] = ord($s[$sp++]);
                     if ($p < 4) {
                         $out[$p++] = 0x1F;
                         $enc = 'a';
                     }
                     // termination
-                    $t[$tp] = (($s{0} & 0x3F) << 2);
+                    $t[$tp] = (($s[0] & 0x3F) << 2);
                     $ttp = $tp++;
-                    $t[$ttp] = $t[$ttp] | (($s{1} & 0x30) >> 4);
-                    $t[$tp] = (($s{1} & 0x0F) << 4);
+                    $t[$ttp] = $t[$ttp] | (($s[1] & 0x30) >> 4);
+                    $t[$tp] = (($s[1] & 0x0F) << 4);
                     if ($p == 2)
                         $tp++;
                     else {
                         $ttp = $tp++;
                         $t[$ttp] = $t[$ttp] | (($s[2] & 0x3C) >> 2);
-                        $t[$tp] = (($s{2} & 0x03) << 6);
+                        $t[$tp] = (($s[2] & 0x03) << 6);
                         $ttp = $tp++;
-                        $t[$ttp] = $t[$ttp] | ($s{3} & 0x3F);
+                        $t[$ttp] = $t[$ttp] | ($s[3] & 0x3F);
                     }
                 }
                 break;
@@ -547,14 +547,14 @@ class Semacode {
                             $t[$tp++] = 0x7C;
                     }
                     $enc = 'a';
-                    if ($sl - $sp >= 2 && $this->isDigit($s{$sp}) && $this->isDigit($s{$sp + 1})) {
-                        $t[$tp++] = (ord($s{$sp}) - ord('0')) * 10 + ord($s{$sp + 1}) - ord('0') + 130;
+                    if ($sl - $sp >= 2 && $this->isDigit($s[$sp]) && $this->isDigit($s[$sp + 1])) {
+                        $t[$tp++] = (ord($s[$sp]) - ord('0')) * 10 + ord($s[$sp + 1]) - ord('0') + 130;
                         $sp += 2;
-                    } elseif (ord($s{$sp}) > 127) {
+                    } elseif (ord($s[$sp]) > 127) {
                         $t[$tp++] = 235;
-                        $t[$tp++] = ord($s{$sp++}) - 127;
+                        $t[$tp++] = ord($s[$sp++]) - 127;
                     } else
-                        $t[$tp++] = ord($s{$sp++}) + 1;
+                        $t[$tp++] = ord($s[$sp++]) + 1;
                     break;
                 case 'b': {
                     // Binary
@@ -574,7 +574,7 @@ class Semacode {
                     }
                     while ($l-- && $tp < $tl) {
                         // see annex H
-                        $t[$tp] = ord($s{$sp++}) + ((($tp + 1) * 149) % 255) + 1;
+                        $t[$tp] = ord($s[$sp++]) + ((($tp + 1) * 149) % 255) + 1;
                         $tp++;
                     }
                     // reverse to ASCII at end
@@ -655,11 +655,11 @@ class Semacode {
             // consider each encoding from this $point
             // ASCII
             $sl = $tl = 1;
-            if ($this->isDigit($s{$p}) && $p + 1 < $l && $this->isDigit($s{$p + 1})) {
+            if ($this->isDigit($s[$p]) && $p + 1 < $l && $this->isDigit($s[$p + 1])) {
                 //$this->debug("double digit");
                 // double digit
                 $sl = 2;
-            } elseif ($s{$p} & 0x80) {
+            } elseif ($s[$p] & 0x80) {
                 //$this->debug("high shifted");
                 // high shifted
                 $tl = 2;
@@ -681,7 +681,7 @@ class Semacode {
             $sub = $tl = $sl = 0;
             do {
                 $psl = $p + $sl++;
-                $c = $s{$psl};
+                $c = $s[$psl];
                 //$this->debug("s: " + s);
                 //$this->debug("psl: " + $psl);
                 //$this->debug("c40: " + c);
@@ -738,7 +738,7 @@ class Semacode {
             $tl = 0;
             $sl = 0;
             do {
-                $c = $s{$p + $sl++};
+                $c = $s[$p + $sl++];
                 //$this->debug("text: " . $c);
                 if ($c & 0x80) {
                     // shift + upper
@@ -791,7 +791,7 @@ class Semacode {
             // X12
             $sub = $tl = $sl = 0;
             do {
-                $c = $s{$p + $sl++};
+                $c = $s[$p + $sl++];
                 //$this->debug("x12: " . $c);
                 if ($c != 13 && $c != '*' && $c != '>' && $c != ' ' && !$this->isDigit($c) && !$this->isUpper($c)) {
                     $sl = 0;
@@ -830,7 +830,7 @@ class Semacode {
             // EDIFACT
             //$this->debug("edifact");
             $sl = $bl = 0;
-            if ($s{$p} >= 32 && $s{$p} <= 94) {
+            if ($s[$p] >= 32 && $s[$p] <= 94) {
                 // can encode 1
                 //$this->debug("can encode 1");
                 $bs = 0;
@@ -848,7 +848,7 @@ class Semacode {
                         }
                     }
                 }
-                if ($p + 1 < $l && $ss{$p + 1} >= 32 && $s{$p + 1} <= 94) {
+                if ($p + 1 < $l && $ss[$p + 1] >= 32 && $s[$p + 1] <= 94) {
                     // can encode 2
                     //$this->debug("can encode 2");
                     if ($p + 2 == $l && (!$bl || $bl < 2)) {
@@ -865,7 +865,7 @@ class Semacode {
                             }
                         }
                     }
-                    if ($p + 2 < $l && $s{p + 2} >= 32 && $s{p + 2} <= 94) {
+                    if ($p + 2 < $l && $s[$p + 2] >= 32 && $s[$p + 2] <= 94) {
                         // can encode 3
                         //$this->debug("can encode 3");
                         if ($p + 3 == $l && (!$bl || $bl < 3)) {
@@ -880,7 +880,7 @@ class Semacode {
                                     $b = $e;
                                     //$this->debug("7 bl: " + bl + " b: " + b);
                                 }
-                        if ($p + 4 < $l && $s{$p + 3} >= 32 && $s{$p + 3} <= 94) {
+                        if ($p + 4 < $l && $s[$p + 3] >= 32 && $s[$p + 3] <= 94) {
                             // can encode 4
                             //$this->debug("can encode 4");
                             if ($p + 4 == $l && (!$bl || $bl < 3)) {
@@ -951,7 +951,7 @@ class Semacode {
                     $encoder['encodingLength'] = $enc[$p][$b]['t'];
                 while ($p < $l && $m--) {
                     //$this->debug("e: " . $this->codings{$b} . " b: " . $b);
-                    $encoding[$p++] = $this->codings{$b};
+                    $encoding[$p++] = $this->codings[$b];
                 }
             }
         }
@@ -974,7 +974,7 @@ class Semacode {
         $grid = "";
         $binary = array_fill(0, 4096, 0);
         $matrix = $this->makeEncoding();
-        $encoding = $this->encodingList(strlen($barcode), $barcode, false);
+        $encoding = $this->encodingList(strlen($barcode), (int) $barcode, false);
 
         $encoded['valid'] = false;
 
