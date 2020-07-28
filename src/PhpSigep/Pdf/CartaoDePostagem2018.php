@@ -213,11 +213,13 @@ class CartaoDePostagem2018
                     $_texto = 'SEDEX';
                     break;
                 case ServicoDePostagem::SERVICE_SEDEX_12:
+                case ServicoDePostagem::SERVICE_SEDEX_12_CONTRATO_AGENCIA_03140:
                     $simbolo_de_encaminhamento = realpath(dirname(__FILE__)) . '/simbolo-sedex-expresso.png';
                     $_texto = 'SEDEX 12';
                     break;
                 case ServicoDePostagem::SERVICE_SEDEX_10:
                 case ServicoDePostagem::SERVICE_SEDEX_10_PACOTE:
+                case ServicoDePostagem::SERVICE_SEDEX_10_CONTRATO_AGENCIA_03158:
                     $simbolo_de_encaminhamento = realpath(dirname(__FILE__)) . '/simbolo-sedex-expresso.png';
                     $_texto = 'SEDEX 10';
                     break;

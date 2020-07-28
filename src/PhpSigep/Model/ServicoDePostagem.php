@@ -17,6 +17,8 @@ class ServicoDePostagem extends AbstractModel
     const SERVICE_SEDEX_41556 = '41556';
     const SERVICE_SEDEX_12 = '40169';
     const SERVICE_SEDEX_10 = '40215';
+    const SERVICE_SEDEX_12_CONTRATO_AGENCIA_03140 = '03140';
+    const SERVICE_SEDEX_10_CONTRATO_AGENCIA_03158 = '03158';
     const SERVICE_SEDEX_10_PACOTE = '40886';
     const SERVICE_SEDEX_HOJE_40290 = '40290';
     const SERVICE_SEDEX_HOJE_40878 = '40878';
@@ -81,6 +83,8 @@ class ServicoDePostagem extends AbstractModel
             self::SERVICE_SEDEX_41556                                => array('Sedex 41556', 121877),
             self::SERVICE_SEDEX_12                                   => array('Sedex 12', 115218),
             self::SERVICE_SEDEX_10                                   => array('Sedex 10', 104707),
+            self::SERVICE_SEDEX_12_CONTRATO_AGENCIA_03140            => array('Sedex 12 03140', 162015),
+            self::SERVICE_SEDEX_10_CONTRATO_AGENCIA_03158            => array('Sedex 10 03158', 162016),
             self::SERVICE_SEDEX_10_PACOTE                            => array('Sedex 10 Pacote', null),
             self::SERVICE_SEDEX_HOJE_40290                           => array('Sedex Hoje 40290', 108934),
             self::SERVICE_SEDEX_HOJE_40878                           => array('Sedex Hoje 40878', null),
