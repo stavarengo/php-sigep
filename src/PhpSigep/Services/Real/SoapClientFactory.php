@@ -15,6 +15,8 @@ class SoapClientFactory
 {
     const WEB_SERVICE_CHARSET = 'ISO-8859-1';
 
+    const SOAP_VERSION = 'SOAP_1_1';
+
     /**
      * @var \SoapClient
      */
@@ -64,7 +66,7 @@ class SoapClientFactory
                 'encoding'              => self::WEB_SERVICE_CHARSET, 
                 'verifypeer'            => false, 
                 'verifyhost'            => false, 
-                'soap_version'          => SOAP_1_1,
+                'soap_version'          => self::SOAP_VERSION,
                 'cache_wsdl'            => Bootstrap::getConfig()->getWsdlCache(),
                 'trace'                 => Bootstrap::getConfig()->getEnv() != Config::ENV_PRODUCTION,
                 'exceptions'            => Bootstrap::getConfig()->getEnv() != Config::ENV_PRODUCTION, 
@@ -142,7 +144,7 @@ class SoapClientFactory
                 'encoding'              => self::WEB_SERVICE_CHARSET,
                 'verifypeer'            => false,
                 'verifyhost'            => false,
-                'soap_version'          => SOAP_1_1,
+                'soap_version'          => self::SOAP_VERSION,
                 'trace'                 => Bootstrap::getConfig()->getEnv() != Config::ENV_PRODUCTION,
                 'exceptions'            => Bootstrap::getConfig()->getEnv() != Config::ENV_PRODUCTION,
                 "connection_timeout"    => 180,
@@ -176,7 +178,7 @@ class SoapClientFactory
                 'encoding'              => self::WEB_SERVICE_CHARSET,
                 'verifypeer'            => false,
                 'verifyhost'            => false,
-                'soap_version'          => SOAP_1_1,
+                'soap_version'          => self::SOAP_VERSION,
                 'trace'                 => Bootstrap::getConfig()->getEnv() != Config::ENV_PRODUCTION,
                 'exceptions'            => Bootstrap::getConfig()->getEnv() != Config::ENV_PRODUCTION,
                 "connection_timeout"    => 180,
@@ -214,7 +216,7 @@ class SoapClientFactory
                 'encoding'              => 'UTF-8',
                 'verifypeer'            => false,
                 'verifyhost'            => false,
-                'soap_version'          => SOAP_1_1,
+                'soap_version'          => self::SOAP_VERSION,
                 'trace'                 => Bootstrap::getConfig()->getEnv() != Config::ENV_PRODUCTION,
                 'exceptions'            => Bootstrap::getConfig()->getEnv() != Config::ENV_PRODUCTION,
                 "connection_timeout"    => 180,
@@ -231,6 +233,48 @@ class SoapClientFactory
         }
 
         return self::$_soapAgenciaWS;
+    }
+    /**
+     * 
+     * @return \SoapClient
+     * @throws SoapExtensionNotInstalled
+     */
+    public static function getSoapPI()
+    {
+        if (!self::$_soapClient) {
+            if (!extension_loaded('soap')) {
+                throw new SoapExtensionNotInstalled('The "soap" module must be enabled in your PHP installation. The "soap" module is required in order to PHPSigep to make requests to the Correios WebService.');
+            }
+
+            $wsdl = Bootstrap::getConfig()->getWsdlPI();
+
+            $opts = array(
+                'ssl' => array(
+                        'verify_peer'       => false,
+                'verify_peer_name'  => false,
+                'allow_self_signed' => true,
+                )
+            );
+
+            // SOAP 1.1 client
+            $params = array (
+                'verifypeer'            => false,
+                'verifyhost'            => false,
+                'connection_timeout'    => 180,
+                'stream_context'        => stream_context_create($opts),
+                'wsdl_cache'            => WSDL_CACHE_BOTH,
+                'login'                 => Bootstrap::getConfig()->getAccessData()->getIdCorreiosUsuario(),
+                'password'              => Bootstrap::getConfig()->getAccessData()->getIdCorreiosSenha(),
+                'proxy_host'            => Bootstrap::getConfig()->getProxy() ? Bootstrap::getConfig()->getProxy()->getHost() : null,
+                'proxy_port'            => Bootstrap::getConfig()->getProxy() ? Bootstrap::getConfig()->getProxy()->getPort() : null,
+                'proxy_login'           => Bootstrap::getConfig()->getProxy() ? Bootstrap::getConfig()->getProxy()->getLogin() : null,
+                'proxy_password'        => Bootstrap::getConfig()->getProxy() ? Bootstrap::getConfig()->getProxy()->getPassword() : null
+            );
+
+            self::$_soapClient = new \SoapClient($wsdl, $params);
+        }
+
+        return self::$_soapClient;
     }
 
     /**
