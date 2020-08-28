@@ -76,6 +76,11 @@ class Config extends DefaultStdClass
     protected $wsdlAgenciaWS = self::WSDL_AGENCIAS_WS;
 
     /**
+     * @var string
+     */
+    protected $wsdlPI = self::WSDL_PI_DEVELOPMENT;
+
+    /**
      * @var int
      */
     protected $env = self::ENV_DEVELOPMENT;
@@ -338,18 +343,24 @@ class Config extends DefaultStdClass
     {
         return $this->wsdlAgenciaWS;
     }
-    
-    
+
+    /**
+     * @param $wsdlPI
+     * @return $this;
+     */
+    public function setWsdlPI($wsdlPI)
+    {
+        $this->wsdlPI = $wsdlPI;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
     public function getWsdlPI()
     {
-        switch ($this->env) {
-            case self::ENV_PRODUCTION:
-                return self::WSDL_PI_PRODUCTION;
-
-            case self::ENV_DEVELOPMENT:
-            default:
-                return self::WSDL_PI_DEVELOPMENT;
-        }
+        return $this->wsdlPI;
     }
 
     /**
