@@ -17,6 +17,8 @@ class ServicoDePostagem extends AbstractModel
     const SERVICE_SEDEX_41556 = '41556';
     const SERVICE_SEDEX_12 = '40169';
     const SERVICE_SEDEX_10 = '40215';
+    const SERVICE_SEDEX_12_CONTRATO_AGENCIA_03140 = '03140';
+    const SERVICE_SEDEX_10_CONTRATO_AGENCIA_03158 = '03158';
     const SERVICE_SEDEX_10_PACOTE = '40886';
     const SERVICE_SEDEX_HOJE_40290 = '40290';
     const SERVICE_SEDEX_HOJE_40878 = '40878';
@@ -59,11 +61,19 @@ class ServicoDePostagem extends AbstractModel
     const SERVICE_PAC_CONTRATO_AGENCIA_03298 = '03298';
     const SERVICE_SEDEX_CONTRATO_AGENCIA_03220 = '03220';
 
+    // NOVOS CODIGOS DE SERVICO DOS CORREIOS BRONZE (1o sem 2020)
+    const SERVICE_PAC_CONTRATO_AGENCIA_03085 = '03085';
+    const SERVICE_SEDEX_CONTRATO_AGENCIA_03050 = '03050';
+
     protected static $services
         = array(
             // NOVOS CODIGOS DE SERVICO DOS CORREIOS
             self::SERVICE_PAC_CONTRATO_AGENCIA_03298 => array('Pac 03298', 162026),
             self::SERVICE_SEDEX_CONTRATO_AGENCIA_03220 => array('Sedex 03220', 162022),
+
+            // NOVOS CODIGOS DE SERVICO DOS CORREIOS BRONZE (1o sem 2020)
+            self::SERVICE_PAC_CONTRATO_AGENCIA_03085 => array('Pac 03085', 162011),
+            self::SERVICE_SEDEX_CONTRATO_AGENCIA_03050 => array('Sedex 03050', 162008),
             // DEMAIS SERVICOS
             self::SERVICE_PAC_41068                                  => array('Pac 41068', 109819),
             self::SERVICE_PAC_04510                                  => array('Pac 04510', 124887),
@@ -73,6 +83,8 @@ class ServicoDePostagem extends AbstractModel
             self::SERVICE_SEDEX_41556                                => array('Sedex 41556', 121877),
             self::SERVICE_SEDEX_12                                   => array('Sedex 12', 115218),
             self::SERVICE_SEDEX_10                                   => array('Sedex 10', 104707),
+            self::SERVICE_SEDEX_12_CONTRATO_AGENCIA_03140            => array('Sedex 12 03140', 162015),
+            self::SERVICE_SEDEX_10_CONTRATO_AGENCIA_03158            => array('Sedex 10 03158', 162016),
             self::SERVICE_SEDEX_10_PACOTE                            => array('Sedex 10 Pacote', null),
             self::SERVICE_SEDEX_HOJE_40290                           => array('Sedex Hoje 40290', 108934),
             self::SERVICE_SEDEX_HOJE_40878                           => array('Sedex Hoje 40878', null),

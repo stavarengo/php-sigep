@@ -147,6 +147,12 @@ class FecharPreListaDePostagem
         $writer->startElement('email_remetente');
         $writer->writeCdata($this->_($data->getRemetente()->getEmail(), 50));
         $writer->endElement();
+        $writer->startElement('celular_remetente');
+        $writer->writeCdata($this->_($data->getRemetente()->getTelefone(), 50));
+        $writer->endElement();
+        $writer->startElement('cpf_cnpj_remetente');
+        $writer->endElement();
+        $writer->writeElement('ciencia_conteudo_proibido');
         $writer->endElement();
     }
 
@@ -165,6 +171,7 @@ class FecharPreListaDePostagem
         $writer->writeElement('peso', (float)$objetoPostal->getPeso() * 1000);
         $writer->writeElement('rt1');
         $writer->writeElement('rt2');
+        $writer->writeElement('restricao_anac', 0);
         $this->writeDestinatario($writer, $objetoPostal->getDestinatario());
         $this->writeDestino($writer, $objetoPostal->getDestino());
         $this->writeServicoAdicional($writer, (array)$objetoPostal->getServicosAdicionais());
@@ -214,6 +221,8 @@ class FecharPreListaDePostagem
         $writer->endElement();
         $writer->startElement('numero_end_destinatario');
         $writer->writeCdata($this->_($destinatario->getNumero(), 6));
+        $writer->endElement();
+        $writer->startElement('cpf_cnpj_destinatario');
         $writer->endElement();
         $writer->endElement();
     }
@@ -271,7 +280,7 @@ class FecharPreListaDePostagem
                 }
             }
         }
-
+        $writer->writeElement('valor_declarado');
         $writer->endElement();
     }
 

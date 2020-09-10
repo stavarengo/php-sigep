@@ -71,7 +71,7 @@ interface ServiceInterface
 
     /**
      * @param $numeroCartaoPostagem
-     * @param $login
+     * @param $usuario
      * @param $senha
      * @return \PhpSigep\Services\Result<\PhpSigep\Model\verificarStatusCartaoPostagemResposta[]>
      */
@@ -95,6 +95,6 @@ interface ServiceInterface
      * @param $senha
      * @return \PhpSigep\Services\Result<\PhpSigep\Model\CancelarObjetoResposta[]>
      */
-    public function cancelarObjeto($numeroEtiqueta, $idPlp, $usuario, $senha);    
+    public function cancelarObjeto($numeroEtiqueta, $idPlp, $usuario, $senha);
 
 }

@@ -232,6 +232,8 @@ class CartaoDePostagem2016
                     case ServicoDePostagem::SERVICE_PAC_CONTRATO_AGENCIA_LM:
                     case ServicoDePostagem::SERVICE_PAC_CONTRATO_AGENCIA_TA:
                     case ServicoDePostagem::SERVICE_PAC_CONTRATO_GRANDES_FORMATOS_LM:
+                    case ServicoDePostagem::SERVICE_PAC_CONTRATO_AGENCIA_03298:
+                    case ServicoDePostagem::SERVICE_PAC_CONTRATO_AGENCIA_03085:
                         if ($this->layoutPac === CartaoDePostagem::TYPE_CHANCELA_PAC) {
                             $chancela = new Pac($lPosChancela, $tPosChancela, $nomeRemetente, $accessData);
                         } else {
@@ -248,6 +250,8 @@ class CartaoDePostagem2016
                     case ServicoDePostagem::SERVICE_SEDEX_CONTRATO_AGENCIA_LM:
                     case ServicoDePostagem::SERVICE_SEDEX_CONTRATO_GRANDES_FORMATOS_LM:
                     case ServicoDePostagem::SERVICE_SEDEX_CONTRATO_AGENCIA_TA:
+                    case ServicoDePostagem::SERVICE_SEDEX_CONTRATO_AGENCIA_03220:
+                    case ServicoDePostagem::SERVICE_SEDEX_CONTRATO_AGENCIA_03050:                                                
                         $tPosChancela = 3;
                         if ($this->layoutSedex === CartaoDePostagem::TYPE_CHANCELA_SEDEX) {
                             $chancela = new Sedex($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX, $accessData);
@@ -257,6 +261,7 @@ class CartaoDePostagem2016
                         break;
 
                     case ServicoDePostagem::SERVICE_SEDEX_12:
+                    case ServicoDePostagem::SERVICE_SEDEX_12_CONTRATO_AGENCIA_03140:
                         $tPosChancela = 3;
                         if ($this->layoutSedex === CartaoDePostagem::TYPE_CHANCELA_SEDEX) {
                             $chancela = new Sedex($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX_12, $accessData);
@@ -267,6 +272,7 @@ class CartaoDePostagem2016
 
                     case ServicoDePostagem::SERVICE_SEDEX_10:
                     case ServicoDePostagem::SERVICE_SEDEX_10_PACOTE:
+                    case ServicoDePostagem::SERVICE_SEDEX_10_CONTRATO_AGENCIA_03158:
                         $tPosChancela = 3;
                         if ($this->layoutSedex === CartaoDePostagem::TYPE_CHANCELA_SEDEX) {
                             $chancela = new Sedex($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX_10, $accessData);

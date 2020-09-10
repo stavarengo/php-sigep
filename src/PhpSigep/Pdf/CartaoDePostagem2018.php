@@ -189,6 +189,7 @@ class CartaoDePostagem2018
                 case ServicoDePostagem::SERVICE_PAC_CONTRATO_AGENCIA_PAGAMENTO_NA_ENTREGA_LM:
                 case ServicoDePostagem::SERVICE_PAC_CONTRATO_AGENCIA_TA:
                 case ServicoDePostagem::SERVICE_PAC_CONTRATO_AGENCIA_03298:
+                case ServicoDePostagem::SERVICE_PAC_CONTRATO_AGENCIA_03085:
                     $chancela = new Pac2018(86, $this->pdf->GetY() + 13, $nomeRemetente, $accessData);
                     $_texto = 'PAC';
                     break;
@@ -207,15 +208,18 @@ class CartaoDePostagem2018
                 case ServicoDePostagem::SERVICE_SEDEX_CONTRATO_AGENCIA_PAGAMENTO_NA_ENTREGA_LM:
                 case ServicoDePostagem::SERVICE_SEDEX_CONTRATO_AGENCIA_TA:
                 case ServicoDePostagem::SERVICE_SEDEX_CONTRATO_AGENCIA_03220:
+                case ServicoDePostagem::SERVICE_SEDEX_CONTRATO_AGENCIA_03050:
                     $simbolo_de_encaminhamento = realpath(dirname(__FILE__)) . '/simbolo-sedex-standard.png';
                     $_texto = 'SEDEX';
                     break;
                 case ServicoDePostagem::SERVICE_SEDEX_12:
+                case ServicoDePostagem::SERVICE_SEDEX_12_CONTRATO_AGENCIA_03140:
                     $simbolo_de_encaminhamento = realpath(dirname(__FILE__)) . '/simbolo-sedex-expresso.png';
                     $_texto = 'SEDEX 12';
                     break;
                 case ServicoDePostagem::SERVICE_SEDEX_10:
                 case ServicoDePostagem::SERVICE_SEDEX_10_PACOTE:
+                case ServicoDePostagem::SERVICE_SEDEX_10_CONTRATO_AGENCIA_03158:
                     $simbolo_de_encaminhamento = realpath(dirname(__FILE__)) . '/simbolo-sedex-expresso.png';
                     $_texto = 'SEDEX 10';
                     break;
@@ -251,8 +255,8 @@ class CartaoDePostagem2018
             $this->pdf->SetXY(5, 27);
             $this->pdf->SetFontSize(9);
             //$this->pdf->SetTextColor(51,51,51);
-            $nf = (int)$objetoPostal->getDestino()->getNumeroNotaFiscal();
-            $str = $nf > 0 ?  'NF: '. $nf : ' ';
+            $nf = $objetoPostal->getDestino()->getNumeroNotaFiscal();
+            $str = $nf > 0 ?  'NF: '. substr($nf,5) : ' ';
             $this->t(15, $str, 1, 'L',  null);
 
             // Contrato
@@ -312,7 +316,7 @@ class CartaoDePostagem2018
             $this->setFillColor(0, 0, 0);
             $tPosEtiquetaBarCode = $this->pdf->GetY();
 
-            $hEtiquetaBarCode = 18;
+            $hEtiquetaBarCode = 16;
             $wEtiquetaBarCode = 80;
 
             $code128 = new \PhpSigep\Pdf\Script\BarCode128();
@@ -410,7 +414,7 @@ class CartaoDePostagem2018
             $tPosCepBarCode = $t + 1;
 
             // Etiqueta do CEP
-            $hCepBarCode = 18;
+            $hCepBarCode = 16;
             $wCepBarCode = 40;
             $this->setFillColor(0, 0, 0);
             $code128 = new \PhpSigep\Pdf\Script\BarCode128();
@@ -496,7 +500,7 @@ class CartaoDePostagem2018
         $t1 = $this->pdf->GetY();
         $l = 0;
 
-        $titulo = 'DESTINATÁRIO';
+        $titulo = mb_convert_encoding('DESTINATÁRIO', 'UTF-8', 'ISO-8859-1');
         $nomeDestinatario = $objetoPostal->getDestinatario()->getNome();
         $logradouro = $objetoPostal->getDestinatario()->getLogradouro();
         $numero = $objetoPostal->getDestinatario()->getNumero();
@@ -630,12 +634,12 @@ class CartaoDePostagem2018
             // Titulo do bloco: destinatario ou remetente
             $this->pdf->SetFont('', 'B');
             $this->setFillColor(60, 60, 60);
-            $this->pdf->SetFontSize(10);
+            $this->pdf->SetFontSize(9);
             $this->pdf->SetXY(2, $t);
             $this->t($w, $titulo, 2, '');
 
             // Nome da pessoa
-            $this->pdf->SetFont('', '', 10);
+            $this->pdf->SetFont('', '', 9);
             $this->setFillColor(190, 190, 190);
             $this->pdf->SetXY(22, $t);
             $this->multiLines($w, trim($nomeDestinatario), 'L');
@@ -657,7 +661,7 @@ class CartaoDePostagem2018
         }
         $this->setFillColor(100, 190, 190);
         $this->pdf->SetX($l);
-        $this->multiLines($w, $address1, 'L');
+        $$this->multiLines($w, utf8_decode($address1), 'L');
 
         //Segunda parte do endereco
         $this->pdf->SetX($l);
