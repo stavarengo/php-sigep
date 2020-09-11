@@ -661,7 +661,7 @@ class CartaoDePostagem2018
         }
         $this->setFillColor(100, 190, 190);
         $this->pdf->SetX($l);
-        $$this->multiLines($w, utf8_decode($address1), 'L');
+        $this->multiLines($w, utf8_decode($address1), 'L');
 
         //Segunda parte do endereco
         $this->pdf->SetX($l);
