@@ -4,10 +4,12 @@ namespace PhpSigep\Services\Real;
 use PhpSigep\Bootstrap;
 use PhpSigep\Services\Result;
 use PhpSigep\Model\AbstractModel;
+use PhpSigep\Model\PedidoInformacaoResponse;
 use PhpSigep\Services\Exception;
 
 /**
  * @author: Rodrigo Job <email:desenvolvimento@econector.com.br>
+ * @author: Bruno Maia <email:brunopmaia@gmail.com>
  */
 class CadastrarPI 
 {
@@ -15,51 +17,66 @@ class CadastrarPI
     /**
      * @param \PhpSigep\Model\AbstractModel|\PhpSigep\Model\PedidoInformacao $params
      *
-     * @throws \PhpSigep\Services\Exception
-     * @throws InvalidArgument
+     * @throws \InvalidArgument
+     * @throws \Exception
+     * @throws \SoapFault
      * @return Result
      */
     public function execute(AbstractModel $params)
     {
-
         $result = new Result();
+
         if (!$params instanceof \PhpSigep\Model\PedidoInformacao) {
             throw new InvalidArgument();
         }
 
         try {
-            
-            if (!Bootstrap::getConfig()->getAccessData()|| !Bootstrap::getConfig()->getAccessData()->getIdCorreiosUsuario() || !Bootstrap::getConfig()->getAccessData()->getIdCorreiosSenha()
+            if (!Bootstrap::getConfig()->getAccessData()
+                || !Bootstrap::getConfig()->getAccessData()->getIdCorreiosUsuario()
+                || !Bootstrap::getConfig()->getAccessData()->getIdCorreiosSenha()
             ) {
                 throw new Exception('Para usar este serviço você precisa setar o nome de usuário e senha.');
             }
             
-            $soapArgs = [
-                'contrato' => Bootstrap::getConfig()->getAccessData()->getNumeroContrato(),
-                'cartao' => $params->getCartao(),
-                'telefone' => $params->getTelefone(),
-                'pi' => $params->getPIs(),
-            ];
+            $soapArgs = array(
+                'contrato'               => Bootstrap::getConfig()->getAccessData()->getNumeroContrato(),
+                'cartao'                 => Bootstrap::getConfig()->getAccessData()->getCartaoPostagem(),
+                'telefone'               => $params->getTelefone(),
+                'pi' => array(
+                    'codigoObjeto'           => $params->getCodigoObjeto(),
+                    'emailResposta'          => $params->getEmailResposta(),
+                    'nomeDestinatario'       => $params->getNomeDestinatario(),
+                    'codigoMotivoReclamacao' => $params->getCodigoMotivoReclamacao(),
+                    'tipoEmbalagem'          => $params->getTipoEmbalagem(),
+                    'tipoManifestacao'       => $params->getTipoManifestacao(),
+                )
+            );
             
             $soapArgs = $this->filtraValNull($soapArgs);
 
-            $result = SoapClientFactory::getSoapPI()->CadastrarPIComContrato($soapArgs);
+            $retorno = SoapClientFactory::getSoapPI()->cadastrarPIComContrato($soapArgs);
 
-            if (!$result || !is_object($result) || !isset($result->pedido) || ($result instanceof \SoapFault)) {
-                if ($result instanceof \SoapFault) {
-                    throw $result;
+            if (!$retorno || !is_object($retorno) || ($retorno instanceof \SoapFault)) {
+                if ($retorno instanceof \SoapFault) {
+                    throw $retorno;
                 }
-                if ($result->pedido) {
-                    if (!empty($result->pedido->codigoRetorno)) {
-                        throw new \Exception($result->pedido->descricaoRetorno, (int) $result->pedido->codigoRetorno);
-                    }
-                    
-                    return $result;
+
+                throw new \Exception('Erro ao cadastrar Pedido de Informação. Retorno: "' . var_export($retorno) . '"');
+            }
+
+            if ($retorno instanceof \stdClass) {
+                $pedido = json_decode(json_encode($retorno->pedido), true);
+                $pi     = array_pop($pedido);
+
+                $objectToarray = array_merge($pedido, $pi);
+
+                if ($objectToarray) {
+                    $result->setResult(new PedidoInformacaoResponse($objectToarray));
+                } else {
+                    throw new FailedConvertToArrayExceptio('Erro ao converter Object para Array da Busca. Retorno: "' . print_r(json_last_error_msg(), true) . '"');
                 }
-                throw new \Exception('Falha na leitura do XML (' . var_export($result) . ')', 400);
             }
         } catch (Exception $e) {
-            print_r($e);
             if ($e instanceof \SoapFault) {
                 $result->setIsSoapFault(true);
             }
@@ -71,6 +88,12 @@ class CadastrarPI
         return $result;
     }
 
+    /**
+     * Remove os parâmetros não informados
+     *
+     * @param $arr
+     * @return array
+     */
     private function filtraValNull($arr)
     {
         $new_arr = [];
