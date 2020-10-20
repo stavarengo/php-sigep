@@ -500,7 +500,7 @@ class CartaoDePostagem2018
         $t1 = $this->pdf->GetY();
         $l = 0;
 
-        $titulo = mb_convert_encoding('DESTINATÁRIO', 'UTF-8', 'ISO-8859-1');
+        $titulo = 'DESTINATÁRIO';
         $nomeDestinatario = $objetoPostal->getDestinatario()->getNome();
         $logradouro = $objetoPostal->getDestinatario()->getLogradouro();
         $numero = $objetoPostal->getDestinatario()->getNumero();
@@ -661,7 +661,7 @@ class CartaoDePostagem2018
         }
         $this->setFillColor(100, 190, 190);
         $this->pdf->SetX($l);
-        $$this->multiLines($w, utf8_decode($address1), 'L');
+        $this->multiLines($w, $address1, 'L');
 
         //Segunda parte do endereco
         $this->pdf->SetX($l);

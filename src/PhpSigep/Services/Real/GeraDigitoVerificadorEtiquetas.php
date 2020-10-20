@@ -35,7 +35,7 @@ class GeraDigitoVerificadorEtiquetas
         $result = new Result();
         try {
             $soapReturn = SoapClientFactory::getSoapClient()->geraDigitoVerificadorEtiquetas($soapArgs);
-            if ($soapReturn && is_object($soapReturn) && $soapReturn->return) {
+            if ($soapReturn && is_object($soapReturn) && isset($soapReturn->return)) {
                 if (!is_array($soapReturn->return)) {
                     $soapReturn->return = (array)$soapReturn->return;
                 }
