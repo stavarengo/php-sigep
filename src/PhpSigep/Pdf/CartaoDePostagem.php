@@ -26,6 +26,7 @@ class CartaoDePostagem
     const TYPE_CHANCELA_CARTA_2016 = 'carta-2016';
     const TYPE_CHANCELA_SEDEX_2016 = 'sedex-2016';
     const TYPE_CHANCELA_PAC_2016   = 'pac-2016';
+    const TYPE_CHANCELA_MINIENVIOS_2016   = 'minienvios-2016';
 
     /**
      * @var \PhpSigep\Pdf\ImprovedFPDF
@@ -96,6 +97,10 @@ class CartaoDePostagem
                     break;
                 case CartaoDePostagem::TYPE_CHANCELA_PAC:
                 case CartaoDePostagem::TYPE_CHANCELA_PAC_2016:
+                    $this->layoutPac = $chancela;
+                    break;
+                case CartaoDePostagem::TYPE_CHANCELA_MINIENVIOS:
+                case CartaoDePostagem::TYPE_CHANCELA_MINIENVIOS_2016:
                     $this->layoutPac = $chancela;
                     break;
                 default:
@@ -354,7 +359,7 @@ class CartaoDePostagem
 
                 $this->pdf->SetFontSize(7);
                 if ($this->getEnvioMesmoDestinatario()){
-                	$this->t($this->pdf->w, "Volume: $index/$total    ".'Peso(kg): ' . ((float)$objetoPostal->getPeso()) . $nf . $numeroPedido, 1, 'C',  null);
+                    $this->t($this->pdf->w, "Volume: $index/$total    ".'Peso(kg): ' . ((float)$objetoPostal->getPeso()) . $nf . $numeroPedido, 1, 'C',  null);
                 }else{
                     $this->t($this->pdf->w, 'Peso(kg): ' . ((float)$objetoPostal->getPeso()) . $nf . $numeroPedido, 1, 'C',  null);
                 }
@@ -718,7 +723,7 @@ class CartaoDePostagem
         $str .= $msg;
         return $str;
     }
-    
+
     public function getEnvioMesmoDestinatario() {
         return $this->envioMesmoDestinatario;
     }
@@ -726,5 +731,5 @@ class CartaoDePostagem
         $this->envioMesmoDestinatario = $envioMesmoDestinatario;
         return $this;
     }
-    
+
 }
