@@ -9,6 +9,7 @@ use PhpSigep\Pdf\Chancela\Carta;
 use PhpSigep\Pdf\Chancela\Pac;
 use PhpSigep\Pdf\Chancela\Sedex;
 use PhpSigep\Pdf\Chancela\Carta2016;
+use PhpSigep\Pdf\Chancela\MiniEnvios2016;
 use PhpSigep\Pdf\Chancela\Pac2016;
 use PhpSigep\Pdf\Chancela\Sedex2016;
 
@@ -22,10 +23,12 @@ class CartaoDePostagem2016
 {
 
     const TYPE_CHANCELA_CARTA = 'carta';
+    const TYPE_CHANCELA_MINIENVIOS = 'minienvios';
     const TYPE_CHANCELA_SEDEX = 'sedex';
     const TYPE_CHANCELA_PAC   = 'pac';
 
     const TYPE_CHANCELA_CARTA_2016 = 'carta-2016';
+    const TYPE_CHANCELA_MINIENVIOS_2016 = 'minienvios-2016';
     const TYPE_CHANCELA_SEDEX_2016 = 'sedex-2016';
     const TYPE_CHANCELA_PAC_2016   = 'pac-2016';
 
@@ -56,6 +59,11 @@ class CartaoDePostagem2016
      * @var string
      */
     private $layoutPac = 'pac-2016';
+    /**
+     * Layout da chancela do Minienvios que deve ser utilizado
+     * @var string
+     */
+    private $layoutMinienvios = 'minienvios-2016';
     /**
      * Layout da chancela da Carta que deve ser utilizado
      * @var string
@@ -91,6 +99,10 @@ class CartaoDePostagem2016
                 case CartaoDePostagem::TYPE_CHANCELA_PAC:
                 case CartaoDePostagem::TYPE_CHANCELA_PAC_2016:
                     $this->layoutPac = $chancela;
+                    break;
+                case CartaoPostagem::TYPE_CHANCELA_MINIENVIOS:
+                case CartaoPostagem::TYPE_CHANCELA_MINIENVIOS_2016:
+                    $this->layoutMinienvios;
                     break;
                 default:
                     throw new \PhpSigep\Pdf\Exception\InvalidChancelaEntry('O tipo de chancela deve ser uma das constantes da classe');
@@ -224,6 +236,10 @@ class CartaoDePostagem2016
                 $accessData = $this->plp->getAccessData();
 
                 switch ($servicoDePostagem->getCodigo()) {
+                    case ServicoDePostagem::SERVICE_MINIENVIOS_04235:
+                    case ServicoDePostagem::SERVICE_MINIENVIOS_04227:
+                        $chancela = new MiniEnvios2016($lPosChancela, $tPosChancela, $nomeRemetente, $accessData);
+                        break;
                     case ServicoDePostagem::SERVICE_PAC_41068:
                     case ServicoDePostagem::SERVICE_PAC_04510:
                     case ServicoDePostagem::SERVICE_PAC_CONTRATO_AGENCIA:

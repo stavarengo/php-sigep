@@ -26,6 +26,7 @@ class CartaoDePostagem
     const TYPE_CHANCELA_CARTA_2016 = 'carta-2016';
     const TYPE_CHANCELA_SEDEX_2016 = 'sedex-2016';
     const TYPE_CHANCELA_PAC_2016   = 'pac-2016';
+    const TYPE_CHANCELA_MINIENVIOS_2016   = 'minienvios-2016';
 
     /**
      * @var \PhpSigep\Pdf\ImprovedFPDF
@@ -96,6 +97,10 @@ class CartaoDePostagem
                     break;
                 case CartaoDePostagem::TYPE_CHANCELA_PAC:
                 case CartaoDePostagem::TYPE_CHANCELA_PAC_2016:
+                    $this->layoutPac = $chancela;
+                    break;
+                case CartaoDePostagem::TYPE_CHANCELA_MINIENVIOS:
+                case CartaoDePostagem::TYPE_CHANCELA_MINIENVIOS_2016:
                     $this->layoutPac = $chancela;
                     break;
                 default:
