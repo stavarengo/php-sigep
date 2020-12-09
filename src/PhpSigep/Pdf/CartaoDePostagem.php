@@ -723,7 +723,7 @@ class CartaoDePostagem
         $str .= $msg;
         return $str;
     }
-
+    
     public function getEnvioMesmoDestinatario() {
         return $this->envioMesmoDestinatario;
     }
