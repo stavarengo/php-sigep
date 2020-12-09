@@ -22,7 +22,7 @@ class MiniEnvios2016 extends AbstractChancela
         $y = $this->y;
         $pdf->RoundedRect($x, $y, $wRect, $h, 5);
 
-        // Escreve o texto PAC
+        // Escreve o texto Mini Envios
         $pdf->SetFont('Arial', 'B', 27);
         $pdf->SetXY($x, $y + 4.5 / $k);
         $pdf->SetFontSize(14);
