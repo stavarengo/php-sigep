@@ -12,6 +12,7 @@ class ServicoAdicional extends AbstractModel
     const SERVICE_VALOR_DECLARADO_SEDEX = '019';
     const SERVICE_VALOR_DECLARADO_PAC   = '064';
     const SERVICE_REGISTRO              = '025';
+    const SERVICE_VALOR_DECLARADO_MINI_ENVIOS = '065';
     
     const SERVICE_VALOR_DECLARADO       = self::SERVICE_VALOR_DECLARADO_SEDEX;
     
