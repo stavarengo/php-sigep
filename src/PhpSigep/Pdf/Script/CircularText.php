@@ -4,7 +4,7 @@ namespace PhpSigep\Pdf\Script;
 class CircularText
 {
 
-    public function __construct(\PhpSigep\Pdf\ImprovedFPDF $pdf, $x, $y, $r, $text, $align = 'top', $kerning = 120, $fontwidth = 100)
+    public function CircularText(\PhpSigep\Pdf\ImprovedFPDF $pdf, $x, $y, $r, $text, $align = 'top', $kerning = 120, $fontwidth = 100)
     {
         $transf = new Transform();
         $kerning /= 100;
