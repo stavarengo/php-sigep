@@ -33,7 +33,8 @@ class FecharPreListaDePostagem
             $listaEtiquetas[] = $objetoPostal->getEtiqueta()->getEtiquetaSemDv();
         }
 
-        $xml = utf8_encode($xmlDaPreLista->flush());
+        $xml = $xmlDaPreLista->flush();
+        $xml = str_replace("\n",'',$xml);
 //		$xml = utf8_encode($xml);
 //		$xml = iconv('UTF-8', 'ISO-8859-1', $xml);
 
@@ -152,7 +153,7 @@ class FecharPreListaDePostagem
         $writer->endElement();
         $writer->startElement('cpf_cnpj_remetente');
         $writer->endElement();
-        $writer->writeElement('ciencia_conteudo_proibido');
+        $writer->writeElement('ciencia_conteudo_proibido','S');
         $writer->endElement();
     }
 
@@ -277,10 +278,11 @@ class FecharPreListaDePostagem
                 $valorDeclarado = (float)$servicoAdicional->getValorDeclarado();
                 if ($valorDeclarado>0) {
                     $writer->writeElement('valor_declarado', (float)$servicoAdicional->getValorDeclarado());
+                } else {
+                    $writer->writeElement('valor_declarado');
                 }
             }
         }
-        $writer->writeElement('valor_declarado');
         $writer->endElement();
     }
 
