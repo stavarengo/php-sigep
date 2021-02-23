@@ -88,7 +88,7 @@ class Config extends DefaultStdClass
     /**
      * @var string
      */
-    protected $xml_encode = self::XML_ENCODE_UTF;
+    protected $xml_encode = self::XML_ENCODE_ISO;
 
     /**
      * @var bool
