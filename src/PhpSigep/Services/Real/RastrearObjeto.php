@@ -128,8 +128,8 @@ class RastrearObjeto
                                 $evento->setDetalhe(SoapClientFactory::convertEncoding(isset($ev->detalhe) ? $ev->detalhe : ''));
                                 $evento->setLocal(SoapClientFactory::convertEncoding(isset($ev->local) ? $ev->local : ''));
                                 $evento->setCodigo($ev->codigo);
-                                $evento->setCidade(isset($ev->cidade) ? $ev->cidade : '');
-                                $evento->setUf(isset($ev->uf) ? $ev->uf : '');
+                                $evento->setCidade(SoapClientFactory::convertEncoding(isset($ev->cidade) ? $ev->cidade : ''));
+                                $evento->setUf(SoapClientFactory::convertEncoding(isset($ev->uf) ? $ev->uf : ''));
 
                                 // Sempre adiciona o recebedor ao resultado, mesmo ele sendo exibido apenas quanto 'tipo' = BDE e 'status' = 01
                                 $evento->setRecebedor(
