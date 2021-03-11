@@ -230,6 +230,7 @@ class CartaoDePostagem2018
                     break;
                 case ServicoDePostagem::SERVICE_CARTA_COMERCIAL_A_FATURAR:
                 case ServicoDePostagem::SERVICE_CARTA_REGISTRADA:
+                case ServicoDePostagem::SERVICE_CARTA_REGISTRADA_AGENCIA_80250:    
                 case ServicoDePostagem::SERVICE_CARTA_COMERCIAL_REGISTRADA_CTR_EP_MAQ_FRAN:
                 case ServicoDePostagem::SERVICE_CARTA_COM_A_FATURAR_SELO_E_SE:
                     $simbolo_de_encaminhamento = realpath(dirname(__FILE__)) . '/simbolo-sem-especificacao.png';
