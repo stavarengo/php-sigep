@@ -272,16 +272,19 @@ class FecharPreListaDePostagem
         // De acordo com o manual este serviço é obrigatório 
         $writer->writeElement('codigo_servico_adicional', ServicoAdicional::SERVICE_REGISTRO);
 
+        $semValorDeclarado = true;
         foreach ($servicosAdicionais as $servicoAdicional) {
             if ($servicoAdicional->getCodigoServicoAdicional() != ServicoAdicional::SERVICE_REGISTRO) {
                 $writer->writeElement('codigo_servico_adicional', $servicoAdicional->getCodigoServicoAdicional());
                 $valorDeclarado = (float)$servicoAdicional->getValorDeclarado();
                 if ($valorDeclarado>0) {
                     $writer->writeElement('valor_declarado', (float)$servicoAdicional->getValorDeclarado());
-                } else {
-                    $writer->writeElement('valor_declarado');
+                    $semValorDeclarado = false;
                 }
             }
+        }
+        if ($semValorDeclarado) {
+            $writer->writeElement('valor_declarado');
         }
         $writer->endElement();
     }
