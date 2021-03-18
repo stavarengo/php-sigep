@@ -4,9 +4,10 @@ namespace PhpSigep\Services\SoapClient;
 
 use PhpSigep\Model\Etiqueta;
 use PhpSigep\Model\ServicoAdicional;
-use string;
+use PhpSigep\Services\Result;
+use PhpSigep\Services\ServiceInterface;
 
-class Simulador implements SoapClientInterface
+class Simulador implements ServiceInterface
 {
 
     /**
@@ -57,7 +58,7 @@ class Simulador implements SoapClientInterface
         return $etiquetas;
     }
 
-    public function fechaPlpVariosServicos(\PhpSigep\Model\PreListaDePostagem $params, \XMLWriter $xmlDaPreLista)
+    public function fechaPlpVariosServicos(\PhpSigep\Model\PreListaDePostagem $params)
     {
         return time();
     }
@@ -126,4 +127,28 @@ class Simulador implements SoapClientInterface
     }
 
 
-} 
+    public function consultaCep($cep)
+    {
+        // TODO: Implement consultaCep() method.
+    }
+
+    public function rastrearObjeto(\PhpSigep\Model\RastrearObjeto $params)
+    {
+        // TODO: Implement rastrearObjeto() method.
+    }
+
+    public function verificarStatusCartaoPostagem($numeroCartaoPostagem, $usuario, $senha)
+    {
+        // TODO: Implement verificarStatusCartaoPostagem() method.
+    }
+
+    public function bloquearObjeto($numeroEtiqueta, $idPlp, $usuario, $senha)
+    {
+        // TODO: Implement bloquearObjeto() method.
+    }
+
+    public function cancelarObjeto($numeroEtiqueta, $idPlp, $usuario, $senha)
+    {
+        // TODO: Implement cancelarObjeto() method.
+    }
+}
