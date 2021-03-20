@@ -26,9 +26,9 @@ jobs:
       - name: checkout
         uses: actions/checkout@v2
 
-      - name: Install
-         run: |
-           composer install
+      - name: Instalando dependências
+        run: |
+          composer install --no-progress --no-suggest -o --no-ansi --no-interaction
 
       - name: PHPStan
         run: |
