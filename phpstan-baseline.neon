@@ -1,0 +1,62 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Access to undefined constant PhpSigep\\\\Model\\\\ServicoDePostagem\\:\\:SERVICE_SEDEX_40096\\.$#"
+			count: 1
+			path: exemplos/helper-criar-pre-lista.php
+
+		-
+			message: "#^Class PhpSigep\\\\Pdf\\\\ImprovedFPDF referenced with incorrect case\\: PhpSigep\\\\PDF\\\\ImprovedFPDF\\.$#"
+			count: 1
+			path: exemplos/imprimirEtiquetasA4.php
+
+		-
+			message: "#^Access to undefined constant PhpSigep\\\\Model\\\\ServicoDePostagem\\:\\:SERVICE_E_SEDEX_STANDARD\\.$#"
+			count: 1
+			path: exemplos/solicitarEtiquetas.php
+
+		-
+			message: "#^Access to an undefined property Semacode\\:\\:\\$switchCost\\.$#"
+			count: 11
+			path: src/PhpSigep/Pdf/Semacode.php
+
+		-
+			message: "#^Undefined variable\\: \\$ss$#"
+			count: 1
+			path: src/PhpSigep/Pdf/Semacode.php
+
+		-
+			message: "#^Instantiated class PhpSigep\\\\Services\\\\Real\\\\InvalidArgument not found\\.$#"
+			count: 1
+			path: src/PhpSigep/Services/Real/BuscaCliente.php
+
+		-
+			message: "#^Instantiated class PhpSigep\\\\Services\\\\Real\\\\InvalidArgument not found\\.$#"
+			count: 1
+			path: src/PhpSigep/Services/Real/CadastrarPI.php
+
+		-
+			message: "#^Instantiated class PhpSigep\\\\Services\\\\Real\\\\FailedConvertToArrayExceptio not found\\.$#"
+			count: 1
+			path: src/PhpSigep/Services/Real/CadastrarPI.php
+
+		-
+			message: "#^Call to an undefined method PhpSigep\\\\Services\\\\Real\\\\CalcPrecoPrazo\\:\\:calcPrecoPrazo\\(\\)\\.$#"
+			count: 1
+			path: src/PhpSigep/Services/Real/CalcPrecoPrazo.php
+
+		-
+			message: "#^Instantiated class PhpSigep\\\\Services\\\\Real\\\\InvalidArgument not found\\.$#"
+			count: 1
+			path: src/PhpSigep/Services/Real/SolicitaEtiquetas.php
+
+		-
+			message: "#^Instantiated class PhpSigep\\\\Services\\\\Real\\\\InvalidArgument not found\\.$#"
+			count: 1
+			path: src/PhpSigep/Services/Real/SolicitarPostagemReversa.php
+
+		-
+			message: "#^Access to undefined constant PhpSigep\\\\Model\\\\ServicoDePostagem\\:\\:SERVICE_E_SEDEX_STANDARD\\.$#"
+			count: 1
+			path: tests/Services/SolicitaEtiquetasTest.php
+
