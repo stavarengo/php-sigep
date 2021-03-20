@@ -1,0 +1,8 @@
+parameters:
+    level: 0
+    paths:
+        - src
+        - tests
+        - exemplos
+includes:
+    - phpstan-baseline.neon
