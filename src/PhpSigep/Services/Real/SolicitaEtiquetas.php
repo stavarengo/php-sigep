@@ -1,6 +1,7 @@
 <?php
 namespace PhpSigep\Services\Real;
 
+use PhpSigep\InvalidArgument;
 use PhpSigep\Model\AbstractModel;
 use PhpSigep\Model\Etiqueta;
 use PhpSigep\Services\Exception;
@@ -91,7 +92,7 @@ class SolicitaEtiquetas implements RealServiceInterface
      * @param \PhpSigep\Model\AbstractModel|\PhpSigep\Model\SolicitaEtiquetas $params
      *
      * @throws \PhpSigep\Services\Exception
-     * @throws InvalidArgument
+     * @throws \PhpSigep\InvalidArgument
      * @return Result<Etiqueta[]>
      */
     public function execute(AbstractModel $params)

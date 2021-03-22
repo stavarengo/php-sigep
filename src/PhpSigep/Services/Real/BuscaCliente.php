@@ -1,6 +1,7 @@
 <?php
 namespace PhpSigep\Services\Real;
 
+use PhpSigep\InvalidArgument;
 use PhpSigep\Model\AbstractModel;
 use PhpSigep\Model\BuscaClienteResult;
 use PhpSigep\Services\Exception;
@@ -16,7 +17,7 @@ class BuscaCliente implements RealServiceInterface
      * @param \PhpSigep\Model\AbstractModel|\PhpSigep\Model\SolicitaEtiquetas $params
      *
      * @throws \PhpSigep\Services\Exception
-     * @throws InvalidArgument
+     * @throws \PhpSigep\InvalidArgument
      * @return BuscaClienteResult
      */
     public function execute(AbstractModel $params)
