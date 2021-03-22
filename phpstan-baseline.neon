@@ -26,16 +26,6 @@ parameters:
 			path: src/PhpSigep/Pdf/Semacode.php
 
 		-
-			message: "#^Instantiated class PhpSigep\\\\Services\\\\Real\\\\InvalidArgument not found\\.$#"
-			count: 1
-			path: src/PhpSigep/Services/Real/BuscaCliente.php
-
-		-
-			message: "#^Instantiated class PhpSigep\\\\Services\\\\Real\\\\InvalidArgument not found\\.$#"
-			count: 1
-			path: src/PhpSigep/Services/Real/CadastrarPI.php
-
-		-
 			message: "#^Instantiated class PhpSigep\\\\Services\\\\Real\\\\FailedConvertToArrayExceptio not found\\.$#"
 			count: 1
 			path: src/PhpSigep/Services/Real/CadastrarPI.php
@@ -44,16 +34,6 @@ parameters:
 			message: "#^Call to an undefined method PhpSigep\\\\Services\\\\Real\\\\CalcPrecoPrazo\\:\\:calcPrecoPrazo\\(\\)\\.$#"
 			count: 1
 			path: src/PhpSigep/Services/Real/CalcPrecoPrazo.php
-
-		-
-			message: "#^Instantiated class PhpSigep\\\\Services\\\\Real\\\\InvalidArgument not found\\.$#"
-			count: 1
-			path: src/PhpSigep/Services/Real/SolicitaEtiquetas.php
-
-		-
-			message: "#^Instantiated class PhpSigep\\\\Services\\\\Real\\\\InvalidArgument not found\\.$#"
-			count: 1
-			path: src/PhpSigep/Services/Real/SolicitarPostagemReversa.php
 
 		-
 			message: "#^Access to undefined constant PhpSigep\\\\Model\\\\ServicoDePostagem\\:\\:SERVICE_E_SEDEX_STANDARD\\.$#"

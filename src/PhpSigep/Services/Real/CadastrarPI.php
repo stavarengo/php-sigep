@@ -2,6 +2,7 @@
 namespace PhpSigep\Services\Real;
 
 use PhpSigep\Bootstrap;
+use PhpSigep\InvalidArgument;
 use PhpSigep\Services\Result;
 use PhpSigep\Model\AbstractModel;
 use PhpSigep\Model\PedidoInformacaoResponse;
@@ -17,7 +18,7 @@ class CadastrarPI
     /**
      * @param \PhpSigep\Model\AbstractModel|\PhpSigep\Model\PedidoInformacao $params
      *
-     * @throws \InvalidArgument
+     * @throws \PhpSigep\InvalidArgument
      * @throws \Exception
      * @throws \SoapFault
      * @return Result
