@@ -15,7 +15,7 @@ $fileName = tempnam(sys_get_temp_dir(), 'phpsigep') . '.pdf';
 $pdf->render('F',$fileName);
 
 unset($pdf);
-$pdf = new \PhpSigep\PDF\ImprovedFPDF('P', 'mm', 'Letter' );
+$pdf = new \PhpSigep\Pdf\ImprovedFPDF('P', 'mm', 'Letter' );
 $pageCount = $pdf->setSourceFile($fileName);
 
 $pdf->AddPage();
