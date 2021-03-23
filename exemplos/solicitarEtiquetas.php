@@ -13,7 +13,7 @@ $accessData->setCnpjEmpresa($cnpjEmpresa);
 
 $params = new \PhpSigep\Model\SolicitaEtiquetas();
 $params->setQtdEtiquetas(1);
-$params->setServicoDePostagem(\PhpSigep\Model\ServicoDePostagem::SERVICE_E_SEDEX_STANDARD);
+$params->setServicoDePostagem(\PhpSigep\Model\ServicoDePostagem::SERVICE_CARTA_REGISTRADA);
 $params->setAccessData($accessData);
 
 $phpSigep = new PhpSigep\Services\SoapClient\Real();

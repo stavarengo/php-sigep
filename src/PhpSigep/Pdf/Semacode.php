@@ -163,7 +163,7 @@ class Semacode {
     var $MAXBARCODE = 3116;
 
     var $Encodings;
-    var $SwitchCost;
+    var $switchCost;
     var $codings = "ACTXEB";
     var $debug = false;
 
