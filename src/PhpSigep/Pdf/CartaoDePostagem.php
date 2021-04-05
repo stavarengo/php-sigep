@@ -505,7 +505,7 @@ class CartaoDePostagem
         );
         $str = str_replace(array_keys($replaces), array_values($replaces), $str);
         if (extension_loaded('iconv')) {
-            return iconv('UTF-8', 'ISO-8859-1', $str);
+            return @iconv('UTF-8', 'ISO-8859-1//IGNORE', $str);
         } else {
             return utf8_decode($str);
         }
