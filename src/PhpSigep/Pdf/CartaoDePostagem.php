@@ -246,9 +246,15 @@ class CartaoDePostagem
                     case ServicoDePostagem::SERVICE_PAC_REVERSO_CONTRATO_AGENCIA:
                     case ServicoDePostagem::SERVICE_PAC_PAGAMENTO_NA_ENTREGA:
                     case ServicoDePostagem::SERVICE_PAC_CONTRATO_UO:
+                    case ServicoDePostagem::SERVICE_PAC_CONTRATO_UO_LM:
                     case ServicoDePostagem::SERVICE_PAC_CONTRATO_AGENCIA_LM:
                     case ServicoDePostagem::SERVICE_PAC_CONTRATO_GRANDES_FORMATOS_LM:
                     case ServicoDePostagem::SERVICE_PAC_CONTRATO_AGENCIA_TA:
+                    case ServicoDePostagem::SERVICE_PAC_CONTRATO_AGENCIA_03085:
+                    case ServicoDePostagem::SERVICE_PAC_REVERSO_LM:
+                    case ServicoDePostagem::SERVICE_PAC_CONTRATO_GRANDES_FORMATOS:
+                    case ServicoDePostagem::SERVICE_PAC_CONTRATO_AGENCIA_03298:
+                    case ServicoDePostagem::SERVICE_PAC_CONTRATO_AGENCIA_PAGAMENTO_NA_ENTREGA_LM:
                         if ($this->layoutPac === CartaoDePostagem::TYPE_CHANCELA_PAC) {
                             $chancela = new Pac($lPosChancela, $tPosChancela, $nomeRemetente, $accessData);
                         } else {
@@ -266,6 +272,7 @@ class CartaoDePostagem
                     case ServicoDePostagem::SERVICE_SEDEX_CONTRATO_AGENCIA_LM:
                     case ServicoDePostagem::SERVICE_SEDEX_CONTRATO_GRANDES_FORMATOS_LM:
                     case ServicoDePostagem::SERVICE_SEDEX_CONTRATO_AGENCIA_TA:
+                    case ServicoDePostagem::SERVICE_SEDEX_CONTRATO_AGENCIA_03050:
                         if ($this->layoutSedex === CartaoDePostagem::TYPE_CHANCELA_SEDEX) {
                             $chancela = new Sedex($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX, $accessData);
                         } else {
@@ -464,8 +471,7 @@ class CartaoDePostagem
                         $this->plp->getAccessData()->getCartaoPostagem(),
                         $objetoPostal->getServicoDePostagem()->getCodigo(),
                         $valorDeclarado,
-                        $objetoPostal->getDestinatario()->getTelefone(),
-                        $objetoPostal->getDestinatario()->getComplemento()
+                        $objetoPostal->getDestinatario()->getTelefone()
                     );
 
                     require_once  'Semacode.php';
@@ -695,8 +701,8 @@ class CartaoDePostagem
         $mul = $sum - $sum % 10 + 10;
         return $mul - $sum;
     }
-    
-    private function getM2Dstr($cepD, $numD, $cepO, $numO, $etq, $srvA, $carP, $codS, $valD, $telD, $compD, $msg='')
+
+    private function getM2Dstr($cepD, $numD, $cepO, $numO, $etq, $srvA, $carP, $codS, $valD, $telD, $msg='')
     {
         $str = '';
         $str .= str_replace('-', '', $cepD);
@@ -711,7 +717,6 @@ class CartaoDePostagem
         $str .= sprintf('%05d', $codS);
         $str .= '01';
         $str .= sprintf('%05d', $numD);
-        $str .= str_pad($compD, 20, " ");
         $str .= sprintf('%05d', (int)$valD);
         $str .= $telD;
         $str .= '-00.000000';
