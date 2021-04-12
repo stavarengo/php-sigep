@@ -5,6 +5,8 @@ use PhpSigep\Bootstrap;
 use PhpSigep\Model\ServicoDePostagem;
 use PhpSigep\Model\ServicoAdicional;
 use PhpSigep\Pdf\Chancela\Carta;
+use PhpSigep\Pdf\Chancela\MiniEnvios;
+use PhpSigep\Pdf\Chancela\MiniEnvios2016;
 use PhpSigep\Pdf\Chancela\Pac;
 use PhpSigep\Pdf\Chancela\Sedex;
 use PhpSigep\Pdf\Chancela\Carta2016;
@@ -22,6 +24,7 @@ class CartaoDePostagem
     const TYPE_CHANCELA_CARTA = 'carta';
     const TYPE_CHANCELA_SEDEX = 'sedex';
     const TYPE_CHANCELA_PAC   = 'pac';
+    const TYPE_CHANCELA_MINIENVIOS = 'minienvios';
 
     const TYPE_CHANCELA_CARTA_2016 = 'carta-2016';
     const TYPE_CHANCELA_SEDEX_2016 = 'sedex-2016';
@@ -55,6 +58,11 @@ class CartaoDePostagem
      * @var string
      */
     private $layoutPac = 'pac';
+    /**
+     * Layout da chancela do Mini Envios que deve ser utilizado
+     * @var string
+     */
+    private $layoutMiniEnvios = 'minivenios';
     /**
      * Layout da chancela da Carta que deve ser utilizado
      * @var string
@@ -101,7 +109,7 @@ class CartaoDePostagem
                     break;
                 case CartaoDePostagem::TYPE_CHANCELA_MINIENVIOS:
                 case CartaoDePostagem::TYPE_CHANCELA_MINIENVIOS_2016:
-                    $this->layoutPac = $chancela;
+                    $this->layoutMiniEnvios = $chancela;
                     break;
                 default:
                     throw new \PhpSigep\Pdf\Exception\InvalidChancelaEntry('O tipo de chancela deve ser uma das constantes da classe');
@@ -244,9 +252,18 @@ class CartaoDePostagem
                 $accessData = $this->plp->getAccessData();
 
                 switch ($servicoDePostagem->getCodigo()) {
+                    case ServicoDePostagem::SERVICE_MINIENVIOS_04235:
+                    case ServicoDePostagem::SERVICE_MINIENVIOS_04227:
+                        if ($this->layoutMiniEnvios === CartaoDePostagem::TYPE_CHANCELA_MINIENVIOS) {
+                            $chancela = new MiniEnvios($lPosChancela, $tPosChancela, $nomeRemetente, $accessData);
+                        } else {
+                            $chancela = new MiniEnvios2016($lPosChancela, $tPosChancela, $nomeRemetente, $accessData);
+                        }
+                        break;
                     case ServicoDePostagem::SERVICE_PAC_41068:
                     case ServicoDePostagem::SERVICE_PAC_04510:
                     case ServicoDePostagem::SERVICE_PAC_CONTRATO_AGENCIA:
+                    case ServicoDePostagem::SERVICE_PAC_CONTRATO_AGENCIA_NEW_CONTRACT:
                     case ServicoDePostagem::SERVICE_PAC_GRANDES_FORMATOS:
                     case ServicoDePostagem::SERVICE_PAC_REVERSO_CONTRATO_AGENCIA:
                     case ServicoDePostagem::SERVICE_PAC_PAGAMENTO_NA_ENTREGA:
@@ -266,6 +283,7 @@ class CartaoDePostagem
                     case ServicoDePostagem::SERVICE_SEDEX_PAGAMENTO_NA_ENTREGA:
                     case ServicoDePostagem::SERVICE_SEDEX_AGRUPADO:
                     case ServicoDePostagem::SERVICE_SEDEX_CONTRATO_AGENCIA:
+                    case ServicoDePostagem::SERVICE_SEDEX_CONTRATO_AGENCIA_NEW_CONTRACT:
                     case ServicoDePostagem::SERVICE_SEDEX_REVERSO_CONTRATO_AGENCIA:
                     case ServicoDePostagem::SERVICE_SEDEX_CONTRATO_UO:
                     case ServicoDePostagem::SERVICE_SEDEX_CONTRATO_AGENCIA_LM:
