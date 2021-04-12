@@ -181,6 +181,7 @@ class CartaoDePostagem2018
                 case ServicoDePostagem::SERVICE_PAC_CONTRATO_UO:
                 case ServicoDePostagem::SERVICE_PAC_PAGAMENTO_NA_ENTREGA:
                 case ServicoDePostagem::SERVICE_PAC_CONTRATO_AGENCIA:
+                case ServicoDePostagem::SERVICE_PAC_CONTRATO_AGENCIA_NEW_CONTRACT:
                 case ServicoDePostagem::SERVICE_PAC_REVERSO_CONTRATO_AGENCIA:
                 case ServicoDePostagem::SERVICE_PAC_CONTRATO_GRANDES_FORMATOS_LM:
                 case ServicoDePostagem::SERVICE_PAC_CONTRATO_AGENCIA_LM:
@@ -191,12 +192,18 @@ class CartaoDePostagem2018
                     $chancela = new Pac2018(86, $this->pdf->GetY() + 13, $nomeRemetente, $accessData);
                     $_texto = 'PAC';
                     break;
+                case ServicoDePostagem::SERVICE_MINIENVIOS_04227:
+                case ServicoDePostagem::SERVICE_MINIENVIOS_04235:
+                    $simbolo_de_encaminhamento = realpath(dirname(__FILE__)) . '/simbolo-mini-envios.png';
+                    $_texto = 'MINI ENVIOS';
+                    break;
                 case ServicoDePostagem::SERVICE_SEDEX_41556:
                 case ServicoDePostagem::SERVICE_SEDEX_A_VISTA:
                 case ServicoDePostagem::SERVICE_SEDEX_VAREJO_A_COBRAR:
                 case ServicoDePostagem::SERVICE_SEDEX_PAGAMENTO_NA_ENTREGA:
                 case ServicoDePostagem::SERVICE_SEDEX_AGRUPADO:
                 case ServicoDePostagem::SERVICE_SEDEX_CONTRATO_AGENCIA:
+                case ServicoDePostagem::SERVICE_SEDEX_CONTRATO_AGENCIA_NEW_CONTRACT:
                 case ServicoDePostagem::SERVICE_SEDEX_CONTRATO_UO:
                 case ServicoDePostagem::SERVICE_SEDEX_CONTRATO_GRANDES_FORMATOS_LM:
                 case ServicoDePostagem::SERVICE_SEDEX_CONTRATO_AGENCIA_LM:
@@ -341,6 +348,10 @@ class CartaoDePostagem2018
                     $sSer = $sSer . "64";
                     $_siglaAdicinal[] = "VD";
                     $valorDeclarado = $servicoAdicional->getValorDeclarado();
+                } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_VALOR_DECLARADO_MINI_ENVIOS)) {
+                        $sSer = $sSer . "65";
+                        $_siglaAdicinal[] = "VD";
+                        $valorDeclarado = $servicoAdicional->getValorDeclarado();
                 } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_REGISTRO)) {
                     $sSer = $sSer . "25";
                 }

@@ -55,6 +55,10 @@ class ServicoDePostagem extends AbstractModel
     const SERVICE_SEDEX_CONTRATO_AGENCIA_TA = '04553';
     const SERVICE_PAC_CONTRATO_AGENCIA_TA = '04596';
 
+    // New Contract Code
+    const SERVICE_SEDEX_CONTRATO_AGENCIA_NEW_CONTRACT = '03220';
+    const SERVICE_PAC_CONTRATO_AGENCIA_NEW_CONTRACT = '03298';
+
 //    const SERVICE_CARTA_REGISTRADA           = '10138';
 
     protected static $services
@@ -90,7 +94,9 @@ class ServicoDePostagem extends AbstractModel
                 120072
             ),
             self::SERVICE_SEDEX_CONTRATO_AGENCIA                     => array('SEDEX Contrato Agência', 124849),
+            self::SERVICE_SEDEX_CONTRATO_AGENCIA_NEW_CONTRACT        => array('SEDEX Contrato Agência', 124849),
             self::SERVICE_PAC_CONTRATO_AGENCIA                       => array('PAC Contrato Agência', 124884),
+            self::SERVICE_PAC_CONTRATO_AGENCIA_NEW_CONTRACT          => array('PAC Contrato Agência', 124884),
             self::SERVICE_SEDEX_REVERSO_CONTRATO_AGENCIA             => array('SEDEX Reverso Contrato Agência', 124849),
             self::SERVICE_PAC_REVERSO_CONTRATO_AGENCIA               => array('PAC Reverso Contrato Agência', 124884),
             self::SERVICE_SEDEX_CONTRATO_GRANDES_FORMATOS_LM         => array(
