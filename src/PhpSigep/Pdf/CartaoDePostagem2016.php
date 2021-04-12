@@ -239,7 +239,7 @@ class CartaoDePostagem2016
                 switch ($servicoDePostagem->getCodigo()) {
                     case ServicoDePostagem::SERVICE_MINIENVIOS_04235:
                     case ServicoDePostagem::SERVICE_MINIENVIOS_04227:
-                        if ($this->layoutMinienvios === CartaoDePostagem::TYPE_CHANCELA_MINIENVIOS) {
+                        if ($this->layoutMiniEnvios === CartaoDePostagem::TYPE_CHANCELA_MINIENVIOS) {
                             $chancela = new MiniEnvios($lPosChancela, $tPosChancela, $nomeRemetente, $accessData);
                         } else {
                             $chancela = new MiniEnvios2016($lPosChancela, $tPosChancela, $nomeRemetente, $accessData);
