@@ -22,6 +22,10 @@ class ListaDePostagem
      * @var int
      */
     private $idPlpCorreios;
+    /**
+     * @var string
+     */
+    private $dataGeracao;
 
     /**
      * @param \PhpSigep\Model\PreListaDePostagem $plp
