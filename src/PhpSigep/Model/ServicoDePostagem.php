@@ -94,9 +94,9 @@ class ServicoDePostagem extends AbstractModel
                 120072
             ),
             self::SERVICE_SEDEX_CONTRATO_AGENCIA                     => array('SEDEX Contrato Agência', 124849),
-            self::SERVICE_SEDEX_CONTRATO_AGENCIA_NEW_CONTRACT        => array('SEDEX Contrato Agência', 124849),
+            self::SERVICE_SEDEX_CONTRATO_AGENCIA_NEW_CONTRACT        => array('SEDEX Contrato Agência', 162022),
             self::SERVICE_PAC_CONTRATO_AGENCIA                       => array('PAC Contrato Agência', 124884),
-            self::SERVICE_PAC_CONTRATO_AGENCIA_NEW_CONTRACT          => array('PAC Contrato Agência', 124884),
+            self::SERVICE_PAC_CONTRATO_AGENCIA_NEW_CONTRACT          => array('PAC Contrato Agência', 162026),
             self::SERVICE_SEDEX_REVERSO_CONTRATO_AGENCIA             => array('SEDEX Reverso Contrato Agência', 124849),
             self::SERVICE_PAC_REVERSO_CONTRATO_AGENCIA               => array('PAC Reverso Contrato Agência', 124884),
             self::SERVICE_SEDEX_CONTRATO_GRANDES_FORMATOS_LM         => array(
