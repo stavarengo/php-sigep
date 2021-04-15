@@ -551,7 +551,7 @@ class CartaoDePostagem2018
     private function writeRemetente ($l, $t, $w, \PhpSigep\Model\Remetente $remetente)
     {
         $titulo = 'Remetente:';
-        $nomeDestinatario = $remetente->getNome();
+        $nomeDestinatario = substr(trim($remetente->getNome()), 0, 40);
         $logradouro = $remetente->getLogradouro();
         $numero = $remetente->getNumero();
         $complemento = $remetente->getComplemento();
