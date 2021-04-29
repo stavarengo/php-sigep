@@ -674,7 +674,8 @@ class CartaoDePostagem2016
             $sum = $sum + intval($str[$i]);
         }
         $mul = $sum - $sum % 10 + 10;
-        return $mul - $sum;
+        $digCep = ($mul - $sum)%10 == 0 ? 0 : $mul - $sum;
+        return $digCep;
     }
 
     private function getM2Dstr ($cepD, $numD, $cepO, $numO, $etq, $srvA, $carP, $codS, $valD, $telD, $msg='')
