@@ -240,6 +240,12 @@ class CartaoDePostagem2018
                     $simbolo_de_encaminhamento = realpath(dirname(__FILE__)) . '/simbolo-sedex-standard.png';
                     $_texto = 'SEDEX';
                     break;
+                case ServicoDePostagem::SERVICE_MINI_ENVIOS_04227:
+                case ServicoDePostagem::SERVICE_MINI_ENVIOS_04235:
+                case ServicoDePostagem::SERVICE_MINI_ENVIOS_04391:
+                    $simbolo_de_encaminhamento = realpath(dirname(__FILE__)) . '/simbolo-sem-especificacao.png';
+                    $_texto = 'Mini Envios';
+                    break;
                 default:
                     $simbolo_de_encaminhamento = null;
                     break;
@@ -346,6 +352,10 @@ class CartaoDePostagem2018
                     $valorDeclarado = $servicoAdicional->getValorDeclarado();
                 } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_VALOR_DECLARADO_PAC)) {
                     $sSer = $sSer . "64";
+                    $_siglaAdicinal[] = "VD";
+                    $valorDeclarado = $servicoAdicional->getValorDeclarado();
+                } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_VALOR_DECLARADO_MINI_ENVIOS)) {
+                    $sSer = $sSer . "65";
                     $_siglaAdicinal[] = "VD";
                     $valorDeclarado = $servicoAdicional->getValorDeclarado();
                 } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_REGISTRO)) {
