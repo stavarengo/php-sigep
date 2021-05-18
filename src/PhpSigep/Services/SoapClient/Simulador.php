@@ -85,7 +85,11 @@ class Simulador implements ServiceInterface
                     if ($servicoAdicional->is(ServicoAdicional::SERVICE_MAO_PROPRIA)) {
                         $valorMaoPropria = mt_rand(1, 50) / 10; // Valores entre 0.1 e 5
                     } else {
-                        if ($servicoAdicional->is(ServicoAdicional::SERVICE_VALOR_DECLARADO_SEDEX) || $servicoAdicional->is(ServicoAdicional::SERVICE_VALOR_DECLARADO_PAC)) {
+                        if (
+                            $servicoAdicional->is(ServicoAdicional::SERVICE_VALOR_DECLARADO_SEDEX) || 
+                            $servicoAdicional->is(ServicoAdicional::SERVICE_VALOR_DECLARADO_PAC) || 
+                            $servicoAdicional->is(ServicoAdicional::SERVICE_VALOR_DECLARADO_MINI_ENVIOS)
+                        ) {
                             $valorValorDeclarado = $servicoAdicional->getValorDeclarado(
                                 ) * 1 / 100; //1% do valor declarado
                         }
