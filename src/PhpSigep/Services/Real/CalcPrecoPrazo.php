@@ -112,7 +112,9 @@ class CalcPrecoPrazo
 
         $result = new Result();
         try {
-            $r = SoapClientFactory::getSoapCalcPrecoPrazo()->calcPrecoPrazo($soapArgs);
+            $sClient = SoapClientFactory::getSoapCalcPrecoPrazo();
+            $sClient->__setLocation(str_replace('?wsdl','',Bootstrap::getConfig()->getWsdlCalcPrecoPrazo()));
+            $r = $sClient->calcPrecoPrazo($soapArgs);
         } catch (\Exception $e) {
             $message = $e->getMessage();
             if ($message == 'Service Unavailable') {
