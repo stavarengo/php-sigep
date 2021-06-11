@@ -189,7 +189,24 @@ class ServicoDePostagem extends AbstractModel
             )
         );
     }
+     /**
+     * @param array $arrayServicesCode
+     *        array com os codigos de serviço
+     *
+     * @return ServicoDePostagem[]
+     */
+    public static function getFromArray($arrayServicesCode)
+    {
+        $r = array();
+        foreach (self::$services as $serviceCode => $serviceDetails) {
+            if(array_key_exists($serviceCode,$arrayServicesCode)){
+                $r[] = new self($serviceCode);
+            }
+        }
 
+        return $r;
+    }
+    
     /**
      * @return ServicoDePostagem[]
      */
