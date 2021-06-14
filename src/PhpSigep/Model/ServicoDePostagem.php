@@ -73,6 +73,7 @@ class ServicoDePostagem extends AbstractModel
             // NOVOS CODIGOS DE SERVICO DOS CORREIOS
             self::SERVICE_PAC_CONTRATO_AGENCIA_03298 => array('Pac 03298', 162026),
             self::SERVICE_SEDEX_CONTRATO_AGENCIA_03220 => array('Sedex 03220', 162022),
+            self::SERVICE_MINI_CONTRATO => array('Mini envios', null),
 
             // NOVOS CODIGOS DE SERVICO DOS CORREIOS BRONZE (1o sem 2020)
             self::SERVICE_PAC_CONTRATO_AGENCIA_03085 => array('Pac 03085', 162011),
