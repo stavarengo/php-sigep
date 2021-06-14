@@ -7,6 +7,7 @@ use PhpSigep\Model\ServicoDePostagem;
 use PhpSigep\Model\ServicoAdicional;
 use PhpSigep\Pdf\Chancela\Carta;
 use PhpSigep\Pdf\Chancela\Pac;
+use PhpSigep\Pdf\Chancela\Mini;
 use PhpSigep\Pdf\Chancela\Sedex;
 use PhpSigep\Pdf\Chancela\Carta2016;
 use PhpSigep\Pdf\Chancela\Pac2016;
@@ -24,10 +25,12 @@ class CartaoDePostagem2016
     const TYPE_CHANCELA_CARTA = 'carta';
     const TYPE_CHANCELA_SEDEX = 'sedex';
     const TYPE_CHANCELA_PAC   = 'pac';
+    const TYPE_CHANCELA_MINI   = 'mini';
 
     const TYPE_CHANCELA_CARTA_2016 = 'carta-2016';
     const TYPE_CHANCELA_SEDEX_2016 = 'sedex-2016';
     const TYPE_CHANCELA_PAC_2016   = 'pac-2016';
+    const TYPE_CHANCELA_MINI_2016   = 'mini-2016';
 
     /**
      * @var \PhpSigep\Pdf\ImprovedFPDF
@@ -57,6 +60,11 @@ class CartaoDePostagem2016
      */
     private $layoutPac = 'pac-2016';
     /**
+     * Layout da chancela do MINI que deve ser utilizado
+     * @var string
+     */
+    private $layoutMini = 'mini-2016';
+    /**
      * Layout da chancela da Carta que deve ser utilizado
      * @var string
      */
@@ -80,6 +88,9 @@ class CartaoDePostagem2016
 
         foreach ($chancelas as $chancela) {
             switch ($chancela) {
+                case CartaoDePostagem::TYPE_CHANCELA_MINI:
+                case CartaoDePostagem::TYPE_CHANCELA_MINI_2016:
+                    $this->layoutMini = $chancela;
                 case CartaoDePostagem::TYPE_CHANCELA_CARTA:
                 case CartaoDePostagem::TYPE_CHANCELA_CARTA_2016:
                     $this->layoutCarta = $chancela;
@@ -224,6 +235,13 @@ class CartaoDePostagem2016
                 $accessData = $this->plp->getAccessData();
 
                 switch ($servicoDePostagem->getCodigo()) {
+                    case ServicoDePostagem::SERVICE_MINI_CONTRATO:
+                        if ($this->layoutPac === CartaoDePostagem::TYPE_CHANCELA_PAC) {
+                            $chancela = new Mini($lPosChancela, $tPosChancela, $nomeRemetente, $accessData);
+                        } else {
+                            $chancela = new Mini2016($lPosChancela, $tPosChancela, $nomeRemetente, $accessData);
+                        }
+                        break;
                     case ServicoDePostagem::SERVICE_PAC_41068:
                     case ServicoDePostagem::SERVICE_PAC_04510:
                     case ServicoDePostagem::SERVICE_PAC_CONTRATO_AGENCIA:
@@ -414,6 +432,8 @@ class CartaoDePostagem2016
                         $valorDeclarado = $servicoAdicional->getValorDeclarado();
                     } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_VALOR_DECLARADO_PAC)) {
                         $sSer = $sSer . "64";
+                    } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_VALOR_DECLARADO_MINI)) {
+                        $sSer = $sSer . "65";
                         $valorDeclarado = $servicoAdicional->getValorDeclarado();
                     } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_REGISTRO)) {
                         $sSer = $sSer . "25";

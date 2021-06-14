@@ -8,6 +8,8 @@ namespace PhpSigep\Model;
  */
 class ServicoDePostagem extends AbstractModel
 {
+    const SERVICE_MINI_CONTRATO = '04227';
+
     const SERVICE_PAC_41068 = '41068';
     const SERVICE_PAC_04510 = '04510';
     const SERVICE_PAC_GRANDES_FORMATOS = '41300';

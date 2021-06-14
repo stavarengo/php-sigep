@@ -6,6 +6,7 @@ use PhpSigep\Bootstrap;
 use PhpSigep\Model\ObjetoPostal;
 use PhpSigep\Model\ServicoDePostagem;
 use PhpSigep\Model\ServicoAdicional;
+use PhpSigep\Pdf\Chancela\Mini2018;
 use PhpSigep\Pdf\Chancela\Pac2018;
 
 class CartaoDePostagem2018
@@ -174,6 +175,10 @@ class CartaoDePostagem2018
             $servicoDePostagem = $objetoPostal->getServicoDePostagem();
 
             switch ($servicoDePostagem->getCodigo()) {
+                case ServicoDePostagem::SERVICE_MINI_CONTRATO:
+                    $chancela = new Mini2018(86, $this->pdf->GetY() + 13, $nomeRemetente, $accessData);
+                    $_texto = 'MINI';
+                    break;
                 case ServicoDePostagem::SERVICE_PAC_41068:
                 case ServicoDePostagem::SERVICE_PAC_04510:
                 case ServicoDePostagem::SERVICE_PAC_GRANDES_FORMATOS:

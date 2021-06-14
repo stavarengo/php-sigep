@@ -22,10 +22,12 @@ class CartaoDePostagem
     const TYPE_CHANCELA_CARTA = 'carta';
     const TYPE_CHANCELA_SEDEX = 'sedex';
     const TYPE_CHANCELA_PAC   = 'pac';
+    const TYPE_CHANCELA_MINI   = 'mini';
 
     const TYPE_CHANCELA_CARTA_2016 = 'carta-2016';
     const TYPE_CHANCELA_SEDEX_2016 = 'sedex-2016';
     const TYPE_CHANCELA_PAC_2016   = 'pac-2016';
+    const TYPE_CHANCELA_MINI_2016   = 'mini-2016';
 
     /**
      * @var \PhpSigep\Pdf\ImprovedFPDF
@@ -60,6 +62,11 @@ class CartaoDePostagem
      */
     private $layoutCarta = 'carta';
     /**
+     * Layout da chancela da MINI que deve ser utilizado
+     * @var string
+     */
+    private $layoutMini = 'mini';
+    /**
      * Gerar etiquetas para o mesmo destinatário
      * Irá gerar na etiqueta a escrita: Volume 1 de 2, volume 2 de 2.
      * @var boolean $envioMesmoDestinatario
@@ -86,6 +93,9 @@ class CartaoDePostagem
         $tiposChancela = $rClass->getConstants();
         foreach ($chancelas as $chancela) {
             switch ($chancela) {
+                case CartaoDePostagem::TYPE_CHANCELA_MINI:
+                case CartaoDePostagem::TYPE_CHANCELA_MINI_2016:
+                    $this->layoutMini = $chancela;
                 case CartaoDePostagem::TYPE_CHANCELA_CARTA:
                 case CartaoDePostagem::TYPE_CHANCELA_CARTA_2016:
                     $this->layoutCarta = $chancela;
