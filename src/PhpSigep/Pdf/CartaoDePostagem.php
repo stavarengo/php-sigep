@@ -250,7 +250,7 @@ class CartaoDePostagem
                 $accessData = $this->plp->getAccessData();
 
                 switch ($servicoDePostagem->getCodigo()) {
-                    case ServicoDePostagem::SERVICE_PAC_41068:
+                    case ServicoDePostagem::SERVICE_MINI_CONTRATO:
                             $chancela = new Mini($lPosChancela, $tPosChancela, $nomeRemetente, $accessData);
                         break;
                     case ServicoDePostagem::SERVICE_PAC_41068:
