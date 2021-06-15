@@ -11,7 +11,9 @@ class Mini2018 extends AbstractChancela
         $pdf->SetFillColor(0, 0, 0);
         $pdf->SetDrawColor(0, 0, 0);
 
-        $pdf->Rect($this->x - 5, $this->y - 5, 20, 20, 'F');
+        $x = $this->x;
+        $y = $this->y;
+        $pdf->Rect($this->x, $this->y, 20, 20, 'F');
 
         $pdf->restoreLastState();
     }
