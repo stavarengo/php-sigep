@@ -177,6 +177,7 @@ class CartaoDePostagem2018
             switch ($servicoDePostagem->getCodigo()) {
                 case ServicoDePostagem::SERVICE_MINI_CONTRATO:
                     $chancela = new Mini2018(86, $this->pdf->GetY() + 13, $nomeRemetente, $accessData);
+                    //$simbolo_de_encaminhamento = realpath(dirname(__FILE__)) . '/simbolo-mini.png';
                     $_texto = 'MINI';
                     break;
                 case ServicoDePostagem::SERVICE_PAC_41068:

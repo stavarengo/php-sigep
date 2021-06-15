@@ -10,6 +10,7 @@ use PhpSigep\Pdf\Chancela\Pac;
 use PhpSigep\Pdf\Chancela\Mini;
 use PhpSigep\Pdf\Chancela\Sedex;
 use PhpSigep\Pdf\Chancela\Carta2016;
+use PhpSigep\Pdf\Chancela\Mini2016;
 use PhpSigep\Pdf\Chancela\Pac2016;
 use PhpSigep\Pdf\Chancela\Sedex2016;
 
@@ -236,11 +237,7 @@ class CartaoDePostagem2016
 
                 switch ($servicoDePostagem->getCodigo()) {
                     case ServicoDePostagem::SERVICE_MINI_CONTRATO:
-                        if ($this->layoutPac === CartaoDePostagem::TYPE_CHANCELA_PAC) {
-                            $chancela = new Mini($lPosChancela, $tPosChancela, $nomeRemetente, $accessData);
-                        } else {
                             $chancela = new Mini2016($lPosChancela, $tPosChancela, $nomeRemetente, $accessData);
-                        }
                         break;
                     case ServicoDePostagem::SERVICE_PAC_41068:
                     case ServicoDePostagem::SERVICE_PAC_04510:

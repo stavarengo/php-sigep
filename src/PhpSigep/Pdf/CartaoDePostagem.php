@@ -8,6 +8,7 @@ use PhpSigep\Pdf\Chancela\Carta;
 use PhpSigep\Pdf\Chancela\Pac;
 use PhpSigep\Pdf\Chancela\Sedex;
 use PhpSigep\Pdf\Chancela\Carta2016;
+use PhpSigep\Pdf\Chancela\Mini;
 use PhpSigep\Pdf\Chancela\Pac2016;
 use PhpSigep\Pdf\Chancela\Sedex2016;
 
@@ -249,6 +250,9 @@ class CartaoDePostagem
                 $accessData = $this->plp->getAccessData();
 
                 switch ($servicoDePostagem->getCodigo()) {
+                    case ServicoDePostagem::SERVICE_PAC_41068:
+                            $chancela = new Mini($lPosChancela, $tPosChancela, $nomeRemetente, $accessData);
+                        break;
                     case ServicoDePostagem::SERVICE_PAC_41068:
                     case ServicoDePostagem::SERVICE_PAC_04510:
                     case ServicoDePostagem::SERVICE_PAC_CONTRATO_AGENCIA:
