@@ -167,6 +167,15 @@ class Config extends DefaultStdClass
         return (int) $this->wsdlCache;
     }
 
+   /**
+     * @return int
+     */
+    public function setWsdlCache($wsdlCache)
+    {
+        $this->wsdlCache = $wsdlCache;
+        return $this;
+    }  
+    
     /**
      * @return int
      */
