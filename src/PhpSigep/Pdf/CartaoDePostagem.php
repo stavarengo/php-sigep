@@ -459,6 +459,10 @@ class CartaoDePostagem
                             $temVd = true;
                             $sSer = $sSer . "64";
                             $valorDeclarado = $servicoAdicional->getValorDeclarado();
+                        } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_VALOR_DECLARADO_MINI)) {
+                            $temVd = true;
+                            $sSer = $sSer . "65";
+                            $valorDeclarado = $servicoAdicional->getValorDeclarado();
                         } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_REGISTRO)) {
                             $temRe = true;
                             $sSer = $sSer . "25";
