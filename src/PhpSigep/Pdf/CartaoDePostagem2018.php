@@ -213,11 +213,13 @@ class CartaoDePostagem2018
                     $_texto = 'SEDEX';
                     break;
                 case ServicoDePostagem::SERVICE_SEDEX_12:
+                case ServicoDePostagem::SERVICE_SEDEX_12_CONTRATO_AGENCIA_03140:
                     $simbolo_de_encaminhamento = realpath(dirname(__FILE__)) . '/simbolo-sedex-expresso.png';
                     $_texto = 'SEDEX 12';
                     break;
                 case ServicoDePostagem::SERVICE_SEDEX_10:
                 case ServicoDePostagem::SERVICE_SEDEX_10_PACOTE:
+                case ServicoDePostagem::SERVICE_SEDEX_10_CONTRATO_AGENCIA_03158:
                     $simbolo_de_encaminhamento = realpath(dirname(__FILE__)) . '/simbolo-sedex-expresso.png';
                     $_texto = 'SEDEX 10';
                     break;
@@ -228,6 +230,7 @@ class CartaoDePostagem2018
                     break;
                 case ServicoDePostagem::SERVICE_CARTA_COMERCIAL_A_FATURAR:
                 case ServicoDePostagem::SERVICE_CARTA_REGISTRADA:
+                case ServicoDePostagem::SERVICE_CARTA_REGISTRADA_AGENCIA_80250:    
                 case ServicoDePostagem::SERVICE_CARTA_COMERCIAL_REGISTRADA_CTR_EP_MAQ_FRAN:
                 case ServicoDePostagem::SERVICE_CARTA_COM_A_FATURAR_SELO_E_SE:
                     $simbolo_de_encaminhamento = realpath(dirname(__FILE__)) . '/simbolo-sem-especificacao.png';
@@ -236,6 +239,12 @@ class CartaoDePostagem2018
                 case ServicoDePostagem::SERVICE_SEDEX_REVERSO:
                     $simbolo_de_encaminhamento = realpath(dirname(__FILE__)) . '/simbolo-sedex-standard.png';
                     $_texto = 'SEDEX';
+                    break;
+                case ServicoDePostagem::SERVICE_MINI_ENVIOS_04227:
+                case ServicoDePostagem::SERVICE_MINI_ENVIOS_04235:
+                case ServicoDePostagem::SERVICE_MINI_ENVIOS_04391:
+                    $simbolo_de_encaminhamento = realpath(dirname(__FILE__)) . '/simbolo-sem-especificacao.png';
+                    $_texto = 'Mini Envios';
                     break;
                 default:
                     $simbolo_de_encaminhamento = null;
@@ -254,7 +263,7 @@ class CartaoDePostagem2018
             $this->pdf->SetFontSize(9);
             //$this->pdf->SetTextColor(51,51,51);
             $nf = $objetoPostal->getDestino()->getNumeroNotaFiscal();
-            $str = $nf > 0 ?  'NF: '. $nf : ' ';
+            $str = $nf > 0 ?  'NF: '. substr($nf,5) : ' ';
             $this->t(15, $str, 1, 'L',  null);
 
             // Contrato
@@ -343,6 +352,10 @@ class CartaoDePostagem2018
                     $valorDeclarado = $servicoAdicional->getValorDeclarado();
                 } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_VALOR_DECLARADO_PAC)) {
                     $sSer = $sSer . "64";
+                    $_siglaAdicinal[] = "VD";
+                    $valorDeclarado = $servicoAdicional->getValorDeclarado();
+                } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_VALOR_DECLARADO_MINI_ENVIOS)) {
+                    $sSer = $sSer . "65";
                     $_siglaAdicinal[] = "VD";
                     $valorDeclarado = $servicoAdicional->getValorDeclarado();
                 } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_REGISTRO)) {
@@ -717,7 +730,8 @@ class CartaoDePostagem2018
             $sum = $sum + intval($str[$i]);
         }
         $mul = $sum - $sum % 10 + 10;
-        return $mul - $sum;
+        $digCep = ($mul - $sum)%10 == 0 ? 0 : $mul - $sum;
+        return $digCep;
     }
 
     private function getM2Dstr ($cepD, $numD, $cepO, $numO, $etq, $srvA, $carP, $codS, $valD, $telD, $msg='')

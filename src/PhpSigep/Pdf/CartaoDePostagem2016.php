@@ -261,6 +261,7 @@ class CartaoDePostagem2016
                         break;
 
                     case ServicoDePostagem::SERVICE_SEDEX_12:
+                    case ServicoDePostagem::SERVICE_SEDEX_12_CONTRATO_AGENCIA_03140:
                         $tPosChancela = 3;
                         if ($this->layoutSedex === CartaoDePostagem::TYPE_CHANCELA_SEDEX) {
                             $chancela = new Sedex($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX_12, $accessData);
@@ -271,6 +272,7 @@ class CartaoDePostagem2016
 
                     case ServicoDePostagem::SERVICE_SEDEX_10:
                     case ServicoDePostagem::SERVICE_SEDEX_10_PACOTE:
+                    case ServicoDePostagem::SERVICE_SEDEX_10_CONTRATO_AGENCIA_03158:
                         $tPosChancela = 3;
                         if ($this->layoutSedex === CartaoDePostagem::TYPE_CHANCELA_SEDEX) {
                             $chancela = new Sedex($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX_10, $accessData);
@@ -672,7 +674,8 @@ class CartaoDePostagem2016
             $sum = $sum + intval($str[$i]);
         }
         $mul = $sum - $sum % 10 + 10;
-        return $mul - $sum;
+        $digCep = ($mul - $sum)%10 == 0 ? 0 : $mul - $sum;
+        return $digCep;
     }
 
     private function getM2Dstr ($cepD, $numD, $cepO, $numO, $etq, $srvA, $carP, $codS, $valD, $telD, $msg='')

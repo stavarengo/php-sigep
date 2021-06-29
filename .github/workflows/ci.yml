@@ -1,0 +1,37 @@
+name: CI
+on:
+  push:
+    branches:
+      - master
+
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  analises_estaticas:
+    name: Análises Estáticas
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php-version: ['7.2', '7.3', '7.4']
+
+    steps:
+      - name: Setando PHP com soap e mbstring
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-version }}
+          extensions: mbstring, soap
+
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: Instalando dependências
+        run: |
+          composer install --no-progress --no-suggest -o --no-ansi --no-interaction
+
+      - name: PHPStan
+        run: |
+          composer stan
+
+      

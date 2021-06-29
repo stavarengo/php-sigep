@@ -56,7 +56,11 @@ class CalcPrecoPrazo
         foreach ($servicosAdicionais as $servicoAdicional) {
             if ($servicoAdicional->is(ServicoAdicional::SERVICE_MAO_PROPRIA)) {
                 $maoPropria = true;
-            } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_VALOR_DECLARADO_SEDEX) || $servicoAdicional->is(ServicoAdicional::SERVICE_VALOR_DECLARADO_PAC)) {
+            } elseif (
+                $servicoAdicional->is(ServicoAdicional::SERVICE_VALOR_DECLARADO_SEDEX) ||
+                $servicoAdicional->is(ServicoAdicional::SERVICE_VALOR_DECLARADO_PAC) ||
+                $servicoAdicional->is(ServicoAdicional::SERVICE_VALOR_DECLARADO_MINI_ENVIOS)
+            ) {
                 if (!$servicoAdicional->getValorDeclarado()) {
                     throw new Exception('Para usar o serviço "valor declarado" é necessário declarar o valor da mercadoria.');
                 }
@@ -108,7 +112,9 @@ class CalcPrecoPrazo
 
         $result = new Result();
         try {
-            $r = SoapClientFactory::getSoapCalcPrecoPrazo()->calcPrecoPrazo($soapArgs);
+            $sClient = SoapClientFactory::getSoapCalcPrecoPrazo();
+            $sClient->__setLocation(str_replace('?wsdl','',Bootstrap::getConfig()->getWsdlCalcPrecoPrazo()));
+            $r = $sClient->calcPrecoPrazo($soapArgs);
         } catch (\Exception $e) {
             $message = $e->getMessage();
             if ($message == 'Service Unavailable') {
@@ -138,7 +144,7 @@ class CalcPrecoPrazo
         if (isset($r) && is_object($r) && property_exists($r, 'CalcPrecoPrazoResult') && is_object($r->CalcPrecoPrazoResult)
             && $r->CalcPrecoPrazoResult->Servicos && is_object($r->CalcPrecoPrazoResult->Servicos)
         ) {
-            if ($r->CalcPrecoPrazoResult->Servicos->cServico) {
+            if (isset($r->CalcPrecoPrazoResult->Servicos->cServico)) {
                 $servicos = $r->CalcPrecoPrazoResult->Servicos->cServico;
                 $servicos = (is_array($servicos) ? $servicos : array($servicos));
 

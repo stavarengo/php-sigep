@@ -17,6 +17,8 @@ class ServicoDePostagem extends AbstractModel
     const SERVICE_SEDEX_41556 = '41556';
     const SERVICE_SEDEX_12 = '40169';
     const SERVICE_SEDEX_10 = '40215';
+    const SERVICE_SEDEX_12_CONTRATO_AGENCIA_03140 = '03140';
+    const SERVICE_SEDEX_10_CONTRATO_AGENCIA_03158 = '03158';
     const SERVICE_SEDEX_10_PACOTE = '40886';
     const SERVICE_SEDEX_HOJE_40290 = '40290';
     const SERVICE_SEDEX_HOJE_40878 = '40878';
@@ -35,6 +37,9 @@ class ServicoDePostagem extends AbstractModel
     const SERVICE_PAC_REVERSO_CONTRATO_AGENCIA = '04677';
     const SERVICE_CARTA_COM_A_FATURAR_SELO_E_SE = '12556';
     const SERVICE_CARTA_COMERCIAL_REGISTRADA_CTR_EP_MAQ_FRAN = '10707';
+    const SERVICE_MINI_ENVIOS_04227 = '04227';
+    const SERVICE_MINI_ENVIOS_04235 = '04235';
+    const SERVICE_MINI_ENVIOS_04391 = '04391';
 
     // CODIGOS REFERENTES A LIMINAR ABCOMM
     const SERVICE_SEDEX_CONTRATO_GRANDES_FORMATOS_LM = '04146';
@@ -62,6 +67,7 @@ class ServicoDePostagem extends AbstractModel
     // NOVOS CODIGOS DE SERVICO DOS CORREIOS BRONZE (1o sem 2020)
     const SERVICE_PAC_CONTRATO_AGENCIA_03085 = '03085';
     const SERVICE_SEDEX_CONTRATO_AGENCIA_03050 = '03050';
+    const SERVICE_CARTA_REGISTRADA_AGENCIA_80250 = '80250';
 
     protected static $services
         = array(
@@ -72,6 +78,8 @@ class ServicoDePostagem extends AbstractModel
             // NOVOS CODIGOS DE SERVICO DOS CORREIOS BRONZE (1o sem 2020)
             self::SERVICE_PAC_CONTRATO_AGENCIA_03085 => array('Pac 03085', 162011),
             self::SERVICE_SEDEX_CONTRATO_AGENCIA_03050 => array('Sedex 03050', 162008),
+            self::SERVICE_CARTA_REGISTRADA_AGENCIA_80250 => ['Carta Registrada 80250', 162142],
+
             // DEMAIS SERVICOS
             self::SERVICE_PAC_41068                                  => array('Pac 41068', 109819),
             self::SERVICE_PAC_04510                                  => array('Pac 04510', 124887),
@@ -81,6 +89,8 @@ class ServicoDePostagem extends AbstractModel
             self::SERVICE_SEDEX_41556                                => array('Sedex 41556', 121877),
             self::SERVICE_SEDEX_12                                   => array('Sedex 12', 115218),
             self::SERVICE_SEDEX_10                                   => array('Sedex 10', 104707),
+            self::SERVICE_SEDEX_12_CONTRATO_AGENCIA_03140            => array('Sedex 12 03140', 162015),
+            self::SERVICE_SEDEX_10_CONTRATO_AGENCIA_03158            => array('Sedex 10 03158', 162016),
             self::SERVICE_SEDEX_10_PACOTE                            => array('Sedex 10 Pacote', null),
             self::SERVICE_SEDEX_HOJE_40290                           => array('Sedex Hoje 40290', 108934),
             self::SERVICE_SEDEX_HOJE_40878                           => array('Sedex Hoje 40878', null),
@@ -138,6 +148,9 @@ class ServicoDePostagem extends AbstractModel
 
             self::SERVICE_SEDEX_CONTRATO_AGENCIA_TA => array('SEDEX Contrato Agencia TA', 161274),
             self::SERVICE_PAC_CONTRATO_AGENCIA_TA   => array('PAC Contrato Agencia TA', 161277),
+            self::SERVICE_MINI_ENVIOS_04227 => array('MINI ENVIOS CTR AG', 159982),
+            self::SERVICE_MINI_ENVIOS_04235 => array('MINI ENVIOS CTR TA', 159983),
+            self::SERVICE_MINI_ENVIOS_04391 => array('MINI ENVIOS CTR UO', 160316),
         );
 
     /**
@@ -176,7 +189,24 @@ class ServicoDePostagem extends AbstractModel
             )
         );
     }
+     /**
+     * @param array $arrayServicesCode
+     *        array com os codigos de serviço
+     *
+     * @return ServicoDePostagem[]
+     */
+    public static function getFromArray($arrayServicesCode)
+    {
+        $r = array();
+        foreach (self::$services as $serviceCode => $serviceDetails) {
+            if(array_key_exists($serviceCode,$arrayServicesCode)){
+                $r[] = new self($serviceCode);
+            }
+        }
 
+        return $r;
+    }
+    
     /**
      * @return ServicoDePostagem[]
      */
@@ -248,5 +278,4 @@ class ServicoDePostagem extends AbstractModel
     {
         $this->nome = $nome;
     }
-
 }

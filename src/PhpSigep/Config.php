@@ -42,7 +42,7 @@ class Config extends DefaultStdClass
     const XML_ENCODE_UTF = "utf-8";
     const WSDL_ATENDE_CLIENTE_PRODUCTION = 'https://apps.correios.com.br/SigepMasterJPA/AtendeClienteService/AtendeCliente?wsdl';
     const WSDL_ATENDE_CLIENTE_DEVELOPMENT = 'https://apphom.correios.com.br/SigepMasterJPA/AtendeClienteService/AtendeCliente?wsdl';
-    const WSDL_CAL_PRECO_PRAZO = 'http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx?WSDL';
+    const WSDL_CAL_PRECO_PRAZO = 'http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx?wsdl';
     const WSDL_RASTREAR_OBJETOS = 'https://webservice.correios.com.br/service/rastro/Rastro.wsdl';
     const WSDL_AGENCIAS_WS = 'https://cws.correios.com.br/cws/agenciaService/agenciaWS';
     const WSDL_REVERSA_PRODUCTION = 'https://cws.correios.com.br/logisticaReversaWS/logisticaReversaService/logisticaReversaWS?wsdl';
@@ -76,6 +76,11 @@ class Config extends DefaultStdClass
     protected $wsdlAgenciaWS = self::WSDL_AGENCIAS_WS;
 
     /**
+     * @var string
+     */
+    protected $wsdlPI = self::WSDL_PI_DEVELOPMENT;
+
+    /**
      * @var int
      */
     protected $env = self::ENV_DEVELOPMENT;
@@ -83,7 +88,7 @@ class Config extends DefaultStdClass
     /**
      * @var string
      */
-    protected $xml_encode = self::XML_ENCODE_UTF;
+    protected $xml_encode = self::XML_ENCODE_ISO;
 
     /**
      * @var bool
@@ -162,6 +167,15 @@ class Config extends DefaultStdClass
         return (int) $this->wsdlCache;
     }
 
+   /**
+     * @return int
+     */
+    public function setWsdlCache($wsdlCache)
+    {
+        $this->wsdlCache = $wsdlCache;
+        return $this;
+    }  
+    
     /**
      * @return int
      */
@@ -338,18 +352,24 @@ class Config extends DefaultStdClass
     {
         return $this->wsdlAgenciaWS;
     }
-    
-    
+
+    /**
+     * @param $wsdlPI
+     * @return $this;
+     */
+    public function setWsdlPI($wsdlPI)
+    {
+        $this->wsdlPI = $wsdlPI;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
     public function getWsdlPI()
     {
-        switch ($this->env) {
-            case self::ENV_PRODUCTION:
-                return self::WSDL_PI_PRODUCTION;
-
-            case self::ENV_DEVELOPMENT:
-            default:
-                return self::WSDL_PI_DEVELOPMENT;
-        }
+        return $this->wsdlPI;
     }
 
     /**

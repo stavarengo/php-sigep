@@ -4,7 +4,7 @@ namespace PhpSigep\Pdf\Script;
 class CircularText
 {
 
-    public function __construct(\PhpSigep\Pdf\ImprovedFPDF $pdf, $x, $y, $r, $text, $align = 'top', $kerning = 120, $fontwidth = 100)
+    public function CircularText(\PhpSigep\Pdf\ImprovedFPDF $pdf, $x, $y, $r, $text, $align = 'top', $kerning = 120, $fontwidth = 100)
     {
         $transf = new Transform();
         $kerning /= 100;
@@ -15,7 +15,8 @@ class CircularText
         if ($fontwidth == 0) $pdf->Error('Please use values unequal to zero for font width');
         //get width of every letter
         $t = 0;
-        for ($i = 0; $iMax = strlen($text); $i < $iMax; $i++) {
+        $iMax = strlen($text);
+        for ($i = 0; $i < $iMax; $i++) {
             $w[$i] = $pdf->GetStringWidth($text[$i]);
             $w[$i] *= $kerning * $fontwidth;
             //total width of string
@@ -33,8 +34,9 @@ class CircularText
         } else {
             $transf->Rotate($pdf, -$d / 2, $x, $y);
         }
+        $iMax = strlen($text);
         //run through the string
-        for ($i = 0; $iMax = strlen($text); $i < $iMax; $i++) {
+        for ($i = 0; $i < $iMax; $i++) {
             if ($align == 'top') {
                 //rotate matrix half of the width of current letter + half of the width of preceding letter
                 if ($i == 0) {
