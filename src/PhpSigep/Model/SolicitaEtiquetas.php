@@ -36,7 +36,7 @@ class SolicitaEtiquetas extends AbstractModel
      */
     public function getAccessData()
     {
-        return ($this->accessData ? $this->accessData : Bootstrap::getConfig());
+        return ($this->accessData ? $this->accessData : Bootstrap::getConfig()->getAccessData());
     }
 
     /**

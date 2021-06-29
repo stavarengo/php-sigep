@@ -4,7 +4,7 @@ namespace PhpSigep\Pdf\Script;
 class Transform
 {
 
-    public function Transform(\PhpSigep\Pdf\ImprovedFPDF $pdf, $tm)
+    public function __construct(\PhpSigep\Pdf\ImprovedFPDF $pdf, $tm)
     {
         $pdf->_out(sprintf('%.3F %.3F %.3F %.3F %.3F %.3F cm', $tm[0], $tm[1], $tm[2], $tm[3], $tm[4], $tm[5]));
     }
@@ -77,12 +77,12 @@ class Transform
 
     public function TranslateX(\PhpSigep\Pdf\ImprovedFPDF $pdf, $t_x)
     {
-        $this->Translate($pdf, $t_x, 0, $x, $y);
+        $this->Translate($pdf, $t_x, 0);
     }
 
     public function TranslateY(\PhpSigep\Pdf\ImprovedFPDF $pdf, $t_y)
     {
-        $this->Translate($pdf, 0, $t_y, $x, $y);
+        $this->Translate($pdf, 0, $t_y);
     }
 
     public function Translate(\PhpSigep\Pdf\ImprovedFPDF $pdf, $t_x, $t_y)

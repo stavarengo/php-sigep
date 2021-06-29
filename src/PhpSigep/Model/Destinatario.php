@@ -15,6 +15,7 @@ class Destinatario extends AbstractModel
      * @var string
      */
     protected $nome;
+
     /**
      * Telefone do Destinatário.
      * Não Obrigatório.
@@ -23,6 +24,7 @@ class Destinatario extends AbstractModel
      * @var string
      */
     protected $telefone;
+
     /**
      * Celular do Destinatário.
      * Não Obrigatório.
@@ -31,6 +33,7 @@ class Destinatario extends AbstractModel
      * @var string
      */
     protected $celular;
+
     /**
      * Email do Destinatário.
      * Não obrigatório
@@ -39,6 +42,7 @@ class Destinatario extends AbstractModel
      * @var string
      */
     protected $email;
+
     /**
      * Logradouro do destinatário.
      * Obrigatório.
@@ -47,6 +51,7 @@ class Destinatario extends AbstractModel
      * @var string
      */
     protected $logradouro;
+
     /**
      * Complemento do endereço.
      * Não obrigatório.
@@ -55,6 +60,7 @@ class Destinatario extends AbstractModel
      * @var string
      */
     protected $complemento;
+
     /**
      * Número da casa, prédio, etc. Parte do endereço.
      * Obrigatório.
@@ -71,6 +77,60 @@ class Destinatario extends AbstractModel
      * @var boolean
      */
     protected $isCliqueRetire = false;
+
+    /**
+     * 
+     * Obrigatório.
+     * Max length: 50
+     * Tag: bairro
+     * @var string
+     */
+    protected $bairro;
+
+    /**
+     * 
+     * Não Obrigatório.
+     * Max length: 50
+     * Tag: referencia
+     * @var string
+     */
+    protected $referencia;
+
+    /**
+     * 
+     * Obrigatório.
+     * Max length: 12
+     * Tag: cidade
+     * @var string
+     */
+    protected $cidade;
+
+    /**
+     * 
+     * Obrigatório.
+     * Max length: 2
+     * Tag: uf
+     * @var string
+     */
+    protected $uf;
+
+    /**
+     * 
+     * Obrigatório.
+     * Max length: 8
+     * Tag: cep
+     * @var int
+     */
+    protected $cep;
+
+    /**
+     * 
+     * Não Obrigatório.
+     * Max length: 3
+     * Tag: ddd
+     * @var int
+     */
+    protected $ddd;
 
     /**
      * @return string
@@ -198,5 +258,71 @@ class Destinatario extends AbstractModel
     public function setIsCliqueRetire($isCliqueRetire = false)
     {
         $this->isCliqueRetire = $isCliqueRetire;
+    }
+
+    public function getBairro()
+    {
+        return $this->bairro;
+    }
+
+    public function getReferencia()
+    {
+        return $this->referencia;
+    }
+
+    public function getCidade()
+    {
+        return $this->cidade;
+    }
+
+    public function getUf()
+    {
+        return $this->uf;
+    }
+
+    public function getCep()
+    {
+        return $this->cep;
+    }
+
+    public function getDdd()
+    {
+        return $this->ddd;
+    }
+
+    public function setBairro($bairro)
+    {
+        $this->bairro = $bairro;
+        return $this;
+    }
+
+    public function setReferencia($referencia)
+    {
+        $this->referencia = $referencia;
+        return $this;
+    }
+
+    public function setCidade($cidade)
+    {
+        $this->cidade = $cidade;
+        return $this;
+    }
+
+    public function setUf($uf)
+    {
+        $this->uf = $uf;
+        return $this;
+    }
+
+    public function setCep($cep)
+    {
+        $this->cep = $cep;
+        return $this;
+    }
+
+    public function setDdd($ddd)
+    {
+        $this->ddd = $ddd;
+        return $this;
     }
 }
