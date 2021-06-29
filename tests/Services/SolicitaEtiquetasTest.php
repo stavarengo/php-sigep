@@ -28,7 +28,7 @@ class SolicitaEtiquetasTest extends TestCase
         $etiquetas = new PhpSigep\Services\Real\SolicitaEtiquetas();
         $params    = new \PhpSigep\Model\SolicitaEtiquetas(array(
                 'qtdEtiquetas'      => 1,
-                'servicoDePostagem' => new PhpSigep\Model\ServicoDePostagem(PhpSigep\Model\ServicoDePostagem::SERVICE_E_SEDEX_STANDARD),
+                'servicoDePostagem' => new PhpSigep\Model\ServicoDePostagem(PhpSigep\Model\ServicoDePostagem::SERVICE_CARTA_REGISTRADA),
                 'accessData'        => new PhpSigep\Model\AccessData(array(
                         'cnpjEmpresa' => '16.646.849/0001-77',
                         'usuario'     => 'usuario',

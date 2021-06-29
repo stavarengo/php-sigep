@@ -22,15 +22,20 @@ class ListaDePostagem
      * @var int
      */
     private $idPlpCorreios;
+    /**
+     * @var string
+     */
+    private $dataGeracao;
 
     /**
      * @param \PhpSigep\Model\PreListaDePostagem $plp
      * @param int $idPlpCorreios
      */
-    public function __construct($plp, $idPlpCorreios)
+    public function __construct($plp, $idPlpCorreios, $dataGeracao = '')
     {
         $this->plp           = $plp;
         $this->idPlpCorreios = $idPlpCorreios;
+        $this->dataGeracao   = $dataGeracao;
 
         $this->init();
     }
@@ -104,6 +109,8 @@ class ListaDePostagem
 
         $pdf->setLineHeightPadding(50 / $k);
         $this->labeledText($pdf, 'Nº da lista:', $this->idPlpCorreios, $wHeaderCols);
+        if ($this->dataGeracao)
+            $this->labeledText($pdf, 'Data:', $this->dataGeracao, $wHeaderCols);
         $this->labeledText($pdf, 'Cliente:', $remetente->getNome(), $wHeaderCols, 1);
         $this->labeledText($pdf, 'Contrato:', $plp->getAccessData()->getNumeroContrato(), $wHeaderCols);
         $this->labeledText($pdf, 'Cod. adm.:', $plp->getAccessData()->getCodAdministrativo(), $wHeaderCols);

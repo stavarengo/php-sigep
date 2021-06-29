@@ -1,0 +1,18 @@
+parameters:
+	ignoreErrors:
+
+		-
+			message: "#^Undefined variable\\: \\$ss$#"
+			count: 1
+			path: src/PhpSigep/Pdf/Semacode.php
+
+		-
+			message: "#^Instantiated class PhpSigep\\\\Services\\\\Real\\\\FailedConvertToArrayExceptio not found\\.$#"
+			count: 1
+			path: src/PhpSigep/Services/Real/CadastrarPI.php
+
+		-
+			message: "#^Call to an undefined method PhpSigep\\\\Services\\\\Real\\\\CalcPrecoPrazo\\:\\:calcPrecoPrazo\\(\\)\\.$#"
+			count: 1
+			path: src/PhpSigep/Services/Real/CalcPrecoPrazo.php
+

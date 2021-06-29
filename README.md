@@ -6,7 +6,7 @@ PHP SIGEP - Correios
 * Baixe a última versão estável aqui: [https://github.com/stavarengo/php-sigep/tags](https://github.com/stavarengo/php-sigep/tags)
 
 Implementação do Web Service dos correios SIGEP Web.
-### [Veja a demo online, exemplos e documentação em nossa página](http://stavarengo.github.io/php-sigep).
+### [Veja a demo online, exemplos e documentação em nossa página](https://phpsigep.stavarengo.me/).
 
 Integração com Web Service do Correios. Consulta preços e prazos, imprime etiquetas e PLP, etc.
 Esta API pode:

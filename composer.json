@@ -22,6 +22,7 @@
         "vria/nodiacritic": "^0.1.2"
     },
     "require-dev": {
+        "phpstan/phpstan": "^0.12.81",
         "phpunit/phpunit": "~4"
     },
     "autoload": {
@@ -30,7 +31,8 @@
         }
     },
     "scripts": {
-        "test": "./vendor/bin/phpunit --verbose --colors=always"
+        "test": "./vendor/bin/phpunit --verbose --colors=always",
+        "stan": "./vendor/bin/phpstan analyse src tests exemplos"
     },
     "license": "MIT",
     "authors": [

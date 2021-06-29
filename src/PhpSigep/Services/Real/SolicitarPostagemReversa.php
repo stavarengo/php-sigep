@@ -1,6 +1,7 @@
 <?php
 namespace PhpSigep\Services\Real;
 
+use PhpSigep\InvalidArgument;
 use PhpSigep\Model\SolicitarPostagemReversaRetorno;
 use PhpSigep\Model\AbstractModel;
 use PhpSigep\Services\Exception;
@@ -16,7 +17,7 @@ class SolicitarPostagemReversa implements RealServiceInterface
      * @param \PhpSigep\Model\AbstractModel|\PhpSigep\Model\SolicitarPostagemReversa $params
      *
      * @throws \PhpSigep\Services\Exception
-     * @throws InvalidArgument
+     * @throws \PhpSigep\InvalidArgument
      * @return Result
      */
     public function execute(AbstractModel $params)
