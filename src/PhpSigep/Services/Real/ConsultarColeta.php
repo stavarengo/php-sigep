@@ -44,22 +44,19 @@ class ConsultarColeta implements RealServiceInterface
         if ($r instanceof \SoapFault) {
           throw $r;
         }
-        
+
         if ($r->acompanharPedido) {
-          
+
           if (!empty($r->acompanharPedido->msg_erro)) {
-            // var_dump($r->acompanharPedido->cod_erro);
             throw new \Exception($r->acompanharPedido->msg_erro, (int) $r->acompanharPedido->cod_erro);
           }
-          
-          // sdie;
           $resultado = new \PhpSigep\Model\ConsultarColetaRetorno();
           $resultado->setTipo($r->acompanharPedido->tipo_solicitacao);
           $resultado->setNumeroPedido($r->acompanharPedido->coleta->numero_pedido);
           $resultado->setControleCliente($r->acompanharPedido->coleta->controle_cliente);
           $resultado->setObjeto($r->acompanharPedido->coleta->objeto);
           $resultado->setHistorico($r->acompanharPedido->coleta->historico);
-          
+
           $result->setResult($resultado);
           return $result;
         }
