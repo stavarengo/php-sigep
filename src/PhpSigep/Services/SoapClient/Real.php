@@ -224,4 +224,14 @@ class Real implements ServiceInterface
         $service = new ServiceImplementation\CadastrarPI();
         return $service->execute($params);
     }
+
+
+    /**
+     * @param \PhpSigep\Model\ConsultarColeta $params
+     */
+    public function consultaColeta(\PhpSigep\Model\ConsultarColeta $params)
+    {
+        $service = new ServiceImplementation\ConsultarColeta();
+        return $service->execute($params);
+    }
 }
