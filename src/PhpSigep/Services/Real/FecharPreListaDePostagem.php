@@ -278,8 +278,6 @@ class FecharPreListaDePostagem
                 $valorDeclarado = (float)$servicoAdicional->getValorDeclarado();
                 if ($valorDeclarado>0) {
                     $writer->writeElement('valor_declarado', (float)$servicoAdicional->getValorDeclarado());
-                } else {
-                    $writer->writeElement('valor_declarado');
                 }
             }
         }
