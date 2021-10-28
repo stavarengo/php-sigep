@@ -149,7 +149,7 @@ class FecharPreListaDePostagem
         $writer->writeCdata($this->_($data->getRemetente()->getEmail(), 50));
         $writer->endElement();
         $writer->startElement('celular_remetente');
-        $writer->writeCdata($this->_(preg_replace('/[^\d]/', '', $data->getRemetente()->getCelular()), 50));
+        $writer->writeCdata($this->_(preg_replace('/[^\d]/', '', $data->getRemetente()->getCelular()), 12));
         $writer->endElement();
         $writer->startElement('cpf_cnpj_remetente');
         $writer->endElement();
