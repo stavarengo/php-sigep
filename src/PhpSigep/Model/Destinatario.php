@@ -133,6 +133,13 @@ class Destinatario extends AbstractModel
     protected $ddd;
 
     /**
+     * Identificacao do destinatario (CPF/CNPJ).
+     * Max length: 14
+     * @var string
+     */
+    protected $identificacao;
+
+    /**
      * @return string
      */
     public function getCelular()
@@ -323,6 +330,23 @@ class Destinatario extends AbstractModel
     public function setDdd($ddd)
     {
         $this->ddd = $ddd;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getIdentificacao()
+    {
+        return $this->identificacao;
+    }
+
+    /**
+     * @param int $identificacao
+     */
+    public function setIdentificacao($identificacao)
+    {
+        $this->identificacao = $identificacao;
         return $this;
     }
 }
