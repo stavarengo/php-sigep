@@ -91,6 +91,13 @@ class Remetente extends AbstractModel
     protected $telefone;
 
     /**
+     * Celular do remetente.
+     * Max length: 12
+     * @var string
+     */
+    protected $celular;
+
+    /**
      * Fax do remetente.
      * Max length: 12
      * @var string
@@ -325,6 +332,22 @@ class Remetente extends AbstractModel
     public function setTelefone($telefone)
     {
         $this->telefone = $telefone;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCelular()
+    {
+        return $this->celular;
+    }
+
+    /**
+     * @param string $celular
+     */
+    public function setCelular($celular)
+    {
+        $this->celular = $celular;
     }
 
     /**
