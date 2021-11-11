@@ -152,6 +152,7 @@ class FecharPreListaDePostagem
         $writer->writeCdata($this->_($data->getRemetente()->getTelefone(), 50));
         $writer->endElement();
         $writer->startElement('cpf_cnpj_remetente');
+        $writer->writeCdata($this->_(preg_replace('/[^\d]/', '', $data->getIdentificacao()), 14));
         $writer->endElement();
         $writer->writeElement('ciencia_conteudo_proibido','S');
         $writer->endElement();
@@ -224,6 +225,7 @@ class FecharPreListaDePostagem
         $writer->writeCdata($this->_($destinatario->getNumero(), 6));
         $writer->endElement();
         $writer->startElement('cpf_cnpj_destinatario');
+        $writer->writeCdata($this->_(preg_replace('/[^\d]/', '', $destinatario->getIdentificacao()), 14));
         $writer->endElement();
         $writer->endElement();
     }
