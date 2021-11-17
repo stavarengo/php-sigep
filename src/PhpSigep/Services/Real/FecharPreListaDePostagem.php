@@ -152,7 +152,7 @@ class FecharPreListaDePostagem
         $writer->writeCdata($this->_(preg_replace('/[^\d]/', '', $data->getRemetente()->getCelular()), 12));
         $writer->endElement();
         $writer->startElement('cpf_cnpj_remetente');
-        $writer->writeCdata($this->_(preg_replace('/[^\d]/', '', $data->getIdentificacao()), 14));
+        $writer->writeCdata($this->_(preg_replace('/[^\d]/', '', $data->getRemetente()->getIdentificacao()), 14));
         $writer->endElement();
         $writer->writeElement('ciencia_conteudo_proibido','S');
         $writer->endElement();
