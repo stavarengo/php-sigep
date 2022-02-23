@@ -41,6 +41,9 @@ class ServicoDePostagem extends AbstractModel
     const SERVICE_MINI_ENVIOS_04235 = '04235';
     const SERVICE_MINI_ENVIOS_04391 = '04391';
 
+    // CODIGOS REFERENTES A CONTRATO OURO 4
+    const SERVICE_CARTA_REGISTRADA_80659 = '80659';
+
     // CODIGOS REFERENTES A LIMINAR ABCOMM
     const SERVICE_SEDEX_CONTRATO_GRANDES_FORMATOS_LM = '04146';
     const SERVICE_SEDEX_CONTRATO_AGENCIA_LM = '04154';
@@ -151,6 +154,7 @@ class ServicoDePostagem extends AbstractModel
             self::SERVICE_MINI_ENVIOS_04227 => array('MINI ENVIOS CTR AG', 159982),
             self::SERVICE_MINI_ENVIOS_04235 => array('MINI ENVIOS CTR TA', 159983),
             self::SERVICE_MINI_ENVIOS_04391 => array('MINI ENVIOS CTR UO', 160316),
+            self::SERVICE_CARTA_REGISTRADA_80659 => ['CARTA RG O4 CHANC ETIQUETA', 162166],
         );
 
     /**
