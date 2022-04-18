@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php-version: ['7.2', '7.3', '7.4']
+        php-version: ['7.2', '7.3', '7.4', '8.0', '8.1']
 
     steps:
       - name: Setando PHP com soap e mbstring
@@ -33,5 +33,9 @@ jobs:
       - name: PHPStan
         run: |
           composer stan
+
+      - name: PHPUnit
+        run: |
+          composer test
 
       

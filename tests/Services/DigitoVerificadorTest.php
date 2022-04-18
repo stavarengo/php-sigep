@@ -1,9 +1,14 @@
 <?php
 
+namespace PhpSigep\Test\Services;
+
+use PHPUnit\Framework\TestCase;
+
 class DigitoVerificadorTest extends TestCase
 {
 
-    public function setUp() {
+    public function setUp(): void
+    {
         
         $config = new \PhpSigep\Config();
         
@@ -24,7 +29,8 @@ class DigitoVerificadorTest extends TestCase
         
     }
     
-    public function testCodigoVerificador(){
+    public function testCodigoVerificador(): void
+    {
         $etiqueta1 = new \PhpSigep\Model\Etiqueta();
         $etiqueta1->setEtiquetaSemDv('PN77768520BR');
         $this->assertEquals('PN777685204BR', $etiqueta1->getEtiquetaComDv());

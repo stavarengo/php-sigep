@@ -72,7 +72,7 @@ class SolicitaEtiquetas implements RealServiceInterface
         $etiquetasReservadas = array();
         
         for ($i = 0; $i < $params->getQtdEtiquetas(); $i++) {
-            
+
             $request = SoapClientFactory::getSoapClient()->solicitaEtiquetas($soapArgs);
             
             if($this->validAfterRequest($request)){

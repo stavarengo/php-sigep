@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <phpunit
-  bootstrap="./tests/bootstrap.php"
 	colors="true"
 	convertNoticesToExceptions="true"
 	convertWarningsToExceptions="true"
@@ -16,7 +15,7 @@
 		</testsuite>
 	</testsuites>
 	<logging>
-		<log type="coverage-html" target="tmp/coverage" charset="UTF-8" showUncoveredFiles="true" />
+		<log type="coverage-html" target="tmp/coverage" showUncoveredFiles="true" />
 		<!--<log type="coverage-text" target="php://stdout" />-->
 	</logging>
 	<php>
