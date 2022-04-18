@@ -1,6 +1,5 @@
 parameters:
 	ignoreErrors:
-
 		-
 			message: "#^Undefined variable\\: \\$ss$#"
 			count: 1
@@ -15,4 +14,29 @@ parameters:
 			message: "#^Call to an undefined method PhpSigep\\\\Services\\\\Real\\\\CalcPrecoPrazo\\:\\:calcPrecoPrazo\\(\\)\\.$#"
 			count: 1
 			path: src/PhpSigep/Services/Real/CalcPrecoPrazo.php
+
+		-
+			message: "#^Method PhpSigep\\\\Services\\\\SoapClient\\\\Simulador\\:\\:bloquearObjeto\\(\\) should return PhpSigep\\\\Services\\\\Result\\<array\\<PhpSigep\\\\Model\\\\BloquearObjetoResposta\\>\\> but return statement is missing\\.$#"
+			count: 1
+			path: src/PhpSigep/Services/SoapClient/Simulador.php
+
+		-
+			message: "#^Method PhpSigep\\\\Services\\\\SoapClient\\\\Simulador\\:\\:cancelarObjeto\\(\\) should return PhpSigep\\\\Services\\\\Result\\<array\\<PhpSigep\\\\Model\\\\CancelarObjetoResposta\\>\\> but return statement is missing\\.$#"
+			count: 1
+			path: src/PhpSigep/Services/SoapClient/Simulador.php
+
+		-
+			message: "#^Method PhpSigep\\\\Services\\\\SoapClient\\\\Simulador\\:\\:consultaCep\\(\\) should return PhpSigep\\\\Services\\\\Result\\<PhpSigep\\\\Model\\\\ConsultaCepResposta\\> but return statement is missing\\.$#"
+			count: 1
+			path: src/PhpSigep/Services/SoapClient/Simulador.php
+
+		-
+			message: "#^Method PhpSigep\\\\Services\\\\SoapClient\\\\Simulador\\:\\:rastrearObjeto\\(\\) should return PhpSigep\\\\Services\\\\Result\\<array\\<PhpSigep\\\\Model\\\\RastrearObjetoResultado\\>\\> but return statement is missing\\.$#"
+			count: 1
+			path: src/PhpSigep/Services/SoapClient/Simulador.php
+
+		-
+			message: "#^Method PhpSigep\\\\Services\\\\SoapClient\\\\Simulador\\:\\:verificarStatusCartaoPostagem\\(\\) should return PhpSigep\\\\Services\\\\Result\\<array\\<PhpSigep\\\\Model\\\\VerificarStatusCartaoPostagemResposta\\>\\> but return statement is missing\\.$#"
+			count: 1
+			path: src/PhpSigep/Services/SoapClient/Simulador.php
 
