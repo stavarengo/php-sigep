@@ -29,13 +29,13 @@ jobs:
       - name: Instalando dependências PHP 7.2
         if: matrix.php-version == '7.2'
         run: |
-        composer require "phpunit/phpunit:^7.0" -W --dev
+        composer require 'phpunit/phpunit:^7.0' -W --dev
         composer install --no-progress --no-suggest -o --no-ansi --no-interaction
 
       - name: Instalando dependências
         if: matrix.php-version != '7.2'
         run: |
-          composer require "phpunit/phpunit:^8.0" -W --dev
+          composer require 'phpunit/phpunit:^8.0' -W --dev
           composer install --no-progress --no-suggest -o --no-ansi --no-interaction
 
       - name: PHPStan
