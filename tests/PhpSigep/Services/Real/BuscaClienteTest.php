@@ -4,32 +4,25 @@ namespace PhpSigep\Services\Real;
 
 use PhpSigep\Config;
 use PhpSigep\Model\AccessDataHomologacao;
+use PhpSigep\Test\BootstrapTrait;
+use PhpSigep\Test\Fakes\SoapClientFake;
 use PHPUnit\Framework\TestCase;
 
 class BuscaClienteTest extends TestCase
 {
+    use BootstrapTrait;
 
     public function setUp(): void
     {
-        $config = new Config();
-        $config->setAccessData(new AccessDataHomologacao());
-        $config->setEnv(Config::ENV_DEVELOPMENT);
-        $config->setCacheOptions([
-            'storageOptions' => [
-                'enabled' => false,
-                'ttl' => 10,
-                'cacheDir' => sys_get_temp_dir(),
-            ],
-        ]);
-
-        \PhpSigep\Bootstrap::start($config);
-
+        $this->setUpSIGEP();
     }
 
     public function testExecute(): void
     {
+        SoapClientFactory::setSoapClient(new SoapClientFake());
         $busca = new BuscaCliente();
         $result = $busca->execute(new AccessDataHomologacao());
         $this->assertFalse($result->getIsSoapFault());
+        $this->assertInstanceOf(\PhpSigep\Model\BuscaClienteResult::class, $result->getResult());
     }
 }

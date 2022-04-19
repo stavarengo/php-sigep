@@ -300,4 +300,9 @@ class SoapClientFactory
 
         return $str;
     }
+
+    public static function setSoapClient(?\SoapClient $client): void
+    {
+        self::$_soapClient = $client;
+    }
 } 

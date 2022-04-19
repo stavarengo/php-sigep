@@ -2,36 +2,23 @@
 
 namespace PhpSigep\Test\Services;
 
-use PhpSigep\Config;
-use PhpSigep\Model\AccessData;
 use PhpSigep\Model\AccessDataHomologacao;
 use PhpSigep\Model\ServicoDePostagem;
+use PhpSigep\Services\Real\SoapClientFactory;
 use PhpSigep\Services\Real\SolicitaEtiquetas;
 use PhpSigep\Services\SoapClient\Real;
+use PhpSigep\Test\BootstrapTrait;
+use PhpSigep\Test\Fakes\SoapClientFake;
 use PHPUnit\Framework\TestCase;
 
 class SolicitaEtiquetasTest extends TestCase
 {
 
+    use BootstrapTrait;
+
     public function setUp(): void
     {
-
-        $config = new Config();
-
-        $config->setAccessData(new AccessDataHomologacao());
-
-        $config->setEnv(Config::ENV_PRODUCTION);
-
-
-        $config->setCacheOptions([
-            'storageOptions' => [
-                'enabled' => false,
-                'ttl' => 10,
-                'cacheDir' => sys_get_temp_dir(),
-            ],
-        ]);
-
-        \PhpSigep\Bootstrap::start($config);
+        $this->setUpSIGEP();
     }
 
     public function testCreateEtiquetasByRange(): void
@@ -105,6 +92,7 @@ class SolicitaEtiquetasTest extends TestCase
 
     public function testSolicitarEtiquetaUmRequisicao(): void
     {
+        SoapClientFactory::setSoapClient(new SoapClientFake());
 
         $quantidadeEtiquetas = 10;
 
@@ -128,6 +116,8 @@ class SolicitaEtiquetasTest extends TestCase
 
     public function testclerSolicitarEtiquetaVariasRequisicoes(): void
     {
+        SoapClientFactory::setSoapClient(new SoapClientFake());
+
         $quantidadeEtiquetas = 10;
 
         $params = new \PhpSigep\Model\SolicitaEtiquetas();
@@ -146,6 +136,11 @@ class SolicitaEtiquetasTest extends TestCase
 
         $this->assertCount($quantidadeEtiquetas, $etiquetas);
 
+    }
+
+    public function tearDown(): void
+    {
+        SoapClientFactory::setSoapClient(null);
     }
 
 

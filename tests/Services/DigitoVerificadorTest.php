@@ -2,31 +2,17 @@
 
 namespace PhpSigep\Test\Services;
 
+use PhpSigep\Test\BootstrapTrait;
 use PHPUnit\Framework\TestCase;
 
 class DigitoVerificadorTest extends TestCase
 {
 
+    use BootstrapTrait;
+
     public function setUp(): void
     {
-        
-        $config = new \PhpSigep\Config();
-        
-        $config->setAccessData(new \PhpSigep\Model\AccessDataHomologacao());
-        
-        $config->setEnv(\PhpSigep\Config::ENV_PRODUCTION);
-        
-        
-        $config->setCacheOptions(array(
-           'storageOptions' => array(
-                'enabled' => false,
-                'ttl' => 10,
-                'cacheDir' => sys_get_temp_dir()
-            )
-        ));
-        
-        \PhpSigep\Bootstrap::start($config);
-        
+        $this->setUpSIGEP();
     }
     
     public function testCodigoVerificador(): void
