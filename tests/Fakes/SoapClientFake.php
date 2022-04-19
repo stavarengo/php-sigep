@@ -57,7 +57,6 @@ class SoapClientFake extends \SoapClient
                                                             'descricao' => 'Sedex 10',
                                                             'id' => 9193,
                                                         ],
-                                                    'descricao' => 'SEDEX 10                      ',
                                                     'exigeDimensoes' => false,
                                                     'exigeValorCobrar' => false,
                                                     'imitm' => 104707,
