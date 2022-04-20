@@ -1,30 +1,22 @@
 <?php
 
+namespace PhpSigep\Test\Services;
+
+use PhpSigep\Test\BootstrapTrait;
+use PHPUnit\Framework\TestCase;
+
 class DigitoVerificadorTest extends TestCase
 {
 
-    public function setUp() {
-        
-        $config = new \PhpSigep\Config();
-        
-        $config->setAccessData(new \PhpSigep\Model\AccessDataHomologacao());
-        
-        $config->setEnv(\PhpSigep\Config::ENV_PRODUCTION);
-        
-        
-        $config->setCacheOptions(array(
-           'storageOptions' => array(
-                'enabled' => false,
-                'ttl' => 10,
-                'cacheDir' => sys_get_temp_dir()
-            )
-        ));
-        
-        \PhpSigep\Bootstrap::start($config);
-        
+    use BootstrapTrait;
+
+    public function setUp(): void
+    {
+        $this->setUpSIGEP();
     }
     
-    public function testCodigoVerificador(){
+    public function testCodigoVerificador(): void
+    {
         $etiqueta1 = new \PhpSigep\Model\Etiqueta();
         $etiqueta1->setEtiquetaSemDv('PN77768520BR');
         $this->assertEquals('PN777685204BR', $etiqueta1->getEtiquetaComDv());

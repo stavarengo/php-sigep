@@ -14,7 +14,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php-version: ['7.2', '7.3', '7.4']
+        php-version: ['7.2', '7.3', '7.4', '8.0', '8.1']
+      fail-fast: false
 
     steps:
       - name: Setando PHP com soap e mbstring
@@ -26,12 +27,24 @@ jobs:
       - name: checkout
         uses: actions/checkout@v2
 
-      - name: Instalando dependências
+      - name: Instalando dependências PHP 7.2
+        if: matrix.php-version == '7.2'
         run: |
-          composer install --no-progress --no-suggest -o --no-ansi --no-interaction
+          composer require 'phpunit/phpunit:^7.0' -W --dev
+          composer install --no-progress -o --no-ansi --no-interaction
+
+      - name: Instalando dependências
+        if: matrix.php-version != '7.2'
+        run: |
+          composer require 'phpunit/phpunit:^8.0' -W --dev
+          composer install --no-progress -o --no-ansi --no-interaction
 
       - name: PHPStan
         run: |
           composer stan
+
+      - name: PHPUnit
+        run: |
+          composer test
 
       

@@ -15,19 +15,24 @@
         }
     },
     "require": {
-        "php": ">=5.4",
+        "php": ">=7.2",
         "ext-soap": "*",
         "ext-mbstring": "*",
         "stavarengo/php-sigep-fpdf": "dev-master",
         "vria/nodiacritic": "^0.1.2"
     },
     "require-dev": {
-        "phpstan/phpstan": "^0.12.81",
-        "phpunit/phpunit": "~4"
+        "phpstan/phpstan": "^1.0",
+        "phpunit/phpunit": "^8.0"
     },
     "autoload": {
         "psr-0": {
             "PhpSigep": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "PhpSigep\\Test\\": "tests/"
         }
     },
     "scripts": {
