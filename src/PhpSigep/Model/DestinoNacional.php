@@ -54,33 +54,34 @@ class DestinoNacional extends AbstractModel implements Destino
     /**
      * Número da nota fiscal
      * Opcional.
-     * @var int
+     * @var int|null
      */
     protected $numeroNotaFiscal;
     /**
      * Série da nota fiscal
      * Não obrigatório
      * Max length: 20
-     * @var string
+     * @var string|null
      */
     protected $serieNotaFiscal;
+
     /**
      * Valor da nota fiscal Numérico(9,2) Não obrigatório
-     * @var float
+     * @var float|null
      */
     protected $valorNotaFiscal;
     /**
      * Natureza da nota fiscal
      * Não obrigatório
      * Max length: 20
-     * @var string
+     * @var string|null
      */
     protected $naturezaNotaFiscal;
     /**
      * Descrição do objeto
      * Não obrigatório
      * Max length: 20
-     * @var string
+     * @var string|null
      */
     protected $descricaoObjeto;
     /**
@@ -147,7 +148,7 @@ class DestinoNacional extends AbstractModel implements Destino
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getDescricaoObjeto()
     {
@@ -179,7 +180,7 @@ class DestinoNacional extends AbstractModel implements Destino
     }
 
     /**
-     * @return int
+     * @return int|null
      */
     public function getNumeroNotaFiscal()
     {
@@ -195,7 +196,7 @@ class DestinoNacional extends AbstractModel implements Destino
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getSerieNotaFiscal()
     {
@@ -227,7 +228,7 @@ class DestinoNacional extends AbstractModel implements Destino
     }
 
     /**
-     * @return float
+     * @return float|null
      */
     public function getValorNotaFiscal()
     {
@@ -243,7 +244,7 @@ class DestinoNacional extends AbstractModel implements Destino
     }
 
     /**
-     * @param string $naturezaNotaFiscal
+     * @param string|null $naturezaNotaFiscal
      */
     public function setNaturezaNotaFiscal($naturezaNotaFiscal)
     {
