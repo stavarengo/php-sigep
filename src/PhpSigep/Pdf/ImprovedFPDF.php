@@ -37,13 +37,25 @@ class ImprovedFPDF extends \PhpSigepFPDF
 
     }
 
-    public function _($str)
+    /**
+     * @return string
+     */
+    public function _(?string $str)
     {
-        if (extension_loaded('iconv')) {
-            return iconv('UTF-8', 'ISO-8859-1', $str);
-        } else {
-            return utf8_decode($str);
+        if ($str === null) {
+            return "";
         }
+
+        if (extension_loaded('iconv')) {
+            $result = iconv('UTF-8', 'ISO-8859-1', $str);
+            if ($result === false) {
+                return $str;
+            }
+
+            return $result;
+        }
+
+        return utf8_decode($str);
     }
 
     /**

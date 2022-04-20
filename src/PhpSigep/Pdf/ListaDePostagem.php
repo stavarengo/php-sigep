@@ -323,7 +323,7 @@ class ListaDePostagem
     }
 
     /**
-     * @param $pdf
+     * @param \PhpSigep\Pdf\ImprovedFPDF $pdf
      * @param $k
      * @param $y1
      * @param $y2
