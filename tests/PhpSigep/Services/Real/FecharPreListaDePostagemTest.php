@@ -27,10 +27,19 @@ class FecharPreListaDePostagemTest extends TestCase
         SoapClientFactory::setSoapClient($client);
 
         $fechar = new FecharPreListaDePostagem();
-        $retorno = $fechar->execute(PreListaDePostagemBuilder::buildDadosObrigatorios());
+        $plp = PreListaDePostagemBuilder::buildDadosObrigatorios();
+        $retorno = $fechar->execute($plp);
 
         /** @var \PhpSigep\Model\FechaPlpVariosServicosRetorno $result */
         $result = $retorno->getResult();
         $this->assertEquals('123456', $result->getIdPlp());
+        $args = $client->getSoapArgs();
+        $this->assertEquals(['xml', 'idPlpCliente', 'cartaoPostagem', 'listaEtiquetas', 'usuario', 'senha'], array_keys($args));
+        $this->assertIsString($args['xml']);
+        $this->assertEquals('', $args['idPlpCliente']);
+        $this->assertEquals($plp->getAccessData()->getCartaoPostagem(), $args['cartaoPostagem']);
+        $this->assertEquals(['PD73958096BR'], $args['listaEtiquetas']);
+        $this->assertEquals($plp->getAccessData()->getUsuario(), $args['usuario']);
+        $this->assertEquals($plp->getAccessData()->getSenha(), $args['senha']);
     }
 }
