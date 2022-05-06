@@ -6,6 +6,13 @@ use PhpSigep\Config;
 
 class SoapClientFake extends \SoapClient
 {
+    /**
+     * @var array
+     */
+    private $soapArgs = [];
+
+    private $retornos = [];
+
     public function __construct()
     {
         parent::__construct(Config::WSDL_ATENDE_CLIENTE_DEVELOPMENT);
@@ -13,12 +20,29 @@ class SoapClientFake extends \SoapClient
 
     public function solicitaEtiquetas(array $soapArgs): \stdClass
     {
+        $this->soapArgs = $soapArgs;
         $qtdEtiquetas = $soapArgs['qtdEtiquetas'];
 
         $codigos[] = 'SI0000000001BR';
         $codigos[] = 'SI' . sprintf('%010d', $qtdEtiquetas) . 'BR';
 
         return (object)['return' => implode(',', $codigos)];
+    }
+
+    public function fechaPlpVariosServicos(array $soapArgs): \stdClass
+    {
+        $this->soapArgs = $soapArgs;
+        return $this->retornos['fechaPlpVariosServicos'] ?? (object)['return' => '20563504'];
+    }
+
+    public function setRetornoFechaPlpVariosServicos(\stdClass $retorno)
+    {
+        $this->retornos['fechaPlpVariosServicos'] = $retorno;
+    }
+
+    public function getSoapArgs(): array
+    {
+        return $this->soapArgs;
     }
 
     public function buscaCliente(array $soapArgs): \stdClass

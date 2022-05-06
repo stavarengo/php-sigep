@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<correioslog>
+    <tipo_arquivo>Postagem</tipo_arquivo>
+    <versao_arquivo>2.3</versao_arquivo>
+    <plp>
+        <id_plp/>
+        <valor_global/>
+        <mcu_unidade_postagem/>
+        <nome_unidade_postagem/>
+        <cartao_postagem>0067599079</cartao_postagem>
+    </plp>
+    <remetente>
+        <numero_contrato>9992157880</numero_contrato>
+        <numero_diretoria>10</numero_diretoria>
+        <codigo_administrativo>17000190</codigo_administrativo>
+        <nome_remetente><![CDATA[Google São Paulo]]></nome_remetente>
+        <logradouro_remetente><![CDATA[Av. Brigadeiro Faria Lima]]></logradouro_remetente>
+        <numero_remetente><![CDATA[3900]]></numero_remetente>
+        <complemento_remetente><![CDATA[5º andar]]></complemento_remetente>
+        <bairro_remetente><![CDATA[Itaim]]></bairro_remetente>
+        <cep_remetente><![CDATA[04538132]]></cep_remetente>
+        <cidade_remetente><![CDATA[São Paulo]]></cidade_remetente>
+        <uf_remetente>SP</uf_remetente>
+        <telefone_remetente><![CDATA[]]></telefone_remetente>
+        <fax_remetente><![CDATA[]]></fax_remetente>
+        <email_remetente><![CDATA[]]></email_remetente>
+        <celular_remetente><![CDATA[]]></celular_remetente>
+        <cpf_cnpj_remetente><![CDATA[]]></cpf_cnpj_remetente>
+        <ciencia_conteudo_proibido>S</ciencia_conteudo_proibido>
+    </remetente>
+    <forma_pagamento/>
+    <objeto_postal>
+        <numero_etiqueta>PD739580968BR</numero_etiqueta>
+        <codigo_objeto_cliente/>
+        <codigo_servico_postagem>41556</codigo_servico_postagem>
+        <cubagem>0</cubagem>
+        <peso>500</peso>
+        <rt1/>
+        <rt2/>
+        <restricao_anac>0</restricao_anac>
+        <destinatario>
+            <nome_destinatario><![CDATA[Google Belo Horizonte]]></nome_destinatario>
+            <telefone_destinatario><![CDATA[]]></telefone_destinatario>
+            <celular_destinatario><![CDATA[]]></celular_destinatario>
+            <email_destinatario><![CDATA[]]></email_destinatario>
+            <logradouro_destinatario><![CDATA[Av. Bias Fortes]]></logradouro_destinatario>
+            <complemento_destinatario><![CDATA[6º andar]]></complemento_destinatario>
+            <numero_end_destinatario><![CDATA[382]]></numero_end_destinatario>
+            <cpf_cnpj_destinatario><![CDATA[]]></cpf_cnpj_destinatario>
+        </destinatario>
+        <nacional>
+            <bairro_destinatario><![CDATA[Lourdes]]></bairro_destinatario>
+            <cidade_destinatario><![CDATA[Belo Horizonte]]></cidade_destinatario>
+            <uf_destinatario>MG</uf_destinatario>
+            <cep_destinatario><![CDATA[30170010]]></cep_destinatario>
+            <codigo_usuario_postal/>
+            <centro_custo_cliente/>
+            <numero_nota_fiscal/>
+            <serie_nota_fiscal></serie_nota_fiscal>
+            <valor_nota_fiscal/>
+            <natureza_nota_fiscal></natureza_nota_fiscal>
+            <descricao_objeto><![CDATA[]]></descricao_objeto>
+            <valor_a_cobrar>0</valor_a_cobrar>
+        </nacional>
+        <servico_adicional>
+            <codigo_servico_adicional>025</codigo_servico_adicional>
+        </servico_adicional>
+        <dimensao_objeto>
+            <tipo_objeto>002</tipo_objeto>
+            <dimensao_altura>20</dimensao_altura>
+            <dimensao_largura>20</dimensao_largura>
+            <dimensao_comprimento>20</dimensao_comprimento>
+            <dimensao_diametro>0</dimensao_diametro>
+        </dimensao_objeto>
+        <data_postagem_sara/>
+        <status_processamento>0</status_processamento>
+        <numero_comprovante_postagem/>
+        <valor_cobrado/>
+    </objeto_postal>
+</correioslog>
