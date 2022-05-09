@@ -175,6 +175,7 @@ class CartaoDePostagem2018
 
             switch ($servicoDePostagem->getCodigo()) {
                 case ServicoDePostagem::SERVICE_PAC_41068:
+                case ServicoDePostagem::SERVICE_PAC_ADMINISTRATIVO:
                 case ServicoDePostagem::SERVICE_PAC_04510:
                 case ServicoDePostagem::SERVICE_PAC_GRANDES_FORMATOS:
                 case ServicoDePostagem::SERVICE_PAC_CONTRATO_GRANDES_FORMATOS;
@@ -195,6 +196,7 @@ class CartaoDePostagem2018
                     break;
                 case ServicoDePostagem::SERVICE_SEDEX_41556:
                 case ServicoDePostagem::SERVICE_SEDEX_A_VISTA:
+                case ServicoDePostagem::SERVICE_SEDEX_ADMINISTRATIVO:
                 case ServicoDePostagem::SERVICE_SEDEX_VAREJO_A_COBRAR:
                 case ServicoDePostagem::SERVICE_SEDEX_PAGAMENTO_NA_ENTREGA:
                 case ServicoDePostagem::SERVICE_SEDEX_AGRUPADO:
@@ -230,7 +232,7 @@ class CartaoDePostagem2018
                     break;
                 case ServicoDePostagem::SERVICE_CARTA_COMERCIAL_A_FATURAR:
                 case ServicoDePostagem::SERVICE_CARTA_REGISTRADA:
-                case ServicoDePostagem::SERVICE_CARTA_REGISTRADA_AGENCIA_80250:    
+                case ServicoDePostagem::SERVICE_CARTA_REGISTRADA_AGENCIA_80250:
                 case ServicoDePostagem::SERVICE_CARTA_REGISTRADA_80659:
                 case ServicoDePostagem::SERVICE_CARTA_COMERCIAL_REGISTRADA_CTR_EP_MAQ_FRAN:
                 case ServicoDePostagem::SERVICE_CARTA_COM_A_FATURAR_SELO_E_SE:
