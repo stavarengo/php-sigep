@@ -72,6 +72,9 @@ class ServicoDePostagem extends AbstractModel
     const SERVICE_SEDEX_CONTRATO_AGENCIA_03050 = '03050';
     const SERVICE_CARTA_REGISTRADA_AGENCIA_80250 = '80250';
 
+    const SERVICE_PAC_ADMINISTRATIVO = '41203';
+    const SERVICE_SEDEX_ADMINISTRATIVO = '40550';
+
     protected static $services
         = array(
             // NOVOS CODIGOS DE SERVICO DOS CORREIOS
@@ -155,6 +158,9 @@ class ServicoDePostagem extends AbstractModel
             self::SERVICE_MINI_ENVIOS_04235 => array('MINI ENVIOS CTR TA', 159983),
             self::SERVICE_MINI_ENVIOS_04391 => array('MINI ENVIOS CTR UO', 160316),
             self::SERVICE_CARTA_REGISTRADA_80659 => ['CARTA RG O4 CHANC ETIQUETA', 162166],
+
+            self::SERVICE_PAC_ADMINISTRATIVO        => array('Pac Administrativo', 113368),
+            self::SERVICE_SEDEX_ADMINISTRATIVO      => array('SEDEX Administrativo', 113379),
         );
 
     /**
@@ -210,7 +216,7 @@ class ServicoDePostagem extends AbstractModel
 
         return $r;
     }
-    
+
     /**
      * @return ServicoDePostagem[]
      */
