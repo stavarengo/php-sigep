@@ -59,7 +59,6 @@ $remetente->setNome('Usuário Remetente');
 $remetente->setLogradouro('Avenida Vicente Machado');
 $remetente->setNumero('15');
 $remetente->setComplemento('911');
-$remetente->setReferencia('referencia de teste');
 $remetente->setCidade('Curitiba');
 $remetente->setBairro('Centro');
 $remetente->setUf('PR');
@@ -67,7 +66,6 @@ $remetente->setCep('80420010');
 
 $remetente->setEmail('teste@teste.com');
 $remetente->setIdentificacao('09941751919');
-$remetente->setSms('N');
 //$produto = new \PhpSigep\Model\Produto();
 //$produto->setCodigo(116600403);
 //$produto->setTipo(0);

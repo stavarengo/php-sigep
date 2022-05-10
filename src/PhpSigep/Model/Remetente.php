@@ -16,7 +16,7 @@ class Remetente extends AbstractModel
 
     /**
      * Diretoria Regional do contrato do cliente.
-     * @var Diretoria
+     * @var \PhpSigep\Model\Diretoria
      */
     protected $diretoria;
 
@@ -51,7 +51,7 @@ class Remetente extends AbstractModel
     /**
      * Complemento do endereço.
      * Max length: 20
-     * @var string
+     * @var string|null
      */
     protected $complemento;
 
@@ -86,45 +86,37 @@ class Remetente extends AbstractModel
     /**
      * Telefone do remetente.
      * Max length: 12
-     * @var string
+     * @var string|null
      */
     protected $telefone;
 
     /**
      * Celular do remetente.
      * Max length: 12
-     * @var string
+     * @var string|null
      */
     protected $celular;
 
     /**
      * Fax do remetente.
      * Max length: 12
-     * @var string
+     * @var string|null
      */
     protected $fax;
 
     /**
      * Email do remetente.
      * Max length: 50
-     * @var string
+     * @var string|null
      */
     protected $email;
 
     /**
      * Identificacao do remetente (CPF/CNPJ).
      * Max length: 14
-     * @var string
+     * @var string|null
      */
     protected $identificacao;
-
-    /**
-     * 
-     * Max length: 1
-     * @var string
-     */
-    protected $sms;
-    protected $referencia;
 
     /**
      * @return string
@@ -191,7 +183,7 @@ class Remetente extends AbstractModel
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getComplemento()
     {
@@ -223,7 +215,7 @@ class Remetente extends AbstractModel
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getEmail()
     {
@@ -239,7 +231,7 @@ class Remetente extends AbstractModel
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getFax()
     {
@@ -319,7 +311,7 @@ class Remetente extends AbstractModel
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getTelefone()
     {
@@ -335,7 +327,7 @@ class Remetente extends AbstractModel
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getCelular()
     {
@@ -366,36 +358,21 @@ class Remetente extends AbstractModel
         $this->uf = $uf;
     }
 
+    /**
+     * @return string|null
+     */
     public function getIdentificacao()
     {
         return $this->identificacao;
     }
 
-    public function getSms()
-    {
-        return $this->sms;
-    }
-
+    /**
+     * @param string $identificacao
+     * @return $this
+     */
     public function setIdentificacao($identificacao)
     {
         $this->identificacao = $identificacao;
-        return $this;
-    }
-
-    public function setSms($sms)
-    {
-        $this->sms = $sms;
-        return $this;
-    }
-
-    public function getReferencia()
-    {
-        return $this->referencia;
-    }
-
-    public function setReferencia($referencia)
-    {
-        $this->referencia = $referencia;
         return $this;
     }
 }

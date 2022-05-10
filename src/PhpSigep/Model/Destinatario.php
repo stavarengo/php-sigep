@@ -21,7 +21,7 @@ class Destinatario extends AbstractModel
      * Não Obrigatório.
      * Max length: 12
      * Tag: telefone_destinatario
-     * @var string
+     * @var string|null
      */
     protected $telefone;
 
@@ -30,7 +30,7 @@ class Destinatario extends AbstractModel
      * Não Obrigatório.
      * Max length: 12
      * Tag: celular_destinatario
-     * @var string
+     * @var string|null
      */
     protected $celular;
 
@@ -39,7 +39,7 @@ class Destinatario extends AbstractModel
      * Não obrigatório
      * Max length: 50
      * Tag: email_destinatario
-     * @var string
+     * @var string|null
      */
     protected $email;
 
@@ -57,7 +57,7 @@ class Destinatario extends AbstractModel
      * Não obrigatório.
      * Max length: 30
      * Tag: complemento_destinatario
-     * @var string
+     * @var string|null
      */
     protected $complemento;
 
@@ -92,7 +92,7 @@ class Destinatario extends AbstractModel
      * Não Obrigatório.
      * Max length: 50
      * Tag: referencia
-     * @var string
+     * @var string|null
      */
     protected $referencia;
 
@@ -119,7 +119,7 @@ class Destinatario extends AbstractModel
      * Obrigatório.
      * Max length: 8
      * Tag: cep
-     * @var int
+     * @var string
      */
     protected $cep;
 
@@ -128,19 +128,19 @@ class Destinatario extends AbstractModel
      * Não Obrigatório.
      * Max length: 3
      * Tag: ddd
-     * @var int
+     * @var int|null
      */
     protected $ddd;
 
     /**
      * Identificacao do destinatario (CPF/CNPJ).
      * Max length: 14
-     * @var string
+     * @var string|null
      */
     protected $identificacao;
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getCelular()
     {
@@ -156,7 +156,7 @@ class Destinatario extends AbstractModel
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getComplemento()
     {
@@ -172,7 +172,7 @@ class Destinatario extends AbstractModel
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getEmail()
     {
@@ -236,7 +236,7 @@ class Destinatario extends AbstractModel
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getTelefone()
     {
@@ -267,66 +267,108 @@ class Destinatario extends AbstractModel
         $this->isCliqueRetire = $isCliqueRetire;
     }
 
+    /**
+     * @return string
+     */
     public function getBairro()
     {
         return $this->bairro;
     }
 
+    /**
+     * @return string|null
+     */
     public function getReferencia()
     {
         return $this->referencia;
     }
 
+    /**
+     * @return string
+     */
     public function getCidade()
     {
         return $this->cidade;
     }
 
+    /**
+     * @return string
+     */
     public function getUf()
     {
         return $this->uf;
     }
 
+    /**
+     * @return string
+     */
     public function getCep()
     {
         return $this->cep;
     }
 
+    /**
+     * @return int|null
+     */
     public function getDdd()
     {
         return $this->ddd;
     }
 
+    /**
+     * @param string $bairro
+     * @return $this
+     */
     public function setBairro($bairro)
     {
         $this->bairro = $bairro;
         return $this;
     }
 
+    /**
+     * @param string $referencia
+     * @return $this
+     */
     public function setReferencia($referencia)
     {
         $this->referencia = $referencia;
         return $this;
     }
 
+    /**
+     * @param string $cidade
+     * @return $this
+     */
     public function setCidade($cidade)
     {
         $this->cidade = $cidade;
         return $this;
     }
 
+    /**
+     * @param string $uf
+     * @return $this
+     */
     public function setUf($uf)
     {
         $this->uf = $uf;
         return $this;
     }
 
+    /**
+     * @param string|int $cep
+     * @return $this
+     */
     public function setCep($cep)
     {
-        $this->cep = $cep;
+        $this->cep = (string)$cep;
         return $this;
     }
 
+    /**
+     * @param int|numeric-string $ddd
+     * @return $this
+     */
     public function setDdd($ddd)
     {
         $this->ddd = $ddd;
@@ -334,7 +376,7 @@ class Destinatario extends AbstractModel
     }
 
     /**
-     * @return int
+     * @return string|null
      */
     public function getIdentificacao()
     {
@@ -342,7 +384,7 @@ class Destinatario extends AbstractModel
     }
 
     /**
-     * @param int $identificacao
+     * @param int|string $identificacao
      */
     public function setIdentificacao($identificacao)
     {
