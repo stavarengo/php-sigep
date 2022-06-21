@@ -273,6 +273,7 @@ class CartaoDePostagem
                     case ServicoDePostagem::SERVICE_SEDEX_CONTRATO_GRANDES_FORMATOS_LM:
                     case ServicoDePostagem::SERVICE_SEDEX_CONTRATO_AGENCIA_TA:
                     case ServicoDePostagem::SERVICE_SEDEX_CONTRATO_AGENCIA_03050:
+                    case ServicoDePostagem::SERVICE_SEDEX_CONTRATO_AGENCIA_03220:
                         if ($this->layoutSedex === CartaoDePostagem::TYPE_CHANCELA_SEDEX) {
                             $chancela = new Sedex($lPosChancela, $tPosChancela, $nomeRemetente, Sedex::SERVICE_SEDEX, $accessData);
                         } else {
