@@ -84,11 +84,29 @@ class Remetente extends AbstractModel
     protected $uf;
 
     /**
+     * Código do DDD do remetente
+     * Não Obrigatório.
+     * Max length: 2
+     * Tag: ddd
+     * @var int|null
+     */
+    protected $ddd;
+
+    /**
      * Telefone do remetente.
      * Max length: 12
      * @var string|null
      */
     protected $telefone;
+
+    /**
+     * Código do DDD do celular do remetente
+     * Não Obrigatório.
+     * Max length: 2
+     * Tag: ddd_celular
+     * @var int|null
+     */
+    protected $ddd_celular;
 
     /**
      * Celular do remetente.
@@ -374,5 +392,37 @@ class Remetente extends AbstractModel
     {
         $this->identificacao = $identificacao;
         return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getDdd()
+    {
+        return $this->ddd;
+    }
+
+    /**
+     * @param int|null $ddd
+     */
+    public function setDdd($ddd)
+    {
+        $this->ddd = $ddd;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getDddCelular()
+    {
+        return $this->ddd_celular;
+    }
+
+    /**
+     * @param int|null $ddd_celular
+     */
+    public function setDddCelular($ddd_celular)
+    {
+        $this->ddd_celular = $ddd_celular;
     }
 }

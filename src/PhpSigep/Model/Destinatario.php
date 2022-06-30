@@ -17,6 +17,15 @@ class Destinatario extends AbstractModel
     protected $nome;
 
     /**
+     * Código do DDD do Destinatário
+     * Não Obrigatório.
+     * Max length: 2
+     * Tag: ddd
+     * @var int|null
+     */
+    protected $ddd;
+
+    /**
      * Telefone do Destinatário.
      * Não Obrigatório.
      * Max length: 12
@@ -24,6 +33,15 @@ class Destinatario extends AbstractModel
      * @var string|null
      */
     protected $telefone;
+
+    /**
+     * Código do DDD do celular do Destinatário
+     * Não Obrigatório.
+     * Max length: 2
+     * Tag: ddd_celular
+     * @var int|null
+     */
+    protected $ddd_celular;
 
     /**
      * Celular do Destinatário.
@@ -79,7 +97,7 @@ class Destinatario extends AbstractModel
     protected $isCliqueRetire = false;
 
     /**
-     * 
+     *
      * Obrigatório.
      * Max length: 50
      * Tag: bairro
@@ -88,7 +106,7 @@ class Destinatario extends AbstractModel
     protected $bairro;
 
     /**
-     * 
+     *
      * Não Obrigatório.
      * Max length: 50
      * Tag: referencia
@@ -97,7 +115,7 @@ class Destinatario extends AbstractModel
     protected $referencia;
 
     /**
-     * 
+     *
      * Obrigatório.
      * Max length: 12
      * Tag: cidade
@@ -106,7 +124,7 @@ class Destinatario extends AbstractModel
     protected $cidade;
 
     /**
-     * 
+     *
      * Obrigatório.
      * Max length: 2
      * Tag: uf
@@ -115,22 +133,13 @@ class Destinatario extends AbstractModel
     protected $uf;
 
     /**
-     * 
+     *
      * Obrigatório.
      * Max length: 8
      * Tag: cep
      * @var string
      */
     protected $cep;
-
-    /**
-     * 
-     * Não Obrigatório.
-     * Max length: 3
-     * Tag: ddd
-     * @var int|null
-     */
-    protected $ddd;
 
     /**
      * Identificacao do destinatario (CPF/CNPJ).
@@ -390,5 +399,21 @@ class Destinatario extends AbstractModel
     {
         $this->identificacao = $identificacao;
         return $this;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getDddCelular()
+    {
+        return $this->ddd_celular;
+    }
+
+    /**
+     * @param int|null $ddd_celular
+     */
+    public function setDddCelular($ddd_celular)
+    {
+        $this->ddd_celular = $ddd_celular;
     }
 }
