@@ -10,7 +10,7 @@ use VRia\Utils\NoDiacritic;
 
 /**
  * @author: Stavarengo
- * @author: rodrigojob
+ * @author: rodrigojob  (eConector)
  */
 class Real implements ServiceInterface {
 
