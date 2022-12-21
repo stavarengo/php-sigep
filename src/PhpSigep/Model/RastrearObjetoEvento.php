@@ -4,6 +4,7 @@ namespace PhpSigep\Model;
 /**
  * @author: Stavarengo
  * @author: davidalves1
+ * @author: rodrigojob
  */
 class RastrearObjetoEvento extends AbstractModel
 {
@@ -43,6 +44,14 @@ class RastrearObjetoEvento extends AbstractModel
      * @var string
      */
     protected $cidade;
+    /**
+     * @var array
+     */
+    protected $destino;
+    /**
+     * @var array
+     */
+    protected $endereco;
     /**
      * @var string
      */
@@ -223,6 +232,45 @@ class RastrearObjetoEvento extends AbstractModel
         return $this->cidade;
     }
 
+    /**
+     * @param array $endereco
+     * @return $this;
+     */
+    public function setEndereco($endereco)
+    {
+        $this->endereco = $endereco;
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getEndereco()
+    {
+        return $this->endereco;
+    }
+
+
+    /**
+     * @return array
+     */
+    public function getDestino()
+    {
+        return $this->destino;
+    }
+
+
+    /**
+     * @param array $destino
+     * @return $this;
+     */
+    public function setDestino($destino)
+    {
+        $this->destino = $destino;
+
+        return $this;
+    }
 
     /**
      * @param string $uf
