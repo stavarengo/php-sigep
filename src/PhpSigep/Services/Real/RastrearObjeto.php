@@ -13,6 +13,7 @@ use Symfony\Polyfill\Php56\Php56;
 /**
  * @author: Stavarengo
  * @author: davidalves1
+ * @author: rodrigojob  (eConector)
  */
 class RastrearObjeto
 {
@@ -130,6 +131,8 @@ class RastrearObjeto
                                 $evento->setCodigo($ev->codigo);
                                 $evento->setCidade(isset($ev->cidade) ? $ev->cidade : '');
                                 $evento->setUf(isset($ev->uf) ? $ev->uf : '');
+                                $evento->setDestino($ev->destino);
+                                $evento->setEndereco($ev->endereco);
 
                                 // Sempre adiciona o recebedor ao resultado, mesmo ele sendo exibido apenas quanto 'tipo' = BDE e 'status' = 01
                                 $evento->setRecebedor(
