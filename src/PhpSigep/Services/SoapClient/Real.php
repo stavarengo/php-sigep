@@ -1,4 +1,5 @@
 <?php
+
 namespace PhpSigep\Services\SoapClient;
 
 use PhpSigep\Model\BuscaClienteResult;
@@ -9,16 +10,16 @@ use VRia\Utils\NoDiacritic;
 
 /**
  * @author: Stavarengo
+ * @author: rodrigojob
  */
-class Real implements ServiceInterface
-{
+class Real implements ServiceInterface {
+
     /**
      * @param \PhpSigep\Model\VerificaDisponibilidadeServico $params
      *
      * @return Result<\PhpSigep\Model\VerificaDisponibilidadeServicoResposta>
      */
-    public function verificaDisponibilidadeServico(\PhpSigep\Model\VerificaDisponibilidadeServico $params)
-    {
+    public function verificaDisponibilidadeServico(\PhpSigep\Model\VerificaDisponibilidadeServico $params) {
         $service = new ServiceImplementation\VerificaDisponibilidadeServico();
         return $service->execute($params);
     }
@@ -28,8 +29,7 @@ class Real implements ServiceInterface
      *
      * @return Result<\PhpSigep\Model\SolicitarPostagemReversaRetorno>
      */
-    public function solicitarPostagemReversa(\PhpSigep\Model\SolicitarPostagemReversa $params)
-    {
+    public function solicitarPostagemReversa(\PhpSigep\Model\SolicitarPostagemReversa $params) {
         $service = new ServiceImplementation\SolicitarPostagemReversa();
         return $service->execute($params);
     }
@@ -39,8 +39,7 @@ class Real implements ServiceInterface
      *
      * @return Result<\PhpSigep\Model\ConsultaCepResposta>
      */
-    public function consultaCep($cep)
-    {
+    public function consultaCep($cep) {
         $service = new ServiceImplementation\ConsultaCep();
         return $service->execute($cep);
     }
@@ -50,8 +49,7 @@ class Real implements ServiceInterface
      *
      * @return Result<\PhpSigep\Model\Etiqueta[]>
      */
-    public function solicitaEtiquetas(\PhpSigep\Model\SolicitaEtiquetas $params)
-    {
+    public function solicitaEtiquetas(\PhpSigep\Model\SolicitaEtiquetas $params) {
         $service = new ServiceImplementation\SolicitaEtiquetas();
         return $service->execute($params);
     }
@@ -61,8 +59,7 @@ class Real implements ServiceInterface
      *
      * @return Result<\PhpSigep\Model\solicitaXmlPlp[]>
      */
-    public function solicitaXmlPlp($idPlpMaster)
-    {
+    public function solicitaXmlPlp($idPlpMaster) {
         $service = new ServiceImplementation\SolicitaXmlPlp();
 
         return $service->execute($idPlpMaster);
@@ -75,8 +72,7 @@ class Real implements ServiceInterface
      *
      * @return Result<\PhpSigep\Model\ListarAgenciasCliqueRetireResult[]>
      */
-    public function listarAgenciasCliqueRetire($zone, $city, $address_2)
-    {
+    public function listarAgenciasCliqueRetire($zone, $city, $address_2) {
         $service = new ServiceImplementation\ListarAgenciasCliqueRetire();
 
         return $service->execute($zone, $city, $address_2);
@@ -86,8 +82,7 @@ class Real implements ServiceInterface
      * @param string $cep
      * @return Result<\PhpSigep\Model\ListarAgenciasCliqueRetireResult[]>|Result<\PhpSigep\Model\ConsultaCepResposta>
      */
-    public function listarAgenciasCliqueRetireByCep($cep)
-    {
+    public function listarAgenciasCliqueRetireByCep($cep) {
         $result = $this->consultaCep($cep);
         if ($result->hasError()) {
             return $result;
@@ -106,8 +101,7 @@ class Real implements ServiceInterface
      *
      * @return Result<\PhpSigep\Model\ConsultarAgenciaResult[]>
      */
-    public function consultarAgencia($codigo)
-    {
+    public function consultarAgencia($codigo) {
         $service = new ServiceImplementation\ConsultarAgencia();
 
         return $service->execute($codigo);
@@ -116,7 +110,7 @@ class Real implements ServiceInterface
     /**
      * Pede para o WebService do Correios calcular o dígito verificador de uma etiqueta.
      *
-     * Se preferir você pode usar o método {@linnk \PhpSigep\Model\Etiqueta::getDv() } para calcular o dígito
+     * Se preferir você pode usar o método {@link \PhpSigep\Model\Etiqueta::getDv() } para calcular o dígito
      * verificador, visto que esse método é mais rápido pois faz o cálculo local sem precisar se comunicar com o
      * WebService.
      *
@@ -125,8 +119,7 @@ class Real implements ServiceInterface
      * @throws \Exception
      * @return Result
      */
-    public function geraDigitoVerificadorEtiquetas(\PhpSigep\Model\GeraDigitoVerificadorEtiquetas $params)
-    {
+    public function geraDigitoVerificadorEtiquetas(\PhpSigep\Model\GeraDigitoVerificadorEtiquetas $params) {
         $service = new ServiceImplementation\GeraDigitoVerificadorEtiquetas();
         return $service->execute($params);
     }
@@ -135,8 +128,7 @@ class Real implements ServiceInterface
      * @param \PhpSigep\Model\PreListaDePostagem $params
      * @return Result<\PhpSigep\Model\FechaPlpVariosServicosRetorno>
      */
-    public function fechaPlpVariosServicos(\PhpSigep\Model\PreListaDePostagem $params)
-    {
+    public function fechaPlpVariosServicos(\PhpSigep\Model\PreListaDePostagem $params) {
         $service = new ServiceImplementation\FecharPreListaDePostagem();
         return $service->execute($params);
     }
@@ -145,8 +137,7 @@ class Real implements ServiceInterface
      * @param \PhpSigep\Model\CalcPrecoPrazo $params
      * @return Result<\PhpSigep\Model\CalcPrecoPrazoResposta[]>
      */
-    public function calcPrecoPrazo(\PhpSigep\Model\CalcPrecoPrazo $params)
-    {
+    public function calcPrecoPrazo(\PhpSigep\Model\CalcPrecoPrazo $params) {
         $service = new ServiceImplementation\CalcPrecoPrazo();
         return $service->execute($params);
     }
@@ -157,8 +148,7 @@ class Real implements ServiceInterface
      * @param \PhpSigep\Model\AccessData $params
      * @return Result<BuscaClienteResult>
      */
-    public function buscaCliente(\PhpSigep\Model\AccessData $params)
-    {
+    public function buscaCliente(\PhpSigep\Model\AccessData $params) {
         $service = new ServiceImplementation\BuscaCliente();
         return $service->execute($params);
     }
@@ -168,9 +158,20 @@ class Real implements ServiceInterface
      * @param \PhpSigep\Model\RastrearObjeto $params
      * @return Result<\PhpSigep\Model\RastrearObjetoResultado[]>
      */
-    public function rastrearObjeto(\PhpSigep\Model\RastrearObjeto $params)
-    {
+    public function rastrearObjeto(\PhpSigep\Model\RastrearObjeto $params) {
+        
         $service = new ServiceImplementation\RastrearObjeto();
+        return $service->execute($params);
+    }
+
+    /**
+     *
+     * @param \PhpSigep\Model\RastrearObjeto $params
+     * @return Result<\PhpSigep\Model\RastrearObjetoResultado[]>
+     */
+    public function rastrearObjetoLista(\PhpSigep\Model\RastrearObjeto $params) {
+        
+        $service = new ServiceImplementation\RastrearObjetoLista();
         return $service->execute($params);
     }
 
@@ -180,8 +181,7 @@ class Real implements ServiceInterface
      * @param $senha
      * @return Result<\PhpSigep\Model\verificarStatusCartaoPostagemResposta[]>
      */
-    public function verificarStatusCartaoPostagem($numeroCartaoPostagem, $usuario, $senha)
-    {
+    public function verificarStatusCartaoPostagem($numeroCartaoPostagem, $usuario, $senha) {
         $service = new ServiceImplementation\VerificarStatusCartaoPostagem();
         return $service->execute($numeroCartaoPostagem, $usuario, $senha);
     }
@@ -194,8 +194,7 @@ class Real implements ServiceInterface
      * @param $senha
      * @return Result<\PhpSigep\Model\BloquearObjetoResposta[]>
      */
-    public function bloquearObjeto($numeroEtiqueta, $idPlp, $usuario, $senha)
-    {
+    public function bloquearObjeto($numeroEtiqueta, $idPlp, $usuario, $senha) {
         $service = new ServiceImplementation\BloquearObjeto();
         return $service->execute($numeroEtiqueta, $idPlp, $usuario, $senha);
     }
@@ -208,30 +207,26 @@ class Real implements ServiceInterface
      * @param $senha
      * @return Result<\PhpSigep\Model\CancelarObjetoResposta[]>
      */
-    public function cancelarObjeto($numeroEtiqueta, $idPlp, $usuario, $senha)
-    {
+    public function cancelarObjeto($numeroEtiqueta, $idPlp, $usuario, $senha) {
         $service = new ServiceImplementation\CancelarObjeto();
         return $service->execute($numeroEtiqueta, $idPlp, $usuario, $senha);
     }
 
     /**
      * @param \PhpSigep\Model\PedidoInformacao $params
-     *
      * @return $pedido
      */
-    public function cadastrarPi(\PhpSigep\Model\PedidoInformacao $params)
-    {
+    public function cadastrarPi(\PhpSigep\Model\PedidoInformacao $params) {
         $service = new ServiceImplementation\CadastrarPI();
         return $service->execute($params);
     }
 
-
     /**
      * @param \PhpSigep\Model\ConsultarColeta $params
      */
-    public function consultaColeta(\PhpSigep\Model\ConsultarColeta $params)
-    {
+    public function consultaColeta(\PhpSigep\Model\ConsultarColeta $params) {
         $service = new ServiceImplementation\ConsultarColeta();
         return $service->execute($params);
     }
+
 }
