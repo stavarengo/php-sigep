@@ -11,11 +11,9 @@ use PhpSigep\Services\Result;
 use Symfony\Polyfill\Php56\Php56;
 
 /**
- * @author: Stavarengo
- * @author: davidalves1
  * @author: rodrigojob  (eConector)
  */
-class RastrearObjeto
+class RastrearObjetoLista
 {
 
     /**
@@ -61,7 +59,6 @@ class RastrearObjeto
             default:
                 throw new TipoInvalidoException("Tipo '" . $params->getExibirErros(
                     ) . "' não é válido para esta opção'");
-                break;
         }
 
         $soapArgs = array(
@@ -70,26 +67,25 @@ class RastrearObjeto
             'tipo'      => $tipo,
             'resultado' => $tipoResultado,
             'lingua' => $params->getIdioma(),
-            'objetos'    => implode(
-                '',
-                array_map(
+            'objetos'    =>  array_map(
                     function (\PhpSigep\Model\Etiqueta $etiqueta) {
                         return $etiqueta->getEtiquetaComDv();
                     },
                     $params->getEtiquetas()
-                )
-            ),
+                
+                            ),
         );
 
         $result = new Result();
 
         try {
-            $soapReturn = SoapClientFactory::getRastreioObjetos()->buscaEventos($soapArgs);
+            $soapReturn = SoapClientFactory::getRastreioObjetos()->buscaEventosLista($soapArgs);
 
             if ($soapReturn && is_object($soapReturn) && $soapReturn->return) {
 
                 try {
                     if (!is_array($soapReturn->return->objeto)) {
+
                         $soapReturn->return->objeto = array($soapReturn->return->objeto);
                     }
 
@@ -131,8 +127,8 @@ class RastrearObjeto
                                 $evento->setCodigo($ev->codigo);
                                 $evento->setCidade(isset($ev->cidade) ? $ev->cidade : '');
                                 $evento->setUf(isset($ev->uf) ? $ev->uf : '');
-                                $evento->setDestino($ev->destino);
                                 $evento->setEndereco($ev->endereco);
+                                $evento->setDestino($ev->destino);
 
                                 // Sempre adiciona o recebedor ao resultado, mesmo ele sendo exibido apenas quanto 'tipo' = BDE e 'status' = 01
                                 $evento->setRecebedor(
@@ -169,7 +165,7 @@ class RastrearObjeto
                 $result->setErrorMsg($e->getMessage() . ' - ' . $e->getLine());
             }
         }
-
+        
         return $result;
     }
 }
