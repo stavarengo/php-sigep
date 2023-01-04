@@ -11,6 +11,7 @@ use PhpSigep\Model\AccessDataHomologacao;
 /**
  * @author: Stavarengo
  * @author: davidalves1
+ * @author: RodrigoJob (eConector)
  */
 class Config extends DefaultStdClass
 {
@@ -371,6 +372,39 @@ class Config extends DefaultStdClass
     {
         return $this->wsdlPI;
     }
+
+    public function getWsdlReversa()
+    {
+        switch ($this->env) {
+            case self::ENV_PRODUCTION:
+                return self::WSDL_REVERSA_PRODUCTION;
+                break;
+            case self::ENV_DEVELOPMENT:
+            default:
+                return self::WSDL_REVERSA_DEVELOPMENT;
+                break;
+        }
+    }
+    
+    /**
+     * @return string
+     */
+    public function getWsdlLogisticaReversa()
+    {
+        return $this->wsdlLogisticaReversa;
+    }
+
+    /**
+     * @param string $wsdlLogisticaReversa
+     * @return $this
+     */
+    public function setWsdlLogisticaReversa($wsdlLogisticaReversa)
+    {
+        $this->wsdlLogisticaReversa = $wsdlLogisticaReversa;
+
+        return $this;
+    }
+
 
     /**
      * @param boolean $simular
