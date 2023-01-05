@@ -75,6 +75,11 @@ class Config extends DefaultStdClass
      * @var string
      */
     protected $wsdlAgenciaWS = self::WSDL_AGENCIAS_WS;
+    
+    /**
+     * @var string
+     */
+    protected $wsdlLogisticaReversa = self::WSDL_LOGISTICA_REVERSA_DEVELOPMENT;
 
     /**
      * @var string
