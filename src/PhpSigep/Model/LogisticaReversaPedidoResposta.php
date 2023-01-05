@@ -19,7 +19,7 @@ class LogisticaReversaPedidoResposta extends AbstractModel
     public function setReturn($return)
     {
         $this->return = $return;
-        print_r($return);
+
         if (is_object($return->resultado_solicitacao)){
             if (sizeof((array)$return->resultado_solicitacao)>0){
                 $this->coletas_solicitadas = $return->resultado_solicitacao;
