@@ -5,6 +5,7 @@ use PhpSigep\Model\AbstractModel;
 use PhpSigep\Model\LogisticaReversaPedido;
 use PhpSigep\Model\LogisticaReversaPedidoResposta;
 use PhpSigep\Services\Exception;
+use PhpSigep\Services\InvalidArgument;
 use PhpSigep\Services\Result;
 
 /**
@@ -39,7 +40,7 @@ class LogisticaReversaCriarPedido implements RealServiceInterface
     public function execute(AbstractModel $params)
     {
         if (!$params instanceof LogisticaReversaPedido) {
-            throw new InvalidArgument();
+            throw new \InvalidArgument();
         }
 
         $result = new Result();
