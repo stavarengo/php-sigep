@@ -138,6 +138,12 @@ class LogisticaReversaDestinatario extends AbstractModel
      */
     protected $email;
 
+    /**
+     * dados:
+     * @var array
+     */
+    protected $dados;
+
     
     /**
      * @param string msg_erro
