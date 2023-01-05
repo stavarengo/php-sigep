@@ -93,23 +93,23 @@ class LogisticaReversa extends AbstractModel
     }
 
     /**
-     *  @param string codAdministativo
+     *  @param string codAdministrativo
      */
-    public function setCodAdministrativo($codAdministativo)
+    public function setCodAdministrativo($codAdministrativo)
     {
-        $this->codAdministativo= $codAdministativo;
+        $this->codAdministrativo= $codAdministrativo;
     }
 
     /**
      * @return string
      */
-    public function getCodAdministativo()
+    public function getCodAdministrativo()
     {
-        return $this->codAdministativo;
+        return $this->codAdministrativo;
     }
 
     /**
-     *  @param string codAdministativo
+     *  @param string qtdeDias
      */
     public function setQtdeDias($qtdeDias)
     {
