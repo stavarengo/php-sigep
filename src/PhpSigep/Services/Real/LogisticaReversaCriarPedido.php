@@ -40,7 +40,7 @@ class LogisticaReversaCriarPedido implements RealServiceInterface
     public function execute(AbstractModel $params)
     {
         if (!$params instanceof LogisticaReversaPedido) {
-            throw new \InvalidArgument();
+            throw new InvalidArgument();
         }
 
         $result = new Result();
