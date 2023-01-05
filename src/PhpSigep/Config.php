@@ -11,7 +11,7 @@ use PhpSigep\Model\AccessDataHomologacao;
 /**
  * @author: Stavarengo
  * @author: davidalves1
- * @author: RodrigoJob (eConector)
+ * @author: rodrigojob (eConector)
  */
 class Config extends DefaultStdClass
 {
@@ -33,7 +33,7 @@ class Config extends DefaultStdClass
      * WSDL_CACHE_BOTH = memória e disco
      * WSDL_CACHE_NONE = nenhum
      */
-    const WSDL_CACHE = WSDL_CACHE_BOTH;
+    const WSDL_CACHE = WSDL_CACHE_MEMORY;
 
     /**
      * Indica que estamos no ambiente de desenvolvimento.
@@ -51,8 +51,6 @@ class Config extends DefaultStdClass
     const WSDL_PI_PRODUCTION = 'https://cws.correios.com.br/pedidoInformacaoWS/pedidoInformacaoService/pedidoInformacaoWS?wsdl';
     const WSDL_PI_DEVELOPMENT = 'https://apphom.correios.com.br/pedidoInformacaoWS/pedidoInformacaoService/pedidoInformacaoWS?wsdl';
 
-//    const WSDL_REVERSA_PRODUCTION = 'http://webservicescol.correios.com.br/ScolWeb/WebServiceScol?wsdl';
-//    const WSDL_REVERSA_DEVELOPMENT = 'http://webservicescolhomologacao.correios.com.br/ScolWeb/WebServiceScol?wsdl';
 
     /**
      * Endereço para o WSDL AtendeCliente.
@@ -79,12 +77,7 @@ class Config extends DefaultStdClass
     /**
      * @var string
      */
-    protected $wsdlLogisticaReversa = self::WSDL_LOGISTICA_REVERSA_DEVELOPMENT;
-
-    /**
-     * @var string
-     */
-    protected $wsdlPI = self::WSDL_PI_DEVELOPMENT;
+    protected $wsdlLogisticaReversa = self::WSDL_REVERSA_DEVELOPMENT;
 
     /**
      * @var int
@@ -94,7 +87,7 @@ class Config extends DefaultStdClass
     /**
      * @var string
      */
-    protected $xml_encode = self::XML_ENCODE_ISO;
+    protected $xml_encode = self::XML_ENCODE_UTF;
 
     /**
      * @var bool
@@ -173,15 +166,6 @@ class Config extends DefaultStdClass
         return (int) $this->wsdlCache;
     }
 
-   /**
-     * @return int
-     */
-    public function setWsdlCache($wsdlCache)
-    {
-        $this->wsdlCache = $wsdlCache;
-        return $this;
-    }  
-    
     /**
      * @return int
      */
@@ -239,8 +223,10 @@ class Config extends DefaultStdClass
         if ($updateWsdlUrl) {
             if ($env == self::ENV_DEVELOPMENT) {
                 $this->setWsdlAtendeCliente(self::WSDL_ATENDE_CLIENTE_DEVELOPMENT);
+                $this->setWsdlLogisticaReversa(self::WSDL_REVERSA_DEVELOPMENT);
             } else {
                 $this->setWsdlAtendeCliente(self::WSDL_ATENDE_CLIENTE_PRODUCTION);
+                $this->setWsdlLogisticaReversa(self::WSDL_REVERSA_PRODUCTION);
             }
         }
 
@@ -288,6 +274,25 @@ class Config extends DefaultStdClass
                 return self::WSDL_REVERSA_DEVELOPMENT;
                 break;
         }
+    }
+    
+    /**
+     * @return string
+     */
+    public function getWsdlLogisticaReversa()
+    {
+        return $this->wsdlLogisticaReversa;
+    }
+
+    /**
+     * @param string $wsdlLogisticaReversa
+     * @return $this
+     */
+    public function setWsdlLogisticaReversa($wsdlLogisticaReversa)
+    {
+        $this->wsdlLogisticaReversa = $wsdlLogisticaReversa;
+
+        return $this;
     }
 
     /**
@@ -359,42 +364,15 @@ class Config extends DefaultStdClass
         return $this->wsdlAgenciaWS;
     }
 
-    /**
-     * @param $wsdlPI
-     * @return $this;
-     */
-    public function setWsdlPI($wsdlPI)
-    {
-        $this->wsdlPI = $wsdlPI;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
     public function getWsdlPI()
     {
-        return $this->wsdlPI;
-    }
-    
-    /**
-     * @return string
-     */
-    public function getWsdlLogisticaReversa()
-    {
-        return $this->wsdlLogisticaReversa;
-    }
-
-    /**
-     * @param string $wsdlLogisticaReversa
-     * @return $this
-     */
-    public function setWsdlLogisticaReversa($wsdlLogisticaReversa)
-    {
-        $this->wsdlLogisticaReversa = $wsdlLogisticaReversa;
-
-        return $this;
+        switch ($this->env) {
+            case self::ENV_PRODUCTION:
+                return self::WSDL_PI_PRODUCTION;
+            case self::ENV_DEVELOPMENT:
+            default:
+                return self::WSDL_PI_DEVELOPMENT;
+        }
     }
 
 
