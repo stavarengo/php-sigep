@@ -119,8 +119,8 @@ class LogisticaReversaColeta extends AbstractModel {
     protected $AR;
 
     /**
-     * cklist:
-     * Indica que serão impressas vias de checklist. Apenas clientes previamente habilitados podem utilizar essa opção. Código fornecido pela ECT. 
+     * ckList:
+     * Indica que serão impressas vias de checkList. Apenas clientes previamente habilitados podem utilizar essa opção. Código fornecido pela ECT. 
      * Valor fixo 
      * Não   
      * @var string
@@ -142,7 +142,7 @@ class LogisticaReversaColeta extends AbstractModel {
      * Sim
      * @var array
      */
-    protected $Remetente;
+    protected $remetente;
 
     /**
      * obj_col:
@@ -256,8 +256,8 @@ class LogisticaReversaColeta extends AbstractModel {
     /**
      * @param string
      */
-    public function setCklist($cklist) {
-        $this->cklist = $cklist;
+    public function setCklist($ckList) {
+        $this->ckList = $ckList;
     }
 
     /**
@@ -311,7 +311,7 @@ class LogisticaReversaColeta extends AbstractModel {
             "servico_adicional" => $this->servicoAdicional,
             "descricao" => $this->descricao,
             "ar"        => $this->AR,
-            "cklist"    => $this->ckList,
+            "ckList"    => $this->ckList,
             "documento" => $this->documento,
             "remetente" => $this->remetente->getDados(),
             "obj_col"    => $this->objCol->getDados(),
