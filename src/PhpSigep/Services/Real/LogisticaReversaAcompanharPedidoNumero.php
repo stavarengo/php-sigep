@@ -5,8 +5,7 @@ use PhpSigep\Services\Result;
 use PhpSigep\Model\LogisticaReversaPedidoResposta;
 
 /**
- * @author rodrigojob
- * desenvolvimento@econector.com.br
+ * @author rodrigojob (eConector)
  */
 
 class LogisticaReversaAcompanharPedidoNumero
@@ -18,7 +17,6 @@ class LogisticaReversaAcompanharPedidoNumero
             'senha' => $accessData->getSenha(),
         );
         $soapArgs = array(
-            'codAdministrativo' => $accessData->getCodAdministrativo(),
             'codAdministrativo' => $accessData->getCodAdministrativo(),
             'tipoBusca'         => $tipoBusca,
             'tipoSolicitacao'   => $tipoSolicitacao,
