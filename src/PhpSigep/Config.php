@@ -372,19 +372,6 @@ class Config extends DefaultStdClass
     {
         return $this->wsdlPI;
     }
-
-    public function getWsdlReversa()
-    {
-        switch ($this->env) {
-            case self::ENV_PRODUCTION:
-                return self::WSDL_REVERSA_PRODUCTION;
-                break;
-            case self::ENV_DEVELOPMENT:
-            default:
-                return self::WSDL_REVERSA_DEVELOPMENT;
-                break;
-        }
-    }
     
     /**
      * @return string
