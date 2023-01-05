@@ -11,6 +11,11 @@ class LogisticaReversaPedidoResposta extends AbstractModel
      * @var string
      */
     protected $return;
+    
+    /**
+     * @var array
+     */
+    protected $coletas_solicitadas;
 
     /**
      * @param $return
@@ -19,7 +24,7 @@ class LogisticaReversaPedidoResposta extends AbstractModel
     public function setReturn($return)
     {
         $this->return = $return;
-
+        
         if (is_object($return->resultado_solicitacao)){
             if (sizeof((array)$return->resultado_solicitacao)>0){
                 $this->coletas_solicitadas = $return->resultado_solicitacao;
