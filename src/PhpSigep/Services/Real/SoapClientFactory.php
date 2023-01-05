@@ -350,5 +350,15 @@ class SoapClientFactory
         return $str;
     }
 
+    
+    /**
+     * evita erro phpstan.
+     * @return bool|string
+     */
+    public static function setSoapClient()
+    {
+
+        return null;
+    }
 } 
     
