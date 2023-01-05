@@ -34,7 +34,7 @@ class LogisticaReversaCriarPedido implements RealServiceInterface
      * @param \PhpSigep\Model\AbstractModel|\PhpSigep\Model\LogisticaReversaCriarPedido $params
      *
      * @throws \PhpSigep\Services\Exception
-     * @throws InvalidArgument
+     * @throws \PhpSigep\Services\InvalidArgument
      * @return Result<Pedido[]>
      */
     public function execute(AbstractModel $params)
