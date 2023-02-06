@@ -14,6 +14,7 @@ use PhpSigep\Services\Real\Exception\SoapExtensionNotInstalled;
 class SoapClientFactory
 {
     const WEB_SERVICE_CHARSET = 'ISO-8859-1';
+    const WEB_SERVICE_LR_CHARSET    = 'UTF-8';
 
     const SOAP_VERSION = 'SOAP_1_1';
 
@@ -35,6 +36,11 @@ class SoapClientFactory
      * @var \SoapClient
      */
     protected static $_soapAgenciaWS;
+    
+    /**
+     * @var \SoapClient
+     */
+    protected static $_soapLogisticaReversa;
 
     /**
      * 
@@ -278,6 +284,49 @@ class SoapClientFactory
     }
 
     /**
+     * 
+     * @return \SoapClient
+     * @throws tSoapLogisticaReversa
+     */
+
+    public static function getSoapLogisticaReversa()
+    {
+        if (!self::$_soapLogisticaReversa) {
+            $wsdl = Bootstrap::getConfig()->getWsdlLogisticaReversa();
+
+            $opts = array(
+                'ssl' => array(         //'ciphers'           =>'RC4-SHA',
+                    'verify_peer'       =>false,
+                    'verify_peer_name'  =>false
+                )
+            );
+            // SOAP 1.1 client
+
+
+            $params = array (
+                'encoding'              => self::WEB_SERVICE_LR_CHARSET,
+                'verifypeer'            => false,
+                'verifyhost'            => false,
+                'uri'                   => str_replace('?wsdl', '', $wsdl),
+                'soap_version'          => SOAP_1_1,
+            //    'cache_wsdl'            => WSDL_CACHE_DISK,
+                'trace'                 => Bootstrap::getConfig()->getEnv() != Config::ENV_PRODUCTION,
+                'exceptions'            => Bootstrap::getConfig()->getEnv() != Config::ENV_PRODUCTION,
+                "connection_timeout"    => 60,//($wsdl->timeout ?: 60),
+                'stream_context'        => stream_context_create($opts),
+                //usuário e senha, necessários para autenticação
+                'login'                 => Bootstrap::getConfig()->getAccessData()->getIdCorreiosUsuario(),
+                'password'              => Bootstrap::getConfig()->getAccessData()->getIdCorreiosSenha(),
+            );
+
+            self::$_soapLogisticaReversa = new \SoapClient($wsdl, $params);
+        }
+
+        return self::$_soapLogisticaReversa;
+    }
+    
+    
+    /**
      * Se possível converte a string recebida.
      * @param $string
      * @return bool|string
@@ -300,9 +349,5 @@ class SoapClientFactory
 
         return $str;
     }
-
-    public static function setSoapClient(?\SoapClient $client): void
-    {
-        self::$_soapClient = $client;
-    }
 } 
+    

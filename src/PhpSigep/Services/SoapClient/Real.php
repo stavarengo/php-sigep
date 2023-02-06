@@ -229,4 +229,49 @@ class Real implements ServiceInterface {
         return $service->execute($params);
     }
 
+
+    /**
+     * @param $accessData
+     * @param $tipoSolicitacao
+     * @param $data
+     * @return \PhpSigep\Services\Result<\PhpSigep\Model\LogisticaReversaPedidoResposta[]>
+      */
+    public function logisticaReversaAcompanharPedidoData($accessData, $tipoSolicitacao, $data)
+    {
+        $service = new ServiceImplementation\LogisticaReversaAcompanharPedidoData();
+        return $service->execute($accessData, $tipoSolicitacao, $data);
+    }
+
+    /**
+     * @param $accessData
+     * @param $tipoBusca
+     * @param $tipoSolicitacao
+     * @param $numero
+     * @return \PhpSigep\Services\Result<\PhpSigep\Model\LogisticaReversaPedidoResposta[]>
+     */
+    public function logisticaReversaAcompanharPedidoNumero($accessData, $tipoBusca, $tipoSolicitacao, $numero)
+    {
+        $service = new ServiceImplementation\LogisticaReversaAcompanharPedidoNumero();
+        return $service->execute($accessData, $tipoBusca, $tipoSolicitacao, $numero);
+    }
+
+    /**
+     * @param $parametros
+     * @return \PhpSigep\Services\Result<\PhpSigep\Model\LogisticaReversaPedidoResposta[]>
+     */
+    public function logisticaReversaCriarPedido($parametros)
+    {
+        $service = new ServiceImplementation\LogisticaReversaCriarPedido();
+        return $service->execute($parametros);
+    }
+
+    /**
+     * @param $parametros
+     * @return \PhpSigep\Services\Result<\PhpSigep\Model\LogisticaReversaPedidoResposta[]>
+     */
+    public function logisticaReversaCancelarPedido($parametros)
+    {
+        $service = new ServiceImplementation\LogisticaReversaCancelarPedido();
+        return $service->execute($parametros);
+    }
 }
