@@ -466,8 +466,9 @@ class ImprovedFPDF extends \PhpSigepFPDF
 
 //Stream handler to read from global variables
 class VariableStream {
-    var $position;
-    var $varname;
+    public $position;
+    public $varname;
+    public $context;
 
     function stream_open($path, $mode, $options, &$opened_path)
     {
