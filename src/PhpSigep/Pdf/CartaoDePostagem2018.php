@@ -300,12 +300,14 @@ class CartaoDePostagem2018
             $this->pdf->SetFont('');
 
             // Peso
-            $this->pdf->SetXY(81, 31);
-            $this->t(15, 'Peso (g):', 1, 'L', null);
-            $this->pdf->SetFont('', 'B');
-            $this->pdf->SetXY(95, 31);
-            $this->t(15, round($objetoPostal->getPeso()*1000), 1, 'L', null);
-            $this->pdf->SetFont('');
+            if(!empty($objetoPostal->getPeso()*1000))) {
+                $this->pdf->SetXY(81, 31);
+                $this->t(15, 'Peso (g):', 1, 'L', null);
+                $this->pdf->SetFont('', 'B');
+                $this->pdf->SetXY(95, 31);
+                $this->t(15, round($objetoPostal->getPeso()*1000), 1, 'L', null);
+                $this->pdf->SetFont('');
+            }
 
             // Número da etiqueta
             $Yetiqueta = $this->pdf->GetY() + 1;
