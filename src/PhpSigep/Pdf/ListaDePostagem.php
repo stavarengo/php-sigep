@@ -3,6 +3,7 @@ namespace PhpSigep\Pdf;
 
 use PhpSigep\Bootstrap;
 use PhpSigep\Model\ServicoAdicional;
+use PHPUnit\Framework\Constraint\Count;
 
 /**
  * @author: Stavarengo
@@ -357,7 +358,7 @@ class ListaDePostagem
 
         $i = 1;
         $pdf->SetFont('Courier', '', 8);
-        foreach ($objetoPostais as $objetoPostal) {
+        foreach ($objetoPostais as $key => $objetoPostal) {
             if ($y1 > $pdf->h - $pdf->tMargin - $pdf->bMargin) {
                 $this->addPage();
                 $i  = 1;
@@ -443,7 +444,7 @@ class ListaDePostagem
             $pdf->SetX($xCol7);
             $pdf->MultiCellXp($wCol7, ($temVd ? $valorDeclarado : ''), null, 0, 'C');
             $pdf->SetXY($xCol9, $y2);
-            $pdf->CellXp($wCol9, '1/1', 'C');
+            $pdf->CellXp($wCol9, $key + 1 . '/' . count($objetoPostais), 'C');
             $pdf->SetX($xCol10);
             $pdf->CellXp($wCol10, $objetoPostal->getDestinatario()->getNome(), 'C');
         }
