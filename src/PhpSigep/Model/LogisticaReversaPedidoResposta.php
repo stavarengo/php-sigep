@@ -25,7 +25,7 @@ class LogisticaReversaPedidoResposta extends AbstractModel
     {
         $this->return = $return;
         
-        if (is_object($return->resultado_solicitacao)){
+        if (isset($return->resultado_solicitacao) && is_object($return->resultado_solicitacao)){
             if (sizeof((array)$return->resultado_solicitacao)>0){
                 $this->coletas_solicitadas = $return->resultado_solicitacao;
             }
