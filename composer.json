@@ -14,6 +14,12 @@
             "dev-develop": "1.1-dev"
         }
     },
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/crisnao2/php-sigep-fpdf.git"
+        }
+    ],
     "require": {
         "php": ">=7.2",
         "ext-soap": "*",
