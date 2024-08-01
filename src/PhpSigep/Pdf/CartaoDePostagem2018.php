@@ -65,10 +65,9 @@ class CartaoDePostagem2018
             header('Pragma: public');
             echo $pdfContent;
         } else {
-            if($dest == 'S'){
+            if($dest == 'S') {
                 return $this->_render($dest, $filename);
-            }
-            else{
+            } else {
                 $this->_render($dest, $filename);
                 Bootstrap::getConfig()->getCacheInstance()->setItem($cacheKey, $this->pdf->buffer);
             }
@@ -80,7 +79,7 @@ class CartaoDePostagem2018
      * @param string $fileName
      * @return mixed
      */
-    private function _render ($dest='', $fileName= '')
+    private function _render($dest='', $fileName= '')
     {
         $un = 72 / 25.4;
         $wFourAreas = $this->pdf->w;
@@ -178,7 +177,7 @@ class CartaoDePostagem2018
                 case ServicoDePostagem::SERVICE_PAC_ADMINISTRATIVO:
                 case ServicoDePostagem::SERVICE_PAC_04510:
                 case ServicoDePostagem::SERVICE_PAC_GRANDES_FORMATOS:
-                case ServicoDePostagem::SERVICE_PAC_CONTRATO_GRANDES_FORMATOS;
+                case ServicoDePostagem::SERVICE_PAC_CONTRATO_GRANDES_FORMATOS:
                 case ServicoDePostagem::SERVICE_PAC_CONTRATO_UO:
                 case ServicoDePostagem::SERVICE_PAC_PAGAMENTO_NA_ENTREGA:
                 case ServicoDePostagem::SERVICE_PAC_CONTRATO_AGENCIA:
@@ -239,15 +238,32 @@ class CartaoDePostagem2018
                     $simbolo_de_encaminhamento = realpath(dirname(__FILE__)) . '/simbolo-sem-especificacao.png';
                     $_texto = 'Carta';
                     break;
-                case ServicoDePostagem::SERVICE_SEDEX_REVERSO:
-                    $simbolo_de_encaminhamento = realpath(dirname(__FILE__)) . '/simbolo-sedex-standard.png';
-                    $_texto = 'SEDEX';
-                    break;
                 case ServicoDePostagem::SERVICE_MINI_ENVIOS_04227:
                 case ServicoDePostagem::SERVICE_MINI_ENVIOS_04235:
                 case ServicoDePostagem::SERVICE_MINI_ENVIOS_04391:
                     $simbolo_de_encaminhamento = realpath(dirname(__FILE__)) . '/simbolo-sem-especificacao.png';
                     $_texto = 'Mini Envios';
+                    break;
+                case ServicoDePostagem::SERVICE_PAC_REVERSO_03301:
+                    $chancela = new Pac2018(86, $this->pdf->GetY() + 13, $nomeRemetente, $accessData);
+                    $_texto = 'PAC REVERSO';
+                    break;
+                case ServicoDePostagem::SERVICE_SEDEX_REVERSO:
+                case ServicoDePostagem::SERVICE_SEDEX_REVERSO_03247:
+                    $simbolo_de_encaminhamento = realpath(dirname(__FILE__)) . '/simbolo-sedex-standard.png';
+                    $_texto = 'SEDEX REVERSO';
+                    break;
+                case ServicoDePostagem::SERVICE_SEDEX_10_REVERSO_03182:
+                    $simbolo_de_encaminhamento = realpath(dirname(__FILE__)) . '/simbolo-sedex-expresso.png';
+                    $_texto = 'SEDEX 10 REVERSO';
+                    break;
+                case ServicoDePostagem::SERVICE_SEDEX_12_REVERSO_03174:
+                    $simbolo_de_encaminhamento = realpath(dirname(__FILE__)) . '/simbolo-sedex-expresso.png';
+                    $_texto = 'SEDEX 12 REVERSO';
+                    break;
+                case ServicoDePostagem::SERVICE_SEDEX_HOJE_REVERSO_03190:
+                    $simbolo_de_encaminhamento = realpath(dirname(__FILE__)) . '/simbolo-sedex-expresso.png';
+                    $_texto = 'SEDEX Hoje REVERSO';
                     break;
                 default:
                     $simbolo_de_encaminhamento = null;
@@ -256,7 +272,7 @@ class CartaoDePostagem2018
 
             if ($simbolo_de_encaminhamento) {
                 $this->pdf->Image($simbolo_de_encaminhamento, 81, $this->pdf->GetY() + 2, 20, 20);
-            } else if ($chancela) {
+            } elseif ($chancela) {
                 $chancela->draw($this->pdf);
             }
 
@@ -266,8 +282,8 @@ class CartaoDePostagem2018
             $this->pdf->SetFontSize(9);
             //$this->pdf->SetTextColor(51,51,51);
             $nf = $objetoPostal->getDestino()->getNumeroNotaFiscal();
-            $str = $nf > 0 ?  'NF: '. substr($nf,5) : ' ';
-            $this->t(15, $str, 1, 'L',  null);
+            $str = $nf > 0 ?  'NF: '. substr($nf, 5) : ' ';
+            $this->t(15, $str, 1, 'L', null);
 
             // Contrato
             $AccessData = $this->plp->getAccessData();
@@ -346,22 +362,22 @@ class CartaoDePostagem2018
                 if ($servicoAdicional->is(ServicoAdicional::SERVICE_AVISO_DE_RECEBIMENTO)) {
                     $sSer = $sSer . "01";
                     $_siglaAdicinal[] = "AR";
-                } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_MAO_PROPRIA)) {
+                } elseif ($servicoAdicional->is(ServicoAdicional::SERVICE_MAO_PROPRIA)) {
                     $sSer = $sSer . "02";
                     $_siglaAdicinal[] = "MP";
-                } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_VALOR_DECLARADO_SEDEX)) {
+                } elseif ($servicoAdicional->is(ServicoAdicional::SERVICE_VALOR_DECLARADO_SEDEX)) {
                     $sSer = $sSer . "19";
                     $_siglaAdicinal[] = "VD";
                     $valorDeclarado = $servicoAdicional->getValorDeclarado();
-                } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_VALOR_DECLARADO_PAC)) {
+                } elseif ($servicoAdicional->is(ServicoAdicional::SERVICE_VALOR_DECLARADO_PAC)) {
                     $sSer = $sSer . "64";
                     $_siglaAdicinal[] = "VD";
                     $valorDeclarado = $servicoAdicional->getValorDeclarado();
-                } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_VALOR_DECLARADO_MINI_ENVIOS)) {
+                } elseif ($servicoAdicional->is(ServicoAdicional::SERVICE_VALOR_DECLARADO_MINI_ENVIOS)) {
                     $sSer = $sSer . "65";
                     $_siglaAdicinal[] = "VD";
                     $valorDeclarado = $servicoAdicional->getValorDeclarado();
-                } else if ($servicoAdicional->is(ServicoAdicional::SERVICE_REGISTRO)) {
+                } elseif ($servicoAdicional->is(ServicoAdicional::SERVICE_REGISTRO)) {
                     $sSer = $sSer . "25";
                 }
             }
@@ -374,10 +390,10 @@ class CartaoDePostagem2018
             foreach ($_siglaAdicinal as $_key => $_sigla) {
                 if ($_ctadc > 1 && $_ctadc <= 4) {
                     $_hupdate += 5;
-                } else if ($_ctadc == 5) {
+                } elseif ($_ctadc == 5) {
                     $_hupdate = $_hinit;
                     $_winit = 98;
-                } else if ($_ctadc >= 6) {
+                } elseif ($_ctadc >= 6) {
                     $_hupdate += 5;
                 }
 
@@ -456,7 +472,7 @@ class CartaoDePostagem2018
                 $objetoPostal->getServicoDePostagem()->getCodigo(),
                 $valorDeclarado,
                 $objetoPostal->getDestinatario()->getTelefone()
-            // $objetoPostal->getDestinatario()->getComplemento()
+                // $objetoPostal->getDestinatario()->getComplemento()
             );
 
             require_once  'Semacode.php';
@@ -471,7 +487,7 @@ class CartaoDePostagem2018
             $this->writeRemetente(0, $currentY + $hCepBarCode + 4, $wAddressLeftCol, $this->plp->getRemetente());
 
             $this->pdf->SetXY(0, 0);
-            $this->pdf->SetDrawColor(0,0,0);
+            $this->pdf->SetDrawColor(0, 0, 0);
             $this->pdf->Rect(0, 0, 106.36, 140);
         }
 
@@ -508,7 +524,7 @@ class CartaoDePostagem2018
      * @internal param $lineHeigth
      * @internal param \Sigep\Cliente $destinatario
      */
-    private function writeDestinatario ($l, $t, $w, $objetoPostal)
+    private function writeDestinatario($l, $t, $w, $objetoPostal)
     {
         $l = $this->pdf->GetX();
         $t1 = $this->pdf->GetY();
@@ -557,7 +573,7 @@ class CartaoDePostagem2018
         return $t;
     }
 
-    private function writeRemetente ($l, $t, $w, \PhpSigep\Model\Remetente $remetente)
+    private function writeRemetente($l, $t, $w, \PhpSigep\Model\Remetente $remetente)
     {
         $titulo = 'Remetente:';
         $nomeDestinatario = $remetente->getNome();
@@ -604,30 +620,41 @@ class CartaoDePostagem2018
      * @internal param $lineHeigth
      * @internal param $objetoPostal
      */
-    private function writeEndereco (
-        $t, $l, $w, $titulo, $nomeDestinatario, $logradouro, $numero1, $complemento, $bairro,
-        $cidade, $uf, $cep = null, $destinatario = false
+    private function writeEndereco(
+        $t,
+        $l,
+        $w,
+        $titulo,
+        $nomeDestinatario,
+        $logradouro,
+        $numero1,
+        $complemento,
+        $bairro,
+        $cidade,
+        $uf,
+        $cep = null,
+        $destinatario = false
     ) {
         //$this->pdf->SetTextColor(51,51,51);
         if ($destinatario === true) {
             $addressPadding = 5;
 
             $t = $t-2;
-            $this->pdf->SetDrawColor(0,0,0);
+            $this->pdf->SetDrawColor(0, 0, 0);
             $this->pdf->Line(0, $t, 106.36, $t);
 
             // Titulo do bloco: destinatario
-            $this->pdf->setFillColor(0,0,0);
-            $this->pdf->SetDrawColor(0,0,0);
+            $this->pdf->setFillColor(0, 0, 0);
+            $this->pdf->SetDrawColor(0, 0, 0);
             $this->pdf->Rect(0, $t, 36, 5, 'F');
 
             $this->pdf->SetFont('', 'B');
             $this->pdf->SetFontSize(11);
-            $this->pdf->SetTextColor(255,255,255);
+            $this->pdf->SetTextColor(255, 255, 255);
             $this->pdf->SetXY($l + 3, $t);
             $this->t($w, $titulo, 2, '');
 
-            $this->pdf->SetTextColor(0,0,0);
+            $this->pdf->SetTextColor(0, 0, 0);
 
             $this->pdf->Image(realpath(dirname(__FILE__)) . '/logo-correios.png', 84, $t+1, 20, 4);
 
@@ -640,7 +667,7 @@ class CartaoDePostagem2018
         } else {
             $addressPadding = 2;
             $t = $t -1;
-            $this->pdf->SetDrawColor(0,0,0);
+            $this->pdf->SetDrawColor(0, 0, 0);
             $this->pdf->Line(0, $t, 106.36, $t);
 
             $t++;
@@ -695,12 +722,12 @@ class CartaoDePostagem2018
         return $this->pdf->GetY();
     }
 
-    private function setFillColor ($r, $g, $b)
+    private function setFillColor($r, $g, $b)
     {
-        $this->pdf->SetFillColor ($r, $g, $b);
+        $this->pdf->SetFillColor($r, $g, $b);
     }
 
-    private function t ($w, $txt, $ln, $align, $h = null, $multiLines = false, $utf8 = true)
+    private function t($w, $txt, $ln, $align, $h = null, $multiLines = false, $utf8 = true)
     {
         if ($utf8) {
             $txt = $this->_($txt);
@@ -720,12 +747,12 @@ class CartaoDePostagem2018
         }
     }
 
-    private function multiLines ($w, $txt, $align, $h = null, $utf8 = true)
+    private function multiLines($w, $txt, $align, $h = null, $utf8 = true)
     {
         $this->t($w, $txt, null, $align, $h, true, $utf8);
     }
 
-    private function CalcDigCep ($cep)
+    private function CalcDigCep($cep)
     {
         $str = str_split($cep);
         $sum = 0;
@@ -737,7 +764,7 @@ class CartaoDePostagem2018
         return $digCep;
     }
 
-    private function getM2Dstr ($cepD, $numD, $cepO, $numO, $etq, $srvA, $carP, $codS, $valD, $telD, $msg='')
+    private function getM2Dstr($cepD, $numD, $cepO, $numO, $etq, $srvA, $carP, $codS, $valD, $telD, $msg='')
     {
         $str = '';
         $str .= str_replace('-', '', $cepD);

@@ -61,11 +61,19 @@ class ServicoDePostagem extends AbstractModel
     const SERVICE_SEDEX_CONTRATO_AGENCIA_TA = '04553';
     const SERVICE_PAC_CONTRATO_AGENCIA_TA = '04596';
 
-//    const SERVICE_CARTA_REGISTRADA           = '10138';
+    //    const SERVICE_CARTA_REGISTRADA           = '10138';
 
     // NOVOS CODIGOS DE SERVICO DOS CORREIOS
     const SERVICE_PAC_CONTRATO_AGENCIA_03298 = '03298';
     const SERVICE_SEDEX_CONTRATO_AGENCIA_03220 = '03220';
+
+    // NOVOS CODIGO DE SERVICO REVERSO DOS CORREIOS 2024
+    const SERVICE_PAC_REVERSO_03301 = '03301';
+    const SERVICE_SEDEX_REVERSO_03247 = '03247';
+    const SERVICE_SEDEX_10_REVERSO_03182 = '03182';
+    const SERVICE_SEDEX_12_REVERSO_03174 = '03174';
+    const SERVICE_SEDEX_HOJE_REVERSO_03190 = '03190';
+
 
     // NOVOS CODIGOS DE SERVICO DOS CORREIOS BRONZE (1o sem 2020)
     const SERVICE_PAC_CONTRATO_AGENCIA_03085 = '03085';
@@ -80,6 +88,13 @@ class ServicoDePostagem extends AbstractModel
             // NOVOS CODIGOS DE SERVICO DOS CORREIOS
             self::SERVICE_PAC_CONTRATO_AGENCIA_03298 => array('Pac 03298', 162026),
             self::SERVICE_SEDEX_CONTRATO_AGENCIA_03220 => array('Sedex 03220', 162022),
+
+            // NOVOS CODIGOS DE SERVICO REVERSO DOS CORREIOS 2024
+            self::SERVICE_PAC_REVERSO_03301 => array('Pac Reverso 03301', null),
+            self::SERVICE_SEDEX_REVERSO_03247 => array('Sedex Reverso 03247', null),
+            self::SERVICE_SEDEX_10_REVERSO_03182 => array('Sedex 10 Reverso 03182', null),
+            self::SERVICE_SEDEX_12_REVERSO_03174 => array('Sedex 12 Reverso 03174', null),
+            self::SERVICE_SEDEX_HOJE_REVERSO_03190 => array('Sedex Hoje Reverso 03190', null),
 
             // NOVOS CODIGOS DE SERVICO DOS CORREIOS BRONZE (1o sem 2020)
             self::SERVICE_PAC_CONTRATO_AGENCIA_03085 => array('Pac 03085', 162011),
@@ -199,17 +214,17 @@ class ServicoDePostagem extends AbstractModel
             )
         );
     }
-     /**
-     * @param array $arrayServicesCode
-     *        array com os codigos de serviço
-     *
-     * @return ServicoDePostagem[]
-     */
+    /**
+    * @param array $arrayServicesCode
+    *        array com os codigos de serviço
+    *
+    * @return ServicoDePostagem[]
+    */
     public static function getFromArray($arrayServicesCode)
     {
         $r = array();
         foreach (self::$services as $serviceCode => $serviceDetails) {
-            if(array_key_exists($serviceCode,$arrayServicesCode)){
+            if(array_key_exists($serviceCode, $arrayServicesCode)) {
                 $r[] = new self($serviceCode);
             }
         }
